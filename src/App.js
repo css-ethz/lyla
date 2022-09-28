@@ -73,12 +73,12 @@ function App () {
       center={center}
       zoom={3}
       scrollWheelZoom={false}
-      style={{ width: '40%', height: '550px'}}
+      style={{ width: '40%', height: '560px'}}
     >
 
       <TileLayer {...tileLayer} />
 
-      <GeoJSON data={geojson} style={{fillColor:"#d34052", color:"#d34052"}} onEachFeature={onEachFeature} />
+      <GeoJSON data={geojson} style={{fillColor:"#d34052", color:"#d34052", weight:1}} onEachFeature={onEachFeature} />
 
     </MapContainer>
   )
