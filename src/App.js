@@ -14,7 +14,7 @@ import 'leaflet/dist/leaflet.css';
 const center = [-10.4358446, -76.527726];
 const outerBounds = [
   [30.505, -100.09],
-  [2.505, 100.09],
+  [-20.505, 100.09],
 ]
 
 function onEachFeature(feature, layer) {
