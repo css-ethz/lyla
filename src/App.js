@@ -15,7 +15,8 @@ const center = [-10.4358446, -76.527726];
 const outerBounds = [
   [2.505, -100.09],
   [-20.505, 100.09],
-]
+] 
+//-179.99990,-60.34703,-23.24401,30.98005
 
 function onEachFeature(feature, layer) {
   layer.bindPopup(feature.properties.ADMIN)
@@ -61,7 +62,7 @@ function App () {
       center={center}
       zoom={3}
       scrollWheelZoom={false}
-      style={{ width: '50%', height: '500px'}}
+      style={{ width: '40%', height: '520px'}}
     >
 
       <TileLayer {...tileLayer} />
