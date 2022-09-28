@@ -61,6 +61,7 @@ function App () {
       center={center}
       zoom={3}
       scrollWheelZoom={false}
+      style={{ width: '100%', height: '900px'}}
     >
 
       <TileLayer {...tileLayer} />
