@@ -78,7 +78,7 @@ function App () {
 
       <TileLayer {...tileLayer} />
 
-      <GeoJSON data={geojson} style={{fillColor:'gray'}} onEachFeature={onEachFeature} />
+      <GeoJSON data={geojson} style={{fillColor:"#d34052", color:"#d34052"}} onEachFeature={onEachFeature} />
 
     </MapContainer>
   )
