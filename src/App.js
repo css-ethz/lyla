@@ -11,7 +11,7 @@ import tileLayer from './util/tileLayer';
 import './App.css'
 import 'leaflet/dist/leaflet.css';
 
-const center = [-5.4358446, -76.527726];
+const center = [-10.4358446, -76.527726];
 const outerBounds = [
   [30.505, -100.09],
   [2.505, 100.09],
