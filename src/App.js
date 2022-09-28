@@ -22,6 +22,17 @@ function onEachFeature(feature, layer) {
   layer.bindPopup(feature.properties.ADMIN)
 }
 
+function style(feature) {
+  return {
+      fillColor: `#a9a9a9`,
+      weight: 2,
+      opacity: 1,
+      color: 'white',
+      dashArray: '2',
+      fillOpacity: 0.7
+  };
+}
+
 function App () {
   const [map, setMap] = useState(null);
 
@@ -67,7 +78,7 @@ function App () {
 
       <TileLayer {...tileLayer} />
 
-      <GeoJSON data={geojson} onEachFeature={onEachFeature} />
+      <GeoJSON data={geojson} style={{style}} onEachFeature={onEachFeature} />
 
     </MapContainer>
   )
