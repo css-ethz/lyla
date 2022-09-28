@@ -24,9 +24,9 @@ function App () {
     if (!map) return;
 
     const legend = L.control({ position: "bottomleft" });
-    map.fitBounds(polygon.getBounds()); // max zoom to see whole polygon
-    map.setMaxBounds(polygon.getBounds()); // restrict map view to polygon bounds
-    map.options.minZoom = map.getZoom();  
+    //map.fitBounds(polygon.getBounds()); // max zoom to see whole polygon
+    //map.setMaxBounds(polygon.getBounds()); // restrict map view to polygon bounds
+    //map.options.minZoom = map.getZoom();  
     legend.onAdd = () => {
       const div = L.DomUtil.create("div", "legend");
       div.innerHTML = `click on polygon`;
@@ -34,6 +34,17 @@ function App () {
     };
 
     legend.addTo(map);
+    const circle = L.circle([3.4358446, -76.527726], {
+      color: 'gold',
+      fillColor: '#f03',
+      fillOpacity: 0.5,
+      radius: 200
+     }).addTo(map);
+
+     circle.bindPopup("testing popup");
+
+
+     
 
   }, [map]);
 
@@ -43,7 +54,7 @@ function App () {
     <MapContainer
       whenCreated={setMap}
       center={center}
-      zoom={3}
+      zoom={2}
       scrollWheelZoom={false}
     >
 
