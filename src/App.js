@@ -14,7 +14,7 @@ import 'leaflet/dist/leaflet.css';
 const center = [3.4358446, -76.527726];
 
 function onEachFeature(feature, layer) {
-  layer.bindPopup(feature.properties.nazwa)
+  layer.bindPopup(feature.properties.ADMIN)
 }
 
 function App () {
@@ -24,7 +24,9 @@ function App () {
     if (!map) return;
 
     const legend = L.control({ position: "bottomleft" });
-
+    map.fitBounds(polygon.getBounds()); // max zoom to see whole polygon
+    map.setMaxBounds(polygon.getBounds()); // restrict map view to polygon bounds
+    map.options.minZoom = map.getZoom();  
     legend.onAdd = () => {
       const div = L.DomUtil.create("div", "legend");
       div.innerHTML = `click on polygon`;
