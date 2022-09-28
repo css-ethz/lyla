@@ -11,7 +11,11 @@ import tileLayer from './util/tileLayer';
 import './App.css'
 import 'leaflet/dist/leaflet.css';
 
-const center = [3.4358446, -76.527726];
+const center = [10.4358446, -76.527726];
+const outerBounds = [
+  [30.505, -100.09],
+  [2.505, 100.09],
+]
 
 function onEachFeature(feature, layer) {
   layer.bindPopup(feature.properties.ADMIN)
@@ -35,7 +39,7 @@ function App () {
 
     legend.addTo(map);
     const circle = L.circle([3.4358446, -76.527726], {
-      color: 'gold',
+      color: 'red',
       fillColor: '#f03',
       fillOpacity: 0.5,
       radius: 200
@@ -52,9 +56,10 @@ function App () {
 
   return (
     <MapContainer
+      bounds={outerBounds}
       whenCreated={setMap}
       center={center}
-      zoom={2}
+      zoom={3}
       scrollWheelZoom={false}
     >
 
