@@ -3,10 +3,12 @@ import {
   MapContainer,
   TileLayer,
   GeoJSON,Marker,Popup,
-  useMap,
+  useMap,Marker
 } from 'react-leaflet'
 import L from 'leaflet';
+import {Icon} from 'leaflet';
 import geojson from './data/admin0.geojson.json'
+import eventData from './data/events.json'
 import tileLayer from './util/tileLayer';
 import './App.css'
 import 'leaflet/dist/leaflet.css';
@@ -75,6 +77,19 @@ function App () {
       scrollWheelZoom={false}
       style={{ width: '40%', height: '560px'}}
     >
+      {eventData.features.map(evt => (
+        <Marker
+          key={evt.properties.PARK_ID}
+          position={[
+            evt.geometry.coordinates[1],
+            evt.geometry.coordinates[0]
+          ]}
+          onClick={() => {
+            setActivePark(evt);
+          }}
+          //icon={icon}
+        />
+      ))}
 
       <TileLayer {...tileLayer} />
 
