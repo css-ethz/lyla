@@ -79,23 +79,26 @@ function App () {
       style={{ width: '40%', height: '560px'}}
     >
       {eventData.features.map(evt => (
-        <Marker
-          key={evt.properties.id}
-          position={[
-            evt.geometry.coordinates[0],
-            evt.geometry.coordinates[1]
-          ]}
-          onClick={() => {
-            setActiveEvent(evt);
-          }}
+        //<Marker
+          //key={evt.properties.id}
+          //position={[
+            //evt.geometry.coordinates[0],
+            //evt.geometry.coordinates[1]
+          //]}
+          //onClick={() => {
+            //setActiveEvent(evt);
+          //}}
           
           //icon={icon}
-        >
+        //>
           <Circle 
                   center={{lat:evt.geometry.coordinates[0], lng: evt.geometry.coordinates[1]}}
                   fillColor="blue" 
-                  radius={200}/>
-        </Marker>
+                  radius={400}
+                  onClick={() => {
+                    setActiveEvent(evt);
+                  }}/>
+        //</Marker>
         
       ))}
 
