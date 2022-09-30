@@ -98,9 +98,26 @@ function App () {
                   onClick={() => {
                     setActiveEvent(evt);
                   }}/>
+        
         //</Marker>
         
       ))}
+      {activeEvent && (
+    <Popup
+      position={[
+        activeEvent.geometry.coordinates[0],
+        activeEvent.geometry.coordinates[1]
+      ]}
+      onClose={() => {
+        setActiveEvent(null);
+      }}
+    >
+      <div>
+        <h2>{activeEvent.properties.evidence1_text}</h2>
+        <p>{activeEvent.properties.date}</p>
+      </div>
+    </Popup>
+  )}
 
 
       <TileLayer {...tileLayer} />
