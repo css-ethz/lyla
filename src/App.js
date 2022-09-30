@@ -95,6 +95,9 @@ function App () {
                   center={{lat:evt.geometry.coordinates[0], lng: evt.geometry.coordinates[1]}}
                   fillColor="green" 
                   radius={200000}
+                  pathOptions={{
+                    color: "green"
+                  }}
                   onClick={() => {
                     setActiveEvent(evt);
                   }}/>
