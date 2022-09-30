@@ -80,10 +80,10 @@ function App () {
     >
       {eventData.features.map(evt => (
         <Marker
-          key={evt.properties.PARK_ID}
+          key={evt.properties.id}
           position={[
-            evt.geometry.coordinates[1],
-            evt.geometry.coordinates[0]
+            evt.geometry.coordinates[0],
+            evt.geometry.coordinates[1]
           ]}
           onClick={() => {
             setActiveEvent(evt);
