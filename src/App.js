@@ -3,7 +3,7 @@ import {
   MapContainer,
   TileLayer,
   GeoJSON,Marker,Popup,
-  useMap,Marker
+  useMap
 } from 'react-leaflet'
 import L from 'leaflet';
 import {Icon} from 'leaflet';
@@ -37,6 +37,7 @@ function style(feature) {
 
 function App () {
   const [map, setMap] = useState(null);
+  const [activeEvent, setActiveEvent] = useState(null);
 
   useEffect(() => {
     if (!map) return;
@@ -85,7 +86,7 @@ function App () {
             evt.geometry.coordinates[0]
           ]}
           onClick={() => {
-            setActivePark(evt);
+            setActiveEvent(evt);
           }}
           //icon={icon}
         />
