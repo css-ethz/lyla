@@ -94,7 +94,7 @@ function App () {
           <Circle 
                   center={{lat:evt.geometry.coordinates[0], lng: evt.geometry.coordinates[1]}}
                   fillColor="green" 
-                  radius={1000}
+                  radius={200000}
                   onClick={() => {
                     setActiveEvent(evt);
                   }}/>
