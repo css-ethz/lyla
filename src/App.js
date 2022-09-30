@@ -20,10 +20,38 @@ const outerBounds = [
 ] 
 //-179.99990,-60.34703,-23.24401,30.98005
 
-function onEachFeature(feature, layer) {
-  layer.bindPopup(feature.properties.ADMIN)
+//function onEachFeature(feature, layer) {
+//  layer.bindPopup(feature.properties.ADMIN)
+//}
+
+function highlightFeature(e) {
+  var layer = e.target;
+
+  layer.setStyle({
+      weight: 5,
+      color: '#666',
+      dashArray: '',
+      fillOpacity: 0.7
+  });
+
+  if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+      layer.bringToFront();
+  }
+}
+function resetHighlight(e) {
+  geojson.resetStyle(e.target);
+}
+function zoomToFeature(e) {
+  map.fitBounds(e.target.getBounds());
 }
 
+function onEachFeature(feature, layer) {
+  layer.on({
+      mouseover: highlightFeature,
+      mouseout: resetHighlight,
+      click: zoomToFeature
+  });
+}
 function style(feature) {
   return {
       fillColor: `#a9a9a9`,
@@ -34,6 +62,9 @@ function style(feature) {
       fillOpacity: 0.7
   };
 }
+
+
+
 
 function App () {
   const [map, setMap] = useState(null);
@@ -62,7 +93,10 @@ function App () {
 
      circle.bindPopup("testing popup");
 
-
+    geoj = L.geoJson(statesData, {
+      style: style,
+      onEachFeature: onEachFeature
+    }).addTo(map);
      
 
   }, [map]);
@@ -125,7 +159,7 @@ function App () {
 
       <TileLayer {...tileLayer} />
 
-      <GeoJSON data={geojson} style={{fillColor:"#add8e6", color:"#add8e6", weight:1}} />
+      <GeoJSON data={geojson} style={{fillColor:"#add8e6", color:"#add8e6", weight:1}} onEachFeature={onEachFeature}/>
       
 
     </MapContainer>
