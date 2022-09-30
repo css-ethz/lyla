@@ -41,9 +41,6 @@ function highlightFeature(e) {
 function resetHighlight(e) {
   geojson.resetStyle(e.target);
 }
-function zoomToFeature(e) {
-  map.fitBounds(e.target.getBounds());
-}
 
 function onEachFeature(feature, layer) {
   layer.on({
@@ -69,7 +66,10 @@ function style(feature) {
 function App () {
   const [map, setMap] = useState(null);
   const [activeEvent, setActiveEvent] = useState(null);
-
+  function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
+  }
+  
   useEffect(() => {
     if (!map) return;
 
