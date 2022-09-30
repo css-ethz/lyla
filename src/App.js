@@ -88,13 +88,22 @@ function App () {
           onClick={() => {
             setActiveEvent(evt);
           }}
+          
           //icon={icon}
-        />
+        >
+          <Circle 
+                  center={{lat:evt.geometry.coordinates[0], lng: evt.geometry.coordinates[1]}}
+                  fillColor="blue" 
+                  radius={200}/>
+        </Marker>
+        
       ))}
+
 
       <TileLayer {...tileLayer} />
 
       <GeoJSON data={geojson} style={{fillColor:"#add8e6", color:"#add8e6", weight:1}} onEachFeature={onEachFeature} />
+      
 
     </MapContainer>
   )
