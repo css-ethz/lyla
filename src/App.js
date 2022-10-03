@@ -12,6 +12,7 @@ import eventData from './data/events.json'
 import tileLayer from './util/tileLayer';
 import './App.css'
 import 'leaflet/dist/leaflet.css';
+import { EventDropDownList } from './components/DropDownList';
 
 const center = [-10.4358446, -76.527726];
 const outerBounds = [
@@ -72,6 +73,10 @@ function App () {
 
 
   return (
+    <div className="App">
+      <h1>LYLA Dashboard</h1>
+      <EventDropDownList/>
+      
     <MapContainer
       bounds={outerBounds}
       whenCreated={setMap}
@@ -131,6 +136,7 @@ function App () {
       
       <MapContent />
     </MapContainer>
+    </div>
   )
 }
 
