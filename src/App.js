@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState , useRef} from 'react';
 import {
   MapContainer,
   TileLayer,
@@ -24,31 +24,6 @@ const outerBounds = [
 //  layer.bindPopup(feature.properties.ADMIN)
 //}
 
-function highlightFeature(e) {
-  var layer = e.target;
-
-  layer.setStyle({
-      weight: 5,
-      color: '#666',
-      dashArray: '',
-      fillOpacity: 0.7
-  });
-
-  if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-      layer.bringToFront();
-  }
-}
-function resetHighlight(e) {
-  geojson.resetStyle(e.target);
-}
-
-function onEachFeature(feature, layer) {
-  layer.on({
-      mouseover: highlightFeature,
-      mouseout: resetHighlight,
-      click: zoomToFeature
-  });
-}
 function style(feature) {
   return {
       fillColor: `#a9a9a9`,
@@ -66,9 +41,7 @@ function style(feature) {
 function App () {
   const [map, setMap] = useState(null);
   const [activeEvent, setActiveEvent] = useState(null);
-  function zoomToFeature(e) {
-    map.fitBounds(e.target.getBounds());
-  }
+  
   
   useEffect(() => {
     if (!map) return;
@@ -159,11 +132,70 @@ function App () {
 
       <TileLayer {...tileLayer} />
 
-      <GeoJSON data={geojson} style={{fillColor:"#add8e6", color:"#add8e6", weight:1}} onEachFeature={onEachFeature}/>
+     
       
-
+      <MapContent />
     </MapContainer>
   )
 }
+
+
+
+const MapContent = () => {
+  //const geoJson: RefObject<Leaflet.GeoJSON> = useRef(null);
+  const geoJsonRef = useRef(null);
+  const map = useMap();
+
+  //const highlightFeature = (e: Leaflet.LeafletMouseEvent) => {
+  const highlightFeature = (e) => {
+    const layer = e.target;
+
+    layer.setStyle({
+      color: '#666',
+      dashArray: '',
+      fillOpacity: 0.7,
+      weight: 5,
+    });
+  };
+
+  const resetHighlight = (e) => {
+    geoJson.current?.resetStyle(e.target);
+  };
+
+  const zoomToFeature = (e) => {
+    map.fitBounds(e.target.getBounds());
+  };
+
+  return (
+            <GeoJSON
+              data={geojson}
+              //key='latam-countries'
+              ref={geoJsonRef}
+              style={() => {
+                return {
+                  color: 'white',
+                  dashArray: '3',
+                  fillColor: '#f0f0f0',
+                  fillOpacity: 0.7,
+                  opacity: 1,
+                  weight: 2,
+                };
+              }}
+              onEachFeature={(__, layer) => {
+                layer.on({
+                  click: (e) => {
+                    zoomToFeature(e);
+                  },
+                  mouseout: (e) => {
+                    resetHighlight(e);
+                  },
+                  mouseover: (e) => {
+                    highlightFeature(e);
+                  },
+                });
+              }}
+            />
+  );
+};
 
 export default App;
