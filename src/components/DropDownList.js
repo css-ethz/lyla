@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";  
-import { DropDownList } from "@progress/kendo-react-dropdowns";  
+import { DropDownList } from "@progress/kendo-react-dropdowns"; 
 import eventData from '../data/events.json';
   
 // Dropdown categories  
