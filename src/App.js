@@ -154,7 +154,7 @@ const MapContent = () => {
   };
 
   const resetHighlight = (e) => {
-    geoJson.current?.resetStyle(e.target);
+    geoJsonRef.current?.resetStyle(e.target);
   };
 
   const zoomToFeature = (e) => {
