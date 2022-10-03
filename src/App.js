@@ -66,11 +66,6 @@ function App () {
 
      circle.bindPopup("testing popup");
 
-    geoj = L.geoJson(statesData, {
-      style: style,
-      onEachFeature: onEachFeature
-    }).addTo(map);
-     
 
   }, [map]);
 
