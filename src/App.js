@@ -77,8 +77,8 @@ function App () {
   return (
     <div className="App">
       <h4>LYLA Dashboard</h4>
-      <Dropdown className="drop">
-        <Dropdown.Toggle variant="success">
+      <Dropdown className="drop" autoClose='true'>
+        <Dropdown.Toggle variant="success" className="toggle">
           Wrongdoing Type
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropMenu">
@@ -95,7 +95,7 @@ function App () {
       </Dropdown>
 
       <Dropdown className="drop">
-        <Dropdown.Toggle variant="success">
+        <Dropdown.Toggle variant="success" className="toggle">
           Sex of Target
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropMenu">
@@ -109,7 +109,7 @@ function App () {
       </Dropdown>
 
       <Dropdown className="drop">
-        <Dropdown.Toggle variant="success">
+        <Dropdown.Toggle variant="success" className="toggle">
           pe_violence
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropMenu">
