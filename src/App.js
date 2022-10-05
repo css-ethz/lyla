@@ -15,7 +15,7 @@ import './App.css'
 import 'leaflet/dist/leaflet.css';
 //import { EventDropDownList } from './components/DropDownList';
 import Dropdown from 'react-bootstrap/Dropdown';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 const center = [-10.4358446, -76.527726];
 const outerBounds = [
