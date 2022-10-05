@@ -45,8 +45,36 @@ function style(feature) {
 function App () {
   const [map, setMap] = useState(null);
   const [activeEvent, setActiveEvent] = useState(null);
+  const [wrongdoing, setWrongdoing] = useState("all");
+  const [tarSex, setTarSex] = useState("all");
+  const [peViolence, setPeViolence] = useState("all");
+
+  let evData = [...eventData];
+
+  const filterWrongdoing = useMemo((data) => {
+    if (!wrongdoing || wrongdoing === "all") return data;
+    
+    return data.filter(item => item.properties.tar_wrongdoing === wrongdoing);
+
+}, [wrongdoing]);
+
+  const filterSex = useMemo((data) => {
+    if (!tarSex || tarSex === "all") return data;
+    console.log("tar_sex is")
+    data.map(item => console.log(item.properties.tar_sex))
+    
+    return data.filter(item => item.properties.tar_sex === tarSex);
+
+  }, [tarSex]);
+
+  const filterPeViolence = useMemo((data) => {
+    if (!peViolence || peViolence === "all") return data;
+    
+    return data.filter(item => item.properties.pe_violence === peViolence);
+
+  }, [peViolence]);
   
-  
+
   useEffect(() => {
     if (!map) return;
 
@@ -70,8 +98,13 @@ function App () {
 
      circle.bindPopup("testing popup");
 
+     evData = filterWrongdoing(evData);
+     evData = filterSex(evData);
+     evData = filterPeViolence(evData);
 
-  }, [map]);
+     console.log(evData);
+
+  }, [map, evData, wrongdoing, tarSex, peViolence]);
 
 
 
@@ -83,13 +116,13 @@ function App () {
           Wrongdoing Type
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropMenu">
-          <Dropdown.Item  href="#/action-1">
+          <Dropdown.Item  href="#/action-1" onClick={e => setWrongdoing(e.target.value)}>
             0
           </Dropdown.Item>
-          <Dropdown.Item  href="#/action-2">
+          <Dropdown.Item  href="#/action-2" onClick={e => setWrongdoing(e.target.value)}>
             1
           </Dropdown.Item>
-          <Dropdown.Item  href="#/action-3">
+          <Dropdown.Item  href="#/action-3" onClick={e => setWrongdoing(e.target.value)}>
             2
           </Dropdown.Item>
         </Dropdown.Menu>
@@ -100,10 +133,10 @@ function App () {
           Sex of Target
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropMenu">
-          <Dropdown.Item  href="#/tar_sex_m">
+          <Dropdown.Item  href="#/tar_sex_m" onClick={e => setTarSex(e.target.value)}>
             Male
           </Dropdown.Item>
-          <Dropdown.Item  href="#/tar_sex_f">
+          <Dropdown.Item  href="#/tar_sex_f" onClick={e => setTarSex(e.target.value)}>
             Female
           </Dropdown.Item>
         </Dropdown.Menu>
@@ -114,16 +147,16 @@ function App () {
           pe_violence
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropMenu">
-          <Dropdown.Item  href="#/action-1">
+          <Dropdown.Item  href="#/action-1" onClick={e => setPeViolence(e.target.value)}>
             0
           </Dropdown.Item>
-          <Dropdown.Item  href="#/action-2">
+          <Dropdown.Item  href="#/action-2" onClick={e => setPeViolence(e.target.value)}>
             1
           </Dropdown.Item>
-          <Dropdown.Item  href="#/action-3">
+          <Dropdown.Item  href="#/action-3" onClick={e => setPeViolence(e.target.value)}>
             2
           </Dropdown.Item>
-          <Dropdown.Item  href="#/action-3">
+          <Dropdown.Item  href="#/action-3" onClick={e => setWrongdoing(e.target.value)}>
             3
           </Dropdown.Item>
         </Dropdown.Menu>
@@ -137,7 +170,7 @@ function App () {
       scrollWheelZoom={false}
       style={{ width: '40%', height: '560px'}}
     >
-      {eventData.features.map(evt => (
+      {evData.features.map(evt => (
         //<Marker
           //key={evt.properties.id}
           //position={[
