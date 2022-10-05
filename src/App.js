@@ -77,11 +77,11 @@ function App () {
   return (
     <div className="App">
       <h4>LYLA Dashboard</h4>
-      <Dropdown>
+      <Dropdown className="drop">
         <Dropdown.Toggle variant="success">
           Wrongdoing Type
         </Dropdown.Toggle>
-        <Dropdown.Menu>
+        <Dropdown.Menu className="dropMenu">
           <Dropdown.Item  href="#/action-1">
             0
           </Dropdown.Item>
