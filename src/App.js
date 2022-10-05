@@ -13,7 +13,8 @@ import eventData from './data/events.json'
 import tileLayer from './util/tileLayer';
 import './App.css'
 import 'leaflet/dist/leaflet.css';
-import { EventDropDownList } from './components/DropDownList';
+//import { EventDropDownList } from './components/DropDownList';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const center = [-10.4358446, -76.527726];
 const outerBounds = [
@@ -75,8 +76,23 @@ function App () {
 
   return (
     <div className="App">
-      <h1>LYLA Dashboard</h1>
-      <EventDropDownList/>
+      <h4>React-Bootstrap Dropdown Component</h4>
+      <Dropdown>
+        <Dropdown.Toggle variant="success">
+          Open Menu
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <Dropdown.Item href="#">
+            Home Page
+          </Dropdown.Item>
+          <Dropdown.Item href="#">
+            Settings
+          </Dropdown.Item>
+          <Dropdown.Item href="#">
+            Logout
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
       
     <MapContainer
       bounds={outerBounds}
