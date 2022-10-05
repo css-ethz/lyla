@@ -76,20 +76,20 @@ function App () {
 
   return (
     <div className="App">
-      <h4>React-Bootstrap Dropdown Component</h4>
+      <h4>LYLA Dashboard</h4>
       <Dropdown>
         <Dropdown.Toggle variant="success">
-          Open Menu
+          Wrongdoing Type
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item href="#">
-            Home Page
+          <Dropdown.Item  href="#/action-1">
+            0
           </Dropdown.Item>
-          <Dropdown.Item href="#">
-            Settings
+          <Dropdown.Item  href="#/action-2">
+            1
           </Dropdown.Item>
-          <Dropdown.Item href="#">
-            Logout
+          <Dropdown.Item  href="#/action-3">
+            2
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
