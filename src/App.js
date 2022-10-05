@@ -105,7 +105,7 @@ function App () {
 
      console.log(evData);
 
-  }, [map, wrongdoing, tarSex, peViolence]);
+  }, [map]);
 
 
 
