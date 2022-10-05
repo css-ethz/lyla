@@ -233,17 +233,8 @@ main {
   position: relative;
   display: inline-block;
 }
-.toggle {
-  border: none;
-  text-align: start;
-  width: 100%;
-  padding: 0;
-}
 
-.drop:active .dropMenu {
-  display:flex;
-  flex-direction: column;
-}
+
 .drop:visited .dropMenu {
   display:flex;
   flex-direction: column;
