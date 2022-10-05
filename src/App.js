@@ -76,6 +76,7 @@ function App () {
   
 
   useEffect(() => {
+    console.log(evData);
     if (!map) return;
 
     const legend = L.control({ position: "bottomleft" });
@@ -147,16 +148,16 @@ function App () {
           pe_violence
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropMenu">
-          <Dropdown.Item  href="#/action-1" onClick={e => setPeViolence(e.target.value)}>
+          <Dropdown.Item  href="#/action-v1" onClick={e => setPeViolence(e.target.value)}>
             0
           </Dropdown.Item>
-          <Dropdown.Item  href="#/action-2" onClick={e => setPeViolence(e.target.value)}>
+          <Dropdown.Item  href="#/action-v2" onClick={e => setPeViolence(e.target.value)}>
             1
           </Dropdown.Item>
-          <Dropdown.Item  href="#/action-3" onClick={e => setPeViolence(e.target.value)}>
+          <Dropdown.Item  href="#/action-v3" onClick={e => setPeViolence(e.target.value)}>
             2
           </Dropdown.Item>
-          <Dropdown.Item  href="#/action-3" onClick={e => setWrongdoing(e.target.value)}>
+          <Dropdown.Item  href="#/action-v4" onClick={e => setPeViolence(e.target.value)}>
             3
           </Dropdown.Item>
         </Dropdown.Menu>
