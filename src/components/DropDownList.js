@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";  
 import { DropDownList } from "@progress/kendo-react-dropdowns"; 
 import eventData from '../data/events.json';
+import Dropdown from 'react-bootstrap/Dropdown'
   
 // Dropdown categories  
 const tar_wrongdoing = [0, 1, 2, 3];  
@@ -12,9 +13,9 @@ export const EventDropDownList = () => {
     // Memoized results. Will re-evaluate any time selected  
     // category changes  
     const filteredData = useMemo(() => {  
-      if (!category || category === "all") return data;  
+      if (!category || category === "all") return eventData;  
     
-      return data.filter(item => item.type === category);  
+      return eventData.filter(item => item.properties.tar_wrongdoing === category);  
   }, [category]);
 
   return (
