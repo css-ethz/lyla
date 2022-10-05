@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/lyla/static/css/main.f3c3beae.css",
-    "main.js": "/lyla/static/js/main.5738fa49.js",
+    "main.css": "/lyla/static/css/main.dfeccfc5.css",
+    "main.js": "/lyla/static/js/main.a7d048c0.js",
     "static/js/787.a0fff93e.chunk.js": "/lyla/static/js/787.a0fff93e.chunk.js",
     "index.html": "/lyla/index.html",
-    "main.f3c3beae.css.map": "/lyla/static/css/main.f3c3beae.css.map",
-    "main.5738fa49.js.map": "/lyla/static/js/main.5738fa49.js.map",
+    "main.dfeccfc5.css.map": "/lyla/static/css/main.dfeccfc5.css.map",
+    "main.a7d048c0.js.map": "/lyla/static/js/main.a7d048c0.js.map",
     "787.a0fff93e.chunk.js.map": "/lyla/static/js/787.a0fff93e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f3c3beae.css",
-    "static/js/main.5738fa49.js"
+    "static/css/main.dfeccfc5.css",
+    "static/js/main.a7d048c0.js"
   ]
 }
