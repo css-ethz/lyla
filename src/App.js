@@ -93,6 +93,40 @@ function App () {
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
+
+      <Dropdown>
+        <Dropdown.Toggle variant="success">
+          Sex of Target
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <Dropdown.Item  href="#/tar_sex_m">
+            Male
+          </Dropdown.Item>
+          <Dropdown.Item  href="#/tar_sex_f">
+            Female
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+
+      <Dropdown>
+        <Dropdown.Toggle variant="success">
+          pe_violence
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <Dropdown.Item  href="#/action-1">
+            0
+          </Dropdown.Item>
+          <Dropdown.Item  href="#/action-2">
+            1
+          </Dropdown.Item>
+          <Dropdown.Item  href="#/action-3">
+            2
+          </Dropdown.Item>
+          <Dropdown.Item  href="#/action-3">
+            3
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
       
     <MapContainer
       bounds={outerBounds}
