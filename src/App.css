@@ -234,7 +234,11 @@ main {
   display: inline-block;
 }
 
-.drop:hover .dropMenu {
+.drop:active .dropMenu {
+  display:flex;
+  flex-direction: column;
+}
+.drop:visited .dropMenu {
   display:flex;
   flex-direction: column;
 }

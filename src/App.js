@@ -94,11 +94,11 @@ function App () {
         </Dropdown.Menu>
       </Dropdown>
 
-      <Dropdown>
+      <Dropdown className="drop">
         <Dropdown.Toggle variant="success">
           Sex of Target
         </Dropdown.Toggle>
-        <Dropdown.Menu>
+        <Dropdown.Menu className="dropMenu">
           <Dropdown.Item  href="#/tar_sex_m">
             Male
           </Dropdown.Item>
@@ -108,11 +108,11 @@ function App () {
         </Dropdown.Menu>
       </Dropdown>
 
-      <Dropdown>
+      <Dropdown className="drop">
         <Dropdown.Toggle variant="success">
           pe_violence
         </Dropdown.Toggle>
-        <Dropdown.Menu>
+        <Dropdown.Menu className="dropMenu">
           <Dropdown.Item  href="#/action-1">
             0
           </Dropdown.Item>
