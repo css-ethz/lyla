@@ -136,7 +136,7 @@ function App () {
 
      console.log(evData);
  */
-  }, [map, tarSex]);
+  }, [tarSex]);
 
 
 
