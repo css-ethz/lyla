@@ -73,6 +73,7 @@ function App () {
     console.log("tar_sex is");
     }
     else {
+      console.log("filtered tar_sex")
       setFilteredData(data.filter(item => item.properties.tar_sex === tarSex));
     }
     
@@ -119,7 +120,7 @@ function App () {
 
      console.log(evData);
  */
-  }, [map]);
+  }, [map, tarSex]);
 
 
 
