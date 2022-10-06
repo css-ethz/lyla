@@ -94,7 +94,7 @@ function App () {
 
   useEffect(() => {
     //console.log(evData);
-    if (!map) return;
+    /* if (!map) return;
 
     const legend = L.control({ position: "bottomleft" });
     //map.fitBounds(polygon.getBounds()); // max zoom to see whole polygon
@@ -105,8 +105,8 @@ function App () {
       div.innerHTML = `click on polygon`;
       return div;
     };
-
-    legend.addTo(map);
+ */
+   /*  legend.addTo(map);
     const circle = L.circle([3.4358446, -76.527726], {
       color: 'red',
       fillColor: '#f03',
@@ -114,7 +114,7 @@ function App () {
       radius: 200
      }).addTo(map);
 
-     circle.bindPopup("testing popup");
+     circle.bindPopup("testing popup"); */
 
      if (!tarSex || tarSex === "all"){ setFilteredData(eventData);
       console.log("tar_sex is");
@@ -126,9 +126,9 @@ function App () {
       }
      //filterSex(filteredData);
      console.log("filtered data in use effect hook:");
-     console.log(filteredData);
+     console.log({filteredData});
      console.log("tar_sex in use effect hook:");
-     console.log(tarSex);
+     console.log({tarSex});
 
      /* evData = filterWrongdoing(evData);
      evData = filterSex(evData);
@@ -136,7 +136,7 @@ function App () {
 
      console.log(evData);
  */
-  }, [tarSex]);
+  }, [tarSex, filteredData]);
 
 
 
@@ -168,13 +168,13 @@ function App () {
           Sex of Target
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropMenu">
-        <Dropdown.Item  href="#/tar_sex_a" onClick={e => setTarSex(e.target.value)}>
+        <Dropdown.Item  href="#/tar_sex_a" onClick={e => {setTarSex(e.target.value)}}>
             all
           </Dropdown.Item>
-          <Dropdown.Item  href="#/tar_sex_m" onClick={e => setTarSex(e.target.value)}>
+          <Dropdown.Item  href="#/tar_sex_m" onClick={e => {setTarSex(e.target.value)}}>
             0
           </Dropdown.Item>
-          <Dropdown.Item  href="#/tar_sex_f" onClick={e => setTarSex(e.target.value)}>
+          <Dropdown.Item  href="#/tar_sex_f" onClick={e => {setTarSex(e.target.value)}}>
             1
           </Dropdown.Item>
         </Dropdown.Menu>
