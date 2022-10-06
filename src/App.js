@@ -49,7 +49,9 @@ function App () {
   const [wrongdoing, setWrongdoing] = useState("all");
   const [tarSex, setTarSex] = useState("all");
   const [peViolence, setPeViolence] = useState("all");
+  console.log("variables outside use effect hook: tarSex:");
   console.log(tarSex);
+  console.log("variables outside use effect hook: filtered data:");
   console.log(filteredData);
 
   // let evData = [...eventData];
@@ -73,9 +75,10 @@ function App () {
   const filterSex = (data) => {
     if (!tarSex || tarSex === "all"){ setFilteredData(data);
     console.log("tar_sex is");
+    console.log(tarSex);
     }
     else {
-      console.log("filtered tar_sex")
+      console.log("filtered tar_sex");
       setFilteredData(data.filter(item => item.properties.tar_sex === tarSex));
     }
     
@@ -115,7 +118,9 @@ function App () {
 
 
      filterSex(filteredData);
+     console.log("filtered data in use effect hook:");
      console.log(filteredData);
+     console.log("tar_sex in use effect hook:");
      console.log(tarSex);
 
      /* evData = filterWrongdoing(evData);
@@ -167,7 +172,7 @@ function App () {
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
-
+      
       <Dropdown className="drop">
         <Dropdown.Toggle variant="success" className="toggle">
           pe_violence
