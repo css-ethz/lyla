@@ -168,17 +168,25 @@ function App () {
           Sex of Target
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropMenu">
-        <Dropdown.Item  href="#/tar_sex_a" onClick={e => {setTarSex(e.target.value)}}>
+        <Dropdown.Item  href="#/tar_sex_a" onClick={e => {
+          console.log("value is", e.target.value);
+          setTarSex(e.target.value);
+          }}>
             all
-            {console.log("value is", e.target.value)};
+           
           </Dropdown.Item>
-          <Dropdown.Item  href="#/tar_sex_m" onClick={e => {setTarSex(e.target.value)}}>
+          <Dropdown.Item  href="#/tar_sex_m" onClick={e => {
+            console.log("value is", e.target.value);
+            setTarSex(e.target.value);
+            }}>
             0
-          {console.log("value is", e.target.value)};
           </Dropdown.Item>
-          <Dropdown.Item  href="#/tar_sex_f" onClick={e => {setTarSex(e.target.value)}}>
+          <Dropdown.Item  href="#/tar_sex_f" onClick={e => {
+            console.log("value is", e.target.value);
+            setTarSex(e.target.value);
+            }}>
             1
-            {console.log("value is", e.target.value)};
+           
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
