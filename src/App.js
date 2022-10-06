@@ -113,6 +113,8 @@ function App () {
 
 
      filterSex(filteredData);
+     console.log(filteredData);
+     console.log(tarSex);
 
      /* evData = filterWrongdoing(evData);
      evData = filterSex(evData);
