@@ -45,38 +45,49 @@ function style(feature) {
 function App () {
   const [map, setMap] = useState(null);
   const [activeEvent, setActiveEvent] = useState(null);
+  const [filteredData, setFilteredData] = useState(eventData);
   const [wrongdoing, setWrongdoing] = useState("all");
   const [tarSex, setTarSex] = useState("all");
   const [peViolence, setPeViolence] = useState("all");
 
-  let evData = [...eventData];
+  // let evData = [...eventData];
 
-  const filterWrongdoing = useMemo((data) => {
+  /* const filterWrongdoing = useMemo((data) => {
     if (!wrongdoing || wrongdoing === "all") return data;
     
     return data.filter(item => item.properties.tar_wrongdoing === wrongdoing);
 
 }, [wrongdoing]);
-
-  const filterSex = useMemo((data) => {
+ */
+  /* const filterSex = useMemo((data) => {
     if (!tarSex || tarSex === "all") return data;
     console.log("tar_sex is")
     data.map(item => console.log(item.properties.tar_sex))
     
     return data.filter(item => item.properties.tar_sex === tarSex);
 
-  }, [tarSex]);
+  }, [tarSex]); */
 
-  const filterPeViolence = useMemo((data) => {
+  const filterSex = (data) => {
+    if (!tarSex || tarSex === "all"){ setFilteredData(data);
+    console.log("tar_sex is");
+    }
+    else {
+      setFilteredData(data.filter(item => item.properties.tar_sex === tarSex));
+    }
+    
+  };
+
+ /*  const filterPeViolence = useMemo((data) => {
     if (!peViolence || peViolence === "all") return data;
     
     return data.filter(item => item.properties.pe_violence === peViolence);
 
   }, [peViolence]);
-  
+   */
 
   useEffect(() => {
-    console.log(evData);
+    //console.log(evData);
     if (!map) return;
 
     const legend = L.control({ position: "bottomleft" });
@@ -99,12 +110,15 @@ function App () {
 
      circle.bindPopup("testing popup");
 
-     evData = filterWrongdoing(evData);
+
+     filterSex(filteredData);
+
+     /* evData = filterWrongdoing(evData);
      evData = filterSex(evData);
      evData = filterPeViolence(evData);
 
      console.log(evData);
-
+ */
   }, [map]);
 
 
@@ -117,6 +131,9 @@ function App () {
           Wrongdoing Type
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropMenu">
+        <Dropdown.Item  href="#/action-a" onClick={e => setWrongdoing(e.target.value)}>
+            all
+          </Dropdown.Item>
           <Dropdown.Item  href="#/action-1" onClick={e => setWrongdoing(e.target.value)}>
             0
           </Dropdown.Item>
@@ -134,6 +151,9 @@ function App () {
           Sex of Target
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropMenu">
+        <Dropdown.Item  href="#/tar_sex_a" onClick={e => setTarSex(e.target.value)}>
+            all
+          </Dropdown.Item>
           <Dropdown.Item  href="#/tar_sex_m" onClick={e => setTarSex(e.target.value)}>
             Male
           </Dropdown.Item>
@@ -148,6 +168,9 @@ function App () {
           pe_violence
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropMenu">
+        <Dropdown.Item  href="#/action-va" onClick={e => setPeViolence(e.target.value)}>
+            all
+          </Dropdown.Item>
           <Dropdown.Item  href="#/action-v1" onClick={e => setPeViolence(e.target.value)}>
             0
           </Dropdown.Item>
