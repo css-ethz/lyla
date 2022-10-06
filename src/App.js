@@ -49,6 +49,8 @@ function App () {
   const [wrongdoing, setWrongdoing] = useState("all");
   const [tarSex, setTarSex] = useState("all");
   const [peViolence, setPeViolence] = useState("all");
+  console.log(tarSex);
+  console.log(filteredData);
 
   // let evData = [...eventData];
 
@@ -122,7 +124,7 @@ function App () {
 
      console.log(evData);
  */
-  }, [map, tarSex]);
+  }, [map, tarSex, filteredData]);
 
 
 
