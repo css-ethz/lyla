@@ -194,7 +194,7 @@ function App () {
       scrollWheelZoom={false}
       style={{ width: '40%', height: '560px'}}
     >
-      {evData.features.map(evt => (
+      {filteredData.features.map(evt => (
         //<Marker
           //key={evt.properties.id}
           //position={[
