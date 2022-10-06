@@ -72,7 +72,7 @@ function App () {
 
   }, [tarSex]); */
 
-  const filterSex = (data) => {
+ /*  const filterSex = (data) => {
     if (!tarSex || tarSex === "all"){ setFilteredData(data);
     console.log("tar_sex is");
     console.log(tarSex);
@@ -82,7 +82,7 @@ function App () {
       setFilteredData(data.filter(item => item.properties.tar_sex === tarSex));
     }
     
-  };
+  }; */
 
  /*  const filterPeViolence = useMemo((data) => {
     if (!peViolence || peViolence === "all") return data;
@@ -116,8 +116,15 @@ function App () {
 
      circle.bindPopup("testing popup");
 
-
-     filterSex(filteredData);
+     if (!tarSex || tarSex === "all"){ setFilteredData(eventData);
+      console.log("tar_sex is");
+      console.log(tarSex);
+      }
+      else {
+        console.log("filtered tar_sex");
+        setFilteredData(eventData.filter(item => item.properties.tar_sex === tarSex));
+      }
+     //filterSex(filteredData);
      console.log("filtered data in use effect hook:");
      console.log(filteredData);
      console.log("tar_sex in use effect hook:");
@@ -129,7 +136,7 @@ function App () {
 
      console.log(evData);
  */
-  }, [map, tarSex, filteredData]);
+  }, [map, tarSex]);
 
 
 
