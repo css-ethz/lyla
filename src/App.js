@@ -165,10 +165,10 @@ function App () {
             all
           </Dropdown.Item>
           <Dropdown.Item  href="#/tar_sex_m" onClick={e => setTarSex(e.target.value)}>
-            Male
+            0
           </Dropdown.Item>
           <Dropdown.Item  href="#/tar_sex_f" onClick={e => setTarSex(e.target.value)}>
-            Female
+            1
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
@@ -191,7 +191,7 @@ function App () {
             2
           </Dropdown.Item>
           <Dropdown.Item  href="#/action-v4" onClick={e => setPeViolence(e.target.value)}>
-            3
+            4
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
