@@ -4,7 +4,7 @@
         "type": "Feature",
         "properties": {
           "id": 2,
-          "tar1_sex": "1",
+          "tar1_sex": 1,
           "tar1_age": 2,
           "pe_violence": null,
           "st_outcome": 1,
@@ -22,7 +22,7 @@
         "type": "Feature",
         "properties": {
           "id": 493,
-          "tar1_sex": "1",
+          "tar1_sex": 1,
           "tar1_age": 2,
           "pe_violence": 4,
           "st_outcome": 1,

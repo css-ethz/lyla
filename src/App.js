@@ -104,9 +104,9 @@ function App () {
   }, [peViolence]);
    */
 
-  //useEffect(() => {
+  useEffect(() => {
     //console.log(evData);
-    /* if (!map) return;
+    if (!map) return;
 
     const legend = L.control({ position: "bottomleft" });
     //map.fitBounds(polygon.getBounds()); // max zoom to see whole polygon
@@ -117,7 +117,7 @@ function App () {
       div.innerHTML = `click on polygon`;
       return div;
     };
- */
+ 
    /*  legend.addTo(map);
     const circle = L.circle([3.4358446, -76.527726], {
       color: 'red',
@@ -128,14 +128,14 @@ function App () {
 
      circle.bindPopup("testing popup"); */
 
-    /*  if (!tarSex || tarSex === "all"){ setFilteredData(eventData);
+      if (!tarSex || tarSex === 8){ setFilteredData(eventData);
       console.log("tar_sex is");
       console.log(tarSex);
       }
       else {
         console.log("filtered tar_sex");
-        setFilteredData(eventData.filter(item => item.properties.tar_sex === tarSex));
-      } */
+        setFilteredData(eventData.filter(item => item.properties.tar1_sex === tarSex));
+      } 
      //filterSex(filteredData);
      //console.log("filtered data in use effect hook:");
      //console.log({filteredData});
@@ -148,87 +148,78 @@ function App () {
 
      console.log(evData);
  */
- // }, [tarSex, filteredData]);
+  }, [tarSex, filteredData]);
 
 
 
   return (
     <div className="App">
       <h4>LYLA Dashboard</h4>
-      {/* <Dropdown className="drop" autoClose='true'>
+       <Dropdown className="drop" autoClose='true' onSelect={e => setWrongdoing(e.currentTarget.value)}>
         <Dropdown.Toggle variant="success" className="toggle">
           Wrongdoing Type
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropMenu">
-        <Dropdown.Item  href="#/action-a" onClick={e => setWrongdoing(e.target.value)}>
-            all
+        <Dropdown.Item  href="#/action-a">
+            8
           </Dropdown.Item>
-          <Dropdown.Item  href="#/action-1" onClick={e => setWrongdoing(e.target.value)}>
+          <Dropdown.Item  href="#/action-1">
             0
           </Dropdown.Item>
-          <Dropdown.Item  href="#/action-2" onClick={e => setWrongdoing(e.target.value)}>
+          <Dropdown.Item  href="#/action-2">
             1
           </Dropdown.Item>
-          <Dropdown.Item  href="#/action-3" onClick={e => setWrongdoing(e.target.value)}>
+          <Dropdown.Item  href="#/action-3">
             2
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
 
       <Dropdown className="drop" onSelect={e => {
-          console.log("value is", e.target.value);
-          setTarSex(e.target.value);
+          console.log("value is", e.currentTarget.value);
+          setTarSex(e.currentTarget.value);
           }}>
         <Dropdown.Toggle variant="success" className="toggle">
           Sex of Target
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropMenu">
-        <Dropdown.Item  href="#/tar_sex_a" onClick={e => {
-          console.log("value is", e.target.value);
-          setTarSex(e.target.value);
-          }}>
+        <Dropdown.Item  href="#/tar_sex_a">
             all
            
           </Dropdown.Item>
-          <Dropdown.Item  href="#/tar_sex_m" onClick={e => {
-            console.log("value is", e.target.value);
-            setTarSex(e.target.value);
-            }}>
+          <Dropdown.Item  href="#/tar_sex_m">
             0
           </Dropdown.Item>
-          <Dropdown.Item  href="#/tar_sex_f" onClick={e => {
-            console.log("value is", e.target.value);
-            setTarSex(e.target.value);
-            }}>
+          <Dropdown.Item  href="#/tar_sex_f">
             1
            
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
       
-      <Dropdown className="drop">
+      <Dropdown className="drop" onSelect={e => setPeViolence(e.currentTarget.value)}>
         <Dropdown.Toggle variant="success" className="toggle">
           pe_violence
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropMenu">
-        <Dropdown.Item  href="#/action-va" onClick={e => setPeViolence(e.target.value)}>
+        <Dropdown.Item  href="#/action-va">
             all
           </Dropdown.Item>
-          <Dropdown.Item  href="#/action-v1" onClick={e => setPeViolence(e.target.value)}>
+          <Dropdown.Item  href="#/action-v1">
             0
           </Dropdown.Item>
-          <Dropdown.Item  href="#/action-v2" onClick={e => setPeViolence(e.target.value)}>
+          <Dropdown.Item  href="#/action-v2">
             1
           </Dropdown.Item>
-          <Dropdown.Item  href="#/action-v3" onClick={e => setPeViolence(e.target.value)}>
+          <Dropdown.Item  href="#/action-v3">
             2
           </Dropdown.Item>
-          <Dropdown.Item  href="#/action-v4" onClick={e => setPeViolence(e.target.value)}>
+          <Dropdown.Item  href="#/action-v4">
             4
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
-       */}
+  
 
 <form>
 
