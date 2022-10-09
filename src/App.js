@@ -47,7 +47,7 @@ function App () {
   const [activeEvent, setActiveEvent] = useState(null);
   const [filteredData, setFilteredData] = useState(eventData);
   const [wrongdoing, setWrongdoing] = useState("all");
-  const [tarSex, setTarSex] = useState("all");
+  const [tarSex, setTarSex] = useState(0);
   const [peViolence, setPeViolence] = useState("all");
   //console.log("variables outside use effect hook: tarSex:");
   //console.log(tarSex);
@@ -242,6 +242,7 @@ function App () {
 
 
 
+
 </form>
 
     <MapContainer
@@ -303,6 +304,7 @@ function App () {
       
       <MapContent />
     </MapContainer>
+    <p>Tar Sex: {tarSex}</p>
     </div>
   );
 }
