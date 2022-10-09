@@ -49,11 +49,23 @@ function App () {
   const [wrongdoing, setWrongdoing] = useState("all");
   const [tarSex, setTarSex] = useState("all");
   const [peViolence, setPeViolence] = useState("all");
-  console.log("variables outside use effect hook: tarSex:");
-  console.log(tarSex);
-  console.log("variables outside use effect hook: filtered data:");
-  console.log(filteredData);
+  //console.log("variables outside use effect hook: tarSex:");
+  //console.log(tarSex);
+  //console.log("variables outside use effect hook: filtered data:");
+  //console.log(filteredData);
 
+
+  const handleTarChange = (e)=>{
+    const value = e.target.value;
+    setTarSex({
+      [e.target.name]: value
+    });
+  }
+
+  const testVariables = () => {
+    console.log(tarSex);
+    console.log(filteredData);
+  }
   // let evData = [...eventData];
 
   /* const filterWrongdoing = useMemo((data) => {
@@ -92,7 +104,7 @@ function App () {
   }, [peViolence]);
    */
 
-  useEffect(() => {
+  //useEffect(() => {
     //console.log(evData);
     /* if (!map) return;
 
@@ -116,19 +128,19 @@ function App () {
 
      circle.bindPopup("testing popup"); */
 
-     if (!tarSex || tarSex === "all"){ setFilteredData(eventData);
+    /*  if (!tarSex || tarSex === "all"){ setFilteredData(eventData);
       console.log("tar_sex is");
       console.log(tarSex);
       }
       else {
         console.log("filtered tar_sex");
         setFilteredData(eventData.filter(item => item.properties.tar_sex === tarSex));
-      }
+      } */
      //filterSex(filteredData);
-     console.log("filtered data in use effect hook:");
-     console.log({filteredData});
-     console.log("tar_sex in use effect hook:");
-     console.log({tarSex});
+     //console.log("filtered data in use effect hook:");
+     //console.log({filteredData});
+     //console.log("tar_sex in use effect hook:");
+     //console.log({tarSex});
 
      /* evData = filterWrongdoing(evData);
      evData = filterSex(evData);
@@ -136,14 +148,14 @@ function App () {
 
      console.log(evData);
  */
-  }, [tarSex, filteredData]);
+ // }, [tarSex, filteredData]);
 
 
 
   return (
     <div className="App">
       <h4>LYLA Dashboard</h4>
-      <Dropdown className="drop" autoClose='true'>
+      {/* <Dropdown className="drop" autoClose='true'>
         <Dropdown.Toggle variant="success" className="toggle">
           Wrongdoing Type
         </Dropdown.Toggle>
@@ -216,7 +228,22 @@ function App () {
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
-      
+       */}
+
+<form>
+
+<label>
+  TarSex
+  <input type="number" name="tarSex" value={tarSex}
+    onChange={handleTarChange}
+  />
+</label>
+<button type="button" onClick={testVariables}>Test</button>
+
+
+
+</form>
+
     <MapContainer
       bounds={outerBounds}
       whenCreated={setMap}
@@ -277,7 +304,7 @@ function App () {
       <MapContent />
     </MapContainer>
     </div>
-  )
+  );
 }
 
 
