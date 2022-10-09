@@ -168,6 +168,8 @@ function App () {
 
      console.log(evData);
  */
+      console.log(filteredSexData);
+      console.log(filteredSexData);
   }, [tarSex, filteredData]);
 
 
@@ -284,8 +286,8 @@ function App () {
           </div>
         </div>
       </div>
-      {filteredSexData.features.map((item) => {
-        <p>item.properties.tar1_sex</p>
+      {filteredSexData.features.map(item => {
+        <p>{item.properties.tar1_sex}</p>
       })}
     </div>
   </Container>
