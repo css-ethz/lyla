@@ -64,8 +64,16 @@ function App () {
   }
  */
   const handleTarSex=(event)=>{
-    const gattarsex= event.target.value;
-    setTarSex(gattarsex);
+    const gettarsex= event.target.value;
+    setTarSex(gettarsex);
+    console.log(tarSex);
+    event.preventDefault();
+  }
+
+  const handleWrongdoing = (event)=>{
+    const getwrongdoing=event.target.value;
+    setWrongdoing(getwrongdoing);
+    console.log(wrongdoing);
     event.preventDefault();
   }
 
@@ -252,13 +260,22 @@ function App () {
           <div className='form-group col-md-4'>
             <label className='mb-2'>Sex of Target</label>
             <select name='tar1_sex' className='form-control' onChange={(e) => handleTarSex(e)}>
-              <option>--Select sex--</option>
+              <option>--Select--</option>
               <option value={0}>0 </option>
               <option value={1}>1 </option>
             </select>
           </div>
-          <div className="form-group col-md-2 mt-4">    
-          <button className="btn btn-success mt-2" >Submit</button>  
+          <div className="form-group col-md-2 mt-4">  
+          <div className='form-group col-md-4'>
+            <label className='mb-2'>Alleged Wrongdoing</label>
+            <select name='tar_wrongdoing' className='form-control' onChange={(e) => handleWrongdoing(e)}>
+              <option>--Select--</option>
+              <option value={0}>0 </option>
+              <option value={1}>1 </option>
+              <option value={2}>2 </option>
+              <option value={3}>3 </option>
+            </select>
+          </div>  
           </div>
         </div>
       </div>
