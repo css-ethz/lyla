@@ -163,7 +163,10 @@ function App () {
         </Dropdown.Menu>
       </Dropdown>
 
-      <Dropdown className="drop">
+      <Dropdown className="drop" onSelect={e => {
+          console.log("value is", e.target.value);
+          setTarSex(e.target.value);
+          }}>
         <Dropdown.Toggle variant="success" className="toggle">
           Sex of Target
         </Dropdown.Toggle>
