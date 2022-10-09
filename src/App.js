@@ -63,6 +63,9 @@ function App () {
     });
   }
  */
+  function onFilterSexSelected(filterValue){
+    setTarSex(filterValue);
+  }
   const handleTarSex=(event)=>{
     const gettarsex= event.target.value;
     setTarSex(gettarsex);
@@ -99,17 +102,19 @@ function App () {
 
   }, [tarSex]); */
 
- /*  const filterSex = (data) => {
-    if (!tarSex || tarSex === "all"){ setFilteredData(data);
-    console.log("tar_sex is");
-    console.log(tarSex);
-    }
-    else {
-      console.log("filtered tar_sex");
-      setFilteredData(data.filter(item => item.properties.tar_sex === tarSex));
-    }
-    
-  }; */
+ const filteredSexData = filteredData.features.filter((item) => {
+        if (tarSex === 0){
+          console.log('it is 0');
+          return item.properties.tar1_sex === 0;
+        } else if (tarSex === 1) {
+          console.log('it is 1');
+          return item.properties.tar1_sex === 1;
+        } else {
+          console.log('no filter');
+          return item;
+        }
+      })
+  
 
  /*  const filterPeViolence = useMemo((data) => {
     if (!peViolence || peViolence === "all") return data;
@@ -279,6 +284,9 @@ function App () {
           </div>
         </div>
       </div>
+      {filteredSexData.features.map((item) => {
+        <p>item.properties.tar1_sex</p>
+      })}
     </div>
   </Container>
 
@@ -346,7 +354,7 @@ function App () {
     <p>Tar Sex: {tarSex}</p>
     </div>
   );
-}
+};
 
 
 
