@@ -65,7 +65,7 @@ function App () {
  */
   const handleTarSex=(event)=>{
     const gattarsex= event.target.value;
-    setCountryid(gattarsex);
+    setTarSex(gattarsex);
     event.preventDefault();
   }
 
