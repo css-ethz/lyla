@@ -1,5 +1,6 @@
 import { useEffect, useState , useMemo, useRef} from 'react';
 import "@progress/kendo-theme-default/dist/all.css";
+import { Container } from 'react-bootstrap';
 import {
   MapContainer,
   TileLayer,
@@ -55,17 +56,23 @@ function App () {
   //console.log(filteredData);
 
 
-  const handleTarChange = (e)=>{
+  /* const handleTarChange = (e)=>{
     const value = e.target.value;
     setTarSex({
       [e.target.name]: value
     });
   }
+ */
+  const handleTarSex=(event)=>{
+    const gattarsex= event.target.value;
+    setCountryid(gattarsex);
+    event.preventDefault();
+  }
 
-  const testVariables = () => {
+  /* const testVariables = () => {
     console.log(tarSex);
     console.log(filteredData);
-  }
+  } */
   // let evData = [...eventData];
 
   /* const filterWrongdoing = useMemo((data) => {
@@ -128,14 +135,14 @@ function App () {
 
      circle.bindPopup("testing popup"); */
 
-      if (!tarSex || tarSex === 8){ setFilteredData(eventData);
+     /*  if (!tarSex || tarSex === 8){ setFilteredData(eventData);
       console.log("tar_sex is");
       console.log(tarSex);
       }
       else {
         console.log("filtered tar_sex");
         setFilteredData(eventData.filter(item => item.properties.tar1_sex === tarSex));
-      } 
+      }  */
      //filterSex(filteredData);
      //console.log("filtered data in use effect hook:");
      //console.log({filteredData});
@@ -155,7 +162,7 @@ function App () {
   return (
     <div className="App">
       <h4>LYLA Dashboard</h4>
-       <Dropdown className="drop" autoClose='true' onSelect={e => setWrongdoing(e.currentTarget.value)}>
+      {/*  <Dropdown className="drop" autoClose='true' onSelect={e => setWrongdoing(e.currentTarget.value)}>
         <Dropdown.Toggle variant="success" className="toggle">
           Wrongdoing Type
         </Dropdown.Toggle>
@@ -218,10 +225,10 @@ function App () {
             4
           </Dropdown.Item>
         </Dropdown.Menu>
-      </Dropdown>
+      </Dropdown> */}
   
 
-<form>
+{/* <form>
 
 <label>
   TarSex
@@ -234,7 +241,31 @@ function App () {
 
 
 
-</form>
+</form> */}
+
+<div>
+  <Container className="content">
+    <div className='row'>
+      <div className='col-sm-12'>
+        <h5 className="mt-4 mb-4 fw-bold">Title</h5>
+        <div className="row mb-3">
+          <div className='form-group col-md-4'>
+            <label className='mb-2'>Sex of Target</label>
+            <select name='tar1_sex' className='form-control' onChange={(e) => handleTarSex(e)}>
+              <option>--Select sex--</option>
+              <option value={0}>0 </option>
+              <option value={1}>1 </option>
+            </select>
+          </div>
+          <div className="form-group col-md-2 mt-4">    
+          <button className="btn btn-success mt-2" >Submit</button>  
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+
+</div>
 
     <MapContainer
       bounds={outerBounds}
