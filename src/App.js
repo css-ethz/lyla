@@ -102,7 +102,8 @@ function App () {
 
   }, [tarSex]); */
 
- const filteredSexData = filteredData.features.filter((item) => {
+ /* const filteredSexData = filteredData.features.filter(item => item.properties.tar1_sex{
+        if (item.properties.tar1_sex === tarSex)
         if (tarSex === 0){
           console.log('it is 0');
           return item.properties.tar1_sex === 0;
@@ -115,7 +116,7 @@ function App () {
         }
       })
   
-
+ */
  /*  const filterPeViolence = useMemo((data) => {
     if (!peViolence || peViolence === "all") return data;
     
@@ -129,9 +130,6 @@ function App () {
     if (!map) return;
 
     const legend = L.control({ position: "bottomleft" });
-    //map.fitBounds(polygon.getBounds()); // max zoom to see whole polygon
-    //map.setMaxBounds(polygon.getBounds()); // restrict map view to polygon bounds
-    //map.options.minZoom = map.getZoom();  
     legend.onAdd = () => {
       const div = L.DomUtil.create("div", "legend");
       div.innerHTML = `click on polygon`;
@@ -167,9 +165,15 @@ function App () {
      evData = filterPeViolence(evData);
 
      console.log(evData);
- */
-      console.log(filteredSexData);
-      console.log(filteredSexData);
+
+
+ */   var filtered_data = eventData;
+      filtered_data = filtered_data.filter((item) => item.features.properties.tar1_sex == tarSex);
+      setFilteredData(filtered_data);
+      console.log("original dataset:");
+      console.log(eventData);
+      console.log("filtered dataset");
+      console.log(filteredData);
   }, [map, tarSex, filteredData]);
 
 
