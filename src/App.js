@@ -286,9 +286,9 @@ function App () {
           </div>
         </div>
       </div>
-      {filteredSexData.features.map(item => {
+      {/* {filteredSexData.features.map(item => {
         <p>{item.properties.tar1_sex}</p>
-      })}
+      })} */}
     </div>
   </Container>
 
