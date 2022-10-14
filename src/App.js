@@ -48,7 +48,7 @@ function App () {
   const [activeEvent, setActiveEvent] = useState(null);
   const [filteredData, setFilteredData] = useState(eventData);
   const [wrongdoing, setWrongdoing] = useState("all");
-  const [tarSex, setTarSex] = useState(0);
+  const [tarSex, setTarSex] = useState(null);
   const [peViolence, setPeViolence] = useState("all");
   //console.log("variables outside use effect hook: tarSex:");
   //console.log(tarSex);
@@ -128,6 +128,7 @@ function App () {
   useEffect(() => {
     //console.log(evData);
     if (!map) return;
+    console.log("test");
 
     const legend = L.control({ position: "bottomleft" });
     legend.onAdd = () => {
@@ -167,15 +168,28 @@ function App () {
      console.log(evData);
 
 
- */   var filtered_data = eventData;
-      filtered_data = filtered_data.filter((item) => item.features.properties.tar1_sex == tarSex);
-      setFilteredData(filtered_data);
-      console.log("original dataset:");
-      console.log(eventData);
-      console.log("filtered dataset");
-      console.log(filteredData);
-  }, [map, tarSex, filteredData]);
+ */   
+  }, [map]);
 
+  useEffect(()=> {
+    console.log("original dataset is:");
+    console.log(eventData);
+    var filtered_data = Object.create(eventData);
+    if (!tarSex)
+    filtered_data.features = filtered_data.features.filter((item) => 
+      item.properties.tar1_sex == tarSex
+    );
+
+
+    setFilteredData(filtered_data);
+    //console.log("original dataset:");
+    console.log("original dataset after filter is:");
+    console.log(eventData);
+    console.log(tarSex);
+    console.log("filtered dataset is");
+    console.log(filtered_data);
+
+  },[tarSex]);
 
 
   return (
