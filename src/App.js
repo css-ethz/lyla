@@ -170,7 +170,7 @@ function App () {
  */
       console.log(filteredSexData);
       console.log(filteredSexData);
-  }, [tarSex, filteredData]);
+  }, [map, tarSex, filteredData]);
 
 
 
