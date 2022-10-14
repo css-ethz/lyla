@@ -175,7 +175,6 @@ function App () {
     console.log("original dataset is:");
     console.log(eventData);
     var filtered_data = Object.create(eventData);
-    if (!tarSex)
     filtered_data.features = filtered_data.features.filter((item) => 
       item.properties.tar1_sex == tarSex
     );
