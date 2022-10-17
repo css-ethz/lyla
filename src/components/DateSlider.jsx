@@ -44,7 +44,7 @@ function DateSlider({setSDate, setEDate}){
     const formatDate=(date)=>{
         let day, month, year = 0;
         day = date.get('date')
-        month = date.get('month')
+        month = date.get('month')+1
         year = date.get('year')
         return day + '.' + month + '.' + year
       }
