@@ -1,6 +1,6 @@
 import { useEffect, useState , useMemo, useRef} from 'react';
 import "@progress/kendo-theme-default/dist/all.css";
-import { Container, Row, Col  } from 'react-bootstrap';
+import { Container, Row, Col ,Form} from 'react-bootstrap';
 import {
   MapContainer,
   TileLayer,
@@ -11,12 +11,13 @@ import L from 'leaflet';
 import {Icon} from 'leaflet';
 import geojson from './data/admin0.geojson.json'
 import eventData from './data/events.json'
+import dictionary from './data/dictionary.json'
 import tileLayer from './util/tileLayer';
 import './App.css'
 import 'leaflet/dist/leaflet.css';
 //import { EventDropDownList } from './components/DropDownList';
 import Dropdown from 'react-bootstrap/Dropdown';
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import DateSlider from './components/DateSlider'
 
 const center = [-10.4358446, -76.527726];
@@ -29,6 +30,7 @@ const outerBounds = [
 //function onEachFeature(feature, layer) {
 //  layer.bindPopup(feature.properties.ADMIN)
 //}
+
 
 function style(feature) {
   return {
@@ -147,7 +149,7 @@ function App () {
       div.innerHTML = `click on polygon`;
       return div;
     };
- 
+    
    /*  legend.addTo(map);
     const circle = L.circle([3.4358446, -76.527726], {
       color: 'red',
@@ -185,6 +187,7 @@ function App () {
   useEffect(()=> {
     console.log("startdate",StartDate)
     console.log("ENDdate",EndDate)
+    console.log(dictionary)
   },[StartDate,EndDate]);
 
 
@@ -305,12 +308,12 @@ function App () {
 
 {/* <form>
 
-<label>
+<Form.Label>
   TarSex
   <input type="number" name="tarSex" value={tarSex}
     onChange={handleTarChange}
   />
-</label>
+</Form.Label>
 <button type="button" onClick={testVariables}>Test</button>
 
 
@@ -319,38 +322,51 @@ function App () {
 </form> */}
 
 <div>
-  <Container class="container">
-    <Row class='form-row'>
-      <Col class='form-group form-col-12'>
+  <Container fluid>
+    <Row>
+      <Col md={6}>
          <DateSlider setSDate={setSDate} setEDate={setEDate}/> 
       </Col>
-
-        <Col className='form-group form-col-3'>
-          <label className='mb-2'>Sex of Target</label>
-          <select name='tar1_sex' className='form-control' onChange={(e) => handleTarSex(e)}>
+    </Row>
+    <Row>
+        <Col md={2}>
+          <Form.Label className='mb-2'>Sex of Target</Form.Label>
+          <Form.Select name='tar1_sex' className='form-control' onChange={(e) => handleTarSex(e)}>
             <option value={null}>--Select--</option>
-            <option value={0}>0 </option>
-            <option value={1}>1 </option>
-          </select>
+            {dictionary.filter((item) => 
+              item.variable=='tar1_sex'
+                  ).map((element) => {
+                    return <option value={element.value}>{element.name} 
+                      </option>;
+              })
+            }
+          </Form.Select>
         </Col>
-        <Col className='form-group form-col-3'>
-          <label className='mb-2'>Alleged Wrongdoing</label>
-          <select name='tar_wrongdoing' className='form-control' onChange={(e) => handleWrongdoing(e)}>
+        <Col md={2}>
+          <Form.Label className='mb-2'>Alleged Wrongdoing</Form.Label>
+          <Form.Select name='tar_wrongdoing' className='form-control' onChange={(e) => handleWrongdoing(e)}>
             <option value={null}>--Select--</option>
-            <option value={0}>0 </option>
-            <option value={1}>1 </option>
-            <option value={2}>2 </option>
-            <option value={3}>3 </option>
-          </select>
+            {dictionary.filter((item) => 
+              item.variable=='tar_wrongdoing'
+                  ).map((element) => {
+                    return <option value={element.value}>{element.name} 
+                      </option>;
+              })
+            }
+          </Form.Select>
         </Col>
-        <Col className='form-group form-col-3'>
-          <label className='mb-2'>Worst outcome</label>
-          <select name='tar_outcome' className='form-control' onChange={(e) => handleTarOutcome(e)}>
+        <Col md={2}>
+          <Form.Label className='mb-2'>Worst outcome</Form.Label>
+          <Form.Select name='tar_outcome' className='form-control' onChange={(e) => handleTarOutcome(e)}>
             <option value={null}>--Select--</option>
-            <option value={0}>0 </option>
-            <option value={1}>1 </option>
-            <option value={2}>2 </option>
-          </select>
+            {dictionary.filter((item) => 
+              item.variable=='tar_outcome'
+                  ).map((element) => {
+                    return <option value={element.value}>{element.name} 
+                      </option>;
+              })
+            }
+          </Form.Select>
         </Col>
       {/* {filteredSexData.features.map(item => {
         <p>{item.properties.tar1_sex}</p>

@@ -1,0 +1,20 @@
+variable,value,name
+tar_outcome,1,death
+tar_outcome,2,injury
+tar_outcome,3,no injury
+tar1_sex,1,male
+tar1_sex,2,female
+tar1_sex,3,other
+tar_wrongdoing,1,theft/robbery
+tar_wrongdoing,2,child abuse
+tar_wrongdoing,3,Murder
+tar_wrongdoing,4,witchcraft
+tar_wrongdoing,5,corruption/failure of duty
+tar_wrongdoing,6,extortion
+tar_wrongdoing,7,sexual violence
+tar_wrongdoing,8,unintentional killing
+tar_wrongdoing,9,kidnapping
+tar_wrongdoing,10,injury
+tar_wrongdoing,11,participation in criminal organization
+tar_wrongdoing,12,domestic violence
+tar_wrongdoing,13,traffic incident
