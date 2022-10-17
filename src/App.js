@@ -1,6 +1,6 @@
 import { useEffect, useState , useMemo, useRef} from 'react';
 import "@progress/kendo-theme-default/dist/all.css";
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col  } from 'react-bootstrap';
 import {
   MapContainer,
   TileLayer,
@@ -17,6 +17,7 @@ import 'leaflet/dist/leaflet.css';
 //import { EventDropDownList } from './components/DropDownList';
 import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.css';
+import DateSlider from './components/DateSlider'
 
 const center = [-10.4358446, -76.527726];
 const outerBounds = [
@@ -51,6 +52,9 @@ function App () {
   const [tarSex, setTarSex] = useState('--Select--');
   const [tarOutcome, setTarOutcome] = useState('--Select--');
   const [peViolence, setPeViolence] = useState("all");
+  const [StartDate, setSDate] = useState("23.10.2008");
+  const [EndDate, setEDate] = useState("23.10.2022");
+  
   //console.log("variables outside use effect hook: tarSex:");
   //console.log(tarSex);
   //console.log("variables outside use effect hook: filtered data:");
@@ -64,6 +68,12 @@ function App () {
     });
   }
  */
+  function parseDate(input) {
+    var parts = input.match(/(\d+)/g);
+    // note parts[1]-1
+    console.log(parts)
+    return new Date(parts[2], parts[1]-1, parts[0]);
+  }
 
   const handleTarSex=(event)=>{
     const gettarsex= event.target.value;
@@ -173,6 +183,12 @@ function App () {
   }, [map]);
 
   useEffect(()=> {
+    console.log("startdate",StartDate)
+    console.log("ENDdate",EndDate)
+  },[StartDate,EndDate]);
+
+
+  useEffect(()=> {
     console.log("original dataset is:");
     console.log(eventData);
     var filtered_data = Object.create(eventData);
@@ -191,7 +207,18 @@ function App () {
         item.properties.tar_wrongdoing==wrongdoing
       );
     }
-    
+    var start_parsed=parseDate(StartDate)
+    var end_parsed=parseDate(EndDate)
+    console.log("m",start_parsed)
+    filtered_data.features = filtered_data.features.filter((item) => {
+      console.log("dat0",item.properties.date)
+      var date = new Date(parseDate(item.properties.date));
+      console.log("dat",date)
+      console.log(start_parsed)
+      return (date >= start_parsed && date <= end_parsed);
+    }
+        
+      );
 
 
     setFilteredData(filtered_data);
@@ -204,7 +231,7 @@ function App () {
     console.log("filtered dataset is");
     console.log(filtered_data);
 
-  },[tarSex,tarOutcome,wrongdoing]);
+  },[tarSex,tarOutcome,wrongdoing,StartDate,EndDate]);
 
 
   return (
@@ -292,17 +319,21 @@ function App () {
 </form> */}
 
 <div>
-  <Container className="content">
-    <div className='row'>
-        <div className='form-group col-md-3'>
+  <Container class="container">
+    <Row class='form-row'>
+      <Col class='form-group form-col-12'>
+         <DateSlider setSDate={setSDate} setEDate={setEDate}/> 
+      </Col>
+
+        <Col className='form-group form-col-3'>
           <label className='mb-2'>Sex of Target</label>
           <select name='tar1_sex' className='form-control' onChange={(e) => handleTarSex(e)}>
             <option value={null}>--Select--</option>
             <option value={0}>0 </option>
             <option value={1}>1 </option>
           </select>
-        </div>
-        <div className='form-group col-md-3'>
+        </Col>
+        <Col className='form-group form-col-3'>
           <label className='mb-2'>Alleged Wrongdoing</label>
           <select name='tar_wrongdoing' className='form-control' onChange={(e) => handleWrongdoing(e)}>
             <option value={null}>--Select--</option>
@@ -311,8 +342,8 @@ function App () {
             <option value={2}>2 </option>
             <option value={3}>3 </option>
           </select>
-        </div>
-        <div className='form-group col-md-3'>
+        </Col>
+        <Col className='form-group form-col-3'>
           <label className='mb-2'>Worst outcome</label>
           <select name='tar_outcome' className='form-control' onChange={(e) => handleTarOutcome(e)}>
             <option value={null}>--Select--</option>
@@ -320,11 +351,11 @@ function App () {
             <option value={1}>1 </option>
             <option value={2}>2 </option>
           </select>
-        </div>
+        </Col>
       {/* {filteredSexData.features.map(item => {
         <p>{item.properties.tar1_sex}</p>
       })} */}
-    </div>
+    </Row>
   </Container>
 
 </div>
