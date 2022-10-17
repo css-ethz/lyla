@@ -47,8 +47,9 @@ function App () {
   const [map, setMap] = useState(null);
   const [activeEvent, setActiveEvent] = useState(null);
   const [filteredData, setFilteredData] = useState(eventData);
-  const [wrongdoing, setWrongdoing] = useState("all");
-  const [tarSex, setTarSex] = useState(null);
+  const [wrongdoing, setWrongdoing] = useState('--Select--');
+  const [tarSex, setTarSex] = useState('--Select--');
+  const [tarOutcome, setTarOutcome] = useState('--Select--');
   const [peViolence, setPeViolence] = useState("all");
   //console.log("variables outside use effect hook: tarSex:");
   //console.log(tarSex);
@@ -63,21 +64,21 @@ function App () {
     });
   }
  */
-  function onFilterSexSelected(filterValue){
-    setTarSex(filterValue);
-  }
+
   const handleTarSex=(event)=>{
     const gettarsex= event.target.value;
     setTarSex(gettarsex);
-    console.log(tarSex);
-    event.preventDefault();
   }
 
   const handleWrongdoing = (event)=>{
     const getwrongdoing=event.target.value;
     setWrongdoing(getwrongdoing);
-    console.log(wrongdoing);
-    event.preventDefault();
+  }
+
+
+  const handleTarOutcome = (event)=>{
+    const getoutcome=event.target.value;
+    setTarOutcome(getoutcome);
   }
 
   /* const testVariables = () => {
@@ -175,9 +176,22 @@ function App () {
     console.log("original dataset is:");
     console.log(eventData);
     var filtered_data = Object.create(eventData);
-    filtered_data.features = filtered_data.features.filter((item) => 
-      item.properties.tar1_sex == tarSex
-    );
+    if (tarSex!='--Select--'){
+      filtered_data.features = filtered_data.features.filter((item) => 
+        item.properties.tar1_sex == tarSex
+      );
+    }
+    if (tarOutcome!='--Select--'){
+      filtered_data.features = filtered_data.features.filter((item) => 
+        item.properties.tar_outcome==tarOutcome
+      );
+    }
+    if (wrongdoing!='--Select--'){
+      filtered_data.features = filtered_data.features.filter((item) => 
+        item.properties.tar_wrongdoing==wrongdoing
+      );
+    }
+    
 
 
     setFilteredData(filtered_data);
@@ -185,10 +199,12 @@ function App () {
     console.log("original dataset after filter is:");
     console.log(eventData);
     console.log(tarSex);
+    console.log(tarOutcome);
+    console.log(wrongdoing);
     console.log("filtered dataset is");
     console.log(filtered_data);
 
-  },[tarSex]);
+  },[tarSex,tarOutcome,wrongdoing]);
 
 
   return (
@@ -278,31 +294,33 @@ function App () {
 <div>
   <Container className="content">
     <div className='row'>
-      <div className='col-sm-12'>
-        <h5 className="mt-4 mb-4 fw-bold">Title</h5>
-        <div className="row mb-3">
-          <div className='form-group col-md-4'>
-            <label className='mb-2'>Sex of Target</label>
-            <select name='tar1_sex' className='form-control' onChange={(e) => handleTarSex(e)}>
-              <option>--Select--</option>
-              <option value={0}>0 </option>
-              <option value={1}>1 </option>
-            </select>
-          </div>
-          <div className="form-group col-md-2 mt-4">  
-          <div className='form-group col-md-4'>
-            <label className='mb-2'>Alleged Wrongdoing</label>
-            <select name='tar_wrongdoing' className='form-control' onChange={(e) => handleWrongdoing(e)}>
-              <option>--Select--</option>
-              <option value={0}>0 </option>
-              <option value={1}>1 </option>
-              <option value={2}>2 </option>
-              <option value={3}>3 </option>
-            </select>
-          </div>  
-          </div>
+        <div className='form-group col-md-3'>
+          <label className='mb-2'>Sex of Target</label>
+          <select name='tar1_sex' className='form-control' onChange={(e) => handleTarSex(e)}>
+            <option value={null}>--Select--</option>
+            <option value={0}>0 </option>
+            <option value={1}>1 </option>
+          </select>
         </div>
-      </div>
+        <div className='form-group col-md-3'>
+          <label className='mb-2'>Alleged Wrongdoing</label>
+          <select name='tar_wrongdoing' className='form-control' onChange={(e) => handleWrongdoing(e)}>
+            <option value={null}>--Select--</option>
+            <option value={0}>0 </option>
+            <option value={1}>1 </option>
+            <option value={2}>2 </option>
+            <option value={3}>3 </option>
+          </select>
+        </div>
+        <div className='form-group col-md-3'>
+          <label className='mb-2'>Worst outcome</label>
+          <select name='tar_outcome' className='form-control' onChange={(e) => handleTarOutcome(e)}>
+            <option value={null}>--Select--</option>
+            <option value={0}>0 </option>
+            <option value={1}>1 </option>
+            <option value={2}>2 </option>
+          </select>
+        </div>
       {/* {filteredSexData.features.map(item => {
         <p>{item.properties.tar1_sex}</p>
       })} */}
