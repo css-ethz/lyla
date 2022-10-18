@@ -24,7 +24,7 @@
         "type": "Feature",
         "properties": {
           "id": 493,
-          "tar1_sex": 0,
+          "tar1_sex": 2,
           "tar1_age": 2,
           "pe_violence": 4,
           "st_outcome": 1,

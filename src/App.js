@@ -433,16 +433,17 @@ function App () {
 
      
       
-      <MapContent />
+      <MapContent geojson_data={geojson} />
     </MapContainer>
     <p>Tar Sex: {tarSex}</p>
+    
     </div>
   );
 };
 
 
 
-const MapContent = () => {
+const MapContent = ({geojson_data}) => {
   //const geoJson: RefObject<Leaflet.GeoJSON> = useRef(null);
   const geoJsonRef = useRef(null);
   const map = useMap();
@@ -469,7 +470,7 @@ const MapContent = () => {
 
   return (
             <GeoJSON
-              data={geojson}
+              data={geojson_data}
               //key='latam-countries'
               ref={geoJsonRef}
               style={() => {
@@ -496,6 +497,9 @@ const MapContent = () => {
                 });
               }}
             />
+
+
+
   );
 };
 
