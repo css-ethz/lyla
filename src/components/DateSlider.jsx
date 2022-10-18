@@ -25,7 +25,6 @@ function DateSlider({setSDate, setEDate}){
     const [maxRange, setmaxRange] = useState(100);
 
     const onDateChange = ([newStartDate, newEndDate])=>{
-        console.log(newStartDate)
         setcurrentValue([newStartDate, newEndDate]);
         updateDates();
       }
@@ -51,7 +50,7 @@ function DateSlider({setSDate, setEDate}){
     
 
     const tipFormatter=(value)=>{
-        console.log(value)
+
         let [min, max] = currentValue
         if(min == value){
           return(<div className="p-1 text-center">

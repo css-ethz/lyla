@@ -73,7 +73,6 @@ function App () {
   function parseDate(input) {
     var parts = input.match(/(\d+)/g);
     // note parts[1]-1
-    console.log(parts)
     return new Date(parts[2], parts[1]-1, parts[0]);
   }
 
@@ -141,7 +140,6 @@ function App () {
   useEffect(() => {
     //console.log(evData);
     if (!map) return;
-    console.log("test");
 
     const legend = L.control({ position: "bottomleft" });
     legend.onAdd = () => {
@@ -184,12 +182,6 @@ function App () {
  */   
   }, [map]);
 
-  useEffect(()=> {
-    console.log("startdate",StartDate)
-    console.log("ENDdate",EndDate)
-    console.log(dictionary)
-  },[StartDate,EndDate]);
-
 
   useEffect(()=> {
     console.log("original dataset is:");
@@ -212,12 +204,11 @@ function App () {
     }
     var start_parsed=parseDate(StartDate)
     var end_parsed=parseDate(EndDate)
-    console.log("m",start_parsed)
+
     filtered_data.features = filtered_data.features.filter((item) => {
-      console.log("dat0",item.properties.date)
+
       var date = new Date(parseDate(item.properties.date));
-      console.log("dat",date)
-      console.log(start_parsed)
+
       return (date >= start_parsed && date <= end_parsed);
     }
         
@@ -226,11 +217,6 @@ function App () {
 
     setFilteredData(filtered_data);
     //console.log("original dataset:");
-    console.log("original dataset after filter is:");
-    console.log(eventData);
-    console.log(tarSex);
-    console.log(tarOutcome);
-    console.log(wrongdoing);
     console.log("filtered dataset is");
     console.log(filtered_data);
 
