@@ -486,7 +486,10 @@ const MapContent = ({geojson_data,setfile,key}) => {
     });
   };
   useEffect(() => {
-  map.fitBounds(geoJsonRef.current.getBounds());
+    if (geoJsonRef.current.getBounds().isValid()){
+      map.fitBounds(geoJsonRef.current.getBounds());
+    }
+  
   },[geojson_data])
 
   const resetHighlight = (e) => {
