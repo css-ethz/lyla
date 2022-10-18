@@ -237,7 +237,7 @@ function App () {
 
   async function fetchData(file) {
     // const response = await fetch("./example.json");
-    const response = await fetch('/countries/' + file + '.json', {
+    const response = await fetch('/lyla/countries/' + file + '.json', {
       headers : { 
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -450,7 +450,7 @@ function App () {
       bounds={outerBounds}
       whenCreated={setMap}
       center={center}
-      zoom={7}
+      zoom={3}
       scrollWheelZoom={false}
       style={{ width: '40%', height: '560px'}}
     >
