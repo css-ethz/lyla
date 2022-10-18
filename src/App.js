@@ -56,7 +56,9 @@ function App () {
   const [peViolence, setPeViolence] = useState("all");
   const [StartDate, setSDate] = useState("23.10.2008");
   const [EndDate, setEDate] = useState("23.10.2022");
-  
+  const [shapes, setshapes] = useState();
+  const [file, setfile] = useState('Argentina');
+  const [fileflag, setfileflag] = useState('Argentina');
   //console.log("variables outside use effect hook: tarSex:");
   //console.log(tarSex);
   //console.log("variables outside use effect hook: filtered data:");
@@ -222,6 +224,27 @@ function App () {
 
   },[tarSex,tarOutcome,wrongdoing,StartDate,EndDate]);
 
+  useEffect(() => {
+    console.log(file);
+    fetchData(file);
+    const anchor = document.querySelector('#regionMap')
+    anchor.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  },[file])
+
+  useEffect(() => {
+    setfileflag(file);
+  },[shapes])
+
+  async function fetchData(file) {
+    // const response = await fetch("./example.json");
+    const response = await fetch('/countries/' + file + '.json', {
+      headers : { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       }
+    })
+    setshapes(await response.json());
+  }
 
   return (
     <div className="App">
@@ -419,8 +442,25 @@ function App () {
 
      
       
-      <MapContent geojson_data={geojson} />
+      <MapContent geojson_data={geojson} setfile={setfile} key={'latam'}/>
     </MapContainer>
+
+    <MapContainer
+      id="regionMap"
+      bounds={outerBounds}
+      whenCreated={setMap}
+      center={center}
+      zoom={7}
+      scrollWheelZoom={false}
+      style={{ width: '40%', height: '560px'}}
+    >
+      <TileLayer {...tileLayer} />
+      
+      <MapContent geojson_data={shapes} setfile={setfile} key={fileflag} />
+    </MapContainer>
+
+
+
     <p>Tar Sex: {tarSex}</p>
     
     </div>
@@ -429,7 +469,7 @@ function App () {
 
 
 
-const MapContent = ({geojson_data}) => {
+const MapContent = ({geojson_data,setfile,key}) => {
   //const geoJson: RefObject<Leaflet.GeoJSON> = useRef(null);
   const geoJsonRef = useRef(null);
   const map = useMap();
@@ -445,6 +485,9 @@ const MapContent = ({geojson_data}) => {
       weight: 5,
     });
   };
+  useEffect(() => {
+  map.fitBounds(geoJsonRef.current.getBounds());
+  },[geojson_data])
 
   const resetHighlight = (e) => {
     geoJsonRef.current?.resetStyle(e.target);
@@ -457,7 +500,7 @@ const MapContent = ({geojson_data}) => {
   return (
             <GeoJSON
               data={geojson_data}
-              //key='latam-countries'
+              key={key}
               ref={geoJsonRef}
               style={() => {
                 return {
@@ -473,6 +516,7 @@ const MapContent = ({geojson_data}) => {
                 layer.on({
                   click: (e) => {
                     zoomToFeature(e);
+                    setfile(e.target.feature.properties.ADMIN);
                   },
                   mouseout: (e) => {
                     resetHighlight(e);
