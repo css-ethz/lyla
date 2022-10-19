@@ -10,7 +10,7 @@ import {
 import L from 'leaflet';
 import {Icon} from 'leaflet';
 import geojson from './data/admin0.geojson.json'
-import eventData from './data/events.json'
+import eventData from './data/json_data.json'
 import dictionary from './data/dictionary.json'
 import tileLayer from './util/tileLayer';
 import { CSVLink } from 'react-csv';
@@ -20,8 +20,12 @@ import 'leaflet/dist/leaflet.css';
 //import { EventDropDownList } from './components/DropDownList';
 import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import DateSlider from './components/DateSlider'
+import DateSlider from './components/DateSlider';
+import MarkerClusterGroup from '@changey/react-leaflet-markercluster';
+import 'leaflet/dist/leaflet.css';
+import '@changey/react-leaflet-markercluster/dist/styles.min.css';
 
+require('leaflet/dist/leaflet.css');
 const center = [-10.4358446, -76.527726];
 const outerBounds = [
   [2.505, -100.09],
@@ -192,26 +196,26 @@ function App () {
     console.log(eventData);
     var filtered_data = Object.create(eventData);
     if (tarSex!='--Select--'){
-      filtered_data.features = filtered_data.features.filter((item) => 
-        item.properties.tar1_sex == tarSex
+      filtered_data = filtered_data.filter((item) => 
+        item.tar1_sex == tarSex
       );
     }
     if (tarOutcome!='--Select--'){
-      filtered_data.features = filtered_data.features.filter((item) => 
-        item.properties.tar_outcome==tarOutcome
+      filtered_data = filtered_data.filter((item) => 
+        item.tar_outcome==tarOutcome
       );
     }
     if (wrongdoing!='--Select--'){
-      filtered_data.features = filtered_data.features.filter((item) => 
-        item.properties.tar_wrongdoing==wrongdoing
+      filtered_data = filtered_data.filter((item) => 
+        item.tar_wrongdoing==wrongdoing
       );
     }
     var start_parsed=parseDate(StartDate)
     var end_parsed=parseDate(EndDate)
 
-    filtered_data.features = filtered_data.features.filter((item) => {
+    filtered_data = filtered_data.filter((item) => {
 
-      var date = new Date(parseDate(item.properties.date));
+      var date = new Date(item.date);
 
       return (date >= start_parsed && date <= end_parsed);
     }
@@ -399,7 +403,9 @@ function App () {
       scrollWheelZoom={false}
       style={{ width: '40%', height: '560px'}}
     >
-      {filteredData.features.map(evt => (
+ <TileLayer {...tileLayer} />
+ <MarkerClusterGroup maxClusterRadius={40} >
+      {filteredData.map(evt => (
         //<Marker
           //key={evt.properties.id}
           //position={[
@@ -412,13 +418,14 @@ function App () {
           
           //icon={icon}
         //>
+        
           <Circle 
-                  center={{lat:evt.geometry.coordinates[0], lng: evt.geometry.coordinates[1]}}
-                  fillColor="green" 
-                  radius={200000}
-                  pathOptions={{
-                    color: "green"
-                  }}
+          center={{lat:evt.geometry.coordinates[0], lng: evt.geometry.coordinates[1]}}
+          fillColor="green" 
+          radius={20000}
+          pathOptions={{
+            color: "green"
+          }}
                   onClick={() => {
                     setActiveEvent(evt);
                   }}/>
@@ -426,7 +433,8 @@ function App () {
         //</Marker>
         
       ))}
-      {activeEvent && (
+</MarkerClusterGroup>      
+{activeEvent && (
     <Popup
       position={[
         activeEvent.geometry.coordinates[0],
@@ -437,14 +445,14 @@ function App () {
       }}
     >
       <div>
-        <h2>{activeEvent.properties.evidence1_text}</h2>
-        <p>{activeEvent.properties.date}</p>
+        <h2>{activeEvent.evidence1_text}</h2>
+        <p>{activeEvent.date}</p>
       </div>
     </Popup>
   )}
 
 
-      <TileLayer {...tileLayer} />
+     
 
      
       
