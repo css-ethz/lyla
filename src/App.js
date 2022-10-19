@@ -379,17 +379,14 @@ const DownloadComponent = ({filteredData}) => {
   const csvLink = useRef() // setup the ref that we'll use for the hidden CsvLink click once we've updated the data
 
   const getTransactionData =() => {
-    // 'api' just wraps axios with some setting specific to our app. the important thing here is that we use .then to capture the table response data, update the state, and then once we exit that operation we're going to click on the csv download link using the ref
-    let result = filteredData.features.map(a => a.properties);
-    setTransactionData(result)
-    console.log("mm",result);
-    csvLink.current.link.click()
+    setTransactionData(filteredData);
+    csvLink.current.link.click();
   }
-
-  // more code here
+  useEffect(() => {
+    setTransactionData(filteredData);
+  },[filteredData])
 
   return (
-  // a bunch of other code here...
     <div>
       <Button onClick={getTransactionData}>Download events to csv</Button>
       <CSVLink
