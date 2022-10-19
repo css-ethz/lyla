@@ -20,6 +20,7 @@
     "react-csv": "^2.2.2",
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.0.2",
+    "react-multi-select-component": "^4.3.4",
     "react-scripts": "5.0.1",
     "reactstrap": "^9.1.4",
     "web-vitals": "^2.1.4"

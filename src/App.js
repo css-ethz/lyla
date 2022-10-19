@@ -23,6 +23,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import DateSlider from './components/DateSlider';
 import MarkerClusterGroup from '@changey/react-leaflet-markercluster';
 import 'leaflet/dist/leaflet.css';
+import { MultiSelect } from "react-multi-select-component";
 import '@changey/react-leaflet-markercluster/dist/styles.min.css';
 
 require('leaflet/dist/leaflet.css');
@@ -56,95 +57,22 @@ function App () {
   const [map, setMap] = useState(null);
   const [activeEvent, setActiveEvent] = useState(null);
   const [filteredData, setFilteredData] = useState(eventData);
-  const [wrongdoing, setWrongdoing] = useState('--Select--');
-  const [tarSex, setTarSex] = useState('--Select--');
-  const [tarOutcome, setTarOutcome] = useState('--Select--');
+  const [wrongdoing, setWrongdoing] = useState([]);
+  const [tarSex, setTarSex] = useState([]);
+  const [tarOutcome, setTarOutcome] = useState([]);
   const [peViolence, setPeViolence] = useState("all");
   const [StartDate, setSDate] = useState("23.10.2008");
   const [EndDate, setEDate] = useState("23.10.2022");
   const [shapes, setshapes] = useState();
   const [file, setfile] = useState('Argentina');
   const [fileflag, setfileflag] = useState('Argentina');
-  //console.log("variables outside use effect hook: tarSex:");
-  //console.log(tarSex);
-  //console.log("variables outside use effect hook: filtered data:");
-  //console.log(filteredData);
 
 
-  /* const handleTarChange = (e)=>{
-    const value = e.target.value;
-    setTarSex({
-      [e.target.name]: value
-    });
-  }
- */
   function parseDate(input) {
     var parts = input.match(/(\d+)/g);
     // note parts[1]-1
     return new Date(parts[2], parts[1]-1, parts[0]);
   }
-
-  const handleTarSex=(event)=>{
-    const gettarsex= event.target.value;
-    setTarSex(gettarsex);
-  }
-
-  const handleWrongdoing = (event)=>{
-    const getwrongdoing=event.target.value;
-    setWrongdoing(getwrongdoing);
-  }
-
-
-  const handleTarOutcome = (event)=>{
-    const getoutcome=event.target.value;
-    setTarOutcome(getoutcome);
-  }
-
-  /* const testVariables = () => {
-    console.log(tarSex);
-    console.log(filteredData);
-  } */
-  // let evData = [...eventData];
-
-  /* const filterWrongdoing = useMemo((data) => {
-    if (!wrongdoing || wrongdoing === "all") return data;
-    
-    return data.filter(item => item.properties.tar_wrongdoing === wrongdoing);
-
-}, [wrongdoing]);
- */
-  /* const filterSex = useMemo((data) => {
-    if (!tarSex || tarSex === "all") return data;
-    console.log("tar_sex is")
-    data.map(item => console.log(item.properties.tar_sex))
-    
-    return data.filter(item => item.properties.tar_sex === tarSex);
-
-  }, [tarSex]); */
-
- /* const filteredSexData = filteredData.features.filter(item => item.properties.tar1_sex{
-        if (item.properties.tar1_sex === tarSex)
-        if (tarSex === 0){
-          console.log('it is 0');
-          return item.properties.tar1_sex === 0;
-        } else if (tarSex === 1) {
-          console.log('it is 1');
-          return item.properties.tar1_sex === 1;
-        } else {
-          console.log('no filter');
-          return item;
-        }
-      })
-  
- */
- /*  const filterPeViolence = useMemo((data) => {
-    if (!peViolence || peViolence === "all") return data;
-    
-    return data.filter(item => item.properties.pe_violence === peViolence);
-
-  }, [peViolence]);
-   */
-
   useEffect(() => {
     //console.log(evData);
     if (!map) return;
@@ -155,39 +83,6 @@ function App () {
       div.innerHTML = `click on polygon`;
       return div;
     };
-    
-   /*  legend.addTo(map);
-    const circle = L.circle([3.4358446, -76.527726], {
-      color: 'red',
-      fillColor: '#f03',
-      fillOpacity: 0.5,
-      radius: 200
-     }).addTo(map);
-
-     circle.bindPopup("testing popup"); */
-
-     /*  if (!tarSex || tarSex === 8){ setFilteredData(eventData);
-      console.log("tar_sex is");
-      console.log(tarSex);
-      }
-      else {
-        console.log("filtered tar_sex");
-        setFilteredData(eventData.filter(item => item.properties.tar1_sex === tarSex));
-      }  */
-     //filterSex(filteredData);
-     //console.log("filtered data in use effect hook:");
-     //console.log({filteredData});
-     //console.log("tar_sex in use effect hook:");
-     //console.log({tarSex});
-
-     /* evData = filterWrongdoing(evData);
-     evData = filterSex(evData);
-     evData = filterPeViolence(evData);
-
-     console.log(evData);
-
-
- */   
   }, [map]);
 
 
@@ -195,19 +90,28 @@ function App () {
     console.log("original dataset is:");
     console.log(eventData);
     var filtered_data = Object.create(eventData);
-    if (tarSex!='--Select--'){
+    if(tarSex.length>0){
+      
       filtered_data = filtered_data.filter((item) => 
-        item.tar1_sex == tarSex
+      tarSex.map(function(e) {
+        return e.value;
+      }).includes(item.tar1_sex)
       );
     }
-    if (tarOutcome!='--Select--'){
+    if(tarOutcome.length>0){
+      
       filtered_data = filtered_data.filter((item) => 
-        item.tar_outcome==tarOutcome
+      tarOutcome.map(function(e) {
+        return e.value;
+      }).includes(item.tar_outcome)
       );
     }
-    if (wrongdoing!='--Select--'){
+    if(wrongdoing.length>0){
+      
       filtered_data = filtered_data.filter((item) => 
-        item.tar_wrongdoing==wrongdoing
+      wrongdoing.map(function(e) {
+        return e.value;
+      }).includes(item.tar_wrongdoing)
       );
     }
     var start_parsed=parseDate(StartDate)
@@ -255,86 +159,6 @@ function App () {
   return (
     <div className="App">
       <h4>LYLA Dashboard</h4>
-      {/*  <Dropdown className="drop" autoClose='true' onSelect={e => setWrongdoing(e.currentTarget.value)}>
-        <Dropdown.Toggle variant="success" className="toggle">
-          Wrongdoing Type
-        </Dropdown.Toggle>
-        <Dropdown.Menu className="dropMenu">
-        <Dropdown.Item  href="#/action-a">
-            8
-          </Dropdown.Item>
-          <Dropdown.Item  href="#/action-1">
-            0
-          </Dropdown.Item>
-          <Dropdown.Item  href="#/action-2">
-            1
-          </Dropdown.Item>
-          <Dropdown.Item  href="#/action-3">
-            2
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-
-      <Dropdown className="drop" onSelect={e => {
-          console.log("value is", e.currentTarget.value);
-          setTarSex(e.currentTarget.value);
-          }}>
-        <Dropdown.Toggle variant="success" className="toggle">
-          Sex of Target
-        </Dropdown.Toggle>
-        <Dropdown.Menu className="dropMenu">
-        <Dropdown.Item  href="#/tar_sex_a">
-            all
-           
-          </Dropdown.Item>
-          <Dropdown.Item  href="#/tar_sex_m">
-            0
-          </Dropdown.Item>
-          <Dropdown.Item  href="#/tar_sex_f">
-            1
-           
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-      
-      <Dropdown className="drop" onSelect={e => setPeViolence(e.currentTarget.value)}>
-        <Dropdown.Toggle variant="success" className="toggle">
-          pe_violence
-        </Dropdown.Toggle>
-        <Dropdown.Menu className="dropMenu">
-        <Dropdown.Item  href="#/action-va">
-            all
-          </Dropdown.Item>
-          <Dropdown.Item  href="#/action-v1">
-            0
-          </Dropdown.Item>
-          <Dropdown.Item  href="#/action-v2">
-            1
-          </Dropdown.Item>
-          <Dropdown.Item  href="#/action-v3">
-            2
-          </Dropdown.Item>
-          <Dropdown.Item  href="#/action-v4">
-            4
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown> */}
-  
-
-{/* <form>
-
-<Form.Label>
-  TarSex
-  <input type="number" name="tarSex" value={tarSex}
-    onChange={handleTarChange}
-  />
-</Form.Label>
-<button type="button" onClick={testVariables}>Test</button>
-
-
-
-
-</form> */}
 
 <div>
   <Container fluid>
@@ -346,42 +170,45 @@ function App () {
     <Row>
         <Col md={2}>
           <Form.Label className='mb-2'>Sex of Target</Form.Label>
-          <Form.Select name='tar1_sex' className='form-control' onChange={(e) => handleTarSex(e)}>
-            <option value={null}>--Select--</option>
-            {dictionary.filter((item) => 
-              item.variable=='tar1_sex'
-                  ).map((element) => {
-                    return <option value={element.value}>{element.name} 
-                      </option>;
-              })
-            }
-          </Form.Select>
+          <MultiSelect
+          options={dictionary.filter((item) => 
+            item.variable=='tar1_sex'
+                ).map((element) => {
+                  return {'label':element.name,'value':element.value}
+                    
+            })}
+            value={tarSex}
+          onChange={setTarSex}
+          labelledBy="Select"
+         />
         </Col>
         <Col md={2}>
           <Form.Label className='mb-2'>Alleged Wrongdoing</Form.Label>
-          <Form.Select name='tar_wrongdoing' className='form-control' onChange={(e) => handleWrongdoing(e)}>
-            <option value={null}>--Select--</option>
-            {dictionary.filter((item) => 
-              item.variable=='tar_wrongdoing'
-                  ).map((element) => {
-                    return <option value={element.value}>{element.name} 
-                      </option>;
-              })
-            }
-          </Form.Select>
+          <MultiSelect
+          options={dictionary.filter((item) => 
+            item.variable=='tar_wrongdoing'
+                ).map((element) => {
+                  return {'label':element.name,'value':element.value}
+                    
+            })}
+            value={wrongdoing}
+          onChange={setWrongdoing}
+          labelledBy="Select"
+         />
         </Col>
         <Col md={2}>
           <Form.Label className='mb-2'>Worst outcome</Form.Label>
-          <Form.Select name='tar_outcome' className='form-control' onChange={(e) => handleTarOutcome(e)}>
-            <option value={null}>--Select--</option>
-            {dictionary.filter((item) => 
-              item.variable=='tar_outcome'
-                  ).map((element) => {
-                    return <option value={element.value}>{element.name} 
-                      </option>;
-              })
-            }
-          </Form.Select>
+          <MultiSelect
+          options={dictionary.filter((item) => 
+            item.variable=='tar_outcome'
+                ).map((element) => {
+                  return {'label':element.name,'value':element.value}
+                    
+            })}
+            value={tarOutcome}
+          onChange={setTarOutcome}
+          labelledBy="Select"
+         />
         </Col>
       {/* {filteredSexData.features.map(item => {
         <p>{item.properties.tar1_sex}</p>
@@ -474,9 +301,6 @@ function App () {
     </MapContainer>
 
 
-
-    <p>Tar Sex: {tarSex}</p>
-    
     </div>
   );
 };
