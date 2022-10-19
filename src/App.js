@@ -7,7 +7,7 @@ import {
   GeoJSON,Marker,Popup,
   useMap, Circle
 } from 'react-leaflet'
-import { Bar } from "react-chartjs-2";
+import { Bar,Line } from "react-chartjs-2";
 import L from 'leaflet';
 import {Icon} from 'leaflet';
 import geojson from './data/admin0.geojson.json'
@@ -81,13 +81,16 @@ function App () {
   const [barData, setBarData] = useState({
     labels: dictionary.filter((item) =>  item.variable==var_chart).map((element) => element.name),
     datasets: [],}); 
+
+  const [lineData, setLineData] = useState({
+      labels: dictionary.filter((item) =>  item.variable==var_chart).map((element) => element.name),
+      datasets: [],}); 
     useEffect(() => { 
     var occurences = filteredData.reduce(function (r, row) {
         var val_name=dictionary.filter((item) =>  item.variable==var_chart  & item.value==row[var_chart]).map((element) => element.name)[0];
         r[val_name] = ++r[val_name] || 1;
         return r;
     }, {});
-    console.log(occurences);
 
     setBarData({
               labels: dictionary.filter((item) =>  item.variable==var_chart).map((element) => element.name),
@@ -104,6 +107,31 @@ function App () {
                 ],});
         
         }, [var_chart]);
+
+  useEffect(() => { 
+    var occurences = eventData.filter((item) =>  item.name_0==fileflag).reduce(function (r, row) {
+      var year_month=row['date'].substring(0,4);  
+      r[year_month] = ++r[year_month] || 1;
+        return r;
+    }, {});
+    console.log(occurences);
+    setLineData({
+      labels: Object.keys(occurences),
+      datasets: [
+          {
+              label: "data",
+              data: occurences,
+              fill: false, // use "True" to draw area-plot 
+              borderColor: plotcolor,
+              backgroundColor: transparentize(plotcolor, 0.5),
+              pointBackgroundColor: 'black',
+              pointBorderColor:'black'
+          },
+        ],});
+        }, [fileflag]);
+
+
+
   function parseDate(input) {
     var parts = input.match(/(\d+)/g);
     // note parts[1]-1
@@ -335,6 +363,14 @@ function App () {
       
       <MapContent geojson_data={shapes} setfile={setfile} key={fileflag} />
     </MapContainer>
+    <Row>
+      <Col md={8}>
+      <Line data={lineData} 
+      // options= {/{scales: {x: {type: 'time'}}} }
+      />
+      </Col>
+    </Row>
+
     <Row>
       <Col md={2}>
       <Form.Select
