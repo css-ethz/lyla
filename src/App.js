@@ -26,6 +26,13 @@ import 'leaflet/dist/leaflet.css';
 import { MultiSelect } from "react-multi-select-component";
 import '@changey/react-leaflet-markercluster/dist/styles.min.css';
 
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+    iconUrl: require('leaflet/dist/images/marker-icon.png'),
+    shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+});
 require('leaflet/dist/leaflet.css');
 const center = [-10.4358446, -76.527726];
 const outerBounds = [
@@ -205,9 +212,7 @@ function App () {
           labelledBy="Select"
          />
         </Col>
-      {/* {filteredSexData.features.map(item => {
-        <p>{item.properties.tar1_sex}</p>
-      })} */}
+
     </Row>
     <Row>
       <DownloadComponent filteredData={filteredData}/>
@@ -228,20 +233,23 @@ function App () {
  <TileLayer {...tileLayer} />
  <MarkerClusterGroup maxClusterRadius={40} >
       {filteredData.map(evt => (
-        //<Marker
-          //key={evt.properties.id}
-          //position={[
-            //evt.geometry.coordinates[0],
-            //evt.geometry.coordinates[1]
-          //]}
-          //onClick={() => {
-            //setActiveEvent(evt);
-          //}}
-          
-          //icon={icon}
-        //>
-        
-          <Circle 
+        <Marker
+          key={evt.id}
+          position={[
+            evt.geometry.coordinates[0],
+            evt.geometry.coordinates[1]
+          ]}
+          onClick={() => {
+            setActiveEvent(evt);
+          }}>
+          <Popup>
+              {evt.evidence1_source} <br/>{evt.evidence1_text.slice(0,150)}
+
+          </Popup>
+
+
+        </Marker>
+/*           <Circle 
           center={{lat:evt.geometry.coordinates[0], lng: evt.geometry.coordinates[1]}}
           fillColor="green" 
           radius={20000}
@@ -249,10 +257,11 @@ function App () {
             color: "green"
           }}
                   onClick={() => {
+                    console.log("click");
                     setActiveEvent(evt);
-                  }}/>
+                  }}/> */
         
-        //</Marker>
+        
         
       ))}
 </MarkerClusterGroup>      
