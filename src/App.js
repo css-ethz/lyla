@@ -13,6 +13,8 @@ import geojson from './data/admin0.geojson.json'
 import eventData from './data/events.json'
 import dictionary from './data/dictionary.json'
 import tileLayer from './util/tileLayer';
+import { CSVLink } from 'react-csv';
+import { Button } from 'react-bootstrap'
 import './App.css'
 import 'leaflet/dist/leaflet.css';
 //import { EventDropDownList } from './components/DropDownList';
@@ -381,6 +383,10 @@ function App () {
         <p>{item.properties.tar1_sex}</p>
       })} */}
     </Row>
+    <Row>
+      <DownloadComponent filteredData={filteredData}/>
+
+    </Row>
   </Container>
 
 </div>
@@ -534,6 +540,35 @@ const MapContent = ({geojson_data,setfile,key}) => {
 
 
   );
+};
+
+const DownloadComponent = ({filteredData}) => {
+  const [transactionData, setTransactionData] = useState([])
+  const csvLink = useRef() // setup the ref that we'll use for the hidden CsvLink click once we've updated the data
+
+  const getTransactionData =() => {
+    // 'api' just wraps axios with some setting specific to our app. the important thing here is that we use .then to capture the table response data, update the state, and then once we exit that operation we're going to click on the csv download link using the ref
+    let result = filteredData.features.map(a => a.properties);
+    setTransactionData(result)
+    console.log("mm",result);
+    csvLink.current.link.click()
+  }
+
+  // more code here
+
+  return (
+  // a bunch of other code here...
+    <div>
+      <Button onClick={getTransactionData}>Download events to csv</Button>
+      <CSVLink
+         data={transactionData}
+         filename='events.csv'
+         className='hidden'
+         ref={csvLink}
+         target='_blank'
+      />
+    </div>
+  )
 };
 
 export default App;
