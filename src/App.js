@@ -87,8 +87,6 @@ function App () {
 
 
   useEffect(()=> {
-    console.log("original dataset is:");
-    console.log(eventData);
     var filtered_data = Object.create(eventData);
     if(tarSex.length>0){
       
@@ -128,9 +126,6 @@ function App () {
 
 
     setFilteredData(filtered_data);
-    //console.log("original dataset:");
-    console.log("filtered dataset is");
-    console.log(filtered_data);
 
   },[tarSex,tarOutcome,wrongdoing,StartDate,EndDate]);
 
