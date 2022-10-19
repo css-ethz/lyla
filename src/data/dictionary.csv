@@ -18,3 +18,13 @@ tar_wrongdoing,10,injury
 tar_wrongdoing,11,participation in criminal organization
 tar_wrongdoing,12,domestic violence
 tar_wrongdoing,13,traffic incident
+pe_violence,0,no violence
+pe_violence,1,beating
+pe_violence,2,hanging
+pe_violence,3,burning
+pe_violence,4,stoning
+pe_violence,5,mutilation
+pe_violence,6,detention
+pe_violence,7,dragging around
+pe_violence,8,shooting
+pe_violence,9,shaming (e.g. undressed)

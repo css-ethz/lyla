@@ -70,7 +70,7 @@ function App () {
   const [wrongdoing, setWrongdoing] = useState([]);
   const [tarSex, setTarSex] = useState([]);
   const [tarOutcome, setTarOutcome] = useState([]);
-  const [peViolence, setPeViolence] = useState("all");
+  const [peViolence, setPeViolence] = useState([]);
   const [StartDate, setSDate] = useState("23.10.2008");
   const [EndDate, setEDate] = useState("23.10.2022");
   const [shapes, setshapes] = useState();
@@ -179,6 +179,14 @@ function App () {
       }).includes(item.tar_wrongdoing)
       );
     }
+    if(peViolence.length>0){
+      
+      filtered_data = filtered_data.filter((item) => 
+      peViolence.map(function(e) {
+        return e.value;
+      }).includes(item.pe_violence)
+      );
+    }
     var start_parsed=parseDate(StartDate)
     var end_parsed=parseDate(EndDate)
 
@@ -194,7 +202,7 @@ function App () {
 
     setFilteredData(filtered_data);
 
-  },[tarSex,tarOutcome,wrongdoing,StartDate,EndDate]);
+  },[tarSex,tarOutcome,wrongdoing,peViolence,StartDate,EndDate]);
 
   useEffect(() => {
     console.log(file);
@@ -272,7 +280,20 @@ function App () {
           labelledBy="Select"
          />
         </Col>
-
+        <Col md={2}>
+          <Form.Label className='mb-2'>Worst violence inflicted</Form.Label>
+          <MultiSelect
+          options={dictionary.filter((item) => 
+            item.variable=='pe_violence'
+                ).map((element) => {
+                  return {'label':element.name,'value':element.value}
+                    
+            })}
+            value={peViolence}
+          onChange={setPeViolence}
+          labelledBy="Select"
+         />
+        </Col>
     </Row>
     <Row>
       <DownloadComponent filteredData={filteredData}/>
@@ -379,6 +400,7 @@ function App () {
             <option value="tar1_sex">Sex</option>
             <option value="tar_wrongdoing">Wrongdoing</option>
             <option value="tar_outcome">Outcome</option>
+            <option value="pe_violence">Worst violence inflicted</option>
       </Form.Select>
 
       </Col>
