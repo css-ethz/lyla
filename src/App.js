@@ -7,6 +7,7 @@ import {
   GeoJSON,Marker,Popup,
   useMap, Circle
 } from 'react-leaflet'
+import { Bar } from "react-chartjs-2";
 import L from 'leaflet';
 import {Icon} from 'leaflet';
 import geojson from './data/admin0.geojson.json'
@@ -23,9 +24,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import DateSlider from './components/DateSlider';
 import MarkerClusterGroup from '@changey/react-leaflet-markercluster';
 import 'leaflet/dist/leaflet.css';
+import colorLib from '@kurkle/color';
 import { MultiSelect } from "react-multi-select-component";
 import '@changey/react-leaflet-markercluster/dist/styles.min.css';
-
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
 delete L.Icon.Default.prototype._getIconUrl;
 
 L.Icon.Default.mergeOptions({
@@ -73,15 +76,44 @@ function App () {
   const [shapes, setshapes] = useState();
   const [file, setfile] = useState('Argentina');
   const [fileflag, setfileflag] = useState('Argentina');
+  const [var_chart,setvar_chart]=useState('tar1_sex');
+  const [plotcolor, setplotcolor] = useState("red");
+  const [barData, setBarData] = useState({
+    labels: dictionary.filter((item) =>  item.variable==var_chart).map((element) => element.name),
+    datasets: [],}); 
+    useEffect(() => { 
+    var occurences = filteredData.reduce(function (r, row) {
+        var val_name=dictionary.filter((item) =>  item.variable==var_chart  & item.value==row[var_chart]).map((element) => element.name)[0];
+        r[val_name] = ++r[val_name] || 1;
+        return r;
+    }, {});
+    console.log(occurences);
 
-
+    setBarData({
+              labels: dictionary.filter((item) =>  item.variable==var_chart).map((element) => element.name),
+              datasets: [
+                  {
+                      label: "data",
+                      data: occurences,
+                      fill: false, // use "True" to draw area-plot 
+                      borderColor: plotcolor,
+                      backgroundColor: transparentize(plotcolor, 0.5),
+                      pointBackgroundColor: 'black',
+                      pointBorderColor:'black'
+                  },
+                ],});
+        
+        }, [var_chart]);
   function parseDate(input) {
     var parts = input.match(/(\d+)/g);
     // note parts[1]-1
     return new Date(parts[2], parts[1]-1, parts[0]);
   }
+   function transparentize(value, opacity) {
+    var alpha = opacity === undefined ? 0.5 : 1 - opacity;
+    return colorLib(value).alpha(alpha).rgbString();
+  } 
   useEffect(() => {
-    //console.log(evData);
     if (!map) return;
 
     const legend = L.control({ position: "bottomleft" });
@@ -303,7 +335,23 @@ function App () {
       
       <MapContent geojson_data={shapes} setfile={setfile} key={fileflag} />
     </MapContainer>
+    <Row>
+      <Col md={2}>
+      <Form.Select
+            value={var_chart}
+            onChange={event => setvar_chart(event.target.value)}>
+            <option value="tar1_sex">Sex</option>
+            <option value="tar_wrongdoing">Wrongdoing</option>
+            <option value="tar_outcome">Outcome</option>
+      </Form.Select>
 
+      </Col>
+    </Row>
+    <Row>
+      <Col md={6}>
+      <Bar data={barData}  />
+      </Col>
+    </Row>
 
     </div>
   );
