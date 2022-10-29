@@ -71,8 +71,8 @@ function App () {
   const [tarSex, setTarSex] = useState([]);
   const [tarOutcome, setTarOutcome] = useState([]);
   const [peViolence, setPeViolence] = useState([]);
-  const [StartDate, setSDate] = useState("23.10.2008");
-  const [EndDate, setEDate] = useState("23.10.2022");
+  const [StartDate, setSDate] = useState("01.01.2010");
+  const [EndDate, setEDate] = useState("31.12.2019");
   const [shapes, setshapes] = useState();
   const [file, setfile] = useState('Argentina');
   const [fileflag, setfileflag] = useState('Argentina');
@@ -312,7 +312,28 @@ function App () {
       style={{ width: '40%', height: '560px'}}
     >
  <TileLayer {...tileLayer} />
- <MarkerClusterGroup maxClusterRadius={40} >
+
+
+
+     
+
+     
+      
+      <MapContent geojson_data={geojson} setfile={setfile} key={'latam'}/>
+    </MapContainer>
+
+    <MapContainer
+      id="regionMap"
+      bounds={outerBounds}
+      whenCreated={setMap}
+      center={center}
+      zoom={3}
+      scrollWheelZoom={false}
+      style={{ width: '40%', height: '560px'}}
+    >
+      <TileLayer {...tileLayer} />
+      
+      <MarkerClusterGroup maxClusterRadius={40} >
       {filteredData.map(evt => (
         <Marker
           key={evt.id}
@@ -324,7 +345,19 @@ function App () {
             setActiveEvent(evt);
           }}>
           <Popup>
-              {evt.evidence1_source} <br/>{evt.evidence1_text.slice(0,150)}
+              {evt.date} <br/>
+              Alleged wrongdoing:&emsp;&emsp;
+              {dictionary.filter((item) => 
+            item.variable=='tar_wrongdoing' & item.value==evt.tar_wrongdoing).map((element) => {
+                   return element.name})}  <br/>
+               Worst outcome:&emsp;&emsp;&emsp;&emsp;
+              {dictionary.filter((item) => 
+            item.variable=='tar_outcome' & item.value==evt.tar_outcome).map((element) => {
+                   return element.name})}<br/>
+                   Worst violence inflicted:&ensp;
+                  {dictionary.filter((item) => 
+                item.variable=='pe_violence' & item.value==evt.pe_violence).map((element) => {
+                       return element.name})}
 
           </Popup>
 
@@ -363,25 +396,6 @@ function App () {
     </Popup>
   )}
 
-
-     
-
-     
-      
-      <MapContent geojson_data={geojson} setfile={setfile} key={'latam'}/>
-    </MapContainer>
-
-    <MapContainer
-      id="regionMap"
-      bounds={outerBounds}
-      whenCreated={setMap}
-      center={center}
-      zoom={3}
-      scrollWheelZoom={false}
-      style={{ width: '40%', height: '560px'}}
-    >
-      <TileLayer {...tileLayer} />
-      
       <MapContent geojson_data={shapes} setfile={setfile} key={fileflag} />
     </MapContainer>
     <Row>
@@ -447,7 +461,29 @@ const MapContent = ({geojson_data,setfile,key}) => {
   const zoomToFeature = (e) => {
     map.fitBounds(e.target.getBounds());
   };
-
+  const mapPolygonColorToDensity=(density => {
+    return density > 3023
+        ? '#a50f15'
+        : density > 676
+        ? '#de2d26'
+        : density > 428
+        ? '#fb6a4a'
+        : density > 236
+        ? '#fc9272'
+        : density > 23
+        ? '#fcbba1'
+        : '#fee5d9';
+})
+const style = (feature => {
+    return ({
+        fillColor: mapPolygonColorToDensity(feature.properties.Desnity),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.5
+    });
+});
   return (
             <GeoJSON
               data={geojson_data}

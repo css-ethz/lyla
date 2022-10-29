@@ -16,10 +16,10 @@ const wrapperStyle = { width: 400, margin: 50 };
 
 function DateSlider({setSDate, setEDate}){
 
-    const [startDate, setstartDate] = useState("23.10.2008");
-    const [startDateLabel, setstartDateLabel] = useState("23.10.2008");
-    const [endDate, setendDate] = useState("12.02.2022");
-    const [endDateLabel, setendDateLabel] = useState("12.02.2022");
+    const [startDate, setstartDate] = useState("01.01.2010");
+    const [startDateLabel, setstartDateLabel] = useState("01.01.2010");
+    const [endDate, setendDate] = useState("31.12.2019");
+    const [endDateLabel, setendDateLabel] = useState("31.12.2019");
     const [currentValue, setcurrentValue] = useState([]);
     const [minRange, setminRange] = useState(0);
     const [maxRange, setmaxRange] = useState(100);
