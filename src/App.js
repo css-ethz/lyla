@@ -69,6 +69,7 @@ function App () {
   const [filteredData, setFilteredData] = useState(eventData);
   const [wrongdoing, setWrongdoing] = useState([]);
   const [tarSex, setTarSex] = useState([]);
+  const [peNum, setPeNum] = useState([]);
   const [tarOutcome, setTarOutcome] = useState([]);
   const [peViolence, setPeViolence] = useState([]);
   const [StartDate, setSDate] = useState("01.01.2010");
@@ -76,7 +77,8 @@ function App () {
   const [shapes, setshapes] = useState();
   const [file, setfile] = useState('Argentina');
   const [fileflag, setfileflag] = useState('Argentina');
-  const [var_chart,setvar_chart]=useState('tar1_sex');
+  //const [var_chart,setvar_chart]=useState('tar1_sex');
+  const [var_chart,setvar_chart]=useState('pe_approxnumber');
   const [plotcolor, setplotcolor] = useState("red");
   const [barData, setBarData] = useState({
     labels: dictionary.filter((item) =>  item.variable==var_chart).map((element) => element.name),
@@ -155,12 +157,12 @@ function App () {
 
   useEffect(()=> {
     var filtered_data = Object.create(eventData);
-    if(tarSex.length>0){
+    if(peNum.length>0){
       
       filtered_data = filtered_data.filter((item) => 
-      tarSex.map(function(e) {
+      peNum.map(function(e) {
         return e.value;
-      }).includes(item.tar1_sex)
+      }).includes(item.pe_approxnumber)
       );
     }
     if(tarOutcome.length>0){
@@ -202,7 +204,7 @@ function App () {
 
     setFilteredData(filtered_data);
 
-  },[tarSex,tarOutcome,wrongdoing,peViolence,StartDate,EndDate]);
+  },[peNum,tarOutcome,wrongdoing,peViolence,StartDate,EndDate]);
 
   useEffect(() => {
     console.log(file);
@@ -242,13 +244,13 @@ function App () {
           <Form.Label className='mb-2'>Sex of Target</Form.Label>
           <MultiSelect
           options={dictionary.filter((item) => 
-            item.variable=='tar1_sex'
+            item.variable=='pe_approxnumber'
                 ).map((element) => {
                   return {'label':element.name,'value':element.value}
                     
             })}
-            value={tarSex}
-          onChange={setTarSex}
+            value={peNum}
+          onChange={setPeNum}
           labelledBy="Select"
          />
         </Col>
@@ -411,7 +413,7 @@ function App () {
       <Form.Select
             value={var_chart}
             onChange={event => setvar_chart(event.target.value)}>
-            <option value="tar1_sex">Sex</option>
+            <option value="pe_approxnumber">Approximate number of perpetrators</option>
             <option value="tar_wrongdoing">Wrongdoing</option>
             <option value="tar_outcome">Outcome</option>
             <option value="pe_violence">Worst violence inflicted</option>
