@@ -11,17 +11,20 @@ import { Bar,Line } from "react-chartjs-2";
 import L from 'leaflet';
 import {Icon} from 'leaflet';
 import geojson from './data/admin0.geojson.json'
-import eventData from './data/json_data.json'
+import eventData from './data/json_data_complete_latin2.json'
 import dictionary from './data/dictionary.json'
 import tileLayer from './util/tileLayer';
-import { CSVLink } from 'react-csv';
-import { Button } from 'react-bootstrap'
 import './App.css'
 import 'leaflet/dist/leaflet.css';
 //import { EventDropDownList } from './components/DropDownList';
 import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DateSlider from './components/DateSlider';
+import DownloadComponent from './components/DownloadComponent';
+import Heatmap from './components/Heatmap';
+import Eventmap from './components/Eventmap';
+
+
 import MarkerClusterGroup from '@changey/react-leaflet-markercluster';
 import 'leaflet/dist/leaflet.css';
 import colorLib from '@kurkle/color';
@@ -74,12 +77,20 @@ function App () {
   const [peViolence, setPeViolence] = useState([]);
   const [StartDate, setSDate] = useState("01.01.2010");
   const [EndDate, setEDate] = useState("31.12.2019");
-  const [shapes, setshapes] = useState();
+  const [shapes, setshapes] = useState(geojson);
   const [file, setfile] = useState('Argentina');
+  const [level, setlevel] = useState(0);
   const [fileflag, setfileflag] = useState('Argentina');
   //const [var_chart,setvar_chart]=useState('tar1_sex');
   const [var_chart,setvar_chart]=useState('pe_approxnumber');
   const [plotcolor, setplotcolor] = useState("red");
+  const [heat,setheat]=useState(() => {
+    var groups=filteredData.reduce(function (r, row) { 
+      r[row.name_0] = ++r[row.name_0] || 1;
+        return r;
+    }, {});
+    return groups;
+  });
   const [barData, setBarData] = useState({
     labels: dictionary.filter((item) =>  item.variable==var_chart).map((element) => element.name),
     datasets: [],}); 
@@ -87,7 +98,7 @@ function App () {
   const [lineData, setLineData] = useState({
       labels: dictionary.filter((item) =>  item.variable==var_chart).map((element) => element.name),
       datasets: [],}); 
-    useEffect(() => { 
+  useEffect(() => { 
     var occurences = filteredData.reduce(function (r, row) {
         var val_name=dictionary.filter((item) =>  item.variable==var_chart  & item.value==row[var_chart]).map((element) => element.name)[0];
         r[val_name] = ++r[val_name] || 1;
@@ -111,6 +122,19 @@ function App () {
         }, [var_chart]);
 
   useEffect(() => { 
+    if (level==0){
+      var groups=filteredData.reduce(function (r, row) { 
+        r[row.name_0] = ++r[row.name_0] || 1;
+          return r;
+      }, {});
+    }else{
+      var groups=filteredData.filter((item) =>  item.name_0==fileflag).reduce(function (r, row) { 
+        r[row.name_1] = ++r[row.name_1] || 1;
+          return r;
+      }, {});
+    }
+    setheat(groups);
+    console.log(groups);
     var occurences = eventData.filter((item) =>  item.name_0==fileflag).reduce(function (r, row) {
       var year_month=row['date'].substring(0,4);  
       r[year_month] = ++r[year_month] || 1;
@@ -209,11 +233,12 @@ function App () {
   useEffect(() => {
     console.log(file);
     fetchData(file);
-    const anchor = document.querySelector('#regionMap')
-    anchor.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    //const anchor = document.querySelector('#regionMap')
+    //anchor.scrollIntoView({ behavior: 'smooth', block: 'center' })
   },[file])
 
   useEffect(() => {
+    setlevel(1);
     setfileflag(file);
   },[shapes])
 
@@ -312,6 +337,7 @@ function App () {
       zoom={3}
       scrollWheelZoom={false}
       style={{ width: '40%', height: '560px'}}
+      onClick={console.log("clickmap")}
     >
  <TileLayer {...tileLayer} />
 
@@ -321,7 +347,7 @@ function App () {
 
      
       
-      <MapContent geojson_data={geojson} setfile={setfile} key={'latam'}/>
+      <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key={fileflag}/>
     </MapContainer>
 
     <MapContainer
@@ -398,7 +424,7 @@ function App () {
     </Popup>
   )}
 
-      <MapContent geojson_data={shapes} setfile={setfile} key={fileflag} />
+      <Eventmap geojson_data={shapes} setfile={setfile} key={fileflag} />
     </MapContainer>
     <Row>
       <Col md={8}>
@@ -433,119 +459,5 @@ function App () {
 
 
 
-const MapContent = ({geojson_data,setfile,key}) => {
-  //const geoJson: RefObject<Leaflet.GeoJSON> = useRef(null);
-  const geoJsonRef = useRef(null);
-  const map = useMap();
-
-  //const highlightFeature = (e: Leaflet.LeafletMouseEvent) => {
-  const highlightFeature = (e) => {
-    const layer = e.target;
-
-    layer.setStyle({
-      color: '#666',
-      dashArray: '',
-      fillOpacity: 0.7,
-      weight: 5,
-    });
-  };
-  useEffect(() => {
-    if (geoJsonRef.current.getBounds().isValid()){
-      map.fitBounds(geoJsonRef.current.getBounds());
-    }
-  
-  },[geojson_data])
-
-  const resetHighlight = (e) => {
-    geoJsonRef.current?.resetStyle(e.target);
-  };
-
-  const zoomToFeature = (e) => {
-    map.fitBounds(e.target.getBounds());
-  };
-  const mapPolygonColorToDensity=(density => {
-    return density > 3023
-        ? '#a50f15'
-        : density > 676
-        ? '#de2d26'
-        : density > 428
-        ? '#fb6a4a'
-        : density > 236
-        ? '#fc9272'
-        : density > 23
-        ? '#fcbba1'
-        : '#fee5d9';
-})
-const style = (feature => {
-    return ({
-        fillColor: mapPolygonColorToDensity(feature.properties.Desnity),
-        weight: 2,
-        opacity: 1,
-        color: 'white',
-        dashArray: '3',
-        fillOpacity: 0.5
-    });
-});
-  return (
-            <GeoJSON
-              data={geojson_data}
-              key={key}
-              ref={geoJsonRef}
-              style={() => {
-                return {
-                  color: 'white',
-                  dashArray: '3',
-                  fillColor: '#f0f0f0',
-                  fillOpacity: 0.7,
-                  opacity: 1,
-                  weight: 2,
-                };
-              }}
-              onEachFeature={(__, layer) => {
-                layer.on({
-                  click: (e) => {
-                    zoomToFeature(e);
-                    setfile(e.target.feature.properties.ADMIN);
-                  },
-                  mouseout: (e) => {
-                    resetHighlight(e);
-                  },
-                  mouseover: (e) => {
-                    highlightFeature(e);
-                  },
-                });
-              }}
-            />
-
-
-
-  );
-};
-
-const DownloadComponent = ({filteredData}) => {
-  const [transactionData, setTransactionData] = useState([])
-  const csvLink = useRef() // setup the ref that we'll use for the hidden CsvLink click once we've updated the data
-
-  const getTransactionData =() => {
-    setTransactionData(filteredData);
-    csvLink.current.link.click();
-  }
-  useEffect(() => {
-    setTransactionData(filteredData);
-  },[filteredData])
-
-  return (
-    <div>
-      <Button onClick={getTransactionData}>Download events to csv</Button>
-      <CSVLink
-         data={transactionData}
-         filename='events.csv'
-         className='hidden'
-         ref={csvLink}
-         target='_blank'
-      />
-    </div>
-  )
-};
 
 export default App;
