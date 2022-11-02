@@ -53,6 +53,24 @@ const outerBounds = [
 //  layer.bindPopup(feature.properties.ADMIN)
 //}
 
+const options = {
+  scales: {
+    yAxes: [
+      {
+        gridLines: {
+          display: "false"
+        }
+      }
+    ],
+    xAxes: [
+      {
+        gridLines: {
+          display: "false"
+        }
+      }
+    ]
+  }
+};
 
 function style(feature) {
   return {
@@ -63,7 +81,7 @@ function style(feature) {
       dashArray: '2',
       fillOpacity: 0.7
   };
-}
+};
 
 
 
@@ -87,7 +105,7 @@ function App () {
   
   //const [var_chart,setvar_chart]=useState('tar1_sex');
   const [var_chart,setvar_chart]=useState('pe_approxnumber');
-  const [plotcolor, setplotcolor] = useState("red");
+  const [plotcolor, setplotcolor] = useState("#e37068");
   const [zoomLevel, setZoomLevel] = useState(3);
   const [heat,setheat]=useState(() => {
     var groups=filteredData_agg.reduce(function (r, row) { 
@@ -103,7 +121,7 @@ function App () {
   const [lineData, setLineData] = useState({
       labels: dictionary.filter((item) =>  item.variable==var_chart).map((element) => element.name),
       datasets: [],}); 
-/*   useEffect(() => { 
+   useEffect(() => { 
     var occurences = filteredData_agg.reduce(function (r, row) {
         var val_name=dictionary.filter((item) =>  item.variable==var_chart  & item.value==row[var_chart]).map((element) => element.name)[0];
         r[val_name] = ++r[val_name] || 1;
@@ -124,7 +142,7 @@ function App () {
                   },
                 ],});
         
-        }, [var_chart]); */
+        }, [var_chart]); 
 
   useEffect(() => { 
     if (level==0){
@@ -141,7 +159,7 @@ function App () {
     setheat(groups);
     console.log(groups);
     console.log(filteredData_agg);
-/*     var occurences = filteredData_agg.filter((item) =>  item.name_0==fileflag).reduce(function (r, row) {
+     var occurences = filteredData_agg.filter((item) =>  item.name_0==fileflag).reduce(function (r, row) {
       var year_month=row['month_year'].qyear;
       r[year_month] = ++r[year_month] || 1;
         return r;
@@ -155,11 +173,13 @@ function App () {
               data: occurences,
               fill: false, // use "True" to draw area-plot 
               borderColor: plotcolor,
+              color: 'white',
+              tickColor: 'white',
               backgroundColor: transparentize(plotcolor, 0.5),
               pointBackgroundColor: 'black',
               pointBorderColor:'black'
           },
-        ],}); */
+        ],}); 
         }, [fileflag]);
 
 
@@ -321,31 +341,20 @@ function App () {
   }
 
   return (
-    <div className="App">
-      <h4>LYLA Dashboard</h4>
+    <div className="dark">
+      <h1>LYLA Dashboard</h1>
 
 <div>
   <Container fluid>
-    <Row>
+    <Row className='add-space'>
       <Col md={6}>
          <DateSlider setSDate={setSDate} setEDate={setEDate}/> 
       </Col>
     </Row>
     <Row>
-        <Col md={2}>
-          <Form.Label className='mb-2'>Sex of Target</Form.Label>
-          <MultiSelect
-          options={dictionary.filter((item) => 
-            item.variable=='pe_approxnumber'
-                ).map((element) => {
-                  return {'label':element.name,'value':element.value}
-                    
-            })}
-            value={peNum}
-          onChange={setPeNum}
-          labelledBy="Select"
-         />
-        </Col>
+
+    </Row>
+    <Row>
         <Col md={2}>
           <Form.Label className='mb-2'>Alleged Wrongdoing</Form.Label>
           <MultiSelect
@@ -388,6 +397,20 @@ function App () {
           labelledBy="Select"
          />
         </Col>
+        <Col md={2}>
+          <Form.Label className='mb-2'>Number of perpetrators</Form.Label>
+          <MultiSelect
+          options={dictionary.filter((item) => 
+            item.variable=='pe_approxnumber'
+                ).map((element) => {
+                  return {'label':element.name,'value':element.value}
+                    
+            })}
+            value={peNum}
+          onChange={setPeNum}
+          labelledBy="Select"
+         />
+        </Col>
     </Row>
     <Row>
       <DownloadComponent filteredData={filteredData}/>
@@ -396,29 +419,34 @@ function App () {
   </Container>
 
 </div>
-
-    <MapContainer
+<div>
+  <Container fluid>
+  <Row>
+  <Col>
+  <MapContainer
       bounds={outerBounds}
       whenCreated={setMap}
       center={center}
       zoom={zoomLevel}
       scrollWheelZoom={false}
-      style={{ width: '40%', height: '560px'}}
-      //{onClick={console.log("clickmap")}}
+      style={{ width: '100%', height: '560px'}}
+      onClick={console.log("clickmap")}
     >
  <TileLayer {...tileLayer} />
-      
-      <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag}/>
+ <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag}/>
     </MapContainer>
 
-     <MapContainer
+  </Col>
+
+  <Col>
+  <MapContainer
       id="regionMap"
       bounds={outerBounds}
       whenCreated={setMap}
       center={center}
       zoom={3}
       scrollWheelZoom={false}
-      style={{ width: '40%', height: '560px'}}
+      style={{ width: '100%', height: '560px'}}
     >
       <TileLayer {...{
   attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
@@ -462,21 +490,25 @@ function App () {
 </MarkerClusterGroup>      
 
       <Eventmap geojson_data={shapes} setfile={setfile} key={fileflag} />
-    </MapContainer> 
-    <Row>
-      <Col md={8}>
+    </MapContainer>
+
+  </Col>
+  <Col md={6}>
       <Line data={lineData} 
       // options= {/{scales: {x: {type: 'time'}}} }
+      options={options}
       />
       </Col>
-    </Row>
 
+  </Row>
+  </Container>
+</div>
     <Row>
       <Col md={2}>
       <Form.Select
             value={var_chart}
             onChange={event => setvar_chart(event.target.value)}>
-            <option value="pe_approxnumber">Approximate number of perpetrators</option>
+            <option value="pe_approxnumber">Number of perpetrators</option>
             <option value="tar_wrongdoing">Wrongdoing</option>
             <option value="tar_outcome">Outcome</option>
             <option value="pe_violence">Worst violence inflicted</option>
