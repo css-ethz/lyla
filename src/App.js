@@ -342,7 +342,8 @@ function App () {
 </div>
 <div>
   <Container fluid>
-  <Col md={2}>
+  <Row>
+  <Col md={6}>
   <MapContainer
       bounds={outerBounds}
       whenCreated={setMap}
@@ -358,7 +359,7 @@ function App () {
 
   </Col>
 
-  <Col md={2}>
+  <Col md={6}>
   <MapContainer
       id="regionMap"
       bounds={outerBounds}
@@ -441,7 +442,7 @@ function App () {
     </MapContainer>
 
   </Col>
-
+  </Row>
   </Container>
 </div>
 
