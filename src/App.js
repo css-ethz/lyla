@@ -340,6 +340,110 @@ function App () {
   </Container>
 
 </div>
+<div>
+  <Container fluid>
+  <Col md={2}>
+  <MapContainer
+      bounds={outerBounds}
+      whenCreated={setMap}
+      center={center}
+      zoom={3}
+      scrollWheelZoom={false}
+      style={{ width: '40%', height: '560px'}}
+      onClick={console.log("clickmap")}
+    >
+ <TileLayer {...tileLayer} />
+ <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key={fileflag}/>
+    </MapContainer>
+
+  </Col>
+
+  <Col md={2}>
+  <MapContainer
+      id="regionMap"
+      bounds={outerBounds}
+      whenCreated={setMap}
+      center={center}
+      zoom={3}
+      scrollWheelZoom={false}
+      style={{ width: '40%', height: '560px'}}
+    >
+      <TileLayer {...{
+  attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+  url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+}
+} />
+      
+      <MarkerClusterGroup maxClusterRadius={40} >
+      {filteredData.map(evt => (
+        <Marker
+          key={evt.id}
+          position={[
+            evt.geometry.coordinates[0],
+            evt.geometry.coordinates[1]
+          ]}
+          onClick={() => {
+            setActiveEvent(evt);
+          }}>
+          <Popup>
+              {evt.date} <br/>
+              Alleged wrongdoing:&emsp;&emsp;
+              {dictionary.filter((item) => 
+            item.variable=='tar_wrongdoing' & item.value==evt.tar_wrongdoing).map((element) => {
+                   return element.name})}  <br/>
+               Worst outcome:&emsp;&emsp;&emsp;&emsp;
+              {dictionary.filter((item) => 
+            item.variable=='tar_outcome' & item.value==evt.tar_outcome).map((element) => {
+                   return element.name})}<br/>
+                   Worst violence inflicted:&ensp;
+                  {dictionary.filter((item) => 
+                item.variable=='pe_violence' & item.value==evt.pe_violence).map((element) => {
+                       return element.name})}
+
+          </Popup>
+
+
+        </Marker>
+/*           <Circle 
+          center={{lat:evt.geometry.coordinates[0], lng: evt.geometry.coordinates[1]}}
+          fillColor="green" 
+          radius={20000}
+          pathOptions={{
+            color: "green"
+          }}
+                  onClick={() => {
+                    console.log("click");
+                    setActiveEvent(evt);
+                  }}/> */
+        
+        
+        
+      ))}
+</MarkerClusterGroup>      
+{activeEvent && (
+    <Popup
+      position={[
+        activeEvent.geometry.coordinates[0],
+        activeEvent.geometry.coordinates[1]
+      ]}
+      onClose={() => {
+        setActiveEvent(null);
+      }}
+    >
+      <div>
+        <h2>{activeEvent.evidence1_text}</h2>
+        <p>{activeEvent.date}</p>
+      </div>
+    </Popup>
+  )}
+
+      <Eventmap geojson_data={shapes} setfile={setfile} key={fileflag} />
+    </MapContainer>
+
+  </Col>
+
+  </Container>
+</div>
 
     <MapContainer
       bounds={outerBounds}
