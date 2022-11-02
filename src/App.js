@@ -277,20 +277,6 @@ function App () {
     </Row>
     <Row>
         <Col md={2}>
-          <Form.Label className='mb-2'>Approximate number of perpetrators</Form.Label>
-          <MultiSelect
-          options={dictionary.filter((item) => 
-            item.variable=='pe_approxnumber'
-                ).map((element) => {
-                  return {'label':element.name,'value':element.value}
-                    
-            })}
-            value={peNum}
-          onChange={setPeNum}
-          labelledBy="Select"
-         />
-        </Col>
-        <Col md={2}>
           <Form.Label className='mb-2'>Alleged Wrongdoing</Form.Label>
           <MultiSelect
           options={dictionary.filter((item) => 
@@ -329,6 +315,20 @@ function App () {
             })}
             value={peViolence}
           onChange={setPeViolence}
+          labelledBy="Select"
+         />
+        </Col>
+        <Col md={2}>
+          <Form.Label className='mb-2'>Approximate number of perpetrators</Form.Label>
+          <MultiSelect
+          options={dictionary.filter((item) => 
+            item.variable=='pe_approxnumber'
+                ).map((element) => {
+                  return {'label':element.name,'value':element.value}
+                    
+            })}
+            value={peNum}
+          onChange={setPeNum}
           labelledBy="Select"
          />
         </Col>
