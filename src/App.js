@@ -277,7 +277,7 @@ function App () {
     </Row>
     <Row>
         <Col md={2}>
-          <Form.Label className='mb-2'>Sex of Target</Form.Label>
+          <Form.Label className='mb-2'>Approximate number of perpetrators</Form.Label>
           <MultiSelect
           options={dictionary.filter((item) => 
             item.variable=='pe_approxnumber'
