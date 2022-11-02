@@ -230,15 +230,26 @@ function App () {
 
   },[peNum,tarOutcome,wrongdoing,peViolence,StartDate,EndDate]);
 
+
+
   useEffect(() => {
     console.log(file);
-    fetchData(file);
-    //const anchor = document.querySelector('#regionMap')
-    //anchor.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    console.log(level);
+    setlevel(1);
+    var countries=["Argentina","Bolivia","Brazil","Chile","Colombia","Mexico","Panama","Paraguay","Uruguay"]
+
+    if (countries.includes(file)){
+      fetchData(file);
+      
+    }else{
+    const anchor = document.querySelector('#regionMap')
+    anchor.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+
   },[file])
 
   useEffect(() => {
-    setlevel(1);
+
     setfileflag(file);
   },[shapes])
 
@@ -359,7 +370,11 @@ function App () {
       scrollWheelZoom={false}
       style={{ width: '40%', height: '560px'}}
     >
-      <TileLayer {...tileLayer} />
+      <TileLayer {...{
+  attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+  url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+}
+} />
       
       <MarkerClusterGroup maxClusterRadius={40} >
       {filteredData.map(evt => (
