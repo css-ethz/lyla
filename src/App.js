@@ -51,6 +51,24 @@ const outerBounds = [
 //  layer.bindPopup(feature.properties.ADMIN)
 //}
 
+const options = {
+  scales: {
+    yAxes: [
+      {
+        gridLines: {
+          display: "false"
+        }
+      }
+    ],
+    xAxes: [
+      {
+        gridLines: {
+          display: "false"
+        }
+      }
+    ]
+  }
+};
 
 function style(feature) {
   return {
@@ -61,7 +79,7 @@ function style(feature) {
       dashArray: '2',
       fillOpacity: 0.7
   };
-}
+};
 
 
 
@@ -83,7 +101,7 @@ function App () {
   const [fileflag, setfileflag] = useState('Argentina');
   //const [var_chart,setvar_chart]=useState('tar1_sex');
   const [var_chart,setvar_chart]=useState('pe_approxnumber');
-  const [plotcolor, setplotcolor] = useState("red");
+  const [plotcolor, setplotcolor] = useState("#e37068");
   const [heat,setheat]=useState(() => {
     var groups=filteredData.reduce(function (r, row) { 
       r[row.name_0] = ++r[row.name_0] || 1;
@@ -149,6 +167,8 @@ function App () {
               data: occurences,
               fill: false, // use "True" to draw area-plot 
               borderColor: plotcolor,
+              color: 'white',
+              tickColor: 'white',
               backgroundColor: transparentize(plotcolor, 0.5),
               pointBackgroundColor: 'black',
               pointBorderColor:'black'
@@ -265,15 +285,18 @@ function App () {
   }
 
   return (
-    <div className="App">
-      <h4>LYLA Dashboard</h4>
+    <div className="dark">
+      <h1>LYLA Dashboard</h1>
 
 <div>
   <Container fluid>
-    <Row>
+    <Row className='add-space'>
       <Col md={6}>
          <DateSlider setSDate={setSDate} setEDate={setEDate}/> 
       </Col>
+    </Row>
+    <Row>
+
     </Row>
     <Row>
         <Col md={2}>
@@ -319,7 +342,7 @@ function App () {
          />
         </Col>
         <Col md={2}>
-          <Form.Label className='mb-2'>Approximate number of perpetrators</Form.Label>
+          <Form.Label className='mb-2'>Number of perpetrators</Form.Label>
           <MultiSelect
           options={dictionary.filter((item) => 
             item.variable=='pe_approxnumber'
@@ -343,14 +366,14 @@ function App () {
 <div>
   <Container fluid>
   <Row>
-  <Col md={6}>
+  <Col>
   <MapContainer
       bounds={outerBounds}
       whenCreated={setMap}
       center={center}
       zoom={3}
       scrollWheelZoom={false}
-      style={{ width: '40%', height: '560px'}}
+      style={{ width: '100%', height: '560px'}}
       onClick={console.log("clickmap")}
     >
  <TileLayer {...tileLayer} />
@@ -359,7 +382,7 @@ function App () {
 
   </Col>
 
-  <Col md={6}>
+  <Col>
   <MapContainer
       id="regionMap"
       bounds={outerBounds}
@@ -367,7 +390,7 @@ function App () {
       center={center}
       zoom={3}
       scrollWheelZoom={false}
-      style={{ width: '40%', height: '560px'}}
+      style={{ width: '100%', height: '560px'}}
     >
       <TileLayer {...{
   attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
@@ -442,124 +465,22 @@ function App () {
     </MapContainer>
 
   </Col>
+  <Col md={6}>
+      <Line data={lineData} 
+      // options= {/{scales: {x: {type: 'time'}}} }
+      options={options}
+      />
+      </Col>
+
   </Row>
   </Container>
 </div>
-
-    <MapContainer
-      bounds={outerBounds}
-      whenCreated={setMap}
-      center={center}
-      zoom={3}
-      scrollWheelZoom={false}
-      style={{ width: '40%', height: '560px'}}
-      onClick={console.log("clickmap")}
-    >
- <TileLayer {...tileLayer} />
-
-
-
-     
-
-     
-      
-      <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key={fileflag}/>
-    </MapContainer>
-
-    <MapContainer
-      id="regionMap"
-      bounds={outerBounds}
-      whenCreated={setMap}
-      center={center}
-      zoom={3}
-      scrollWheelZoom={false}
-      style={{ width: '40%', height: '560px'}}
-    >
-      <TileLayer {...{
-  attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-  url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-}
-} />
-      
-      <MarkerClusterGroup maxClusterRadius={40} >
-      {filteredData.map(evt => (
-        <Marker
-          key={evt.id}
-          position={[
-            evt.geometry.coordinates[0],
-            evt.geometry.coordinates[1]
-          ]}
-          onClick={() => {
-            setActiveEvent(evt);
-          }}>
-          <Popup>
-              {evt.date} <br/>
-              Alleged wrongdoing:&emsp;&emsp;
-              {dictionary.filter((item) => 
-            item.variable=='tar_wrongdoing' & item.value==evt.tar_wrongdoing).map((element) => {
-                   return element.name})}  <br/>
-               Worst outcome:&emsp;&emsp;&emsp;&emsp;
-              {dictionary.filter((item) => 
-            item.variable=='tar_outcome' & item.value==evt.tar_outcome).map((element) => {
-                   return element.name})}<br/>
-                   Worst violence inflicted:&ensp;
-                  {dictionary.filter((item) => 
-                item.variable=='pe_violence' & item.value==evt.pe_violence).map((element) => {
-                       return element.name})}
-
-          </Popup>
-
-
-        </Marker>
-/*           <Circle 
-          center={{lat:evt.geometry.coordinates[0], lng: evt.geometry.coordinates[1]}}
-          fillColor="green" 
-          radius={20000}
-          pathOptions={{
-            color: "green"
-          }}
-                  onClick={() => {
-                    console.log("click");
-                    setActiveEvent(evt);
-                  }}/> */
-        
-        
-        
-      ))}
-</MarkerClusterGroup>      
-{activeEvent && (
-    <Popup
-      position={[
-        activeEvent.geometry.coordinates[0],
-        activeEvent.geometry.coordinates[1]
-      ]}
-      onClose={() => {
-        setActiveEvent(null);
-      }}
-    >
-      <div>
-        <h2>{activeEvent.evidence1_text}</h2>
-        <p>{activeEvent.date}</p>
-      </div>
-    </Popup>
-  )}
-
-      <Eventmap geojson_data={shapes} setfile={setfile} key={fileflag} />
-    </MapContainer>
-    <Row>
-      <Col md={8}>
-      <Line data={lineData} 
-      // options= {/{scales: {x: {type: 'time'}}} }
-      />
-      </Col>
-    </Row>
-
     <Row>
       <Col md={2}>
       <Form.Select
             value={var_chart}
             onChange={event => setvar_chart(event.target.value)}>
-            <option value="pe_approxnumber">Approximate number of perpetrators</option>
+            <option value="pe_approxnumber">Number of perpetrators</option>
             <option value="tar_wrongdoing">Wrongdoing</option>
             <option value="tar_outcome">Outcome</option>
             <option value="pe_violence">Worst violence inflicted</option>
