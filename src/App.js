@@ -159,7 +159,7 @@ function App () {
     setheat(groups);
     console.log(groups);
     console.log(filteredData_agg);
-     var occurences = filteredData_agg.filter((item) =>  item.name_0==fileflag).reduce(function (r, row) {
+     var occurences = filteredData_agg.filter((item) =>  (item.name_0==fileflag) || (fileflag=='latam') ).reduce(function (r, row) {
       var year_month=row['month_year'].qyear;
       r[year_month] = ++r[year_month] || 1;
         return r;
@@ -180,7 +180,7 @@ function App () {
               pointBorderColor:'black'
           },
         ],}); 
-        }, [fileflag]);
+        }, [fileflag,filteredData_agg]);
 
 
 
