@@ -49,15 +49,15 @@ const Heatmap = ({geojson_data,heat,setfile,key_id}) => {
           });
       }
     const mapPolygonColorToDensity=(density => {
-      return density > 100
+      return density > 8
           ? '#a50f15'
-          : density > 80
+          : density > 4
           ? '#de2d26'
-          : density > 40
+          : density > 2
           ? '#fb6a4a'
-          : density > 10
+          : density > 1
           ? '#fc9272'
-          : density > 5
+          : density > 0.5
           ? '#fcbba1'
           : '#fee5d9';
   })

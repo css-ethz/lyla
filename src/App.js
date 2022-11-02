@@ -14,6 +14,7 @@ import geojson from './data/admin0.geojson.json'
 import geojson1_admin1 from './data/admin1.geojson.json'
 import eventData from './data/json_data_complete_latin2.json'
 import aggData from './data/data_agg.json'
+import population_admin0 from './data/population_admin0.json'
 import dictionary from './data/dictionary.json'
 import tileLayer from './util/tileLayer';
 import './App.css'
@@ -145,11 +146,16 @@ function App () {
         }, [var_chart]); 
 
   useEffect(() => { 
+    
     if (level==0){
-      var groups=filteredData_agg.reduce(function (r, row) { 
-        r[row.name_0] = r[row.name_0]+row.events_pop || row.events_pop;
+      var gg=filteredData_agg.reduce(function (r, row) { 
+        r[row.name_0] = r[row.name_0]+row.id || row.id;
           return r;
       }, {});
+      var groups = {};
+      console.log("gg",gg);
+      console.log("pop",population_admin0);
+      Object.keys(gg).forEach(key => groups[key] = 1000000*gg[key]/population_admin0[0][key]);
     }else{
       var groups=filteredData_agg.filter((item) =>  item.name_0==fileflag).reduce(function (r, row) { 
         r[row.name_1] = r[row.name_1]+row.events_pop || row.events_pop;
@@ -159,7 +165,7 @@ function App () {
     setheat(groups);
     console.log(groups);
     console.log(filteredData_agg);
-     var occurences = filteredData_agg.filter((item) =>  (item.name_0==fileflag) || (fileflag=='latam') ).reduce(function (r, row) {
+     var occurences = filteredData_agg.filter((item) =>  (item.name_0==fileflag) || fileflag=='latam' ).reduce(function (r, row) {
       var year_month=row['month_year'].qyear;
       r[year_month] = ++r[year_month] || 1;
         return r;
