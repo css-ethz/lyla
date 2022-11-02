@@ -11,7 +11,9 @@ import { Bar,Line } from "react-chartjs-2";
 import L from 'leaflet';
 import {Icon} from 'leaflet';
 import geojson from './data/admin0.geojson.json'
+import geojson1_admin1 from './data/admin1.geojson.json'
 import eventData from './data/json_data_complete_latin2.json'
+import aggData from './data/data_agg.json'
 import dictionary from './data/dictionary.json'
 import tileLayer from './util/tileLayer';
 import './App.css'
@@ -23,7 +25,7 @@ import DateSlider from './components/DateSlider';
 import DownloadComponent from './components/DownloadComponent';
 import Heatmap from './components/Heatmap';
 import Eventmap from './components/Eventmap';
-
+import { Button } from 'react-bootstrap'
 
 import MarkerClusterGroup from '@changey/react-leaflet-markercluster';
 import 'leaflet/dist/leaflet.css';
@@ -70,6 +72,7 @@ function App () {
   const [map, setMap] = useState(null);
   const [activeEvent, setActiveEvent] = useState(null);
   const [filteredData, setFilteredData] = useState(eventData);
+  const [filteredData_agg, setFilteredData_agg] = useState(aggData);
   const [wrongdoing, setWrongdoing] = useState([]);
   const [tarSex, setTarSex] = useState([]);
   const [peNum, setPeNum] = useState([]);
@@ -78,14 +81,16 @@ function App () {
   const [StartDate, setSDate] = useState("01.01.2010");
   const [EndDate, setEDate] = useState("31.12.2019");
   const [shapes, setshapes] = useState(geojson);
-  const [file, setfile] = useState('Argentina');
+  const [file, setfile] = useState('latam');
   const [level, setlevel] = useState(0);
-  const [fileflag, setfileflag] = useState('Argentina');
+  const [fileflag, setfileflag] = useState('latam');
+  
   //const [var_chart,setvar_chart]=useState('tar1_sex');
   const [var_chart,setvar_chart]=useState('pe_approxnumber');
   const [plotcolor, setplotcolor] = useState("red");
+  const [zoomLevel, setZoomLevel] = useState(3);
   const [heat,setheat]=useState(() => {
-    var groups=filteredData.reduce(function (r, row) { 
+    var groups=filteredData_agg.reduce(function (r, row) { 
       r[row.name_0] = ++r[row.name_0] || 1;
         return r;
     }, {});
@@ -98,8 +103,8 @@ function App () {
   const [lineData, setLineData] = useState({
       labels: dictionary.filter((item) =>  item.variable==var_chart).map((element) => element.name),
       datasets: [],}); 
-  useEffect(() => { 
-    var occurences = filteredData.reduce(function (r, row) {
+/*   useEffect(() => { 
+    var occurences = filteredData_agg.reduce(function (r, row) {
         var val_name=dictionary.filter((item) =>  item.variable==var_chart  & item.value==row[var_chart]).map((element) => element.name)[0];
         r[val_name] = ++r[val_name] || 1;
         return r;
@@ -119,24 +124,25 @@ function App () {
                   },
                 ],});
         
-        }, [var_chart]);
+        }, [var_chart]); */
 
   useEffect(() => { 
     if (level==0){
-      var groups=filteredData.reduce(function (r, row) { 
-        r[row.name_0] = ++r[row.name_0] || 1;
+      var groups=filteredData_agg.reduce(function (r, row) { 
+        r[row.name_0] = r[row.name_0]+row.events_pop || row.events_pop;
           return r;
       }, {});
     }else{
-      var groups=filteredData.filter((item) =>  item.name_0==fileflag).reduce(function (r, row) { 
-        r[row.name_1] = ++r[row.name_1] || 1;
+      var groups=filteredData_agg.filter((item) =>  item.name_0==fileflag).reduce(function (r, row) { 
+        r[row.name_1] = r[row.name_1]+row.events_pop || row.events_pop;
           return r;
       }, {});
     }
     setheat(groups);
     console.log(groups);
-    var occurences = eventData.filter((item) =>  item.name_0==fileflag).reduce(function (r, row) {
-      var year_month=row['date'].substring(0,4);  
+    console.log(filteredData_agg);
+/*     var occurences = filteredData_agg.filter((item) =>  item.name_0==fileflag).reduce(function (r, row) {
+      var year_month=row['month_year'].qyear;
       r[year_month] = ++r[year_month] || 1;
         return r;
     }, {});
@@ -153,7 +159,7 @@ function App () {
               pointBackgroundColor: 'black',
               pointBorderColor:'black'
           },
-        ],});
+        ],}); */
         }, [fileflag]);
 
 
@@ -181,9 +187,15 @@ function App () {
 
   useEffect(()=> {
     var filtered_data = Object.create(eventData);
+    var filtered_data_agg = Object.create(aggData);
     if(peNum.length>0){
       
       filtered_data = filtered_data.filter((item) => 
+      peNum.map(function(e) {
+        return e.value;
+      }).includes(item.pe_approxnumber)
+      );
+      filtered_data_agg = filtered_data_agg.filter((item) => 
       peNum.map(function(e) {
         return e.value;
       }).includes(item.pe_approxnumber)
@@ -196,10 +208,20 @@ function App () {
         return e.value;
       }).includes(item.tar_outcome)
       );
+      filtered_data_agg = filtered_data_agg.filter((item) => 
+      tarOutcome.map(function(e) {
+        return e.value;
+      }).includes(item.tar_outcome)
+      );
     }
     if(wrongdoing.length>0){
       
       filtered_data = filtered_data.filter((item) => 
+      wrongdoing.map(function(e) {
+        return e.value;
+      }).includes(item.tar_wrongdoing)
+      );
+      filtered_data_agg = filtered_data_agg.filter((item) => 
       wrongdoing.map(function(e) {
         return e.value;
       }).includes(item.tar_wrongdoing)
@@ -212,7 +234,17 @@ function App () {
         return e.value;
       }).includes(item.pe_violence)
       );
+      filtered_data_agg = filtered_data_agg.filter((item) => 
+      peViolence.map(function(e) {
+        return e.value;
+      }).includes(item.pe_violence)
+      );
     }
+    if (fileflag!='latam'){
+      filtered_data = filtered_data.filter((item) =>  item.name_0==fileflag);
+      filtered_data_agg = filtered_data_agg.filter((item) =>  item.name_0==fileflag);
+    }
+
     var start_parsed=parseDate(StartDate)
     var end_parsed=parseDate(EndDate)
 
@@ -227,8 +259,9 @@ function App () {
 
 
     setFilteredData(filtered_data);
+    setFilteredData_agg(filtered_data_agg);
 
-  },[peNum,tarOutcome,wrongdoing,peViolence,StartDate,EndDate]);
+  },[peNum,tarOutcome,wrongdoing,peViolence,StartDate,EndDate,fileflag]);
 
 
 
@@ -236,10 +269,18 @@ function App () {
     console.log(file);
     console.log(level);
     setlevel(1);
-    var countries=["Argentina","Bolivia","Brazil","Chile","Colombia","Mexico","Panama","Paraguay","Uruguay"]
-
-    if (countries.includes(file)){
-      fetchData(file);
+    var countries=["Argentina","Bolivia","Brazil","Chile","Colombia",
+    "Costa Rica","Dominican Republic","Ecuador","Guatemala","Honduras",
+    "Mexico","Nicaragua","Panama","Paraguay","Peru","Uruguay","Venezuela"]
+    if (file=='latam'){
+      setshapes(geojson);
+      setlevel(0);
+    }
+    else if (countries.includes(file)){
+      //fetchData(file);
+      var geo1=Object.create(geojson1_admin1);
+      geo1.features=geo1.features.filter((item) =>  item.properties.NAME_0==file);
+      setshapes(geo1);
       
     }else{
     const anchor = document.querySelector('#regionMap')
@@ -249,7 +290,18 @@ function App () {
   },[file])
 
   useEffect(() => {
-
+    if (level==0){
+      var groups=filteredData_agg.reduce(function (r, row) { 
+        r[row.name_0] = r[row.name_0]+row.events_pop || row.events_pop;
+          return r;
+      }, {});
+    }else{
+      var groups=filteredData_agg.filter((item) =>  item.name_0==fileflag).reduce(function (r, row) { 
+        r[row.name_1] = r[row.name_1]+row.events_pop || row.events_pop;
+          return r;
+      }, {});
+    }
+    setheat(groups);
     setfileflag(file);
   },[shapes])
 
@@ -262,6 +314,10 @@ function App () {
        }
     })
     setshapes(await response.json());
+  }
+
+  const reset_map =() => {
+    setfile("latam");
   }
 
   return (
@@ -335,7 +391,7 @@ function App () {
     </Row>
     <Row>
       <DownloadComponent filteredData={filteredData}/>
-
+      <Button onClick={reset_map}>Reset map</Button>
     </Row>
   </Container>
 
@@ -345,23 +401,17 @@ function App () {
       bounds={outerBounds}
       whenCreated={setMap}
       center={center}
-      zoom={3}
+      zoom={zoomLevel}
       scrollWheelZoom={false}
       style={{ width: '40%', height: '560px'}}
-      onClick={console.log("clickmap")}
+      //{onClick={console.log("clickmap")}}
     >
  <TileLayer {...tileLayer} />
-
-
-
-     
-
-     
       
-      <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key={fileflag}/>
+      <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag}/>
     </MapContainer>
 
-    <MapContainer
+     <MapContainer
       id="regionMap"
       bounds={outerBounds}
       whenCreated={setMap}
@@ -377,7 +427,7 @@ function App () {
 } />
       
       <MarkerClusterGroup maxClusterRadius={40} >
-      {filteredData.map(evt => (
+      {fileflag!='latam' && filteredData.map(evt => (
         <Marker
           key={evt.id}
           position={[
@@ -406,41 +456,13 @@ function App () {
 
 
         </Marker>
-/*           <Circle 
-          center={{lat:evt.geometry.coordinates[0], lng: evt.geometry.coordinates[1]}}
-          fillColor="green" 
-          radius={20000}
-          pathOptions={{
-            color: "green"
-          }}
-                  onClick={() => {
-                    console.log("click");
-                    setActiveEvent(evt);
-                  }}/> */
-        
-        
+   
         
       ))}
 </MarkerClusterGroup>      
-{activeEvent && (
-    <Popup
-      position={[
-        activeEvent.geometry.coordinates[0],
-        activeEvent.geometry.coordinates[1]
-      ]}
-      onClose={() => {
-        setActiveEvent(null);
-      }}
-    >
-      <div>
-        <h2>{activeEvent.evidence1_text}</h2>
-        <p>{activeEvent.date}</p>
-      </div>
-    </Popup>
-  )}
 
       <Eventmap geojson_data={shapes} setfile={setfile} key={fileflag} />
-    </MapContainer>
+    </MapContainer> 
     <Row>
       <Col md={8}>
       <Line data={lineData} 
