@@ -271,18 +271,30 @@ function App() {
         }).includes(item.pe_violence)
       );
     }
-    if (fileflag != 'latam') {
+    console.log("countries",countries);
+    var current_countries=countries.map(function (e) {
+      return e.value;
+    });
+    if (countries.length > 0) {
+
+      filtered_data = filtered_data.filter((item) =>
+      current_countries.includes(item.name_0)
+      );
+      filtered_data_agg = filtered_data_agg.filter((item) =>
+      current_countries.includes(item.name_0)
+      );
+    }
+
+/*     if (fileflag != 'latam') {
       filtered_data = filtered_data.filter((item) => item.name_0 == fileflag);
       filtered_data_agg = filtered_data_agg.filter((item) => item.name_0 == fileflag);
-    }
+    } */
 
     var start_parsed = parseDate(StartDate)
     var end_parsed = parseDate(EndDate)
 
     filtered_data = filtered_data.filter((item) => {
-
       var date = new Date(item.date);
-
       return (date >= start_parsed && date <= end_parsed);
     }
 
@@ -292,7 +304,7 @@ function App() {
     setFilteredData(filtered_data);
     setFilteredData_agg(filtered_data_agg);
 
-  }, [peNum, tarOutcome, wrongdoing, peViolence, StartDate, EndDate, fileflag]);
+  }, [peNum, tarOutcome, wrongdoing, peViolence, StartDate, EndDate, fileflag,countries]);
 
 
 
@@ -334,6 +346,12 @@ function App() {
     }
     setheat(groups);
     setfileflag(file);
+    if (file!='latam'){
+      var countries_tmp=Object.create(countries);
+      countries_tmp.push({label: file, value: file})
+      console.log("rr",countries_tmp);
+      setCountries(countries_tmp);
+    }
   }, [shapes])
 
   async function fetchData(file) {
@@ -361,9 +379,6 @@ function App() {
             <Col md={6}>
               <DateSlider setSDate={setSDate} setEDate={setEDate} />
             </Col>
-          </Row>
-          <Row>
-
           </Row>
           <Row>
             <Col md={2}>
@@ -439,8 +454,10 @@ function App() {
 
           </Row>
           <Row>
+          <Col md={3}>
             <DownloadComponent filteredData={filteredData} />
-            <Col md={6}>
+            </Col>
+            <Col md={3}>
               <Button onClick={reset_map}>Reset map</Button>
             </Col>
           </Row>
