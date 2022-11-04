@@ -20,7 +20,6 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id }) => {
 
     const [onselect, setOnselect] = useState({});
     useEffect(() => {
-        console.log("map",map);
         if (!map) return;
         const getColor = d => {
           return d > 8
@@ -66,7 +65,7 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id }) => {
       }, []);
     const highlightFeature = (e => {
         var layer = e.target;
-        if (mapEvents.getZoom() < 9) {
+        if (mapEvents.getZoom() < 10) {
             layer.setStyle({
                 weight: 1,
                 color: "white",
@@ -76,7 +75,7 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id }) => {
             layer.setStyle({
                 weight: 1,
                 color: "white",
-                fillOpacity: 0.2
+                fillOpacity: 0
             });
         }
     });
@@ -114,7 +113,7 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id }) => {
                             : '#fee5d9';
     })
     const style = (feature => {
-        if (mapEvents.getZoom() < 9) {
+        if (mapEvents.getZoom() < 10) {
             return ({
                 fillColor: mapPolygonColorToDensity(colors[feature.properties.ADMIN]),
                 weight: 2,
@@ -130,7 +129,7 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id }) => {
                 opacity: 1,
                 color: 'white',
                 dashArray: '3',
-                fillOpacity: 0.2
+                fillOpacity: 0
             });
         }
 
