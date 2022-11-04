@@ -116,7 +116,11 @@ function App() {
     }, {});
     return groups;
   });
-  const Colorscale = {'latam':'#fafa6e','Mexico':'#9cdf7c','Brazil':'#4abd8c','Argentina':'#00968e','Chile':'#106e7c','Peru': '#2a4858'};
+
+  const Colorscale = {'latam':'#fafa6e','Argentina':'#00968e','Brazil':'#4abd8c','Chile':'#106e7c',
+  'Mexico':'#9cdf7c','Peru': '#2a4858',"Bolivia":"black", "Colombia":"black",
+  "Costa Rica":"black", "Dominican Republic":"black", "Ecuador":"black", "Guatemala":"black", "Honduras":"black",
+  "Nicaragua":"black", "Panama":"black", "Paraguay":"black", "Uruguay":"black", "Venezuela":"black"};
   const [barData, setBarData] = useState({
     labels: dictionary.filter((item) => item.variable == var_chart).map((element) => element.name),
     datasets: [],
@@ -385,8 +389,12 @@ function App() {
     setfileflag(file);
     if (file!='latam'){
       var countries_tmp=Object.create(countries);
-      countries_tmp.push({label: file, value: file})
-      console.log("rr",countries_tmp);
+      var current_countries=countries_tmp.map(function (e) {
+        return e.value;
+      });
+      if (!current_countries.includes(file)){
+        countries_tmp.push({label: file, value: file})
+      }
       setCountries(countries_tmp);
     }
   }, [shapes])

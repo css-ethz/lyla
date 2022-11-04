@@ -28,6 +28,9 @@ pe_violence,6,detention
 pe_violence,7,dragging around
 pe_violence,8,shooting
 pe_violence,9,shaming (e.g. undressed)
+pe_approxnumber,1,5-19 (small group)
+pe_approxnumber,2,20-99 (substantive group)
+pe_approxnumber,3,100 + (large group)
 country,Argentina,Argentina
 country,Bolivia,Bolivia
 country,Brazil,Brazil
