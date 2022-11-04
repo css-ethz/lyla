@@ -532,7 +532,7 @@ function App() {
                 center={center}
                 zoom={4}
                 scrollWheelZoom={false}
-                style={{ width: '100%', height: '560px' }}
+                style={{ width: '100%', height: '760px' }}
               >
                 <TileLayer {...{
                   attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
@@ -581,33 +581,35 @@ function App() {
 
             </Col>
             <Col md={6}>
+            <Row>
+            <Col md={12}>
               <Line data={lineData}
                 // options= {/{scales: {x: {type: 'time'}}} }
                 options={options}
               />
             </Col>
+              <Col md={6}>
+                <Form.Select
+                  value={var_chart}
+                  onChange={event => setvar_chart(event.target.value)}>
+                  <option value="pe_approxnumber">Number of perpetrators</option>
+                  <option value="tar_wrongdoing">Wrongdoing</option>
+                  <option value="tar_outcome">Outcome</option>
+                  <option value="pe_violence">Worst violence inflicted</option>
+                </Form.Select>
+
+              </Col>
+              <Col md={12}>
+                <Bar data={barData} />
+              </Col>
+            </Row>
+
+            </Col>
 
           </Row>
         </Container>
       </div>
-      <Row>
-        <Col md={2} class="col-md-3 offset-md-6">
-          <Form.Select
-            value={var_chart}
-            onChange={event => setvar_chart(event.target.value)}>
-            <option value="pe_approxnumber">Number of perpetrators</option>
-            <option value="tar_wrongdoing">Wrongdoing</option>
-            <option value="tar_outcome">Outcome</option>
-            <option value="pe_violence">Worst violence inflicted</option>
-          </Form.Select>
 
-        </Col>
-      </Row>
-      <Row>
-        <Col md={4} class="col-md-6 offset-md-6">
-          <Bar data={barData} />
-        </Col>
-      </Row>
 
     </div>
   );
