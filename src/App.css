@@ -211,28 +211,39 @@ main {
   justify-content: space-between;
 }
 
-/* legend  */
+
+
 .legend {
   background: #fff;
-  padding: 8px;
-  border-radius: 5px;
-}
-
-.legend .row {
-  display: flex;
-  line-height: 30px;
+  text-align: left;
+  line-height: 18px;
+  color: #555;
 }
 
 .legend i {
-  display: block;
-  width: 30px;
-  height: 30px;
-  margin-right: 5px;
+  width: 28px;
+  height: 18px;
+  float: left;
+  margin-right: 10px;
+  opacity: 0.7;
 }
+.info {
+  padding: 6px px;
+  background: white;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+.info h4 {
+  margin: 0 0 5px;
+  color: #777;
+}
+
 
 .description {
   width: 250px;
-  font-size: 16px;
+  font-size: 22px;
   color: #333;
   padding: 10px 14px;
   background-color: hsla(0, 0%, 100%, 0.8);

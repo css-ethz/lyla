@@ -6,6 +6,7 @@ import {
     useMap, Circle
 } from 'react-leaflet';
 import { useMapEvents } from "react-leaflet";
+import L from 'leaflet';
 const Heatmap = ({ geojson_data, heat, setfile, key_id }) => {
     //const geoJson: RefObject<Leaflet.GeoJSON> = useRef(null);
     const geoJsonRef = useRef(null);
@@ -18,7 +19,51 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id }) => {
     }, [heat]);
 
     const [onselect, setOnselect] = useState({});
-
+    useEffect(() => {
+        console.log("map",map);
+        if (!map) return;
+        const getColor = d => {
+          return d > 8
+            ? "#a50f15"
+            : d > 4
+            ? "#de2d26"
+            : d > 2
+            ? "#fb6a4a"
+            : d > 1
+            ? "#fc9272"
+            : d > 0.5
+            ? "#fcbba1"
+            : "#fee5d9";
+        };
+    
+        const legend = L.control({ position: "bottomright" });
+    
+        legend.onAdd = () => {
+          const div = L.DomUtil.create("div", "info legend");
+          const grades = [0, 0.5, 1, 2, 4, 8];
+          let labels = [];
+          let from;
+          let to;
+    
+          for (let i = 0; i < grades.length; i++) {
+            from = grades[i];
+            to = grades[i + 1];
+    
+            labels.push(
+              '<i style="background:' +
+                getColor(from + 1) +
+                '"></i> ' +
+                from +
+                (to ? "&ndash;" + to : "+")
+            );
+          }
+    
+          div.innerHTML = labels.join("<br>");
+          return div;
+        };
+        map.removeControl(legend);
+        legend.addTo(map);
+      }, []);
     const highlightFeature = (e => {
         var layer = e.target;
         if (mapEvents.getZoom() < 9) {

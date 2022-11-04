@@ -48,6 +48,9 @@ const outerBounds = [
   [-20.505, 100.09],
 ]
 //-179.99990,-60.34703,-23.24401,30.98005
+const colors = ["fe4848", "fe6c58", "fe9068", "feb478", "fed686"];
+const labels = ["2-12.5", "12.6-16.8", "16.9-20.9", "21-25.9", "26-plus"];
+
 const options = {
   scales: {
     yAxes: [
@@ -521,11 +524,11 @@ function App() {
 
   </Col> */}
 
-            <Col>
+            <Col md={6}>
               <MapContainer
                 id="regionMap"
                 bounds={outerBounds}
-                whenCreated={setMap}
+                fullscreenControl={true}
                 center={center}
                 zoom={4}
                 scrollWheelZoom={false}
@@ -573,6 +576,7 @@ function App() {
                 </MarkerClusterGroup>
 
                 <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} />
+            
               </MapContainer>
 
             </Col>
