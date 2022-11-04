@@ -27,7 +27,6 @@ import DownloadComponent from './components/DownloadComponent';
 import Heatmap from './components/Heatmap';
 import Eventmap from './components/Eventmap';
 import { Button } from 'react-bootstrap'
-
 import MarkerClusterGroup from '@changey/react-leaflet-markercluster';
 import 'leaflet/dist/leaflet.css';
 import colorLib from '@kurkle/color';
@@ -49,11 +48,6 @@ const outerBounds = [
   [-20.505, 100.09],
 ]
 //-179.99990,-60.34703,-23.24401,30.98005
-
-//function onEachFeature(feature, layer) {
-//  layer.bindPopup(feature.properties.ADMIN)
-//}
-
 const options = {
   scales: {
     yAxes: [
@@ -84,16 +78,11 @@ function style(feature) {
   };
 };
 
-
-
-
 function App() {
   const [map, setMap] = useState(null);
-  const [activeEvent, setActiveEvent] = useState(null);
   const [filteredData, setFilteredData] = useState(eventData);
   const [filteredData_agg, setFilteredData_agg] = useState(aggData);
   const [wrongdoing, setWrongdoing] = useState([]);
-  const [tarSex, setTarSex] = useState([]);
   const [peNum, setPeNum] = useState([]);
   const [countries, setCountries] = useState([]);
   const [tarOutcome, setTarOutcome] = useState([]);
@@ -101,14 +90,10 @@ function App() {
   const [StartDate, setSDate] = useState("01.01.2010");
   const [EndDate, setEDate] = useState("31.12.2019");
   const [shapes, setshapes] = useState(geojson);
-  const [file, setfile] = useState('latam');
+  const [file, setfile] = useState('Latin America');
   const [level, setlevel] = useState(0);
-  const [fileflag, setfileflag] = useState('latam');
-
-  //const [var_chart,setvar_chart]=useState('tar1_sex');
+  const [fileflag, setfileflag] = useState('Latin America');
   const [var_chart, setvar_chart] = useState('pe_approxnumber');
-  const [plotcolor, setplotcolor] = useState("#e37068");
-  const [zoomLevel, setZoomLevel] = useState(3);
   const [heat, setheat] = useState(() => {
     var groups = filteredData_agg.reduce(function (r, row) {
       r[row.name_0] = ++r[row.name_0] || 1;
@@ -117,7 +102,7 @@ function App() {
     return groups;
   });
 
-  const Colorscale = {'latam':'#fafa6e','Argentina':'#00968e','Brazil':'#4abd8c','Chile':'#106e7c',
+  const Colorscale = {'Latin America':'#fafa6e','Argentina':'#00968e','Brazil':'#4abd8c','Chile':'#106e7c',
   'Mexico':'#9cdf7c','Peru': '#2a4858',"Bolivia":"black", "Colombia":"black",
   "Costa Rica":"black", "Dominican Republic":"black", "Ecuador":"black", "Guatemala":"black", "Honduras":"black",
   "Nicaragua":"black", "Panama":"black", "Paraguay":"black", "Uruguay":"black", "Venezuela":"black"};
@@ -138,12 +123,12 @@ function App() {
       r[val_name] = ++r[val_name] || 1;
       return r;
     }, {});
-    var current_countries=[{label: 'latam',data: occurences,
+    var current_countries=[{label: 'Latin America',data: occurences,
                   fill: false, // use "True" to draw area-plot 
-                  borderColor: Colorscale['latam'],
+                  borderColor: Colorscale['Latin America'],
                   color: 'white',
                   tickColor: 'white',
-                  backgroundColor: transparentize(Colorscale['latam'], 0.5),
+                  backgroundColor: transparentize(Colorscale['Latin America'], 0.5),
                   pointBackgroundColor: 'black',
                   pointBorderColor: 'black'}];
 
@@ -165,23 +150,21 @@ function App() {
         pointBorderColor: 'black'
       }
     }));
-    console.log("bar",current_countries);
+
     setBarData({
       labels: dictionary.filter((item) => item.variable == var_chart).map((element) => element.name),
       datasets: current_countries,
     });
-  }, [var_chart,fileflag, filteredData_agg]);
+  }, [var_chart,countries, filteredData_agg]);
 
   useEffect(() => {
-
     if (level == 0) {
       var gg = filteredData_agg.reduce(function (r, row) {
         r[row.name_0] = r[row.name_0] + row.id || row.id;
         return r;
       }, {});
       var groups = {};
-      console.log("gg", gg);
-      console.log("pop", population_admin0);
+
       Object.keys(gg).forEach(key => groups[key] = 1000000 * gg[key] / population_admin0[0][key]);
     } else {
       var groups = filteredData_agg.filter((item) => item.name_0 == fileflag).reduce(function (r, row) {
@@ -190,25 +173,24 @@ function App() {
       }, {});
     }
     setheat(groups);
-    console.log(groups);
-    console.log(filteredData_agg);
+
     var occurences = filteredData_agg.reduce(function (r, row) {
-      var year_month = row['month_year'].qyear;
-      r[year_month] = ++r[year_month] || 1;
+      var year = row['month_year'].slice(0, 4);
+      r[year] = ++r[year] || 1;
       return r;
     }, {});
-    var current_countries=[{label: 'latam',data: occurences,
+    var current_countries=[{label: 'Latin America',data: occurences,
                   fill: false, // use "True" to draw area-plot 
-                  borderColor: Colorscale['latam'],
+                  borderColor: Colorscale['Latin America'],
                   color: 'white',
                   tickColor: 'white',
-                  backgroundColor: transparentize(Colorscale['latam'], 0.5),
+                  backgroundColor: transparentize(Colorscale['Latin America'], 0.5),
                   pointBackgroundColor: 'black',
                   pointBorderColor: 'black'}];
     current_countries.push(...countries.map(function (e) {
       var occurences = filteredData_agg.filter((item) => (item.name_0 == e.value) ).reduce(function (r, row) {
-        var year_month = row['month_year'].qyear;
-        r[year_month] = ++r[year_month] || 1;
+        var year = row['month_year'].slice(0, 4);
+        r[year] = ++r[year] || 1;
         return r;
       }, {})
       return {
@@ -223,15 +205,11 @@ function App() {
         pointBorderColor: 'black'
       }
     }));
-
-    console.log("res",current_countries);
     setLineData({
       labels: Object.keys(current_countries[0]['data']),
       datasets: current_countries,
     });
-  }, [fileflag, filteredData_agg]);
-
-
+  }, [countries, filteredData_agg]);
 
   function parseDate(input) {
     var parts = input.match(/(\d+)/g);
@@ -252,7 +230,6 @@ function App() {
       return div;
     };
   }, [map]);
-
 
   useEffect(() => {
     var filtered_data = Object.create(eventData);
@@ -309,13 +286,9 @@ function App() {
         }).includes(item.pe_violence)
       );
     }
-    console.log("countries",countries);
-    var current_countries=countries.map(function (e) {
-      return e.value;
-    });
     filtered_data = filtered_data.filter((item) =>
       item.name_0==fileflag
-      );
+    );
 /*     if (countries.length > 0) {
 
       filtered_data = filtered_data.filter((item) =>
@@ -326,7 +299,7 @@ function App() {
       ); 
     } */
 
-/*     if (fileflag != 'latam') {
+/*     if (fileflag != 'Latin America') {
       filtered_data = filtered_data.filter((item) => item.name_0 == fileflag);
       filtered_data_agg = filtered_data_agg.filter((item) => item.name_0 == fileflag);
     } */
@@ -337,11 +310,11 @@ function App() {
     filtered_data = filtered_data.filter((item) => {
       var date = new Date(item.date);
       return (date >= start_parsed && date <= end_parsed);
-    }
-
-    );
-
-
+    });
+    filtered_data_agg = filtered_data_agg.filter((item) => {
+      var date = new Date(item.month_year);
+      return (date >= start_parsed && date <= end_parsed);
+    });
     setFilteredData(filtered_data);
     setFilteredData_agg(filtered_data_agg);
 
@@ -350,13 +323,12 @@ function App() {
 
 
   useEffect(() => {
-    console.log(file);
-    console.log(level);
+
     setlevel(1);
     var countries = ["Argentina", "Bolivia", "Brazil", "Chile", "Colombia",
       "Costa Rica", "Dominican Republic", "Ecuador", "Guatemala", "Honduras",
       "Mexico", "Nicaragua", "Panama", "Paraguay", "Peru", "Uruguay", "Venezuela"]
-    if (file == 'latam') {
+    if (file == 'Latin America') {
       setshapes(geojson);
       setlevel(0);
     }
@@ -387,7 +359,7 @@ function App() {
     }
     setheat(groups);
     setfileflag(file);
-    if (file!='latam'){
+    if (file!='Latin America'){
       var countries_tmp=Object.create(countries);
       var current_countries=countries_tmp.map(function (e) {
         return e.value;
@@ -411,7 +383,7 @@ function App() {
   }
 
   const reset_map = () => {
-    setfile("latam");
+    setfile("Latin America");
   }
 
   return (
@@ -488,7 +460,7 @@ function App() {
                 options={dictionary.filter((item) =>
                   item.variable == 'country'
                 ).map((element) => {
-                  return { 'label': element.name, 'value': element.value }
+                  return { 'label': element.name, 'value': element.name }
 
                 })}
                 value={countries}
@@ -545,16 +517,13 @@ function App() {
                 } />
 
                 <MarkerClusterGroup maxClusterRadius={40} >
-                  {fileflag != 'latam' && filteredData.map(evt => (
+                  {fileflag != 'Latin America' && filteredData.map(evt => (
                     <Marker
                       key={evt.id}
                       position={[
                         evt.geometry.coordinates[0],
                         evt.geometry.coordinates[1]
-                      ]}
-                      onClick={() => {
-                        setActiveEvent(evt);
-                      }}>
+                      ]}>
                       <Popup>
                         {evt.date} <br />
                         Alleged wrongdoing:&emsp;&emsp;
