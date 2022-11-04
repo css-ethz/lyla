@@ -126,29 +126,47 @@ function App() {
     labels: dictionary.filter((item) => item.variable == var_chart).map((element) => element.name),
     datasets: [],
   });
+
+
   useEffect(() => {
     var occurences = filteredData_agg.reduce(function (r, row) {
       var val_name = dictionary.filter((item) => item.variable == var_chart & item.value == row[var_chart]).map((element) => element.name)[0];
       r[val_name] = ++r[val_name] || 1;
       return r;
     }, {});
+    var current_countries=[{label: 'latam',data: occurences,
+                  fill: false, // use "True" to draw area-plot 
+                  borderColor: Colorscale['latam'],
+                  color: 'white',
+                  tickColor: 'white',
+                  backgroundColor: transparentize(Colorscale['latam'], 0.5),
+                  pointBackgroundColor: 'black',
+                  pointBorderColor: 'black'}];
 
+    current_countries.push(...countries.map(function (e) {
+      var occurences = filteredData_agg.filter((item) => (item.name_0 == e.value) ).reduce(function (r, row) {
+        var val_name = dictionary.filter((item) => item.variable == var_chart & item.value == row[var_chart]).map((element) => element.name)[0];
+        r[val_name] = ++r[val_name] || 1;
+        return r;
+      }, {})
+      return {
+        label: e.value,
+        data: occurences,
+        fill: false, // use "True" to draw area-plot 
+        borderColor: Colorscale[e.value],
+        color: 'white',
+        tickColor: 'white',
+        backgroundColor: transparentize(Colorscale[e.value], 0.5),
+        pointBackgroundColor: 'black',
+        pointBorderColor: 'black'
+      }
+    }));
+    console.log("bar",current_countries);
     setBarData({
       labels: dictionary.filter((item) => item.variable == var_chart).map((element) => element.name),
-      datasets: [
-        {
-          label: "data",
-          data: occurences,
-          fill: false, // use "True" to draw area-plot 
-          borderColor: plotcolor,
-          backgroundColor: transparentize(plotcolor, 0.5),
-          pointBackgroundColor: 'black',
-          pointBorderColor: 'black'
-        },
-      ],
+      datasets: current_countries,
     });
-
-  }, [var_chart]);
+  }, [var_chart,fileflag, filteredData_agg]);
 
   useEffect(() => {
 
@@ -571,7 +589,7 @@ function App() {
         </Container>
       </div>
       <Row>
-        <Col md={2}>
+        <Col md={2} class="col-md-3 offset-md-6">
           <Form.Select
             value={var_chart}
             onChange={event => setvar_chart(event.target.value)}>
@@ -584,7 +602,7 @@ function App() {
         </Col>
       </Row>
       <Row>
-        <Col md={6}>
+        <Col md={4} class="col-md-6 offset-md-6">
           <Bar data={barData} />
         </Col>
       </Row>
