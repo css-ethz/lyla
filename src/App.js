@@ -106,10 +106,12 @@ function App() {
     return groups;
   });
 
-  const Colorscale = {'Latin America':'#fafa6e','Argentina':'#00968e','Brazil':'#4abd8c','Chile':'#106e7c',
-  'Mexico':'#9cdf7c','Peru': '#2a4858',"Bolivia":"black", "Colombia":"black",
-  "Costa Rica":"black", "Dominican Republic":"black", "Ecuador":"black", "Guatemala":"black", "Honduras":"black",
-  "Nicaragua":"black", "Panama":"black", "Paraguay":"black", "Uruguay":"black", "Venezuela":"black"};
+  const Colorscale = {
+    'Latin America': '#fafa6e', 'Argentina': '#00968e', 'Brazil': '#4abd8c', 'Chile': '#106e7c',
+    'Mexico': '#9cdf7c', 'Peru': '#2a4858', "Bolivia": "black", "Colombia": "black",
+    "Costa Rica": "black", "Dominican Republic": "black", "Ecuador": "black", "Guatemala": "black", "Honduras": "black",
+    "Nicaragua": "black", "Panama": "black", "Paraguay": "black", "Uruguay": "black", "Venezuela": "black"
+  };
   const [barData, setBarData] = useState({
     labels: dictionary.filter((item) => item.variable == var_chart).map((element) => element.name),
     datasets: [],
@@ -127,26 +129,28 @@ function App() {
       r[val_name] = ++r[val_name] || 1;
       return r;
     }, {});
-    if(Check){
-      Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0])/1000000));
+    if (Check) {
+      Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
     }
-    var current_countries=[{label: 'Latin America',data: occurences,
-                  fill: false, // use "True" to draw area-plot 
-                  borderColor: Colorscale['Latin America'],
-                  color: 'white',
-                  tickColor: 'white',
-                  backgroundColor: transparentize(Colorscale['Latin America'], 0.5),
-                  pointBackgroundColor: 'black',
-                  pointBorderColor: 'black'}];
+    var current_countries = [{
+      label: 'Latin America', data: occurences,
+      fill: false, // use "True" to draw area-plot 
+      borderColor: Colorscale['Latin America'],
+      color: 'white',
+      tickColor: 'white',
+      backgroundColor: transparentize(Colorscale['Latin America'], 0.5),
+      pointBackgroundColor: 'black',
+      pointBorderColor: 'black'
+    }];
 
     current_countries.push(...countries.map(function (e) {
-      var occurences = filteredData_agg.filter((item) => (item.name_0 == e.value) ).reduce(function (r, row) {
+      var occurences = filteredData_agg.filter((item) => (item.name_0 == e.value)).reduce(function (r, row) {
         var val_name = dictionary.filter((item) => item.variable == var_chart & item.value == row[var_chart]).map((element) => element.name)[0];
         r[val_name] = ++r[val_name] || 1;
         return r;
       }, {})
-      if(Check){
-        Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value]/1000000));
+      if (Check) {
+        Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
       }
       return {
         label: e.value,
@@ -165,7 +169,7 @@ function App() {
       labels: dictionary.filter((item) => item.variable == var_chart).map((element) => element.name),
       datasets: current_countries,
     });
-  }, [var_chart,countries, filteredData_agg,Check]);
+  }, [var_chart, countries, filteredData_agg, Check]);
 
   useEffect(() => {
     if (level == 0) {
@@ -189,27 +193,29 @@ function App() {
       r[year] = ++r[year] || 1;
       return r;
     }, {});
-    if(Check){
-      Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0])/1000000));
+    if (Check) {
+      Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
     }
-    var current_countries=[{label: 'Latin America',data: occurences,
-                  fill: false, // use "True" to draw area-plot 
-                  borderColor: Colorscale['Latin America'],
-                  color: 'white',
-                  tickColor: 'white',
-                  backgroundColor: transparentize(Colorscale['Latin America'], 0.5),
-                  pointBackgroundColor: 'black',
-                  pointBorderColor: 'black'}];
+    var current_countries = [{
+      label: 'Latin America', data: occurences,
+      fill: false, // use "True" to draw area-plot 
+      borderColor: Colorscale['Latin America'],
+      color: 'white',
+      tickColor: 'white',
+      backgroundColor: transparentize(Colorscale['Latin America'], 0.5),
+      pointBackgroundColor: 'black',
+      pointBorderColor: 'black'
+    }];
     current_countries.push(...countries.map(function (e) {
-      var occurences = filteredData_agg.filter((item) => (item.name_0 == e.value) ).reduce(function (r, row) {
+      var occurences = filteredData_agg.filter((item) => (item.name_0 == e.value)).reduce(function (r, row) {
         var year = row['month_year'].slice(0, 4);
         r[year] = ++r[year] || 1;
         return r;
       }, {});
-      if(Check){
-        Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value]/1000000));
+      if (Check) {
+        Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
       }
-        return {
+      return {
         label: e.value,
         data: occurences,
         fill: false, // use "True" to draw area-plot 
@@ -225,7 +231,7 @@ function App() {
       labels: Object.keys(current_countries[0]['data']),
       datasets: current_countries,
     });
-  }, [countries, filteredData_agg,Check]);
+  }, [countries, filteredData_agg, Check]);
 
   function parseDate(input) {
     var parts = input.match(/(\d+)/g);
@@ -302,23 +308,25 @@ function App() {
         }).includes(item.pe_violence)
       );
     }
-    filtered_data = filtered_data.filter((item) =>
-      item.name_0==fileflag
-    );
-/*     if (countries.length > 0) {
-
+    if(fileflag!="Latin America"){
       filtered_data = filtered_data.filter((item) =>
-      current_countries.includes(item.name_0)
+        item.name_0 == fileflag
       );
-       filtered_data_agg = filtered_data_agg.filter((item) =>
-      current_countries.includes(item.name_0)
-      ); 
-    } */
+    }
+    /*     if (countries.length > 0) {
+    
+          filtered_data = filtered_data.filter((item) =>
+          current_countries.includes(item.name_0)
+          );
+           filtered_data_agg = filtered_data_agg.filter((item) =>
+          current_countries.includes(item.name_0)
+          ); 
+        } */
 
-/*     if (fileflag != 'Latin America') {
-      filtered_data = filtered_data.filter((item) => item.name_0 == fileflag);
-      filtered_data_agg = filtered_data_agg.filter((item) => item.name_0 == fileflag);
-    } */
+    /*     if (fileflag != 'Latin America') {
+          filtered_data = filtered_data.filter((item) => item.name_0 == fileflag);
+          filtered_data_agg = filtered_data_agg.filter((item) => item.name_0 == fileflag);
+        } */
 
     var start_parsed = parseDate(StartDate)
     var end_parsed = parseDate(EndDate)
@@ -334,7 +342,7 @@ function App() {
     setFilteredData(filtered_data);
     setFilteredData_agg(filtered_data_agg);
 
-  }, [peNum, tarOutcome, wrongdoing, peViolence, StartDate, EndDate, fileflag,countries]);
+  }, [peNum, tarOutcome, wrongdoing, peViolence, StartDate, EndDate, fileflag, countries]);
 
 
 
@@ -375,13 +383,13 @@ function App() {
     }
     setheat(groups);
     setfileflag(file);
-    if (file!='Latin America'){
-      var countries_tmp=Object.create(countries);
-      var current_countries=countries_tmp.map(function (e) {
+    if (file != 'Latin America') {
+      var countries_tmp = Object.create(countries);
+      var current_countries = countries_tmp.map(function (e) {
         return e.value;
       });
-      if (!current_countries.includes(file)){
-        countries_tmp.push({label: file, value: file})
+      if (!current_countries.includes(file)) {
+        countries_tmp.push({ label: file, value: file })
       }
       setCountries(countries_tmp);
     }
@@ -486,17 +494,17 @@ function App() {
             </Col>
             <Col md={2}>
               <Form.Check
-              type='checkbox'
-              label={`Events per million people`}
-              id={`population`}
-              checked={Check}
-              onChange={() => setCheck(!Check)}
+                type='checkbox'
+                label={`Events per million people`}
+                id={`population`}
+                checked={Check}
+                onChange={() => setCheck(!Check)}
               />
             </Col>
           </Row>
           <Row>
-          <Col md={3}>
-            <DownloadComponent filteredData={filteredData} />
+            <Col md={3}>
+              <DownloadComponent filteredData={filteredData} />
             </Col>
             <Col md={3}>
               <Button onClick={reset_map}>Reset map</Button>
@@ -576,33 +584,33 @@ function App() {
                 </MarkerClusterGroup>
 
                 <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} />
-            
+
               </MapContainer>
 
             </Col>
             <Col md={6}>
-            <Row>
-            <Col md={12}>
-              <Line data={lineData}
-                // options= {/{scales: {x: {type: 'time'}}} }
-                options={options}
-              />
-            </Col>
-              <Col md={6}>
-                <Form.Select
-                  value={var_chart}
-                  onChange={event => setvar_chart(event.target.value)}>
-                  <option value="pe_approxnumber">Number of perpetrators</option>
-                  <option value="tar_wrongdoing">Wrongdoing</option>
-                  <option value="tar_outcome">Outcome</option>
-                  <option value="pe_violence">Worst violence inflicted</option>
-                </Form.Select>
+              <Row>
+                <Col md={12}>
+                  <Line data={lineData}
+                    // options= {/{scales: {x: {type: 'time'}}} }
+                    options={options}
+                  />
+                </Col>
+                <Col md={6}>
+                  <Form.Select
+                    value={var_chart}
+                    onChange={event => setvar_chart(event.target.value)}>
+                    <option value="pe_approxnumber">Number of perpetrators</option>
+                    <option value="tar_wrongdoing">Wrongdoing</option>
+                    <option value="tar_outcome">Outcome</option>
+                    <option value="pe_violence">Worst violence inflicted</option>
+                  </Form.Select>
 
-              </Col>
-              <Col md={12}>
-                <Bar data={barData} />
-              </Col>
-            </Row>
+                </Col>
+                <Col md={12}>
+                  <Bar data={barData} />
+                </Col>
+              </Row>
 
             </Col>
 
@@ -614,8 +622,6 @@ function App() {
     </div>
   );
 };
-
-
 
 
 export default App;
