@@ -116,6 +116,7 @@ function App() {
     }, {});
     return groups;
   });
+  const Colorscale = {'latam':'#fafa6e','Mexico':'#9cdf7c','Brazil':'#4abd8c','Argentina':'#00968e','Chile':'#106e7c','Peru': '#2a4858'};
   const [barData, setBarData] = useState({
     labels: dictionary.filter((item) => item.variable == var_chart).map((element) => element.name),
     datasets: [],
@@ -169,27 +170,42 @@ function App() {
     setheat(groups);
     console.log(groups);
     console.log(filteredData_agg);
-    var occurences = filteredData_agg.filter((item) => (item.name_0 == fileflag) || fileflag == 'latam').reduce(function (r, row) {
+    var occurences = filteredData_agg.reduce(function (r, row) {
       var year_month = row['month_year'].qyear;
       r[year_month] = ++r[year_month] || 1;
       return r;
     }, {});
-    console.log(occurences);
+    var current_countries=[{label: 'latam',data: occurences,
+                  fill: false, // use "True" to draw area-plot 
+                  borderColor: Colorscale['latam'],
+                  color: 'white',
+                  tickColor: 'white',
+                  backgroundColor: transparentize(Colorscale['latam'], 0.5),
+                  pointBackgroundColor: 'black',
+                  pointBorderColor: 'black'}];
+    current_countries.push(...countries.map(function (e) {
+      var occurences = filteredData_agg.filter((item) => (item.name_0 == e.value) ).reduce(function (r, row) {
+        var year_month = row['month_year'].qyear;
+        r[year_month] = ++r[year_month] || 1;
+        return r;
+      }, {})
+      return {
+        label: e.value,
+        data: occurences,
+        fill: false, // use "True" to draw area-plot 
+        borderColor: Colorscale[e.value],
+        color: 'white',
+        tickColor: 'white',
+        backgroundColor: transparentize(Colorscale[e.value], 0.5),
+        pointBackgroundColor: 'black',
+        pointBorderColor: 'black'
+      }
+    }));
+
+    console.log("res",current_countries);
     setLineData({
-      labels: Object.keys(occurences),
-      datasets: [
-        {
-          label: "data",
-          data: occurences,
-          fill: false, // use "True" to draw area-plot 
-          borderColor: plotcolor,
-          color: 'white',
-          tickColor: 'white',
-          backgroundColor: transparentize(plotcolor, 0.5),
-          pointBackgroundColor: 'black',
-          pointBorderColor: 'black'
-        },
-      ],
+      labels: Object.keys(current_countries[0]['data']),
+      datasets: current_countries,
     });
   }, [fileflag, filteredData_agg]);
 
@@ -275,15 +291,18 @@ function App() {
     var current_countries=countries.map(function (e) {
       return e.value;
     });
-    if (countries.length > 0) {
+    filtered_data = filtered_data.filter((item) =>
+      item.name_0==fileflag
+      );
+/*     if (countries.length > 0) {
 
       filtered_data = filtered_data.filter((item) =>
       current_countries.includes(item.name_0)
       );
-      filtered_data_agg = filtered_data_agg.filter((item) =>
+       filtered_data_agg = filtered_data_agg.filter((item) =>
       current_countries.includes(item.name_0)
-      );
-    }
+      ); 
+    } */
 
 /*     if (fileflag != 'latam') {
       filtered_data = filtered_data.filter((item) => item.name_0 == fileflag);
