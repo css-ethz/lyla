@@ -92,6 +92,7 @@ function App() {
   const [shapes, setshapes] = useState(geojson);
   const [file, setfile] = useState('Latin America');
   const [level, setlevel] = useState(0);
+  const [Check, setCheck] = useState(false);
   const [fileflag, setfileflag] = useState('Latin America');
   const [var_chart, setvar_chart] = useState('pe_approxnumber');
   const [heat, setheat] = useState(() => {
@@ -110,7 +111,7 @@ function App() {
     labels: dictionary.filter((item) => item.variable == var_chart).map((element) => element.name),
     datasets: [],
   });
-
+  const sumValues = obj => Object.values(obj).reduce((a, b) => a + b, 0);
   const [lineData, setLineData] = useState({
     labels: dictionary.filter((item) => item.variable == var_chart).map((element) => element.name),
     datasets: [],
@@ -123,6 +124,9 @@ function App() {
       r[val_name] = ++r[val_name] || 1;
       return r;
     }, {});
+    if(Check){
+      Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0])/1000000));
+    }
     var current_countries=[{label: 'Latin America',data: occurences,
                   fill: false, // use "True" to draw area-plot 
                   borderColor: Colorscale['Latin America'],
@@ -138,6 +142,9 @@ function App() {
         r[val_name] = ++r[val_name] || 1;
         return r;
       }, {})
+      if(Check){
+        Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value]/1000000));
+      }
       return {
         label: e.value,
         data: occurences,
@@ -155,7 +162,7 @@ function App() {
       labels: dictionary.filter((item) => item.variable == var_chart).map((element) => element.name),
       datasets: current_countries,
     });
-  }, [var_chart,countries, filteredData_agg]);
+  }, [var_chart,countries, filteredData_agg,Check]);
 
   useEffect(() => {
     if (level == 0) {
@@ -179,6 +186,9 @@ function App() {
       r[year] = ++r[year] || 1;
       return r;
     }, {});
+    if(Check){
+      Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0])/1000000));
+    }
     var current_countries=[{label: 'Latin America',data: occurences,
                   fill: false, // use "True" to draw area-plot 
                   borderColor: Colorscale['Latin America'],
@@ -192,8 +202,11 @@ function App() {
         var year = row['month_year'].slice(0, 4);
         r[year] = ++r[year] || 1;
         return r;
-      }, {})
-      return {
+      }, {});
+      if(Check){
+        Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value]/1000000));
+      }
+        return {
         label: e.value,
         data: occurences,
         fill: false, // use "True" to draw area-plot 
@@ -209,7 +222,7 @@ function App() {
       labels: Object.keys(current_countries[0]['data']),
       datasets: current_countries,
     });
-  }, [countries, filteredData_agg]);
+  }, [countries, filteredData_agg,Check]);
 
   function parseDate(input) {
     var parts = input.match(/(\d+)/g);
@@ -468,7 +481,15 @@ function App() {
                 labelledBy="Select"
               />
             </Col>
-
+            <Col md={2}>
+              <Form.Check
+              type='checkbox'
+              label={`Events per million people`}
+              id={`population`}
+              checked={Check}
+              onChange={() => setCheck(!Check)}
+              />
+            </Col>
           </Row>
           <Row>
           <Col md={3}>
@@ -506,7 +527,7 @@ function App() {
                 bounds={outerBounds}
                 whenCreated={setMap}
                 center={center}
-                zoom={3}
+                zoom={4}
                 scrollWheelZoom={false}
                 style={{ width: '100%', height: '560px' }}
               >
