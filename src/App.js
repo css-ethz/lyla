@@ -33,8 +33,10 @@ import colorLib from '@kurkle/color';
 import { MultiSelect } from "react-multi-select-component";
 import '@changey/react-leaflet-markercluster/dist/styles.min.css';
 import { Chart, registerables } from 'chart.js';
+import CodeBookModal from './components/CodebokkPopUp';
 Chart.register(...registerables);
 delete L.Icon.Default.prototype._getIconUrl;
+
 
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),

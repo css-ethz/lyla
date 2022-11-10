@@ -267,3 +267,10 @@ main {
   display:flex;
   flex-direction: column;
 }
+
+.buttoncb {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  font-size: 18px;
+}
