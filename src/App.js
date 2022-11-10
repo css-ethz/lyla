@@ -84,7 +84,7 @@ function style(feature) {
 };
 
 function App() {
-  const [map, setMap] = useState(null);
+  const [map, setMap] = useState();
   const [filteredData, setFilteredData] = useState(eventData);
   const [filteredData_agg, setFilteredData_agg] = useState(aggData);
   const [wrongdoing, setWrongdoing] = useState([]);
@@ -100,6 +100,7 @@ function App() {
   const [Check, setCheck] = useState(false);
   const [fileflag, setfileflag] = useState('Latin America');
   const [var_chart, setvar_chart] = useState('pe_approxnumber');
+  const [isActive, setIsActive] = useState(true);
   const [heat, setheat] = useState(() => {
     var groups = filteredData_agg.reduce(function (r, row) {
       r[row.name_0] = ++r[row.name_0] || 1;
@@ -107,6 +108,7 @@ function App() {
     }, {});
     return groups;
   });
+
 
   const Colorscale = {
     'Latin America': '#fafa6e', 'Argentina': '#00968e', 'Brazil': '#4abd8c', 'Chile': '#106e7c',
@@ -123,6 +125,16 @@ function App() {
     labels: dictionary.filter((item) => item.variable == var_chart).map((element) => element.name),
     datasets: [],
   });
+
+
+  const MyComponent = ({file}) => {
+    const map = useMap();
+    if (file == "Latin America"){
+      map.fitBounds({outerBounds})
+      return null
+    }
+    return null
+  }
 
 
   useEffect(() => {
@@ -244,16 +256,16 @@ function App() {
     var alpha = opacity === undefined ? 0.5 : 1 - opacity;
     return colorLib(value).alpha(alpha).rgbString();
   }
-  useEffect(() => {
-    if (!map) return;
+  // useEffect(() => {
+  //   if (!map) return;
 
-    const legend = L.control({ position: "bottomleft" });
-    legend.onAdd = () => {
-      const div = L.DomUtil.create("div", "legend");
-      div.innerHTML = `click on polygon`;
-      return div;
-    };
-  }, [map]);
+  //   const legend = L.control({ position: "bottomleft" });
+  //   legend.onAdd = () => {
+  //     const div = L.DomUtil.create("div", "legend");
+  //     div.innerHTML = `click on polygon`;
+  //     return div;
+  //   };
+  // }, [map]);
 
   useEffect(() => {
     var filtered_data = Object.create(eventData);
@@ -357,6 +369,8 @@ function App() {
     if (file == 'Latin America') {
       setshapes(geojson);
       setlevel(0);
+
+      //map2.fitBounds({outerBounds});
     }
     else if (countries.includes(file)) {
       //fetchData(file);
@@ -370,6 +384,12 @@ function App() {
     }
 
   }, [file])
+
+  // function fittingBounds() {
+  //   const map = useMap()
+  //   console.log('map center:', map.getCenter())
+  //   return null
+  // }
 
   useEffect(() => {
     if (level == 0) {
@@ -414,16 +434,33 @@ function App() {
 
   return (
     <div className="dark">
-      <h1>LYLA Dashboard</h1>
+      <h1>Lynching in Latin America (LYLA)</h1>
+      <p className='intro-text'> The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.
+</p>
+<p className='intro-text'> Below, you can explore the following variables across space and time:</p>
+            <ul className='intro-bullets'>
+              <li>Alleged wrongdoing: What was the lynched person accused of?</li>
+              <li>Worst outcome: What physical consequences did the lynched person suffer?</li>
+              <li>Worst violence inflicted: What kind of violence did the lynch mob use?</li>
+              <li>Number of perpetrators: How large was the lynch mob?</li>
+            </ul>  
 
+<p className='intro-text'>Furthermore, you can select and compare Latin American countries, and display the absolute number of events as well as the rate of lynching per million inhabitants.
+<a href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html">Here</a> you find more information and supporting material.</p>
+      <div><CodeBookModal/></div>
+      
       <div>
         <Container fluid>
           <Row className='add-space'>
             <Col md={6}>
               <DateSlider setSDate={setSDate} setEDate={setEDate} />
             </Col>
+            
           </Row>
+          
           <Row>
+            
+         
             <Col md={2}>
               <Form.Label className='mb-2'>Alleged Wrongdoing</Form.Label>
               <MultiSelect

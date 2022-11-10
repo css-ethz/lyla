@@ -84,7 +84,8 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id }) => {
         e.target.setStyle(style(e.target.feature));
     })
     const zoomToFeature = (e) => {
-        map.fitBounds(e.target.getBounds());
+        map.fitBounds(e.target.getBounds()); //print bounds
+        console.log(e.target.getBounds());
     };
 
     const onEachFeature = (feature, layer) => {
@@ -94,6 +95,7 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id }) => {
             click: (e) => {
                 zoomToFeature(e);
                 if (key_id == 'Latin America') {
+                    console.log(e.target.feature.properties.ADMIN); //check if value coincides with zoomed out country
                     setfile(e.target.feature.properties.ADMIN);
                 }
             },
