@@ -54,6 +54,12 @@ const colors = ["fe4848", "fe6c58", "fe9068", "feb478", "fed686"];
 const labels = ["2-12.5", "12.6-16.8", "16.9-20.9", "21-25.9", "26-plus"];
 
 const options = {
+  plugins: {
+    title: {
+      display: true,
+      text: 'Events per million units',
+    },
+  },
   scales: {
     yAxes: [
       {
@@ -145,9 +151,10 @@ function App() {
       r[val_name] = ++r[val_name] || 1;
       return r;
     }, {});
-    if (Check) {
-      Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
-    }
+    //if (Check) {
+    //  Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
+    //}
+    Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
     var current_countries = [{
       label: 'Latin America', data: occurences,
       fill: false, // use "True" to draw area-plot 
@@ -165,9 +172,10 @@ function App() {
         r[val_name] = ++r[val_name] || 1;
         return r;
       }, {})
-      if (Check) {
-        Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
-      }
+      //if (Check) {
+      //  Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
+      //}
+      Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
       return {
         label: e.value,
         data: occurences,
@@ -209,9 +217,10 @@ function App() {
       r[year] = ++r[year] || 1;
       return r;
     }, {});
-    if (Check) {
-      Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
-    }
+    //if (Check) {
+    //  Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
+    //}
+    Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
     var current_countries = [{
       label: 'Latin America', data: occurences,
       fill: false, // use "True" to draw area-plot 
@@ -228,9 +237,10 @@ function App() {
         r[year] = ++r[year] || 1;
         return r;
       }, {});
-      if (Check) {
-        Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
-      }
+      //if (Check) {
+      //  Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
+      //}
+      Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
       return {
         label: e.value,
         data: occurences,
@@ -533,7 +543,7 @@ function App() {
                 labelledBy="Select"
               />
             </Col>
-            <Col md={2}>
+            {/* <Col md={2}>
               <Form.Check
                 type='checkbox'
                 label={`Events per million people`}
@@ -541,7 +551,7 @@ function App() {
                 checked={Check}
                 onChange={() => setCheck(!Check)}
               />
-            </Col>
+            </Col> */}
           </Row>
           <Row>
             <Col md={3}>
@@ -597,7 +607,7 @@ function App() {
                         evt.geometry.coordinates[1]
                       ]}>
                       <Popup>
-                        {evt.name_0} <br/>
+                        {evt.name_1}, {evt.name_0} <br/>
                         {evt.date} <br />
                         {evt.header} <br />
                         <a href={evt.link} target="_blank">Link to article</a>
@@ -621,7 +631,7 @@ function App() {
                       ]}>
                       <Popup>
                         {evt.date} <br />
-                        {evt.name_1} <br/>
+                        {evt.name_1}, {evt.name_0} <br/>
                         Alleged wrongdoing:&emsp;&emsp;
                         {dictionary.filter((item) =>
                           item.variable == 'tar_wrongdoing' & item.value == evt.tar_wrongdoing).map((element) => {
