@@ -12,7 +12,7 @@ import L from 'leaflet';
 import { Icon } from 'leaflet';
 import geojson from './data/admin0.geojson.json'
 import geojson1_admin1 from './data/admin1.geojson.json'
-import eventData from './data/json_data_complete_latin2.json'
+import eventData from './data/json_data_complete_latin3.json'
 import aggData from './data/data_agg.json'
 import population_admin0 from './data/population_admin0.json'
 import dictionary from './data/dictionary.json'
@@ -108,8 +108,10 @@ function App() {
     }, {});
     return groups;
   });
-
-
+  var special_events = Object.create(eventData);
+  special_events = special_events.filter((item) => {
+    return (item.press_article == 'true');
+  });
   const Colorscale = {
     'Latin America': '#fafa6e', 'Argentina': '#00968e', 'Brazil': '#4abd8c', 'Chile': '#106e7c',
     'Mexico': '#9cdf7c', 'Peru': '#2a4858', "Bolivia": "black", "Colombia": "black",
@@ -217,8 +219,8 @@ function App() {
       color: 'white',
       tickColor: 'white',
       backgroundColor: transparentize(Colorscale['Latin America'], 0.5),
-      pointBackgroundColor: 'black',
-      pointBorderColor: 'black'
+      pointRadius: 0,
+      tension: 0.3,
     }];
     current_countries.push(...countries.map(function (e) {
       var occurences = filteredData_agg.filter((item) => (item.name_0 == e.value)).reduce(function (r, row) {
@@ -237,8 +239,8 @@ function App() {
         color: 'white',
         tickColor: 'white',
         backgroundColor: transparentize(Colorscale[e.value], 0.5),
-        pointBackgroundColor: 'black',
-        pointBorderColor: 'black'
+        pointRadius: 0,
+        tension: 0.3,
       }
     }));
     setLineData({
@@ -587,6 +589,28 @@ function App() {
                 }
                 } />
 
+                  {special_events.map(evt => (
+                    <Marker
+                      key={evt.id}
+                      position={[
+                        evt.geometry.coordinates[0],
+                        evt.geometry.coordinates[1]
+                      ]}>
+                      <Popup>
+                        {evt.name_0} <br/>
+                        {evt.date} <br />
+                        {evt.header} <br />
+                        <a href={evt.link} target="_blank">Link to article</a>
+                        
+
+                      </Popup>
+
+
+                    </Marker>
+
+
+                  ))}
+
                 <MarkerClusterGroup maxClusterRadius={40} >
                   {fileflag != 'Latin America' && filteredData.map(evt => (
                     <Marker
@@ -597,6 +621,7 @@ function App() {
                       ]}>
                       <Popup>
                         {evt.date} <br />
+                        {evt.name_1} <br/>
                         Alleged wrongdoing:&emsp;&emsp;
                         {dictionary.filter((item) =>
                           item.variable == 'tar_wrongdoing' & item.value == evt.tar_wrongdoing).map((element) => {
