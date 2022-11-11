@@ -463,7 +463,7 @@ function App() {
       
       <div>
         <Container fluid>
-          <Row className='add-space'>
+          <Row>
             <Col md={6}>
               <DateSlider setSDate={setSDate} setEDate={setEDate} />
             </Col>
@@ -527,6 +527,7 @@ function App() {
                 value={peNum}
                 onChange={setPeNum}
                 labelledBy="Select"
+        
               />
             </Col>
             <Col md={2}>
@@ -606,7 +607,7 @@ function App() {
                         evt.geometry.coordinates[0],
                         evt.geometry.coordinates[1]
                       ]}>
-                      <Popup>
+                      <Popup className='popup'>
                         {evt.name_1}, {evt.name_0} <br/>
                         {evt.date} <br />
                         {evt.header} <br />
@@ -657,7 +658,7 @@ function App() {
                   ))}
                 </MarkerClusterGroup>
 
-                <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} />
+                <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} file={file}/>
 
               </MapContainer>
 

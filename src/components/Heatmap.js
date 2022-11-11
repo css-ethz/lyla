@@ -7,7 +7,17 @@ import {
 } from 'react-leaflet';
 import { useMapEvents } from "react-leaflet";
 import L from 'leaflet';
-const Heatmap = ({ geojson_data, heat, setfile, key_id }) => {
+// const outerBounds_reset = [
+//     [-30.505, -100.09],
+//     [-1.505, -40.09],
+//   ]
+
+  const outerBounds_reset = [
+    [-30.505, -100.09],
+    [-1.505, -35.59],
+  ]
+
+const Heatmap = ({ geojson_data, heat, setfile, key_id, file }) => {
     //const geoJson: RefObject<Leaflet.GeoJSON> = useRef(null);
     const geoJsonRef = useRef(null);
     const map = useMap();
@@ -84,7 +94,10 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id }) => {
         e.target.setStyle(style(e.target.feature));
     })
     const zoomToFeature = (e) => {
+        console.log("traget admin value is:")
+        console.log(e.target.feature.properties.ADMIN)
         map.fitBounds(e.target.getBounds()); //print bounds
+        
         console.log(e.target.getBounds());
     };
 
@@ -118,19 +131,19 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id }) => {
         if (mapEvents.getZoom() < 10) {
             return ({
                 fillColor: mapPolygonColorToDensity(colors[feature.properties.ADMIN]),
-                weight: 2,
+                weight: 1,
                 opacity: 1,
                 color: 'white',
-                dashArray: '3',
-                fillOpacity: 0.5
+                dashArray: '1',
+                fillOpacity: 1
             });
         } else {
             return ({
                 fillColor: mapPolygonColorToDensity(colors[feature.properties.ADMIN]),
-                weight: 2,
+                weight: 1,
                 opacity: 1,
                 color: 'white',
-                dashArray: '3',
+                dashArray: '1',
                 fillOpacity: 0
             });
         }
@@ -138,8 +151,16 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id }) => {
 
     });
     useEffect(() => {
+        console.log("FILE");
+        console.log(file);
+        if (file === "Latin America"){
+        
         if (geoJsonRef.current.getBounds().isValid()) {
-            map.fitBounds(geoJsonRef.current.getBounds());
+        
+            //map.fitBounds(geoJsonRef.current.getBounds());
+            map.fitBounds(outerBounds_reset);
+        }
+        
         }
 
     }, [geojson_data])

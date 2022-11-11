@@ -346,3 +346,14 @@ main {
   overflow-x: auto;
 }
 
+.popup{
+  opacity: 0.1;
+
+}
+
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background: #ffffff60;
+  color: #333;
+  box-shadow: 0 3px 14px rgb(0 0 0 / 40%);
+}
+
