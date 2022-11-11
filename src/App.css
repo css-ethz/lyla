@@ -28,7 +28,7 @@ h2 {
 
 .dark {
   background-color: #333;
-  color: #fff;
+  color: rgb(247, 239, 239);
 }
 
 nav ul {
@@ -351,9 +351,7 @@ main {
 
 }
 
-.leaflet-popup-content-wrapper, .leaflet-popup-tip {
-  background: #ffffff60;
-  color: #333;
-  box-shadow: 0 3px 14px rgb(0 0 0 / 40%);
+.multi-select {
+  max-width: 700px;
+  color: black;
 }
-
