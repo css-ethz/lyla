@@ -590,9 +590,9 @@ function App() {
             <Col md={2}>
               <DownloadComponent filteredData={filteredData} />
             </Col>
-            <Col md={3}>
+{/*             <Col md={3}>
               <Button onClick={reset_map}>Reset map</Button>
-            </Col>
+            </Col> */}
           </Row>
         </Container>
 
