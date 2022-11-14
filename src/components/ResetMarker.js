@@ -28,7 +28,7 @@ const ResetMarker = ({  setfile}) => {
     legend.onAdd = function () {
       let div = L.DomUtil.create("div", "description");
       L.DomEvent.disableClickPropagation(div);
-      const text = "Reset Map";
+      const text = "";
       div.insertAdjacentHTML("beforeend", text);
       return div;
     };
