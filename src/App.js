@@ -34,9 +34,13 @@ import { MultiSelect } from "react-multi-select-component";
 import '@changey/react-leaflet-markercluster/dist/styles.min.css';
 import { Chart, registerables } from 'chart.js';
 import CodeBookModal from './components/CodebokkPopUp';
+import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import fontawesome from '@fortawesome/fontawesome'
+import {faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 Chart.register(...registerables);
 delete L.Icon.Default.prototype._getIconUrl;
-
+fontawesome.library.add(faCircleInfo);
 
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
@@ -61,13 +65,13 @@ const options = {
     },
   },
   scales: {
-    yAxes: [
+    yAxes: 
       {
+        max: 1.9,
         gridLines: {
           display: "false"
         }
-      }
-    ],
+      },
     xAxes: [
       {
         gridLines: {
@@ -157,6 +161,7 @@ function App() {
     Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
     var current_countries = [{
       label: 'Latin America', data: occurences,
+      minBarLength: 2,
       fill: false, // use "True" to draw area-plot 
       borderColor: Colorscale['Latin America'],
       color: 'white',
@@ -179,6 +184,7 @@ function App() {
       return {
         label: e.value,
         data: occurences,
+        minBarLength: 2,
         fill: false, // use "True" to draw area-plot 
         borderColor: Colorscale[e.value],
         color: 'white',
@@ -472,10 +478,13 @@ function App() {
           
           <Row>
             
-         
             <Col md={2}>
               <Row>
-              <Form.Label className='mb-2'>Alleged Wrongdoing</Form.Label>
+              <Form.Label className='mb-2'>
+                Alleged Wrongdoing&thinsp; 
+                <FontAwesomeIcon icon="fa-solid fa-circle-info" title={" What was the lynched person accused of?"} />
+              </Form.Label>
+              
               <MultiSelect className='multi-select'
             
                 options={dictionary.filter((item) =>
@@ -491,7 +500,10 @@ function App() {
               />
               </Row>
               <Row>
-              <Form.Label className='mb-2'>Worst outcome</Form.Label>
+              <Form.Label className='mb-2'>
+                Worst outcome&thinsp;
+                <FontAwesomeIcon icon="fa-solid fa-circle-info" title={"What physical consequences did the lynched person suffer?"} />
+              </Form.Label>
               <MultiSelect className='multi-select'
                 options={dictionary.filter((item) =>
                   item.variable == 'tar_outcome'
@@ -505,7 +517,10 @@ function App() {
               />
               </Row>
               <Row>
-              <Form.Label className='mb-2'>Worst violence inflicted</Form.Label>
+              <Form.Label className='mb-2'>
+                Worst violence inflicted&thinsp;
+                <FontAwesomeIcon icon="fa-solid fa-circle-info" title={"What kind of violence did the lynch mob use?"} />
+              </Form.Label>
               <MultiSelect className='multi-select'
                 options={dictionary.filter((item) =>
                   item.variable == 'pe_violence'
@@ -519,22 +534,10 @@ function App() {
               />
               </Row>
               <Row>
-              <Form.Label className='mb-2'>Number of perpetrators</Form.Label>
-              <MultiSelect className='multi-select'
-                options={dictionary.filter((item) =>
-                  item.variable == 'pe_approxnumber'
-                ).map((element) => {
-                  return { 'label': element.name, 'value': element.value }
-
-                })}
-                value={peNum}
-                onChange={setPeNum}
-                labelledBy="Select"
-        
-              />
-              </Row>
-              <Row>
-              <Form.Label className='mb-2'>Number of perpetrators</Form.Label>
+              <Form.Label className='mb-2'>
+                Number of perpetrators &thinsp;
+                <FontAwesomeIcon icon="fa-solid fa-circle-info" title={"How large was the lynch mob?"} />
+              </Form.Label>
               <MultiSelect className='multi-select'
                 options={dictionary.filter((item) =>
                   item.variable == 'pe_approxnumber'
@@ -584,7 +587,7 @@ function App() {
             </Col> */}
           </Row>
           <Row>
-            <Col md={3}>
+            <Col md={2}>
               <DownloadComponent filteredData={filteredData} />
             </Col>
             <Col md={3}>
@@ -712,7 +715,7 @@ function App() {
 
                 </Col>
                 <Col md={12}>
-                  <Bar data={barData} />
+                  <Bar options={options} data={barData} />
                 </Col>
               </Row>
 

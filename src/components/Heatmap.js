@@ -32,16 +32,16 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id, file }) => {
     useEffect(() => {
         if (!map) return;
         const getColor = d => {
-          return d > 8
+          return d >= 8
             ? "#a50f15"
-            : d > 4
+            : d >= 4
             ? "#de2d26"
-            : d > 2
+            : d >= 2
             ? "#fb6a4a"
-            : d > 1
+            : d >= 1
             ? "#fc9272"
-            : d > 0.5
-            ? "#fcbba1"
+            : d >= 0.5
+            ? "#fdbba1"
             : "#fee5d9";
         };
     
@@ -59,15 +59,15 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id, file }) => {
             to = grades[i + 1];
     
             labels.push(
-              '<i style="background:' +
-                getColor(from + 1) +
+              '<i style=" background:' +
+                getColor(from ) +
                 '"></i> ' +
                 from +
                 (to ? "&ndash;" + to : "+")
             );
           }
     
-          div.innerHTML = labels.join("<br>");
+          div.innerHTML ="Events per million </br>" +labels.join("<br>");
           return div;
         };
         map.removeControl(legend);
@@ -103,8 +103,8 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id, file }) => {
 
     const onEachFeature = (feature, layer) => {
         layer.on({
-            mouseover: highlightFeature,
-            mouseout: resetHighlight,
+            //mouseover: highlightFeature,
+            //mouseout: resetHighlight,
             click: (e) => {
                 zoomToFeature(e);
                 if (key_id == 'Latin America') {
@@ -116,16 +116,16 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id, file }) => {
     }
     const mapPolygonColorToDensity = (density => {
         return density > 8
-            ? '#a50f15'
+            ? '#BB545A'
             : density > 4
-                ? '#de2d26'
+                ? '#E36966'
                 : density > 2
-                    ? '#fb6a4a'
+                    ? '#F7947F'
                     : density > 1
-                        ? '#fc9272'
+                        ? '#F8B09B'
                         : density > 0.5
-                            ? '#fcbba1'
-                            : '#fee5d9';
+                            ? '#F9CDBB'
+                            : '#F9EAE2';
     })
     const style = (feature => {
         if (mapEvents.getZoom() < 10) {
