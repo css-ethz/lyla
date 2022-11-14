@@ -25,7 +25,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import DateSlider from './components/DateSlider';
 import DownloadComponent from './components/DownloadComponent';
 import Heatmap from './components/Heatmap';
-import Eventmap from './components/Eventmap';
+import ResetMarker from './components/ResetMarker';
 import { Button } from 'react-bootstrap'
 import MarkerClusterGroup from '@changey/react-leaflet-markercluster';
 import 'leaflet/dist/leaflet.css';
@@ -620,6 +620,7 @@ function App() {
               <MapContainer
                 id="regionMap"
                 bounds={outerBounds}
+                whenCreated={setMap}
                 fullscreenControl={true}
                 center={center}
                 zoom={4}
@@ -691,7 +692,7 @@ function App() {
                 </MarkerClusterGroup>
 
                 <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} file={file}/>
-
+                <ResetMarker setfile={setfile}></ResetMarker>            
               </MapContainer>
 
             </Col>
