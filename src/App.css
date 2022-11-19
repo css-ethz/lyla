@@ -380,3 +380,22 @@ main {
   background: rgba(246, 242, 242, 0);
   border:0px solid rgba(246, 242, 242, 0);
 }
+
+.popup .leaflet-popup-content-wrapper {
+  border-radius: 100px;
+  width: 170px;
+  outline: 0.2rem solid;
+  outline-color: white;
+  font-size:80%;
+  margin: 20px;
+  background-image: url("./bogota.jpg");
+  overflow: hidden;
+
+}
+
+
+
+.popup-img {
+  height: 50px;
+  width: auto;
+}

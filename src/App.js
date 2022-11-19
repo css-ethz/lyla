@@ -5,7 +5,7 @@ import {
   MapContainer,
   TileLayer,
   GeoJSON, Marker, Popup,
-  useMap, Circle
+  useMap, CircleMarker
 } from 'react-leaflet'
 import { Bar, Line } from "react-chartjs-2";
 import L from 'leaflet';
@@ -38,6 +38,11 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import fontawesome from '@fortawesome/fontawesome'
 import {faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import { renderToStaticMarkup } from "react-dom/server";
+import ReactDOMServer from 'react-dom/server';
+import { divIcon } from "leaflet";
+import myIcon from "./circle.svg";
+import bogota from "./bogota.jpg";
 Chart.register(...registerables);
 delete L.Icon.Default.prototype._getIconUrl;
 fontawesome.library.add(faCircleInfo);
@@ -449,6 +454,17 @@ function App() {
   const reset_map = () => {
     setfile("Latin America");
   }
+  const iconMarkup = renderToStaticMarkup(
+    <i class="fa fa-camera-retro"></i>
+  );
+  //const iconHTML = ReactDOMServer.renderToString(<FontAwesomeIcon icon="fa fa-circle" />)
+  const customMarkerIcon = divIcon({
+    html: iconMarkup,
+    className: 'dummy'
+  });
+  //onst circleIcon = <FontAwesomeIcon icon="fas fa-circle" />;
+  const [mouseHover , setMouseHover] = useState(false);
+  
 
   return (
     <div className="dark">
@@ -634,23 +650,51 @@ function App() {
                 } />
 
                   {special_events.map(evt => (
-                    <Marker
-                      key={evt.id}
-                      position={[
-                        evt.geometry.coordinates[0],
-                        evt.geometry.coordinates[1]
-                      ]}>
+                    <CircleMarker 
+                      center={[evt.geometry.coordinates[0], evt.geometry.coordinates[1]]} 
+                      radius={2} 
+                      pane={"markerPane"}
+                      fillOpacity={1}
+                      color="black"
+                      strokeOpacity={0}
+                      eventHandlers={{
+                        mouseover: (event) => {
+                          event.target.openPopup()
+                          setMouseHover(true)
+                          console.log(mouseHover)},
+                        //mouseout: (event) => {
+                          //event.target.closePopup()
+                          //setMouseHover(false)
+                        //},
+                      
+                        
+                      }}>
+                    {/* // <Marker */}
+                    {/* //   key={evt.id}
+                    //   position={[
+                    //     evt.geometry.coordinates[0],
+                    //     evt.geometry.coordinates[1]
+                    //   ]}
+                    //   icon={customMarkerIcon}>  */}
+                    {/* //{ mouseHover &&  
+                      //<Marker position={[evt.geometry.coordinates[0], evt.geometry.coordinates[1]]}
+                      //</CircleMarker>icon={myIcon}>
+                    //</Marker>}*/}
                       <Popup className='popup'>
+                        {/* <img className="popup-img" src={bogota} alt="bogota" /><br/> */}
                         {evt.name_1}, {evt.name_0} <br/>
                         {evt.date} <br />
-                        {evt.header} <br />
+                        {/* {evt.header} <br /> */}
                         <a href={evt.link} target="_blank">Link to article</a>
                         
 
                       </Popup>
 
-
-                    </Marker>
+                    {/* //</Marker> */}
+                    </CircleMarker>
+                    
+                    
+                   
 
 
                   ))}
@@ -729,6 +773,8 @@ function App() {
 
     </div>
   );
+                 
+                      
 };
 
 
