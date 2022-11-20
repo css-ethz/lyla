@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
+
 html,
 body {
   height: 100%;
@@ -6,7 +8,7 @@ body {
   padding: 0;
   overflow-x: hidden;
 }
-h1 {
+/* h1 {
   position: relative;
   width: 100%;
   padding-top: 60px;
@@ -15,6 +17,16 @@ h1 {
   line-height: 1;
   font-size: clamp(2rem, -0.875rem + 8.333vw, 3.3rem);
   color: white;
+} */
+
+h1 {
+  font-size:83px;
+  color: #fff;
+  position: absolute;
+  top: 30%;
+  left:30%;
+  font-family: 'Oswald', sans-serif;
+
 }
 
 h2 {
@@ -22,6 +34,15 @@ h2 {
   font-size: clamp(1rem, -0.875rem + 8.333vw, 2.5rem);
   line-height: 100%;
   padding: 0 30px 0 0;
+}
+
+.intro-cover {
+  height: 100vh;
+  width: 100%;
+  margin:0 auto;
+  background-image: url('./latam.png');
+  position:relative;
+
 }
 .intro-text {
   padding-top: 30px;

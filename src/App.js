@@ -43,6 +43,8 @@ import ReactDOMServer from 'react-dom/server';
 import { divIcon } from "leaflet";
 import myIcon from "./circle.svg";
 import bogota from "./bogota.jpg";
+import { batch, ScrollContainer, ScrollPage, StickyIn, Fade, FadeIn, Animator, Sticky, MoveOut, MoveIn } from 'react-scroll-motion';
+
 Chart.register(...registerables);
 delete L.Icon.Default.prototype._getIconUrl;
 fontawesome.library.add(faCircleInfo);
@@ -454,35 +456,44 @@ function App() {
   const reset_map = () => {
     setfile("Latin America");
   }
-  const iconMarkup = renderToStaticMarkup(
-    <i class="fa fa-camera-retro"></i>
-  );
-  //const iconHTML = ReactDOMServer.renderToString(<FontAwesomeIcon icon="fa fa-circle" />)
-  const customMarkerIcon = divIcon({
-    html: iconMarkup,
-    className: 'dummy'
-  });
+  // const iconMarkup = renderToStaticMarkup(
+  //   <i class="fa fa-camera-retro"></i>
+  // );
+  // //const iconHTML = ReactDOMServer.renderToString(<FontAwesomeIcon icon="fa fa-circle" />)
+  // const customMarkerIcon = divIcon({
+  //   html: iconMarkup,
+  //   className: 'dummy'
+  // });
   //onst circleIcon = <FontAwesomeIcon icon="fas fa-circle" />;
   const [mouseHover , setMouseHover] = useState(false);
   
 
   return (
-    <div className="dark">
-      <h1>Lynching in Latin America (LYLA)</h1>
-      <p className='intro-text'> The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.
-</p>
-<p className='intro-text'> Below, you can explore the following variables across space and time:</p>
-            <ul className='intro-bullets'>
-              <li>Alleged wrongdoing: What was the lynched person accused of?</li>
-              <li>Worst outcome: What physical consequences did the lynched person suffer?</li>
-              <li>Worst violence inflicted: What kind of violence did the lynch mob use?</li>
-              <li>Number of perpetrators: How large was the lynch mob?</li>
-            </ul>  
+        <div className="dark">
+        <div className="intro-cover">
+          <h1>Lynching <br/>
+            in <br/> 
+            Latin America <br/>
+            (LYLA)</h1>
+        </div>
+          
+       
+        <div>
+          <p className='intro-text'> Below, you can explore the following variables across space and time:</p>
+                <ul className='intro-bullets'>
+                  <li>Alleged wrongdoing: What was the lynched person accused of?</li>
+                  <li>Worst outcome: What physical consequences did the lynched person suffer?</li>
+                  <li>Worst violence inflicted: What kind of violence did the lynch mob use?</li>
+                  <li>Number of perpetrators: How large was the lynch mob?</li>
+                </ul>  
+        </div> 
 
-<p className='intro-text'>Furthermore, you can select and compare Latin American countries, and display the absolute number of events as well as the rate of lynching per million inhabitants.
-<a href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html">Here</a> you find more information and supporting material.</p>
-      <div><CodeBookModal/></div>
-      
+          
+
+          <p className='intro-text'>Furthermore, you can select and compare Latin American countries, and display the absolute number of events as well as the rate of lynching per million inhabitants.
+          <a href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html">Here</a> you find more information and supporting material.</p>
+          <CodeBookModal/>
+
       <div>
         <Container fluid>
           <Row>
@@ -769,9 +780,8 @@ function App() {
           </Row>
         </Container>
       </div>
+      </div>
 
-
-    </div>
   );
                  
                       
