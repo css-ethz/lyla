@@ -439,6 +439,6 @@ main {
 .introjs-floating {
   min-width: 600px !important;
   max-width: 600px !important;
-  margin-left: 450px !important;
-  margin-top: 260px !important;
+  margin-left: 50px !important;
+  margin-top: 50px !important;
 }

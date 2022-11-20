@@ -16,10 +16,10 @@ const wrapperStyle = { width: 400, margin: 50 };
 
 function DateSlider({setSDate, setEDate}){
 
-    const [startDate, setstartDate] = useState("01.01.2010");
-    const [startDateLabel, setstartDateLabel] = useState("01.01.2010");
-    const [endDate, setendDate] = useState("31.12.2019");
-    const [endDateLabel, setendDateLabel] = useState("31.12.2019");
+    const [startDate, setstartDate] = useState("01/01/2010");
+    const [startDateLabel, setstartDateLabel] = useState("01/01/2010");
+    const [endDate, setendDate] = useState("31/12/2019");
+    const [endDateLabel, setendDateLabel] = useState("31/12/2019");
     const [currentValue, setcurrentValue] = useState([]);
     const [minRange, setminRange] = useState(0);
     const [maxRange, setmaxRange] = useState(100);
@@ -33,8 +33,8 @@ function DateSlider({setSDate, setEDate}){
         //var min=currentValue[0]
         //var max=currentValue[1]
         let [min, max] = currentValue
-        let start = moment(startDate,  "DD.MM.YYYY").add(min, 'd')
-        let end = moment(endDate, "DD.MM.YYYY").subtract(maxRange - max , 'd')
+        let start = moment(startDate,  "DD/MM/YYYY").add(min, 'd')
+        let end = moment(endDate, "DD/MM/YYYY").subtract(maxRange - max , 'd')
         setstartDateLabel(formatDate(start));
         setSDate(startDateLabel);
         setendDateLabel(formatDate(end));
@@ -45,7 +45,7 @@ function DateSlider({setSDate, setEDate}){
         day = date.get('date')
         month = date.get('month')+1
         year = date.get('year')
-        return day + '.' + month + '.' + year
+        return day + '/' + month + '/' + year
       }
     
 
@@ -78,8 +78,8 @@ function DateSlider({setSDate, setEDate}){
 
   const calculateDateRange=(startDateStr, endDateStr)=>{
     //calculate the difference in start and end date fron api and assign min and max to range
-    let startDate = moment(startDateStr, "DD.MM.YYYY")
-    let endDate = moment(endDateStr, "DD.MM.YYYY")
+    let startDate = moment(startDateStr, "DD/MM/YYYY")
+    let endDate = moment(endDateStr, "DD/MM/YYYY")
     return endDate.diff(startDate, 'days')
     
   }
@@ -89,14 +89,14 @@ function DateSlider({setSDate, setEDate}){
     return(
       <div>
         <Container fluid={true}>
-          <Row>
-            <Col className = "text-center" style={{ fontWeight: 'bold',
-          margin: '20px' }}>Choose time window</Col>
-          </Row>
           <Row >
-            <Col xs={3} sm={3} md={3}>
-              <span>
-                {startDateLabel}
+            <Col className = "text-center" style={{ fontWeight: 'bold',
+          marginBottom: '30px' }}>Choose time window</Col>
+          </Row>
+          <Row style={{marginBottom: '50px'}}>
+            <Col xs={1} sm={3} md={2}>
+              <span style = {{fontWeight:'bold'}}>
+                Start date: {startDateLabel}
               </span>
             </Col>
             <Col>
@@ -112,9 +112,9 @@ function DateSlider({setSDate, setEDate}){
                       onChange = {onDateChange} />
               </div>
             </Col>
-            <Col xs={3} sm={3} md={2}>
-              <span>
-                {endDateLabel}
+            <Col xs={3} sm={3} md={3}>
+              <span style = {{fontWeight:'bold'}}>
+                End date: {endDateLabel}
               </span>
             </Col>
           </Row>
