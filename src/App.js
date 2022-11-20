@@ -44,6 +44,10 @@ import { divIcon } from "leaflet";
 import myIcon from "./circle.svg";
 import bogota from "./bogota.jpg";
 import { batch, ScrollContainer, ScrollPage, StickyIn, Fade, FadeIn, Animator, Sticky, MoveOut, MoveIn } from 'react-scroll-motion';
+import { Steps } from 'intro.js-react';
+import 'intro.js/introjs.css';
+import IconButton from '@mui/material/IconButton';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 
 Chart.register(...registerables);
 delete L.Icon.Default.prototype._getIconUrl;
@@ -118,6 +122,7 @@ function App() {
   const [fileflag, setfileflag] = useState('Latin America');
   const [var_chart, setvar_chart] = useState('pe_approxnumber');
   const [isActive, setIsActive] = useState(true);
+  const [stepsEnabled, setStepsEnabled] = useState(true);
   const [heat, setheat] = useState(() => {
     var groups = filteredData_agg.reduce(function (r, row) {
       r[row.name_0] = ++r[row.name_0] || 1;
@@ -125,6 +130,45 @@ function App() {
     }, {});
     return groups;
   });
+
+  const steps= [
+      {
+        title: "Welcome to the LYLA Dashboard",
+        element: ".intro",
+        intro: "This web application enables researchers and journalists to spatially and temporarily analyze lynching events in Latin America."
+      },
+      {
+        title: "Choose a time window",
+        element: ".intro",
+        intro: "With this slidebar you can filter the dates of the events. Slide the left button to update the start date and the right button for the end date."
+      },
+      {
+        title: "Filter By variables",
+        element: ".intro",
+        intro: "You can filter the displayed events by selecting different values for each of the filters shown below. Click on the info buttons next to the variable names for a description of each variable. These filters update the map and charts shown below on the right side. All possible values for all variables are selected as default."
+      },
+      {
+        title: "Interactive map",
+        element: ".intro",
+        intro: "The initial map shown below displays 11 events for which a link to the source article is provided. Countries are colored based on the number of lynching events per million inhabitants. You can click on a country to see all lynching events "
+      },
+      {
+        title: "Reported lynching events over time",
+        element: ".intro",
+        intro: "on the right hand side of the page you can find a line chart. This line chart displays as default the total number of lynching events in Latin America for each year on the range given in the date slidebar. You can add more line charts by selecting countries either by clicking on the map ot by using the dropdown button right on top of the line chart. "
+      },
+      {
+        title: "Reported lynching events per variable",
+        element: ".intro",
+        intro: "Below the line chart you can find a bar chart containg the number of events for a given variable. The default displays the total number of lynching events in Latin America for a varying number of perpetrators per event, each category corresponding to a bar."
+      }
+    ];
+  
+  const onExit = () => {
+    setStepsEnabled(false);
+  };
+
+
   var special_events = Object.create(eventData);
   special_events = special_events.filter((item) => {
     return (item.press_article == 'true');
@@ -469,48 +513,70 @@ function App() {
   
 
   return (
-        <div className="dark">
-        <div className="intro-cover">
-          <h1>Lynching <br/>
-            in <br/> 
+    
+    <div className="dark">
+      <Steps
+          enabled={stepsEnabled}
+          steps={steps}
+          initialStep={0}
+          onExit={onExit}
+          options={{
+            tooltipClass: "customTooltip",
+            scrollToElement: true,
+          }}
+
+        />
+
+        <div className="intro-title">
+          <h1>Lynching in<br/>
             Latin America <br/>
             (LYLA)</h1>
         </div>
-          
+        {/* <div>
+          <IconButton size="large" color="inherit" onClick={() => setStepsEnabled(true)}>
+                  <QuestionMarkIcon />
+          </IconButton>
+
+        </div>  */}
        
-        <div>
-          <p className='intro-text'> Below, you can explore the following variables across space and time:</p>
-                <ul className='intro-bullets'>
-                  <li>Alleged wrongdoing: What was the lynched person accused of?</li>
-                  <li>Worst outcome: What physical consequences did the lynched person suffer?</li>
-                  <li>Worst violence inflicted: What kind of violence did the lynch mob use?</li>
-                  <li>Number of perpetrators: How large was the lynch mob?</li>
-                </ul>  
-        </div> 
 
+       
           
 
-          <p className='intro-text'>Furthermore, you can select and compare Latin American countries, and display the absolute number of events as well as the rate of lynching per million inhabitants.
-          <a href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html">Here</a> you find more information and supporting material.</p>
-          <CodeBookModal/>
-
+         
+      
       <div>
+        <h2>Lynching in Latin America</h2>
+      
+        <Container>
+          <Col md={11}></Col>
+          <Col md={1}>
+            <CodeBookModal/>
+          </Col>
+        </Container>
         <Container fluid>
-          <Row>
+          <Row className='date'>
+            <Col md={1}></Col>
             <Col md={6}>
-              <DateSlider setSDate={setSDate} setEDate={setEDate} />
+              <DateSlider className="date" setSDate={setSDate} setEDate={setEDate} />
             </Col>
-            
+            <Col md={5}></Col>
           </Row>
-          
-          <Row>
+          <Row> {/* second row after date (main row that includes dropdowns&download column, map column and country dropdown&charts ) */}
             
-            <Col md={2}>
+            <Col md={2}> {/*column with dropdowns and download bttn*/}
+              <Row>
+              <Form.Label style={{ fontWeight: 'bold' }}>
+                Filter By
+               
+              </Form.Label>
+                
+              </Row>
               <Row>
               <Form.Label className='mb-2'>
                 Alleged Wrongdoing&thinsp; 
                 <FontAwesomeIcon icon="fa-solid fa-circle-info" title={" What was the lynched person accused of?"} />
-              </Form.Label>
+                </Form.Label>
               
               <MultiSelect className='multi-select'
             
@@ -579,7 +645,7 @@ function App() {
               />
               </Row>
 
-            </Col>
+            {/* </Col>
             <Col md={2}>
               
             </Col>
@@ -588,8 +654,9 @@ function App() {
             </Col>
             <Col md={2}>
               
-            </Col>
-            <Col md={2}>
+            </Col> */}
+          
+            {/* <Col md={2}>
               <Form.Label className='mb-2'>Country</Form.Label>
               <MultiSelect className='multi-select'
                 options={dictionary.filter((item) =>
@@ -602,7 +669,7 @@ function App() {
                 onChange={setCountries}
                 labelledBy="Select"
               />
-            </Col>
+            </Col> */}
             {/* <Col md={2}>
               <Form.Check
                 type='checkbox'
@@ -612,38 +679,38 @@ function App() {
                 onChange={() => setCheck(!Check)}
               />
             </Col> */}
-          </Row>
-          <Row>
-            <Col md={2}>
-              <DownloadComponent filteredData={filteredData} />
-            </Col>
-{/*             <Col md={3}>
-              <Button onClick={reset_map}>Reset map</Button>
-            </Col> */}
-          </Row>
-        </Container>
+              <Row>
+                <Col md={2}>
+                  <DownloadComponent filteredData={filteredData} />
+                </Col>
+              {/*             <Col md={3}>
+                            <Button onClick={reset_map}>Reset map</Button>
+                          </Col> */}
+                        {/* </Row> */}
+                      {/* </Container>
 
-      </div>
-      <div>
-        <Container fluid>
-          <Row>
-            {/*   <Col>
-  <MapContainer
-      bounds={outerBounds}
-      whenCreated={setMap}
-      center={center}
-      zoom={zoomLevel}
-      scrollWheelZoom={false}
-      style={{ width: '100%', height: '560px'}}
+                    </div>
+                    <div>
+                      <Container fluid>
+                        <Row> */}
+                          {/*   <Col>
+                <MapContainer
+                    bounds={outerBounds}
+                    whenCreated={setMap}
+                    center={center}
+                    zoom={zoomLevel}
+                    scrollWheelZoom={false}
+                    style={{ width: '100%', height: '560px'}}
 
-    >
- <TileLayer {...tileLayer} />
- <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag}/>
-    </MapContainer>
+                  >
+                <TileLayer {...tileLayer} />
+                <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag}/>
+                    </MapContainer>
 
-  </Col> */}
-
-            <Col md={6}>
+                  </Col> */}
+              </Row> {/*end of download bttn row */}
+            </Col> {/*end of dropdowns column */}
+            <Col md={5}> {/* start map column*/}
               <MapContainer
                 id="regionMap"
                 bounds={outerBounds}
@@ -750,9 +817,23 @@ function App() {
                 <ResetMarker setfile={setfile}></ResetMarker>            
               </MapContainer>
 
-            </Col>
-            <Col md={6}>
-              <Row>
+            </Col> {/*end of map column */}
+            <Col md={5}> {/*start country dropdown&charts column */}
+              <Row> {/*start country dropdown row*/}
+              <Form.Label className='mb-2'>Country</Form.Label>
+              <MultiSelect className='multi-select'
+                options={dictionary.filter((item) =>
+                  item.variable == 'country'
+                ).map((element) => {
+                  return { 'label': element.name, 'value': element.name }
+
+                })}
+                value={countries}
+                onChange={setCountries}
+                labelledBy="Select"
+              />
+              </Row> {/*end country dropdown row */}
+              <Row>{/*start charts row */}
                 <Col md={12}>
                   <Line data={lineData}
                     // options= {/{scales: {x: {type: 'time'}}} }
@@ -773,14 +854,21 @@ function App() {
                 <Col md={12}>
                   <Bar options={options} data={barData} />
                 </Col>
-              </Row>
-
-            </Col>
-
+              </Row> {/*end charts row */}
+              
+            </Col> {/*end country dropdowns&charts col */}
+            
           </Row>
+          
+          
         </Container>
       </div>
+      <p className='intro-text'>
+           You can find more information and supporting material <a href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html">here</a>.</p>
+          
       </div>
+      
+      
 
   );
                  

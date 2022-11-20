@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Neucha&family=Oswald:wght@700&display=swap');
 
 html,
 body {
@@ -20,11 +20,11 @@ body {
 } */
 
 h1 {
-  font-size:83px;
+  font-size:90pt;
   color: #fff;
   position: absolute;
-  top: 30%;
-  left:30%;
+  top: 20%;
+  left:20%;
   font-family: 'Oswald', sans-serif;
 
 }
@@ -34,14 +34,17 @@ h2 {
   font-size: clamp(1rem, -0.875rem + 8.333vw, 2.5rem);
   line-height: 100%;
   padding: 0 30px 0 0;
+  font-family: 'Oswald', sans-serif;
 }
 
-.intro-cover {
+.intro-title {
   height: 100vh;
   width: 100%;
   margin:0 auto;
   background-image: url('./latam.png');
+  background-size: cover;
   position:relative;
+  font-size: 90pt;
 
 }
 .intro-text {
@@ -56,9 +59,10 @@ h2 {
 }
 
 .dark {
-  background-color: #333;
-  color: rgb(247, 239, 239);
+  background-color: #161E2D;
+  color: #ffffff;
 }
+
 
 nav ul {
   width: 100%;
@@ -419,4 +423,21 @@ main {
 .popup-img {
   height: 50px;
   width: auto;
+}
+
+.customTooltip * {
+  color: #4a4a4a;
+  font-size: 18px;
+}
+
+.customTooltip .introjs-tooltip-title {
+  color: #161E2D;
+  font-size: 20px;
+}
+
+.introjs-floating {
+  min-width: 600px !important;
+  max-width: 600px !important;
+  margin-left: 450px !important;
+  margin-top: 260px !important;
 }
