@@ -10,7 +10,7 @@ const DownloadComponent = ({filteredData}) => {
     color: white;
     font-size: 16px;
     padding: 10px 55px;
-    border-radius: 2px;
+    border-radius: 50px;
     margin: 10px 0px;
     cursor: pointer;
     :hover {
@@ -32,7 +32,7 @@ const DownloadComponent = ({filteredData}) => {
   
     return (
       <div>
-        <Button onClick={getTransactionData}>Download events</Button>
+        <Button onClick={getTransactionData}>Download .csv</Button>
         <CSVLink
            data={transactionData}
            enclosingCharacter={`"`}

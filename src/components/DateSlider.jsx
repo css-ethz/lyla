@@ -83,14 +83,15 @@ function DateSlider({setSDate, setEDate}){
     return endDate.diff(startDate, 'days')
     
   }
-
-
+  
+  
 
     return(
       <div>
         <Container fluid={true}>
           <Row>
-            <Col className = "text-center">Date</Col>
+            <Col className = "text-center" style={{ fontWeight: 'bold',
+          margin: '20px' }}>Choose time window</Col>
           </Row>
           <Row >
             <Col xs={3} sm={3} md={3}>
