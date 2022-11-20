@@ -863,7 +863,7 @@ function App() {
           
         </Container>
       </div>
-      <p className='intro-text'>
+      <p className='final-text'>
            You can find more information and supporting material <a href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html">here</a>.</p>
           
       </div>
