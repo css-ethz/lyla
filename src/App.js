@@ -712,7 +712,7 @@ function App() {
             </Col> */}
               <Row>
                 <Col md={2}>
-                  <DownloadComponent filteredData={filteredData} />
+                  <DownloadComponent filteredData={eventData} />
                 </Col>
               {/*             <Col md={3}>
                             <Button onClick={reset_map}>Reset map</Button>
@@ -754,8 +754,8 @@ function App() {
                 style={{ width: '100%', height: '760px' }}
               >
                 <TileLayer {...{
-                  attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-                  url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
+                  url: 'https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png'
                 }
                 } />
 
