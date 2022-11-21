@@ -73,7 +73,7 @@ const options = {
   plugins: {
     title: {
       display: true,
-      text: 'Events per million units',
+      text: 'Annual events per million inhabitants',
     },
   },
   scales: {
@@ -908,7 +908,7 @@ function App() {
         </Container>
       </div>
       <p className='final-text'>
-           You can find more information and supporting material <a href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html">here</a>.</p>
+           You can find more information and supporting material <a href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html" target="_blank">here</a>.</p>
           
       </div>
       
