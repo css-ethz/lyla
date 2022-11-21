@@ -136,7 +136,7 @@ function App() {
       {
         title: "Welcome to the LYLA Dashboard",
         element: ".intro",
-        intro: "This web application enables researchers and journalists to spatially and temporarily analyze lynching events in Latin America."
+        intro: "This web application enables researchers and journalists to analyze lynching events in Latin America."
       },
       {
         title: "Choose a time window",
