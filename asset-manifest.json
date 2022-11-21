@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/lyla/static/css/main.a0d6459f.css",
+    "main.css": "/lyla/static/css/main.600b4d56.css",
     "main.js": "/lyla/static/js/main.b6d506d5.js",
     "static/js/787.a0fff93e.chunk.js": "/lyla/static/js/787.a0fff93e.chunk.js",
     "static/media/latam.png": "/lyla/static/media/latam.563fa776b393cb3cd0c8.png",
     "static/media/bogota.jpg": "/lyla/static/media/bogota.4d2b71a580ce43c6ac6f.jpg",
     "static/media/circle.svg": "/lyla/static/media/circle.2e25d47d98be4dd4dd4edeb5e0d8d95c.svg",
     "index.html": "/lyla/index.html",
-    "main.a0d6459f.css.map": "/lyla/static/css/main.a0d6459f.css.map",
+    "main.600b4d56.css.map": "/lyla/static/css/main.600b4d56.css.map",
     "main.b6d506d5.js.map": "/lyla/static/js/main.b6d506d5.js.map",
     "787.a0fff93e.chunk.js.map": "/lyla/static/js/787.a0fff93e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a0d6459f.css",
+    "static/css/main.600b4d56.css",
     "static/js/main.b6d506d5.js"
   ]
 }
