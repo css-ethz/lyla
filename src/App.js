@@ -759,68 +759,26 @@ function App() {
                 }
                 } />
 
-                  {special_events.map(evt => (
-                    <CircleMarker 
-                      center={[evt.geometry.coordinates[0], evt.geometry.coordinates[1]]} 
-                      radius={2} 
-                      pane={"markerPane"}
-                      fillOpacity={1}
-                      color="#464342"
-                      strokeOpacity={0}
-                      eventHandlers={{
-                        mouseover: (event) => {
-                          event.target.openPopup()
-                          setMouseHover(true)
-                          console.log(mouseHover)},
-                        //mouseout: (event) => {
-                          //event.target.closePopup()
-                          //setMouseHover(false)
-                        //},
-                      
-                        
-                      }}>
-                    {/* // <Marker */}
-                    {/* //   key={evt.id}
-                    //   position={[
-                    //     evt.geometry.coordinates[0],
-                    //     evt.geometry.coordinates[1]
-                    //   ]}
-                    //   icon={customMarkerIcon}>  */}
-                    {/* //{ mouseHover &&  
-                      //<Marker position={[evt.geometry.coordinates[0], evt.geometry.coordinates[1]]}
-                      //</CircleMarker>icon={myIcon}>
-                    //</Marker>}*/}
-                      <Popup className='popup'>
-                        {/* <img className="popup-img" src={bogota} alt="bogota" /><br/> */}
-                        {evt.name_1}, {evt.name_0} <br/>
-                        {evt.date} <br />
-                        {/* {evt.header} <br /> */}
-                        <a href={evt.link} target="_blank">Link to article</a>
-                        
-
-                      </Popup>
-
-                    {/* //</Marker> */}
-                    </CircleMarker>
-                    
-                    
-                   
-
-
-                  ))}
-
-                <MarkerClusterGroup maxClusterRadius={40} >
                   {fileflag != 'Latin America' && filteredData.map(evt => (
-                    <Marker
-                      key={evt.id}
-                      position={[
-                        evt.geometry.coordinates[0],
-                        evt.geometry.coordinates[1]
-                      ]}>
-                      <Popup>
-                        {evt.date} <br />
-                        {evt.name_1}, {evt.name_0} <br/>
-                        <table className="table-popup">
+                  <CircleMarker 
+                  center={[evt.geometry.coordinates[0], evt.geometry.coordinates[1]]} 
+                  radius={evt.press_article == 'true' ? 7:2} 
+                  pane={"markerPane"}
+                  fillOpacity={1}
+                  color="#464342"
+                  fillColor={evt.press_article ? '#1E2634':'#464342'}
+                  strokeOpacity={0.5}
+                  eventHandlers={{
+                    mouseover: (event) => {
+                      event.target.openPopup()
+                      setMouseHover(true)
+                  }}}>
+                  <Popup className='popup'>
+                    {/* <img className="popup-img" src={bogota} alt="bogota" /><br/> */}
+                    {evt.name_1}, {evt.name_0} <br/>
+                    {evt.date} <br />
+                    {/* {evt.header} <br /> */}
+                    <table className="table-popup">
                           <tr>
                             <td> Alleged wrongdoing:</td>
                             <td></td>
@@ -846,16 +804,11 @@ function App() {
                           })}</td>
                           </tr>
                         </table>
-                        
-
-                      </Popup>
-
-
-                    </Marker>
-
-
+                        {evt.press_article == 'true' &&
+                        <a href={evt.link} target="_blank">Link to article</a>}
+                  </Popup>
+                  </CircleMarker>
                   ))}
-                </MarkerClusterGroup>
 
                 <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} file={file}/>
                 <ResetMarker setfile={setfile}></ResetMarker>            

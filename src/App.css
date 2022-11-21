@@ -356,7 +356,7 @@ main {
   background: rgb(255, 255, 255);
   top: 8px;
   right: 16px;
-  width: 50%;
+  width: 80%;
   padding: 5px;
 }
 .popup-arrow {
@@ -411,8 +411,8 @@ main {
 }
 
 .popup .leaflet-popup-content-wrapper {
-  border-radius: 100px;
-  width: 170px;
+  border-radius: 150px;
+  width: 320px;
   outline: 0.2rem solid;
   outline-color: white;
   font-size:80%;
