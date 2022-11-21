@@ -93,6 +93,31 @@ const options = {
     ]
   }
 };
+const optionsBar = {
+  indexAxis: 'y',
+  plugins: {
+    title: {
+      display: true,
+      text: 'Events per million units',
+    },
+  },
+  scales: {
+    yAxes: 
+      {
+        max: 1.9,
+        gridLines: {
+          display: "false"
+        }
+      },
+    xAxes: [
+      {
+        gridLines: {
+          display: "false"
+        }
+      }
+    ]
+  }
+};
 
 function style(feature) {
   return {
