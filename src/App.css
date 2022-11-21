@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Neucha&family=Oswald:wght@700&display=swap');
+@import 'intro.js/introjs.css';
 
 html,
 body {
@@ -442,12 +443,14 @@ main {
 .introjs-floating {
   min-width: 600px !important;
   max-width: 600px !important;
-  margin-left: -300px !important;
-  margin-top: -260px !important;
+  margin-left: 300px !important;
+  margin-top: 260px !important;
 
 }
+
 
 .expand-icon {
   margin-top: 100px;
   margin-left: 700px;
 }
+

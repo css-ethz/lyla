@@ -175,7 +175,7 @@ function App() {
       },
       {
         title: "Interactive map",
-        element: ".intro",
+        element: ".regionMap",
         intro: "The initial map shown below displays 11 events for which a link to the source article is provided. Countries are colored based on the number of lynching events per million inhabitants. You can click on a country to see all lynching events "
       },
       {
@@ -557,6 +557,7 @@ function App() {
           <p style={{marginLeft: "300pt"}}>Lynching in<br/>
             Latin America <br/>
             (LYLA)</p>
+          <p style={{fontSize: "20pt"}}>"The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019."</p>
             <ExpandMoreIcon style={{marginLeft: "500pt", marginBottom: "-500pt"}}></ExpandMoreIcon>
             <p style={{fontSize:'10pt', marginLeft: "460pt", marginTop: "200pt"}}>Scroll down to dashboard</p>
         
@@ -742,6 +743,7 @@ function App() {
             </Col> {/*end of dropdowns column */}
             <Col md={5}> {/* start map column*/}
               <MapContainer
+                className='regionMap'
                 id="regionMap"
                 bounds={outerBounds}
                 whenCreated={setMap}
