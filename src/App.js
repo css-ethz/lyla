@@ -266,8 +266,9 @@ function App() {
       color: 'white',
       tickColor: 'white',
       backgroundColor: transparentize(Colorscale['Latin America'], 0.5),
-      pointBackgroundColor: 'black',
-      pointBorderColor: 'black'
+      pointBackgroundColor: 'white',
+      pointBorderColor: 'black',
+      pointRadius: 5,
     }];
 
     current_countries.push(...countries.map(function (e) {
@@ -333,7 +334,7 @@ function App() {
       color: 'white',
       tickColor: 'white',
       backgroundColor: transparentize(Colorscale['Latin America'], 0.5),
-      pointRadius: 0,
+      pointRadius: 5,
       tension: 0.3,
     }];
     current_countries.push(...countries.map(function (e) {
@@ -354,7 +355,7 @@ function App() {
         color: 'white',
         tickColor: 'white',
         backgroundColor: transparentize(Colorscale[e.value], 0.5),
-        pointRadius: 0,
+        pointRadius: 5,
         tension: 0.3,
       }
     }));
@@ -613,8 +614,10 @@ function App() {
         <Container>
           <Col md={11}></Col>
           <Col md={1}>
-            <CodeBookModal/>
-            <Button onClick={onClickLanguage}>{language}</Button>
+            {/*<CodeBookModal/>*/}
+            <Button style={{position:"absolute",
+                            top: "8px",
+                            right: "16px"}} onClick={onClickLanguage}>{language}</Button>
           </Col>
         </Container>
         <Container fluid>
