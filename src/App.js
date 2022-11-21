@@ -48,6 +48,7 @@ import { Steps } from 'intro.js-react';
 import 'intro.js/introjs.css';
 import IconButton from '@mui/material/IconButton';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 Chart.register(...registerables);
 delete L.Icon.Default.prototype._getIconUrl;
@@ -528,10 +529,14 @@ function App() {
         />
 
         <div className="intro-title">
-          <h1>Lynching in<br/>
+          <p style={{marginLeft: "300pt"}}>Lynching in<br/>
             Latin America <br/>
-            (LYLA)</h1>
+            (LYLA)</p>
+            <ExpandMoreIcon style={{marginLeft: "500pt", marginBottom: "-500pt"}}></ExpandMoreIcon>
+            <p style={{fontSize:'10pt', marginLeft: "460pt", marginTop: "200pt"}}>Scroll down to dashboard</p>
+        
         </div>
+        
         {/* <div>
           <IconButton size="large" color="inherit" onClick={() => setStepsEnabled(true)}>
                   <QuestionMarkIcon />

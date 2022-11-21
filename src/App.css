@@ -44,9 +44,12 @@ h2 {
   background-image: url('./latam.png');
   background-size: cover;
   position:relative;
-  font-size: 90pt;
+  font-size: 50pt;
+  font-family: 'Oswald', sans-serif;
 
 }
+
+
 .intro-text {
   padding-top: 30px;
   padding-left: 50px;
@@ -439,8 +442,12 @@ main {
 .introjs-floating {
   min-width: 600px !important;
   max-width: 600px !important;
-  margin-left: -300px !important;
-  margin-top: -260px !important;
+  margin-left: 300px !important;
+  margin-top: 260px !important;
 
 }
 
+.expand-icon {
+  margin-top: 100px;
+  margin-left: 700px;
+}
