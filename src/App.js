@@ -820,7 +820,7 @@ function App() {
                         {evt.name_1}, {evt.name_0} <br/>
                         <table className="table-popup">
                           <tr>
-                            <td> Alleged wrongdoing</td>
+                            <td> Alleged wrongdoing:</td>
                             <td></td>
                             <td> &thinsp;{dictionary.filter((item) =>
                           item.variable == 'tar_wrongdoing' & item.value == evt.tar_wrongdoing).map((element) => {
@@ -828,7 +828,7 @@ function App() {
                           })} </td>
                           </tr>
                           <tr>
-                            <td> Worst violence inflicted</td>
+                            <td> Worst violence inflicted:</td>
                             <td></td>
                             <td> &thinsp;{dictionary.filter((item) =>
                           item.variable == 'pe_violence' & item.value == evt.pe_violence).map((element) => {
@@ -836,7 +836,7 @@ function App() {
                           })}</td>
                           </tr>
                           <tr>
-                            <td> Worst outcome</td>
+                            <td> Worst outcome:</td>
                             <td></td>
                             <td> &thinsp;{dictionary.filter((item) =>
                           item.variable == 'tar_outcome' & item.value == evt.tar_outcome).map((element) => {
