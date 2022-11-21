@@ -417,7 +417,7 @@ main {
   outline-color: white;
   font-size:80%;
   margin: 20px;
-  background-image: url("./bogota.jpg");
+  
   overflow: hidden;
 
 }
@@ -442,8 +442,8 @@ main {
 .introjs-floating {
   min-width: 600px !important;
   max-width: 600px !important;
-  margin-left: 300px !important;
-  margin-top: 260px !important;
+  margin-left: -300px !important;
+  margin-top: -260px !important;
 
 }
 

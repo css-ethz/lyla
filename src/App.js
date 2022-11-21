@@ -201,9 +201,9 @@ function App() {
   });
   const Colorscale = {
     'Latin America': '#fafa6e', 'Argentina': '#00968e', 'Brazil': '#4abd8c', 'Chile': '#106e7c',
-    'Mexico': '#9cdf7c', 'Peru': '#2a4858', "Bolivia": "black", "Colombia": "black",
-    "Costa Rica": "black", "Dominican Republic": "black", "Ecuador": "black", "Guatemala": "black", "Honduras": "black",
-    "Nicaragua": "black", "Panama": "black", "Paraguay": "black", "Uruguay": "black", "Venezuela": "black"
+    'Mexico': '#9cdf7c', 'Peru': '#2a4858', "Bolivia": "#B1C6ED", "Colombia": "#B7E6DD",
+    "Costa Rica": "#DFD3EA", "Dominican Republic": "#E3533F", "Ecuador": "#C5F08E", "Guatemala": "#E4A78E", "Honduras": "#A08EE4",
+    "Nicaragua": "#ECBAC5", "Panama": "#899199", "Paraguay": "#5ADCD4", "Uruguay": "#E79456", "Venezuela": "#C4AC9A"
   };
   const [barData, setBarData] = useState({
     labels: dictionary.filter((item) => item.variable == var_chart).map((element) => element.name),
@@ -763,7 +763,7 @@ function App() {
                       radius={2} 
                       pane={"markerPane"}
                       fillOpacity={1}
-                      color="black"
+                      color="#464342"
                       strokeOpacity={0}
                       eventHandlers={{
                         mouseover: (event) => {
@@ -818,21 +818,33 @@ function App() {
                       <Popup>
                         {evt.date} <br />
                         {evt.name_1}, {evt.name_0} <br/>
-                        Alleged wrongdoing:&emsp;&emsp;
-                        {dictionary.filter((item) =>
+                        <table className="table-popup">
+                          <tr>
+                            <td> Alleged wrongdoing</td>
+                            <td></td>
+                            <td> &thinsp;{dictionary.filter((item) =>
                           item.variable == 'tar_wrongdoing' & item.value == evt.tar_wrongdoing).map((element) => {
                             return element.name
-                          })}  <br />
-                        Worst outcome:&emsp;&emsp;&emsp;&emsp;
-                        {dictionary.filter((item) =>
-                          item.variable == 'tar_outcome' & item.value == evt.tar_outcome).map((element) => {
-                            return element.name
-                          })}<br />
-                        Worst violence inflicted:&ensp;
-                        {dictionary.filter((item) =>
+                          })} </td>
+                          </tr>
+                          <tr>
+                            <td> Worst violence inflicted</td>
+                            <td></td>
+                            <td> &thinsp;{dictionary.filter((item) =>
                           item.variable == 'pe_violence' & item.value == evt.pe_violence).map((element) => {
                             return element.name
-                          })}
+                          })}</td>
+                          </tr>
+                          <tr>
+                            <td> Worst outcome</td>
+                            <td></td>
+                            <td> &thinsp;{dictionary.filter((item) =>
+                          item.variable == 'tar_outcome' & item.value == evt.tar_outcome).map((element) => {
+                            return element.name
+                          })}</td>
+                          </tr>
+                        </table>
+                        
 
                       </Popup>
 
