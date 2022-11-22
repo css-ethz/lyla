@@ -15,6 +15,8 @@ import geojson1_admin1 from './data/admin1.geojson.json'
 import eventData from './data/json_data_complete_latin3.json'
 import aggData from './data/data_agg.json'
 import population_admin0 from './data/population_admin0.json'
+import ocean_geojson from './data/ne_110m_ocean.geojson.json';
+import us_geojson from './data/us.geojson.json';
 import dictionary from './data/dictionary.json'
 import tileLayer from './util/tileLayer';
 import './App.css'
@@ -49,6 +51,7 @@ import 'intro.js/introjs.css';
 import IconButton from '@mui/material/IconButton';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Ocean from './components/Ocean';
 
 Chart.register(...registerables);
 delete L.Icon.Default.prototype._getIconUrl;
@@ -603,9 +606,10 @@ const aboutSection = useRef(null);
           }}
 
         />
-
+        
         <div className="intro-title">
-          <p style={{marginLeft: "300pt"}}>Lynching in<br/>
+          <video  className='video-background' src='./background-video.mp4' autoPlay loop muted/>
+          <p style={{marginLeft: "300pt"}}>Lynching in
             Latin America <br/>
             (LYLA)</p>
           <p style={{fontSize: "20pt", marginLeft: "60pt", marginRight: "60pt", marginTop: "50pt"}}>The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.</p>
@@ -613,6 +617,8 @@ const aboutSection = useRef(null);
             <p style={{fontSize:'10pt', marginLeft: "460pt", marginTop: "200pt"}}>{scrollDown}</p>
         
         </div>
+        <video  className='video-background' src='./background-video.mp4' autoPlay loop muted/>
+        
         
         {/* <div>
           <IconButton size="large" color="inherit" onClick={() => setStepsEnabled(true)}>
@@ -913,6 +919,7 @@ const aboutSection = useRef(null);
                 </MarkerClusterGroup>
 
                 <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} file={file}/>
+                <Ocean geojson_data={ocean_geojson} key_id="key_geojson"/>
                 <ResetMarker setfile={setfile}></ResetMarker>            
               </MapContainer>
 
