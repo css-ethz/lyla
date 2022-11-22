@@ -79,7 +79,6 @@ const options = {
   scales: {
     yAxes: 
       {
-        max: 1.9,
         gridLines: {
           display: "false"
         }
@@ -94,17 +93,15 @@ const options = {
   }
 };
 const optionsBar = {
-  indexAxis: 'y',
   plugins: {
     title: {
       display: true,
-      text: 'Events per million units',
+      text: 'Total events per million inhabitants',
     },
   },
   scales: {
     yAxes: 
       {
-        max: 1.9,
         gridLines: {
           display: "false"
         }
@@ -232,10 +229,9 @@ function App() {
       r[val_name] = ++r[val_name] || 1;
       return r;
     }, {});
-    //if (Check) {
-    //  Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
-    //}
-    Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
+    if (!Check) {
+      Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
+    }
     var current_countries = [{
       label: 'Latin America', data: occurences,
       minBarLength: 2,
@@ -254,10 +250,9 @@ function App() {
         r[val_name] = ++r[val_name] || 1;
         return r;
       }, {})
-      //if (Check) {
-      //  Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
-      //}
-      Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
+      if (!Check) {
+        Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
+      }
       return {
         label: e.value,
         data: occurences,
@@ -300,10 +295,10 @@ function App() {
       r[year] = ++r[year] || 1;
       return r;
     }, {});
-    //if (Check) {
-    //  Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
-    //}
-    Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
+    if (!Check) {
+      Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
+    }
+    
     var current_countries = [{
       label: 'Latin America', data: occurences,
       fill: false, // use "True" to draw area-plot 
@@ -320,10 +315,10 @@ function App() {
         r[year] = ++r[year] || 1;
         return r;
       }, {});
-      //if (Check) {
-      //  Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
-      //}
-      Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
+      if (!Check) {
+        Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
+      }
+      
       return {
         label: e.value,
         data: occurences,
@@ -701,15 +696,7 @@ function App() {
                 labelledBy="Select"
               />
             </Col> */}
-            {/* <Col md={2}>
-              <Form.Check
-                type='checkbox'
-                label={`Events per million people`}
-                id={`population`}
-                checked={Check}
-                onChange={() => setCheck(!Check)}
-              />
-            </Col> */}
+ 
               <Row>
                 <Col md={2}>
                   <DownloadComponent filteredData={eventData} />
@@ -817,6 +804,7 @@ function App() {
             </Col> {/*end of map column */}
             <Col md={5}> {/*start country dropdown&charts column */}
               <Row> {/*start country dropdown row*/}
+              <Col md={8}>
               <Form.Label className='mb-2'>Country</Form.Label>
               <MultiSelect className='multi-select'
                 options={dictionary.filter((item) =>
@@ -829,6 +817,17 @@ function App() {
                 onChange={setCountries}
                 labelledBy="Select"
               />
+              </Col>
+              <Col md={4}>
+              <br/>
+              <Form.Check
+                type='checkbox'
+                label={`# Events`}
+                id={`population`}
+                checked={Check}
+                onChange={() => setCheck(!Check)}
+              />
+            </Col>
               </Row> {/*end country dropdown row */}
               <Row>{/*start charts row */}
                 <Col md={12}>
@@ -849,7 +848,7 @@ function App() {
 
                 </Col>
                 <Col md={12}>
-                  <Bar options={options} data={barData} />
+                  <Bar options={optionsBar} data={barData} />
                 </Col>
               </Row> {/*end charts row */}
               
