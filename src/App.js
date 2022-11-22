@@ -37,7 +37,7 @@ import CodeBookModal from './components/CodebokkPopUp';
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import fontawesome from '@fortawesome/fontawesome'
-import {faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { renderToStaticMarkup } from "react-dom/server";
 import ReactDOMServer from 'react-dom/server';
 import { divIcon } from "leaflet";
@@ -77,12 +77,12 @@ const options = {
     },
   },
   scales: {
-    yAxes: 
-      {
-        gridLines: {
-          display: "false"
-        }
-      },
+    yAxes:
+    {
+      gridLines: {
+        display: "false"
+      }
+    },
     xAxes: [
       {
         gridLines: {
@@ -100,12 +100,12 @@ const optionsBar = {
     },
   },
   scales: {
-    yAxes: 
-      {
-        gridLines: {
-          display: "false"
-        }
-      },
+    yAxes:
+    {
+      gridLines: {
+        display: "false"
+      }
+    },
     xAxes: [
       {
         gridLines: {
@@ -161,62 +161,62 @@ function App() {
     return groups;
   });
 
-  
-  const steps= [
-      {
-        title: "Welcome to the LYLA Dashboard",
-        element: ".intro",
-        intro: "This web application enables researchers and journalists to analyze lynching events in Latin America."
-      },
-      {
-        title: "Choose a time window",
-        element: ".intro",
-        intro: "With this slidebar you can filter the dates of the events. Slide the left button to update the start date and the right button for the end date."
-      },
-      {
-        title: "Filter By variables",
-        element: ".intro",
-        intro: "You can filter the displayed events by selecting different values for each of the filters shown below. Click on the info buttons next to the variable names for a description of each variable. These filters update the map and charts shown below on the right side. All possible values for all variables are selected as default."
-      },
-      {
-        title: "Interactive map",
-        element: ".regionMap",
-        intro: "The initial map shown below displays 11 events for which a link to the source article is provided. Countries are colored based on the number of lynching events per million inhabitants. You can click on a country to see all lynching events "
-      },
-      {
-        title: "Reported lynching events over time",
-        element: ".intro",
-        intro: "on the right hand side of the page you can find a line chart. This line chart displays as default the total number of lynching events in Latin America for each year on the range given in the date slidebar. You can add more line charts by selecting countries either by clicking on the map ot by using the dropdown button right on top of the line chart. "
-      },
-      {
-        title: "Reported lynching events per variable",
-        element: ".intro",
-        intro: "Below the line chart you can find a bar chart containg the number of events for a given variable. The default displays the total number of lynching events in Latin America for a varying number of perpetrators per event, each category corresponding to a bar."
-      }
-    ];
-  
+
+  const steps = [
+    {
+      title: "Welcome to the LYLA Dashboard",
+      element: ".intro",
+      intro: "This web application enables researchers and journalists to analyze lynching events in Latin America."
+    },
+    {
+      title: "Choose a time window",
+      element: ".intro",
+      intro: "With this slidebar you can filter the dates of the events. Slide the left button to update the start date and the right button for the end date."
+    },
+    {
+      title: "Filter By variables",
+      element: ".intro",
+      intro: "You can filter the displayed events by selecting different values for each of the filters shown below. Click on the info buttons next to the variable names for a description of each variable. These filters update the map and charts shown below on the right side. All possible values for all variables are selected as default."
+    },
+    {
+      title: "Interactive map",
+      element: ".regionMap",
+      intro: "The initial map shown below displays 11 events for which a link to the source article is provided. Countries are colored based on the number of lynching events per million inhabitants. You can click on a country to see all lynching events "
+    },
+    {
+      title: "Reported lynching events over time",
+      element: ".intro",
+      intro: "on the right hand side of the page you can find a line chart. This line chart displays as default the total number of lynching events in Latin America for each year on the range given in the date slidebar. You can add more line charts by selecting countries either by clicking on the map ot by using the dropdown button right on top of the line chart. "
+    },
+    {
+      title: "Reported lynching events per variable",
+      element: ".intro",
+      intro: "Below the line chart you can find a bar chart containg the number of events for a given variable. The default displays the total number of lynching events in Latin America for a varying number of perpetrators per event, each category corresponding to a bar."
+    }
+  ];
+
   const onExit = () => {
     setStepsEnabled(false);
   };
 
   const onClickLanguage = () => {
-    if (language == "Español"){
-    setLanguage("English");
-    setViolenceInflicted("Worst violence inflicted");
-    setNumberPerpetrators("Number of perpetrators");
-    setAllegedWrongdoing("Alleged Wrongdoing");
-    setWorstOutcome("Worst Outcome");
-    setFilterBy("Filter By");
-    setTimeWindow("Choose time window");
-    setStartDateText("Start Date");
-    setEndDateText("End Date");
-    setDownloadText("Download .csv");
-    setCountryText("Country");
-    setChartText("Annual events per million inhabitants");
-    setScrollDown("Scroll down to dashboard");
-    
+    if (language == "Español") {
+      setLanguage("English");
+      setViolenceInflicted("Worst violence inflicted");
+      setNumberPerpetrators("Number of perpetrators");
+      setAllegedWrongdoing("Alleged Wrongdoing");
+      setWorstOutcome("Worst Outcome");
+      setFilterBy("Filter By");
+      setTimeWindow("Choose time window");
+      setStartDateText("Start Date");
+      setEndDateText("End Date");
+      setDownloadText("Download .csv");
+      setCountryText("Country");
+      setChartText("Annual events per million inhabitants");
+      setScrollDown("Scroll down to dashboard");
+
     }
-    else{
+    else {
       setLanguage("Español");
       setViolenceInflicted("Peor violencia infligida");
       setNumberPerpetrators("Número de perpetradores");
@@ -231,7 +231,7 @@ function App() {
       setChartText("Eventos anuales por millón de habitantes");
       setScrollDown("Ir a dashboard");
 
-      
+
     };
     console.log(language);
     console.log(violenceInflicted);
@@ -260,10 +260,10 @@ function App() {
   });
 
 
-  const MyComponent = ({file}) => {
+  const MyComponent = ({ file }) => {
     const map = useMap();
-    if (file == "Latin America"){
-      map.fitBounds({outerBounds})
+    if (file == "Latin America") {
+      map.fitBounds({ outerBounds })
       return null
     }
     return null
@@ -346,7 +346,7 @@ function App() {
     if (!Check) {
       Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
     }
-    
+
     var current_countries = [{
       label: 'Latin America', data: occurences,
       fill: false, // use "True" to draw area-plot 
@@ -366,7 +366,7 @@ function App() {
       if (!Check) {
         Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
       }
-      
+
       return {
         label: e.value,
         data: occurences,
@@ -460,7 +460,7 @@ function App() {
         }).includes(item.pe_violence)
       );
     }
-    if(fileflag!="Latin America"){
+    if (fileflag != "Latin America") {
       filtered_data = filtered_data.filter((item) =>
         item.name_0 == fileflag
       );
@@ -587,57 +587,59 @@ function App() {
   //   className: 'dummy'
   // });
   //onst circleIcon = <FontAwesomeIcon icon="fas fa-circle" />;
-  const [mouseHover , setMouseHover] = useState(false);
-  
+  const [mouseHover, setMouseHover] = useState(false);
+
 
   return (
-    
+
     <div className="dark">
       <Steps
-          enabled={stepsEnabled}
-          steps={steps}
-          initialStep={0}
-          onExit={onExit}
-          options={{
-            tooltipClass: "customTooltip",
-            scrollToElement: true,
-          }}
+        enabled={stepsEnabled}
+        steps={steps}
+        initialStep={0}
+        onExit={onExit}
+        options={{
+          tooltipClass: "customTooltip",
+          scrollToElement: true,
+        }}
 
-        />
+      />
 
-        <div className="intro-title">
-          <p style={{marginLeft: "300pt"}}>Lynching in<br/>
-            Latin America <br/>
-            (LYLA)</p>
-          <p style={{fontSize: "20pt", marginLeft: "60pt", marginRight: "60pt", marginTop: "50pt"}}>The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.</p>
-            <ExpandMoreIcon style={{marginLeft: "500pt", marginBottom: "-500pt"}}></ExpandMoreIcon>
-            <p style={{fontSize:'10pt', marginLeft: "460pt", marginTop: "200pt"}}>{scrollDown}</p>
-        
-        </div>
-        
-        {/* <div>
+      <div className="intro-title">
+        <p style={{ marginLeft: "300pt" }}>Lynching in<br />
+          Latin America <br />
+          (LYLA)</p>
+        <p style={{ fontSize: "20pt", marginLeft: "60pt", marginRight: "60pt", marginTop: "50pt" }}>The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.</p>
+        <ExpandMoreIcon style={{ marginLeft: "500pt", marginBottom: "-500pt" }}></ExpandMoreIcon>
+        <p style={{ fontSize: '10pt', marginLeft: "460pt", marginTop: "200pt" }}>{scrollDown}</p>
+
+      </div>
+
+      {/* <div>
           <IconButton size="large" color="inherit" onClick={() => setStepsEnabled(true)}>
                   <QuestionMarkIcon />
           </IconButton>
 
         </div>  */}
-       
 
-       
-          
 
-         
-      
+
+
+
+
+
       <div>
         <h2>Lynching in Latin America</h2>
-      
+
         <Container>
           <Col md={11}></Col>
           <Col md={1}>
             {/*<CodeBookModal/>*/}
-            <Button style={{position:"absolute",
-                            top: "8px",
-                            right: "16px"}} onClick={onClickLanguage}>{language}</Button>
+            <Button style={{
+              position: "absolute",
+              top: "8px",
+              right: "16px"
+            }} onClick={onClickLanguage}>{language}</Button>
           </Col>
         </Container>
         <Container fluid>
@@ -649,90 +651,90 @@ function App() {
             <Col md={5}></Col>
           </Row>
           <Row> {/* second row after date (main row that includes dropdowns&download column, map column and country dropdown&charts ) */}
-            
+
             <Col md={2}> {/*column with dropdowns and download bttn*/}
               <Row>
-              <Form.Label style={{ fontWeight: 'bold' }}>
-                {filterBy}
-               
-              </Form.Label>
-                
-              </Row>
-              <Row>
-              <Form.Label className='mb-2'>
-                {allegedWrongdoing}&thinsp; 
-                <FontAwesomeIcon icon="fa-solid fa-circle-info" title={" What was the lynched person accused of?"} />
+                <Form.Label style={{ fontWeight: 'bold' }}>
+                  {filterBy}
+
                 </Form.Label>
-              
-              <MultiSelect className='multi-select'
-            
-                options={dictionary.filter((item) =>
-                  item.variable == 'tar_wrongdoing'
-                ).map((element) => {
-                  return { 'label': element.name, 'value': element.value }
 
-                })}
-                value={wrongdoing}
-                onChange={setWrongdoing}
-                labelledBy="Select"
-                
-              />
               </Row>
               <Row>
-              <Form.Label className='mb-2'>
-                {worstOutcome}&thinsp;
-                <FontAwesomeIcon icon="fa-solid fa-circle-info" title={"What physical consequences did the lynched person suffer?"} />
-              </Form.Label>
-              <MultiSelect className='multi-select'
-                options={dictionary.filter((item) =>
-                  item.variable == 'tar_outcome'
-                ).map((element) => {
-                  return { 'label': element.name, 'value': element.value }
+                <Form.Label className='mb-2'>
+                  {allegedWrongdoing}&thinsp;
+                  <FontAwesomeIcon icon="fa-solid fa-circle-info" title={" What was the lynched person accused of?"} />
+                </Form.Label>
 
-                })}
-                value={tarOutcome}
-                onChange={setTarOutcome}
-                labelledBy="Select"
-              />
+                <MultiSelect className='multi-select'
+
+                  options={dictionary.filter((item) =>
+                    item.variable == 'tar_wrongdoing'
+                  ).map((element) => {
+                    return { 'label': element.name, 'value': element.value }
+
+                  })}
+                  value={wrongdoing}
+                  onChange={setWrongdoing}
+                  labelledBy="Select"
+
+                />
               </Row>
               <Row>
-              <Form.Label className='mb-2'>
-                
-              {violenceInflicted}&thinsp;
-                <FontAwesomeIcon icon="fa-solid fa-circle-info" title={"What kind of violence did the lynch mob use?"} />
-              </Form.Label>
-              <MultiSelect className='multi-select'
-                options={dictionary.filter((item) =>
-                  item.variable == 'pe_violence'
-                ).map((element) => {
-                  return { 'label': element.name, 'value': element.value }
+                <Form.Label className='mb-2'>
+                  {worstOutcome}&thinsp;
+                  <FontAwesomeIcon icon="fa-solid fa-circle-info" title={"What physical consequences did the lynched person suffer?"} />
+                </Form.Label>
+                <MultiSelect className='multi-select'
+                  options={dictionary.filter((item) =>
+                    item.variable == 'tar_outcome'
+                  ).map((element) => {
+                    return { 'label': element.name, 'value': element.value }
 
-                })}
-                value={peViolence}
-                onChange={setPeViolence}
-                labelledBy="Select"
-              />
+                  })}
+                  value={tarOutcome}
+                  onChange={setTarOutcome}
+                  labelledBy="Select"
+                />
               </Row>
               <Row>
-              <Form.Label className='mb-2'>
-                {numberPerpetrators}&thinsp;
-                <FontAwesomeIcon icon="fa-solid fa-circle-info" title={"How large was the lynch mob?"} />
-              </Form.Label>
-              <MultiSelect className='multi-select'
-                options={dictionary.filter((item) =>
-                  item.variable == 'pe_approxnumber'
-                ).map((element) => {
-                  return { 'label': element.name, 'value': element.value }
+                <Form.Label className='mb-2'>
 
-                })}
-                value={peNum}
-                onChange={setPeNum}
-                labelledBy="Select"
-        
-              />
+                  {violenceInflicted}&thinsp;
+                  <FontAwesomeIcon icon="fa-solid fa-circle-info" title={"What kind of violence did the lynch mob use?"} />
+                </Form.Label>
+                <MultiSelect className='multi-select'
+                  options={dictionary.filter((item) =>
+                    item.variable == 'pe_violence'
+                  ).map((element) => {
+                    return { 'label': element.name, 'value': element.value }
+
+                  })}
+                  value={peViolence}
+                  onChange={setPeViolence}
+                  labelledBy="Select"
+                />
+              </Row>
+              <Row>
+                <Form.Label className='mb-2'>
+                  {numberPerpetrators}&thinsp;
+                  <FontAwesomeIcon icon="fa-solid fa-circle-info" title={"How large was the lynch mob?"} />
+                </Form.Label>
+                <MultiSelect className='multi-select'
+                  options={dictionary.filter((item) =>
+                    item.variable == 'pe_approxnumber'
+                  ).map((element) => {
+                    return { 'label': element.name, 'value': element.value }
+
+                  })}
+                  value={peNum}
+                  onChange={setPeNum}
+                  labelledBy="Select"
+
+                />
               </Row>
 
-            {/* </Col>
+              {/* </Col>
             <Col md={2}>
               
             </Col>
@@ -742,8 +744,8 @@ function App() {
             <Col md={2}>
               
             </Col> */}
-          
-            {/* <Col md={2}>
+
+              {/* <Col md={2}>
               <Form.Label className='mb-2'>Country</Form.Label>
               <MultiSelect className='multi-select'
                 options={dictionary.filter((item) =>
@@ -757,22 +759,22 @@ function App() {
                 labelledBy="Select"
               />
             </Col> */}
- 
+
               <Row>
                 <Col md={2}>
                   <DownloadComponent filteredData={eventData} />
                 </Col>
-              {/*             <Col md={3}>
+                {/*             <Col md={3}>
                             <Button onClick={reset_map}>Reset map</Button>
                           </Col> */}
-                        {/* </Row> */}
-                      {/* </Container>
+                {/* </Row> */}
+                {/* </Container>
 
                     </div>
                     <div>
                       <Container fluid>
                         <Row> */}
-                          {/*   <Col>
+                {/*   <Col>
                 <MapContainer
                     bounds={outerBounds}
                     whenCreated={setMap}
@@ -807,88 +809,89 @@ function App() {
                 }
                 } />
 
-                  {fileflag != 'Latin America' && filteredData.map(evt => (
-                  <CircleMarker 
-                  center={[evt.geometry.coordinates[0], evt.geometry.coordinates[1]]} 
-                  radius={evt.press_article == 'true' ? 7:2} 
-                  pane={"markerPane"}
-                  fillOpacity={1}
-                  color="#464342"
-                  fillColor={evt.press_article ? '#1E2634':'#464342'}
-                  strokeOpacity={0.5}
-                  eventHandlers={{
-                    mouseover: (event) => {
-                      event.target.openPopup()
-                      setMouseHover(true)
-                  }}}>
-                  <Popup className='popup'>
-                    {/* <img className="popup-img" src={bogota} alt="bogota" /><br/> */}
-                    {evt.name_1}, {evt.name_0} <br/>
-                    {evt.date} <br />
-                    {/* {evt.header} <br /> */}
-                    <table className="table-popup">
-                          <tr>
-                            <td> {allegedWrongdoing}:</td>
-                            <td></td>
-                            <td> &thinsp;{dictionary.filter((item) =>
-                          item.variable == 'tar_wrongdoing' & item.value == evt.tar_wrongdoing).map((element) => {
-                            return element.name
-                          })} </td>
-                          </tr>
-                          <tr>
-                            <td> {violenceInflicted}:</td>
-                            <td></td>
-                            <td> &thinsp;{dictionary.filter((item) =>
-                          item.variable == 'pe_violence' & item.value == evt.pe_violence).map((element) => {
-                            return element.name
-                          })}</td>
-                          </tr>
-                          <tr>
-                            <td> {worstOutcome}:</td>
-                            <td></td>
-                            <td> &thinsp;{dictionary.filter((item) =>
-                          item.variable == 'tar_outcome' & item.value == evt.tar_outcome).map((element) => {
-                            return element.name
-                          })}</td>
-                          </tr>
-                        </table>
-                        {evt.press_article == 'true' &&
+                {fileflag != 'Latin America' && filteredData.map(evt => (
+                  <CircleMarker
+                    center={[evt.geometry.coordinates[0], evt.geometry.coordinates[1]]}
+                    radius={evt.press_article == 'true' ? 7 : 2}
+                    pane={"markerPane"}
+                    fillOpacity={1}
+                    color="#464342"
+                    fillColor={evt.press_article ? '#1E2634' : '#464342'}
+                    strokeOpacity={0.5}
+                    eventHandlers={{
+                      mouseover: (event) => {
+                        event.target.openPopup()
+                        setMouseHover(true)
+                      }
+                    }}>
+                    <Popup className='popup'>
+                      {/* <img className="popup-img" src={bogota} alt="bogota" /><br/> */}
+                      {evt.name_1}, {evt.name_0} <br />
+                      {evt.date} <br />
+                      {/* {evt.header} <br /> */}
+                      <table className="table-popup">
+                        <tr>
+                          <td> {allegedWrongdoing}:</td>
+                          <td></td>
+                          <td> &thinsp;{dictionary.filter((item) =>
+                            item.variable == 'tar_wrongdoing' & item.value == evt.tar_wrongdoing).map((element) => {
+                              return element.name
+                            })} </td>
+                        </tr>
+                        <tr>
+                          <td> {violenceInflicted}:</td>
+                          <td></td>
+                          <td> &thinsp;{dictionary.filter((item) =>
+                            item.variable == 'pe_violence' & item.value == evt.pe_violence).map((element) => {
+                              return element.name
+                            })}</td>
+                        </tr>
+                        <tr>
+                          <td> {worstOutcome}:</td>
+                          <td></td>
+                          <td> &thinsp;{dictionary.filter((item) =>
+                            item.variable == 'tar_outcome' & item.value == evt.tar_outcome).map((element) => {
+                              return element.name
+                            })}</td>
+                        </tr>
+                      </table>
+                      {evt.press_article == 'true' &&
                         <a href={evt.link} target="_blank">Link to article</a>}
-                  </Popup>
+                    </Popup>
                   </CircleMarker>
-                  ))}
+                ))}
 
-                <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} file={file}/>
-                <ResetMarker setfile={setfile}></ResetMarker>            
+                <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} file={file} />
+                <ResetMarker setfile={setfile}></ResetMarker>
               </MapContainer>
 
             </Col> {/*end of map column */}
             <Col md={5}> {/*start country dropdown&charts column */}
               <Row> {/*start country dropdown row*/}
-              <Col md={8}>
-              <Form.Label className='mb-2'>{countryText}</Form.Label>
-              <MultiSelect className='multi-select'
-                options={dictionary.filter((item) =>
-                  item.variable == 'country'
-                ).map((element) => {
-                  return { 'label': element.name, 'value': element.name }
+                <Col md={8}>
+                  <Form.Label className='mb-2'>{countryText}</Form.Label>
+                  <MultiSelect className='multi-select'
+                    options={dictionary.filter((item) =>
+                      item.variable == 'country'
+                    ).map((element) => {
+                      return { 'label': element.name, 'value': element.name }
 
-                })}
-                value={countries}
-                onChange={setCountries}
-                labelledBy="Select"
-              />
-              </Col>
-              <Col md={4}>
-              <br/>
-              <Form.Check
-                type='checkbox'
-                label={`# Events`}
-                id={`population`}
-                checked={Check}
-                onChange={() => setCheck(!Check)}
-              />
-            </Col>
+                    })}
+                    value={countries}
+                    onChange={setCountries}
+                    labelledBy="Select"
+                  />
+                </Col>
+                <Col md={4}>
+                  <br />
+                  <Form.Check
+                    type='checkbox'
+                    label={`# Events`}
+                    id={`population`}
+                    checked={Check}
+                    onChange={() => setCheck(!Check)}
+                  />
+                </Col>
               </Row> {/*end country dropdown row */}
               <Row>{/*start charts row */}
                 <Col md={12}>
@@ -912,24 +915,24 @@ function App() {
                   <Bar options={optionsBar} data={barData} />
                 </Col>
               </Row> {/*end charts row */}
-              
+
             </Col> {/*end country dropdowns&charts col */}
-            
+
           </Row>
-          
-          
+
+
         </Container>
       </div>
       <p className='final-text'>
-           You can find more information and supporting material <a href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html" target="_blank">here</a>.</p>
-          
-      </div>
-      
-      
+        You can find more information and supporting material <a href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html" target="_blank">here</a>.</p>
+
+    </div>
+
+
 
   );
-                 
-                      
+
+
 };
 
 
