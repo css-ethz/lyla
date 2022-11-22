@@ -116,16 +116,8 @@ const optionsBar = {
   }
 };
 
-function style(feature) {
-  return {
-    fillColor: `#a9a9a9`,
-    weight: 2,
-    opacity: 1,
-    color: 'white',
-    dashArray: '2',
-    fillOpacity: 0.7
-  };
-};
+
+
 
 function App() {
   const [map, setMap] = useState();
@@ -146,6 +138,21 @@ function App() {
   const [var_chart, setvar_chart] = useState('pe_approxnumber');
   const [isActive, setIsActive] = useState(true);
   const [stepsEnabled, setStepsEnabled] = useState(true);
+  /***************************************** START Translated variables ****************************************************/
+  const [violenceInflicted, setViolenceInflicted] = useState("Worst violence inflicted");
+  const [numberPerpetrators, setNumberPerpetrators] = useState("Number of perpetrators");
+  const [allegedWrongdoing, setAllegedWrongdoing] = useState("Alleged Wrongdoing");
+  const [worstOutcome, setWorstOutcome] = useState("Worst Outcome");
+  const [filterBy, setFilterBy] = useState("Filter By");
+  const [timeWindow, setTimeWindow] = useState("Choose time window");
+  const [startDateText, setStartDateText] = useState("Start Date");
+  const [endDateText, setEndDateText] = useState("End Date");
+  const [downloadText, setDownloadText] = useState("Download .csv");
+  const [countryText, setCountryText] = useState("Country");
+  const [chartText, setChartText] = useState("Annual events per million inhabitants");
+  const [scrollDown, setScrollDown] = useState("Scroll down to dashboard");
+  /***************************************** END Translated variables ******************************************************/
+  const [language, setLanguage] = useState("English");
   const [heat, setheat] = useState(() => {
     var groups = filteredData_agg.reduce(function (r, row) {
       r[row.name_0] = ++r[row.name_0] || 1;
@@ -154,6 +161,7 @@ function App() {
     return groups;
   });
 
+  
   const steps= [
       {
         title: "Welcome to the LYLA Dashboard",
@@ -189,6 +197,45 @@ function App() {
   
   const onExit = () => {
     setStepsEnabled(false);
+  };
+
+  const onClickLanguage = () => {
+    if (language == "Español"){
+    setLanguage("English");
+    setViolenceInflicted("Worst violence inflicted");
+    setNumberPerpetrators("Number of perpetrators");
+    setAllegedWrongdoing("Alleged Wrongdoing");
+    setWorstOutcome("Worst Outcome");
+    setFilterBy("Filter By");
+    setTimeWindow("Choose time window");
+    setStartDateText("Start Date");
+    setEndDateText("End Date");
+    setDownloadText("Download .csv");
+    setCountryText("Country");
+    setChartText("Annual events per million inhabitants");
+    setScrollDown("Scroll down to dashboard");
+    
+    }
+    else{
+      setLanguage("Español");
+      setViolenceInflicted("Peor violencia infligida");
+      setNumberPerpetrators("Número de perpetradores");
+      setAllegedWrongdoing("Supuesta irregularidad");
+      setWorstOutcome("Peor resultado");
+      setFilterBy("Filtrar por");
+      setTimeWindow("Escoja ventana de tiempo");
+      setStartDateText("Fecha de inicio");
+      setEndDateText("Fecha final");
+      setDownloadText("Descargar .csv");
+      setCountryText("País");
+      setChartText("Eventos anuales por millón de habitantes");
+      setScrollDown("Ir a dashboard");
+
+      
+    };
+    console.log(language);
+    console.log(violenceInflicted);
+
   };
 
 
@@ -240,8 +287,9 @@ function App() {
       color: 'white',
       tickColor: 'white',
       backgroundColor: transparentize(Colorscale['Latin America'], 0.5),
-      pointBackgroundColor: 'black',
-      pointBorderColor: 'black'
+      pointBackgroundColor: 'white',
+      pointBorderColor: 'black',
+      pointRadius: 5,
     }];
 
     current_countries.push(...countries.map(function (e) {
@@ -306,7 +354,7 @@ function App() {
       color: 'white',
       tickColor: 'white',
       backgroundColor: transparentize(Colorscale['Latin America'], 0.5),
-      pointRadius: 0,
+      pointRadius: 5,
       tension: 0.3,
     }];
     current_countries.push(...countries.map(function (e) {
@@ -327,7 +375,7 @@ function App() {
         color: 'white',
         tickColor: 'white',
         backgroundColor: transparentize(Colorscale[e.value], 0.5),
-        pointRadius: 0,
+        pointRadius: 5,
         tension: 0.3,
       }
     }));
@@ -475,6 +523,8 @@ function App() {
 
   }, [file])
 
+
+
   // function fittingBounds() {
   //   const map = useMap()
   //   console.log('map center:', map.getCenter())
@@ -518,6 +568,13 @@ function App() {
     setshapes(await response.json());
   }
 
+  // useEffect(() => {
+  //   if (language="english"){
+  //     setViolenceInflicted("Worst violence inflicted");
+  //   }
+
+
+  // }, [violenceInflicted])
   const reset_map = () => {
     setfile("Latin America");
   }
@@ -554,7 +611,7 @@ function App() {
             (LYLA)</p>
           <p style={{fontSize: "20pt", marginLeft: "60pt", marginRight: "60pt", marginTop: "50pt"}}>The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.</p>
             <ExpandMoreIcon style={{marginLeft: "500pt", marginBottom: "-500pt"}}></ExpandMoreIcon>
-            <p style={{fontSize:'10pt', marginLeft: "460pt", marginTop: "200pt"}}>Scroll down to dashboard</p>
+            <p style={{fontSize:'10pt', marginLeft: "460pt", marginTop: "200pt"}}>{scrollDown}</p>
         
         </div>
         
@@ -577,7 +634,10 @@ function App() {
         <Container>
           <Col md={11}></Col>
           <Col md={1}>
-            <CodeBookModal/>
+            {/*<CodeBookModal/>*/}
+            <Button style={{position:"absolute",
+                            top: "8px",
+                            right: "16px"}} onClick={onClickLanguage}>{language}</Button>
           </Col>
         </Container>
         <Container fluid>
@@ -593,14 +653,14 @@ function App() {
             <Col md={2}> {/*column with dropdowns and download bttn*/}
               <Row>
               <Form.Label style={{ fontWeight: 'bold' }}>
-                Filter By
+                {filterBy}
                
               </Form.Label>
                 
               </Row>
               <Row>
               <Form.Label className='mb-2'>
-                Alleged Wrongdoing&thinsp; 
+                {allegedWrongdoing}&thinsp; 
                 <FontAwesomeIcon icon="fa-solid fa-circle-info" title={" What was the lynched person accused of?"} />
                 </Form.Label>
               
@@ -620,7 +680,7 @@ function App() {
               </Row>
               <Row>
               <Form.Label className='mb-2'>
-                Worst outcome&thinsp;
+                {worstOutcome}&thinsp;
                 <FontAwesomeIcon icon="fa-solid fa-circle-info" title={"What physical consequences did the lynched person suffer?"} />
               </Form.Label>
               <MultiSelect className='multi-select'
@@ -637,7 +697,8 @@ function App() {
               </Row>
               <Row>
               <Form.Label className='mb-2'>
-                Worst violence inflicted&thinsp;
+                
+              {violenceInflicted}&thinsp;
                 <FontAwesomeIcon icon="fa-solid fa-circle-info" title={"What kind of violence did the lynch mob use?"} />
               </Form.Label>
               <MultiSelect className='multi-select'
@@ -654,7 +715,7 @@ function App() {
               </Row>
               <Row>
               <Form.Label className='mb-2'>
-                Number of perpetrators &thinsp;
+                {numberPerpetrators}&thinsp;
                 <FontAwesomeIcon icon="fa-solid fa-circle-info" title={"How large was the lynch mob?"} />
               </Form.Label>
               <MultiSelect className='multi-select'
@@ -767,7 +828,7 @@ function App() {
                     {/* {evt.header} <br /> */}
                     <table className="table-popup">
                           <tr>
-                            <td> Alleged wrongdoing:</td>
+                            <td> {allegedWrongdoing}:</td>
                             <td></td>
                             <td> &thinsp;{dictionary.filter((item) =>
                           item.variable == 'tar_wrongdoing' & item.value == evt.tar_wrongdoing).map((element) => {
@@ -775,7 +836,7 @@ function App() {
                           })} </td>
                           </tr>
                           <tr>
-                            <td> Worst violence inflicted:</td>
+                            <td> {violenceInflicted}:</td>
                             <td></td>
                             <td> &thinsp;{dictionary.filter((item) =>
                           item.variable == 'pe_violence' & item.value == evt.pe_violence).map((element) => {
@@ -783,7 +844,7 @@ function App() {
                           })}</td>
                           </tr>
                           <tr>
-                            <td> Worst outcome:</td>
+                            <td> {worstOutcome}:</td>
                             <td></td>
                             <td> &thinsp;{dictionary.filter((item) =>
                           item.variable == 'tar_outcome' & item.value == evt.tar_outcome).map((element) => {
@@ -805,7 +866,7 @@ function App() {
             <Col md={5}> {/*start country dropdown&charts column */}
               <Row> {/*start country dropdown row*/}
               <Col md={8}>
-              <Form.Label className='mb-2'>Country</Form.Label>
+              <Form.Label className='mb-2'>{countryText}</Form.Label>
               <MultiSelect className='multi-select'
                 options={dictionary.filter((item) =>
                   item.variable == 'country'
@@ -840,10 +901,10 @@ function App() {
                   <Form.Select
                     value={var_chart}
                     onChange={event => setvar_chart(event.target.value)}>
-                    <option value="pe_approxnumber">Number of perpetrators</option>
-                    <option value="tar_wrongdoing">Wrongdoing</option>
-                    <option value="tar_outcome">Outcome</option>
-                    <option value="pe_violence">Worst violence inflicted</option>
+                    <option value="pe_approxnumber">{numberPerpetrators}</option>
+                    <option value="tar_wrongdoing">{wrongdoing}</option>
+                    <option value="tar_outcome">{worstOutcome}</option>
+                    <option value="pe_violence">{violenceInflicted}</option>
                   </Form.Select>
 
                 </Col>
