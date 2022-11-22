@@ -8,7 +8,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  background-image: url("./latam2.png");
+  background-color: #1D212D;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: top right 0px;
@@ -48,7 +48,7 @@ h2 {
   height: 100vh;
   width: 100%;
   margin:0 auto;
-  
+  background-color: #1D212D;
   background-size: cover;
   position:relative;
   font-size: 50pt;
@@ -70,7 +70,7 @@ h2 {
 
 .dark {
   color: #ffffff;
-  
+  background-color: #1D212D;
 }
 
 
@@ -458,3 +458,6 @@ main {
   margin-left: 700px;
 }
 
+.regionMap {
+  border-width: 0px;
+}

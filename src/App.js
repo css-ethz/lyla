@@ -49,6 +49,8 @@ import 'intro.js/introjs.css';
 import IconButton from '@mui/material/IconButton';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Ocean from './components/Ocean';
+import geojson_ocean from './data/ne_110m_ocean.geojson.json';
 
 Chart.register(...registerables);
 delete L.Icon.Default.prototype._getIconUrl;
@@ -862,6 +864,7 @@ function App() {
                 ))}
 
                 <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} file={file} />
+                <Ocean geojson_data={geojson_ocean} key_id='key_geojson'/>
                 <ResetMarker setfile={setfile}></ResetMarker>
               </MapContainer>
 
