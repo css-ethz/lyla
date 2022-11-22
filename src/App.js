@@ -608,12 +608,12 @@ function App() {
       />
 
       <div className="intro-title">
-        <p style={{ marginLeft: "300pt" }}>Lynching in<br />
+        <p style={{ marginLeft: "60pt",marginTop: "0pt"}}>Lynching in<br />
           Latin America <br />
           (LYLA)</p>
-        <p style={{ fontSize: "20pt", marginLeft: "60pt", marginRight: "60pt", marginTop: "50pt" }}>The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.</p>
+        <p style={{ fontSize: "3vh", marginLeft: "60pt", marginRight: "60pt", marginTop: "50pt" }}>The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.</p>
         <ExpandMoreIcon style={{ marginLeft: "500pt", marginBottom: "-500pt" }}></ExpandMoreIcon>
-        <p style={{ fontSize: '10pt', marginLeft: "460pt", marginTop: "200pt" }}>{scrollDown}</p>
+        <p style={{ fontSize: '2vh', marginLeft: "460pt", marginTop: "200pt" }}>{scrollDown}</p>
 
       </div>
 
@@ -630,7 +630,7 @@ function App() {
 
 
 
-      <div>
+      <div style={{ marginTop: "50pt" }}>
         <h2>Lynching in Latin America</h2>
 
         <Container>
