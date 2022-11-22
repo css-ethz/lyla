@@ -568,7 +568,26 @@ function App() {
   // });
   //onst circleIcon = <FontAwesomeIcon icon="fas fa-circle" />;
   const [mouseHover , setMouseHover] = useState(false);
-  
+
+
+  {/******************** SCROLL DOWN CODE **********************
+  import { useRef } from react;
+
+const aboutSection = useRef(null);
+  <div className="section section2" ref={aboutSection}>
+    <h2>About Us</h2>
+</div>
+  const scrollDown = () => {
+    window.scrollTo({
+      top: aboutSection.current.offsetTop,
+      behavior: 'smooth',
+    });
+  };
+
+  <li className="link" onClick={scrollDown}>
+  About Us
+</li>
+******************** END SCROLL DOWN CODE **********************/}
 
   return (
     
