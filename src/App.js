@@ -853,7 +853,7 @@ const ParentFunction = (e) => {
                   </Col> */}
               </Row> {/*end of download bttn row */}
               <Row> {/* text with number of events */}
-              <EventsText country={fileflag} num_events={heat}/>
+              <EventsText country={countryKey} num_events={numEvents}/>
               </Row>
             </Col> {/*end of dropdowns column */}
             <Col md={5}> {/* start map column*/}
@@ -971,7 +971,7 @@ const ParentFunction = (e) => {
                     value={var_chart}
                     onChange={event => setvar_chart(event.target.value)}>
                     <option value="pe_approxnumber">{numberPerpetrators}</option>
-                    <option value="tar_wrongdoing">{wrongdoing}</option>
+                    <option value="tar_wrongdoing">{allegedWrongdoing}</option>
                     <option value="tar_outcome">{worstOutcome}</option>
                     <option value="pe_violence">{violenceInflicted}</option>
                   </Form.Select>
