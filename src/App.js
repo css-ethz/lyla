@@ -136,6 +136,7 @@ function App() {
   const [file, setfile] = useState('Latin America');
   const [level, setlevel] = useState(0);
   const [Check, setCheck] = useState(false);
+  const [Show, setShow] = useState(true);
   const [fileflag, setfileflag] = useState('Latin America');
   const [var_chart, setvar_chart] = useState('pe_approxnumber');
   const [isActive, setIsActive] = useState(true);
@@ -735,7 +736,18 @@ function App() {
 
                 />
               </Row>
-
+              <Row>
+              <Col md={12}>
+                <br/>
+                <Form.Check 
+                      type='checkbox'
+                      label={`Show events`}
+                      id={`events`}
+                      checked={Show}
+                      onChange={() => setShow(!Show)}
+                />
+                </Col>
+              </Row>
               {/* </Col>
             <Col md={2}>
               
@@ -764,6 +776,7 @@ function App() {
 
               <Row>
                 <Col md={2}>
+                  <br/>
                   <DownloadComponent filteredData={eventData} />
                 </Col>
                 {/*             <Col md={3}>
@@ -811,7 +824,7 @@ function App() {
                 }
                 } />
 
-                {fileflag != 'Latin America' && filteredData.map(evt => (
+                {fileflag != 'Latin America' && Show && filteredData.map(evt => (
                   <CircleMarker
                     center={[evt.geometry.coordinates[0], evt.geometry.coordinates[1]]}
                     radius={evt.press_article == 'true' ? 7 : 2}
