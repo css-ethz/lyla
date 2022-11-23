@@ -921,7 +921,7 @@ function App() {
                     value={var_chart}
                     onChange={event => setvar_chart(event.target.value)}>
                     <option value="pe_approxnumber">{numberPerpetrators}</option>
-                    <option value="tar_wrongdoing">{wrongdoing}</option>
+                    <option value="tar_wrongdoing">{allegedWrongdoing}</option>
                     <option value="tar_outcome">{worstOutcome}</option>
                     <option value="pe_violence">{violenceInflicted}</option>
                   </Form.Select>
