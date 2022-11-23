@@ -817,8 +817,8 @@ function App() {
                     radius={evt.press_article == 'true' ? 7 : 2}
                     pane={"markerPane"}
                     fillOpacity={1}
-                    color="#464342"
-                    fillColor={evt.press_article ? '#1E2634' : '#464342'}
+                    color={evt.press_article == 'true' ? '#EA4335' : '#464342'}
+                    fillColor={evt.press_article  ? 'white' : '#464342'}
                     strokeOpacity={0.5}
                     eventHandlers={{
                       mouseover: (event) => {
