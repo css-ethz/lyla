@@ -44,7 +44,7 @@ import { divIcon } from "leaflet";
 import myIcon from "./circle.svg";
 import bogota from "./bogota.jpg";
 import { batch, ScrollContainer, ScrollPage, StickyIn, Fade, FadeIn, Animator, Sticky, MoveOut, MoveIn } from 'react-scroll-motion';
-import { Steps } from 'intro.js-react';
+//import { Steps } from 'intro.js-react';
 import 'intro.js/introjs.css';
 import IconButton from '@mui/material/IconButton';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
@@ -52,6 +52,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Ocean from './components/Ocean';
 import geojson_ocean from './data/ne_110m_ocean.geojson.json';
 import EventsText from './components/EventsText';
+import JoyRide from 'react-joyride';
 
 Chart.register(...registerables);
 delete L.Icon.Default.prototype._getIconUrl;
@@ -168,7 +169,33 @@ function App() {
     return groups;
   });
 
+  const steps_joyride = [
+    {title: "Welcome to the LYLA Dashboard",
+    content: "This web application enables researchers and journalists to analyze lynching events in Latin America.", 
+    target: ".intro-title", 
+    position:"top",
+    styles: {
+      options: {
+        width: 200,
+      }
 
+    }},
+
+    {title: "Hello map", 
+    content: "this is the interactive map", 
+    target: ".regionMap", 
+    position:"left"},
+    {title: "Reset button ", 
+    content: "you can click here to reset the map to display the entire latin america", 
+    target: ".reset", 
+    position:"bottom",
+    styles: {
+      options: {
+        width: 200,
+      }
+
+    }},
+    ];
   const steps = [
     {
       title: "Welcome to the LYLA Dashboard",
@@ -643,7 +670,7 @@ const ParentFunction = (e) => {
   return (
 
     <div className="dark">
-      <Steps
+      {/* <Steps
         enabled={stepsEnabled}
         steps={steps}
         initialStep={0}
@@ -653,8 +680,15 @@ const ParentFunction = (e) => {
           scrollToElement: true,
         }}
 
-      />
-
+      /> */}
+      <JoyRide 
+        continuous
+        hideCloseButton
+        scrollToFirstStep
+        showProgress
+        showSkipButton
+        steps={steps_joyride}
+        styles={{ options:{zIndex: 1000}}}/>
       <div className="intro-title">
         <p style={{ marginLeft: "60pt",marginTop: "0pt"}}>Lynching in<br />
           Latin America <br />
@@ -928,7 +962,7 @@ const ParentFunction = (e) => {
 
                 <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} file={file} parentFunc={ParentFunction} num_events={numEvents}/>
                 <Ocean geojson_data={geojson_ocean} key_id='key_geojson'/>
-                <ResetMarker setfile={setfile}></ResetMarker>
+                <ResetMarker className='reset' setfile={setfile}></ResetMarker>
               </MapContainer>
 
             </Col> {/*end of map column */}
