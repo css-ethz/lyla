@@ -460,3 +460,12 @@ main {
 .regionMap {
   border-width: 0px;
 }
+
+.num-events-title {
+  font-size: 40px;
+  margin-left: 50px;
+}
+.num-events-text {
+  font-size: 20px;
+  margin-left: 60px;
+}

@@ -17,7 +17,7 @@ import L from 'leaflet';
     [-1.505, -35.59],
   ]
 
-const Heatmap = ({ geojson_data, heat, setfile, key_id, file }) => {
+const Heatmap = ({ geojson_data, heat, setfile, key_id, file, parentFunc, num_events}) => {
     //const geoJson: RefObject<Leaflet.GeoJSON> = useRef(null);
     const geoJsonRef = useRef(null);
     const map = useMap();
@@ -94,8 +94,8 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id, file }) => {
         e.target.setStyle(style(e.target.feature));
     })
     const zoomToFeature = (e) => {
-        console.log("traget admin value is:")
-        console.log(e.target.feature.properties.ADMIN)
+        console.log("target admin value (in zoomfeature function) is:",e.target.feature.properties.ADMIN);
+        //console.log("number of events  of", e.target.feature.properties.ADMIN,"is",num_events[e.target.feature.properties.ADMIN]);
         map.fitBounds(e.target.getBounds()); //print bounds
         
         console.log(e.target.getBounds());
@@ -103,17 +103,29 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id, file }) => {
 
     const onEachFeature = (feature, layer) => {
         layer.on({
-            //mouseover: highlightFeature,
-            //mouseout: resetHighlight,
             click: (e) => {
                 zoomToFeature(e);
-                if (key_id == 'Latin America') {
-                    console.log(e.target.feature.properties.ADMIN); //check if value coincides with zoomed out country
-                    setfile(e.target.feature.properties.ADMIN);
-                }
-            },
+                parentFunc(e);
+            }
+
         });
-    }
+
+    };
+
+    // const onEachFeature = (feature, layer) => {
+    //     layer.on({
+    //         //mouseover: highlightFeature,
+    //         //mouseout: resetHighlight,
+    //         click: (e) => {
+    //             zoomToFeature(e);
+    //             if (key_id == 'Latin America') {
+    //                 console.log(e.target.feature.properties.ADMIN); //check if value coincides with zoomed out country
+    //                 setfile(e.target.feature.properties.ADMIN);
+                    
+    //             }
+    //         },
+    //     });
+    // }
     const mapPolygonColorToDensity = (density => {
         return density > 8
             ? '#BB545A'

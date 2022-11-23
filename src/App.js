@@ -51,6 +51,7 @@ import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Ocean from './components/Ocean';
 import geojson_ocean from './data/ne_110m_ocean.geojson.json';
+import EventsText from './components/EventsText';
 
 Chart.register(...registerables);
 delete L.Icon.Default.prototype._getIconUrl;
@@ -156,6 +157,9 @@ function App() {
   const [scrollDown, setScrollDown] = useState("Scroll down to dashboard");
   /***************************************** END Translated variables ******************************************************/
   const [language, setLanguage] = useState("English");
+  const [occs, setOccs] = useState(null);
+  const [numEvents, setNumEvents] = useState(2818);
+  const [countryKey, setcountrykey] = useState(null);
   const [heat, setheat] = useState(() => {
     var groups = filteredData_agg.reduce(function (r, row) {
       r[row.name_0] = ++r[row.name_0] || 1;
@@ -263,130 +267,9 @@ function App() {
   });
 
 
-  const MyComponent = ({ file }) => {
-    const map = useMap();
-    if (file == "Latin America") {
-      map.fitBounds({ outerBounds })
-      return null
-    }
-    return null
-  }
+  
 
-
-  useEffect(() => {
-    var occurences = filteredData_agg.reduce(function (r, row) {
-      var val_name = dictionary.filter((item) => item.variable == var_chart & item.value == row[var_chart]).map((element) => element.name)[0];
-      r[val_name] = ++r[val_name] || 1;
-      return r;
-    }, {});
-    if (!Check) {
-      Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
-    }
-    var current_countries = [{
-      label: 'Latin America', data: occurences,
-      minBarLength: 2,
-      fill: false, // use "True" to draw area-plot 
-      borderColor: Colorscale['Latin America'],
-      color: 'white',
-      tickColor: 'white',
-      backgroundColor: transparentize(Colorscale['Latin America'], 0.5),
-      pointBackgroundColor: 'white',
-      pointBorderColor: 'black',
-      pointRadius: 5,
-    }];
-
-    current_countries.push(...countries.map(function (e) {
-      var occurences = filteredData_agg.filter((item) => (item.name_0 == e.value)).reduce(function (r, row) {
-        var val_name = dictionary.filter((item) => item.variable == var_chart & item.value == row[var_chart]).map((element) => element.name)[0];
-        r[val_name] = ++r[val_name] || 1;
-        return r;
-      }, {})
-      if (!Check) {
-        Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
-      }
-      return {
-        label: e.value,
-        data: occurences,
-        minBarLength: 2,
-        fill: false, // use "True" to draw area-plot 
-        borderColor: Colorscale[e.value],
-        color: 'white',
-        tickColor: 'white',
-        backgroundColor: transparentize(Colorscale[e.value], 0.5),
-        pointBackgroundColor: 'black',
-        pointBorderColor: 'black'
-      }
-    }));
-
-    setBarData({
-      labels: dictionary.filter((item) => item.variable == var_chart).map((element) => element.name),
-      datasets: current_countries,
-    });
-  }, [var_chart, countries, filteredData_agg, Check]);
-
-  useEffect(() => {
-    if (level == 0) {
-      var gg = filteredData_agg.reduce(function (r, row) {
-        r[row.name_0] = r[row.name_0] + row.id || row.id;
-        return r;
-      }, {});
-      var groups = {};
-
-      Object.keys(gg).forEach(key => groups[key] = 1000000 * gg[key] / population_admin0[0][key]);
-    } else {
-      var groups = filteredData_agg.filter((item) => item.name_0 == fileflag).reduce(function (r, row) {
-        r[row.name_1] = r[row.name_1] + row.events_pop || row.events_pop;
-        return r;
-      }, {});
-    }
-    setheat(groups);
-
-    var occurences = filteredData_agg.reduce(function (r, row) {
-      var year = row['month_year'].slice(0, 4);
-      r[year] = ++r[year] || 1;
-      return r;
-    }, {});
-    if (!Check) {
-      Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
-    }
-
-    var current_countries = [{
-      label: 'Latin America', data: occurences,
-      fill: false, // use "True" to draw area-plot 
-      borderColor: Colorscale['Latin America'],
-      color: 'white',
-      tickColor: 'white',
-      backgroundColor: transparentize(Colorscale['Latin America'], 0.5),
-      pointRadius: 5,
-      tension: 0.3,
-    }];
-    current_countries.push(...countries.map(function (e) {
-      var occurences = filteredData_agg.filter((item) => (item.name_0 == e.value)).reduce(function (r, row) {
-        var year = row['month_year'].slice(0, 4);
-        r[year] = ++r[year] || 1;
-        return r;
-      }, {});
-      if (!Check) {
-        Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
-      }
-
-      return {
-        label: e.value,
-        data: occurences,
-        fill: false, // use "True" to draw area-plot 
-        borderColor: Colorscale[e.value],
-        color: 'white',
-        tickColor: 'white',
-        backgroundColor: transparentize(Colorscale[e.value], 0.5),
-        pointRadius: 5,
-        tension: 0.3,
-      }
-    }));
-    setLineData({
-      labels: Object.keys(current_countries[0]['data']),
-      datasets: current_countries,
-    });
-  }, [countries, filteredData_agg, Check]);
+  
 
   function parseDate(input) {
     var parts = input.match(/(\d+)/g);
@@ -397,16 +280,124 @@ function App() {
     var alpha = opacity === undefined ? 0.5 : 1 - opacity;
     return colorLib(value).alpha(alpha).rgbString();
   }
-  // useEffect(() => {
-  //   if (!map) return;
+  
 
-  //   const legend = L.control({ position: "bottomleft" });
-  //   legend.onAdd = () => {
-  //     const div = L.DomUtil.create("div", "legend");
-  //     div.innerHTML = `click on polygon`;
-  //     return div;
-  //   };
-  // }, [map]);
+ /************************************************ function passed to heatmpa child component *********************************/
+
+const ParentFunction = (e) => {
+  console.log("tarfet admin value is:", e.target.feature.properties.ADMIN);
+  console.log("heat of", e.target.feature.properties.ADMIN,"is",heat[e.target.feature.properties.ADMIN]);
+  // if (fileflag == 'Latin America') {
+  //     console.log("check if value coincides with zoomed out country:",e.target.feature.properties.ADMIN); //check if value coincides with zoomed out country
+  //     setfile(e.target.feature.properties.ADMIN);
+  //     setcountrykey(e.target.feature.properties.ADMIN);
+  //     //setEventsArrayKey(e.target.feature.properties.ADMIN);
+  //     console.log("function triggered when clicking in heatmap, number of events here is:", numEvents);
+      
+        
+  //   }
+  setfile(e.target.feature.properties.ADMIN);
+  //setEventsArrayKey(e.target.feature.properties.ADMIN);
+  console.log("function triggered when clicking in heatmap, number of events here is:", numEvents);
+  setcountrykey(e.target.feature.properties.ADMIN);
+  console.log("countrykey", countryKey);
+};
+    /************************************************ end  ***********************************/
+
+  useEffect(() => {
+
+    setlevel(1);
+    var countries = ["Argentina", "Bolivia", "Brazil", "Chile", "Colombia",
+      "Costa Rica", "Dominican Republic", "Ecuador", "Guatemala", "Honduras",
+      "Mexico", "Nicaragua", "Panama", "Paraguay", "Peru", "Uruguay", "Venezuela"]
+    if (file == 'Latin America') {
+      setshapes(geojson);
+      setlevel(0);
+
+      //map2.fitBounds({outerBounds});
+    }
+    else if (countries.includes(file)) {
+      //fetchData(file);
+      var geo1 = Object.create(geojson1_admin1);
+      geo1.features = geo1.features.filter((item) => item.properties.NAME_0 == file);
+      setshapes(geo1);
+      setlevel(2);
+
+    } else {
+      const anchor = document.querySelector('#regionMap')
+      anchor.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+
+    
+
+  }, [file])
+
+
+
+  // function fittingBounds() {
+  //   const map = useMap()
+  //   console.log('map center:', map.getCenter())
+  //   return null
+  // }
+  useEffect(() => {
+    console.log("level here here is", level);
+    if (level==0){
+      var num_events = filteredData.reduce(function (r, row) {
+        r[row.name_0] = ++r[row.name_0] || 1;
+        return r;
+    },{})}
+    else {
+      var num_events = filteredData.filter((item) => item.name_0 == fileflag).reduce(function (r, row) {
+        r[row.name_1] = ++r[row.name_1] || 1;
+        return r;
+      }, {});
+      console.log("num events level 1", num_events);
+
+    }
+    setNumEvents(num_events);
+    if (numEvents !== null){
+    console.log("hello");
+    console.log(countryKey);
+    //console.log("number of events is",numEvents[countryKey]);
+    }
+    
+
+
+  }, [countryKey]);
+
+  useEffect(() => {
+    console.log("number of events is",numEvents[countryKey]);
+
+  }, [numEvents]);
+
+  useEffect(() => {
+    if (level == 0) {
+      var groups = filteredData_agg.reduce(function (r, row) {
+        r[row.name_0] = r[row.name_0] + row.events_pop || row.events_pop;
+        return r;
+      }, {});
+     
+    } else {
+      var groups = filteredData_agg.filter((item) => item.name_0 == fileflag).reduce(function (r, row) {
+        r[row.name_1] = r[row.name_1] + row.events_pop || row.events_pop;
+        return r;
+      }, {});
+      
+    }
+    
+    setheat(groups);
+    setfileflag(file);
+    if (file != 'Latin America') {
+      var countries_tmp = Object.create(countries);
+      var current_countries = countries_tmp.map(function (e) {
+        return e.value;
+      });
+      if (!current_countries.includes(file)) {
+        countries_tmp.push({ label: file, value: file })
+      }
+      setCountries(countries_tmp);
+    }
+  }, [shapes])
 
   useEffect(() => {
     var filtered_data = Object.create(eventData);
@@ -496,50 +487,74 @@ function App() {
     });
     setFilteredData(filtered_data);
     setFilteredData_agg(filtered_data_agg);
+    console.log("level here is", level);
+    
+    //console.log("number of events is", num_events);
 
   }, [peNum, tarOutcome, wrongdoing, peViolence, StartDate, EndDate, fileflag, countries]);
 
 
-
   useEffect(() => {
-
-    setlevel(1);
-    var countries = ["Argentina", "Bolivia", "Brazil", "Chile", "Colombia",
-      "Costa Rica", "Dominican Republic", "Ecuador", "Guatemala", "Honduras",
-      "Mexico", "Nicaragua", "Panama", "Paraguay", "Peru", "Uruguay", "Venezuela"]
-    if (file == 'Latin America') {
-      setshapes(geojson);
-      setlevel(0);
-
-      //map2.fitBounds({outerBounds});
+    var occurences = filteredData_agg.reduce(function (r, row) {
+      var val_name = dictionary.filter((item) => item.variable == var_chart & item.value == row[var_chart]).map((element) => element.name)[0];
+      r[val_name] = ++r[val_name] || 1;
+      return r;
+    }, {});
+    if (!Check) {
+      Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
     }
-    else if (countries.includes(file)) {
-      //fetchData(file);
-      var geo1 = Object.create(geojson1_admin1);
-      geo1.features = geo1.features.filter((item) => item.properties.NAME_0 == file);
-      setshapes(geo1);
+    var current_countries = [{
+      label: 'Latin America', data: occurences,
+      minBarLength: 2,
+      fill: false, // use "True" to draw area-plot 
+      borderColor: Colorscale['Latin America'],
+      color: 'white',
+      tickColor: 'white',
+      backgroundColor: transparentize(Colorscale['Latin America'], 0.5),
+      pointBackgroundColor: 'white',
+      pointBorderColor: 'black',
+      pointRadius: 5,
+    }];
 
-    } else {
-      const anchor = document.querySelector('#regionMap')
-      anchor.scrollIntoView({ behavior: 'smooth', block: 'center' })
-    }
+    current_countries.push(...countries.map(function (e) {
+      var occurences = filteredData_agg.filter((item) => (item.name_0 == e.value)).reduce(function (r, row) {
+        var val_name = dictionary.filter((item) => item.variable == var_chart & item.value == row[var_chart]).map((element) => element.name)[0];
+        r[val_name] = ++r[val_name] || 1;
+        return r;
+      }, {})
+      if (!Check) {
+        Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
+      }
+      return {
+        label: e.value,
+        data: occurences,
+        minBarLength: 2,
+        fill: false, // use "True" to draw area-plot 
+        borderColor: Colorscale[e.value],
+        color: 'white',
+        tickColor: 'white',
+        backgroundColor: transparentize(Colorscale[e.value], 0.5),
+        pointBackgroundColor: 'black',
+        pointBorderColor: 'black'
+      }
+    }));
 
-  }, [file])
-
-
-
-  // function fittingBounds() {
-  //   const map = useMap()
-  //   console.log('map center:', map.getCenter())
-  //   return null
-  // }
+    setBarData({
+      labels: dictionary.filter((item) => item.variable == var_chart).map((element) => element.name),
+      datasets: current_countries,
+    });
+  }, [var_chart, countries, filteredData_agg, Check]);
 
   useEffect(() => {
     if (level == 0) {
-      var groups = filteredData_agg.reduce(function (r, row) {
-        r[row.name_0] = r[row.name_0] + row.events_pop || row.events_pop;
+      var gg = filteredData_agg.reduce(function (r, row) {
+        r[row.name_0] = r[row.name_0] + row.id || row.id;
         return r;
       }, {});
+      var groups = {};
+
+      Object.keys(gg).forEach(key => groups[key] = 1000000 * gg[key] / population_admin0[0][key]);
+      
     } else {
       var groups = filteredData_agg.filter((item) => item.name_0 == fileflag).reduce(function (r, row) {
         r[row.name_1] = r[row.name_1] + row.events_pop || row.events_pop;
@@ -547,18 +562,56 @@ function App() {
       }, {});
     }
     setheat(groups);
-    setfileflag(file);
-    if (file != 'Latin America') {
-      var countries_tmp = Object.create(countries);
-      var current_countries = countries_tmp.map(function (e) {
-        return e.value;
-      });
-      if (!current_countries.includes(file)) {
-        countries_tmp.push({ label: file, value: file })
-      }
-      setCountries(countries_tmp);
+    console.log("groups are:", heat);
+
+    var occurences = filteredData_agg.reduce(function (r, row) {
+      var year = row['month_year'].slice(0, 4);
+      r[year] = ++r[year] || 1;
+      return r; //returns array with keys being the years and values the number of events 
+    }, {});
+    setOccs(occurences);
+    console.log("occurences are", occs);
+    if (!Check) {
+      Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
     }
-  }, [shapes])
+
+    var current_countries = [{
+      label: 'Latin America', data: occurences,
+      fill: false, // use "True" to draw area-plot 
+      borderColor: Colorscale['Latin America'],
+      color: 'white',
+      tickColor: 'white',
+      backgroundColor: transparentize(Colorscale['Latin America'], 0.5),
+      pointRadius: 5,
+      tension: 0.3,
+    }];
+    current_countries.push(...countries.map(function (e) {
+      var occurences = filteredData_agg.filter((item) => (item.name_0 == e.value)).reduce(function (r, row) {
+        var year = row['month_year'].slice(0, 4);
+        r[year] = ++r[year] || 1;
+        return r;
+      }, {});
+      if (!Check) {
+        Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
+      }
+
+      return {
+        label: e.value,
+        data: occurences,
+        fill: false, // use "True" to draw area-plot 
+        borderColor: Colorscale[e.value],
+        color: 'white',
+        tickColor: 'white',
+        backgroundColor: transparentize(Colorscale[e.value], 0.5),
+        pointRadius: 5,
+        tension: 0.3,
+      }
+    }));
+    setLineData({
+      labels: Object.keys(current_countries[0]['data']),
+      datasets: current_countries,
+    });
+  }, [countries, filteredData_agg, Check]);
 
   async function fetchData(file) {
     // const response = await fetch("./example.json");
@@ -571,13 +624,7 @@ function App() {
     setshapes(await response.json());
   }
 
-  // useEffect(() => {
-  //   if (language="english"){
-  //     setViolenceInflicted("Worst violence inflicted");
-  //   }
 
-
-  // }, [violenceInflicted])
   const reset_map = () => {
     setfile("Latin America");
   }
@@ -805,6 +852,9 @@ function App() {
 
                   </Col> */}
               </Row> {/*end of download bttn row */}
+              <Row> {/* text with number of events */}
+              <EventsText country={countryKey} num_events={numEvents}/>
+              </Row>
             </Col> {/*end of dropdowns column */}
             <Col md={5}> {/* start map column*/}
               <MapContainer
@@ -876,7 +926,7 @@ function App() {
                   </CircleMarker>
                 ))}
 
-                <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} file={file} />
+                <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} file={file} parentFunc={ParentFunction} num_events={numEvents}/>
                 <Ocean geojson_data={geojson_ocean} key_id='key_geojson'/>
                 <ResetMarker setfile={setfile}></ResetMarker>
               </MapContainer>
