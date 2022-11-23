@@ -159,7 +159,7 @@ function App() {
   const [language, setLanguage] = useState("English");
   const [occs, setOccs] = useState(null);
   const [numEvents, setNumEvents] = useState(2818);
-  const [countryKey, setcountrykey] = useState(null);
+  const [countryKey, setcountrykey] = useState('Latin America');
   const [heat, setheat] = useState(() => {
     var groups = filteredData_agg.reduce(function (r, row) {
       r[row.name_0] = ++r[row.name_0] || 1;
