@@ -648,7 +648,7 @@ const ParentFunction = (e) => {
         steps={steps_joyride}
         styles={{  buttonClose: {
           display: 'none'
-        }}}>Test</JoyRide>
+        }}}></JoyRide>
       {/* <div className="intro-title">
         <p style={{ marginLeft: "60pt",marginTop: "0pt"}}>Lynching in<br />
           Latin America <br />
@@ -690,54 +690,18 @@ const ParentFunction = (e) => {
               
             </Row>
     
-        <Container>
-          <Col> //first of 2 cols, for map 
-          <Row>// first row containing filters
+        <Container style={{marginLeft: "10pt"}}>
+          <Col md={9}>
+          <Row>
+            <Form.Label style={{ fontWeight: 'bold' }}>
+                  {filterBy}
 
-          </Row>
-          <Row>// 2nd row containing date slider
-
-          </Row>
-          <Row>//third row containing map
-
-          </Row>
-          <Row>//fourth row containing database and codebook buttons
-
-          </Row>
-          </Col>
-          <Col>//second colum, contains charts
-          <Row>//country filter tab
+            </Form.Label>
 
           </Row>
           <Row>
-            
-          </Row>
-          </Col>
-          <Col md={11}></Col>
-          <Col md={1}>
-            
-          </Col>
-        </Container>
-        <Container fluid>
-          <Row className='date'>
-            <Col md={1}></Col>
-            <Col md={6}>
-              <DateSlider style={{fontSize:"10px"}} className="date" setSDate={setSDate} setEDate={setEDate} dateTitle={timeWindow} startDateText={startDateText} endDateText={endDateText}/>
-            </Col>
-            <Col md={5}></Col>
-          </Row>
-          <Row> {/* second row after date (main row that includes dropdowns&download column, map column and country dropdown&charts ) */}
-
-            <Col md={2}> {/*column with dropdowns and download bttn*/}
-              <Row>
-                <Form.Label style={{ fontWeight: 'bold' }}>
-                  {filterBy}
-
-                </Form.Label>
-
-              </Row>
-              <Row>
-                <Form.Label className='mb-2'>
+            <Col>
+            <Form.Label className='mb-2'>
                   {allegedWrongdoing}&thinsp;
                   <FontAwesomeIcon icon="fa-solid fa-circle-info" title={" What was the lynched person accused of?"} />
                 </Form.Label>
@@ -755,9 +719,9 @@ const ParentFunction = (e) => {
                   labelledBy="Select"
 
                 />
-              </Row>
-              <Row>
-                <Form.Label className='mb-2'>
+            </Col>
+            <Col>
+              <Form.Label className='mb-2'>
                   {worstOutcome}&thinsp;
                   <FontAwesomeIcon icon="fa-solid fa-circle-info" title={"What physical consequences did the lynched person suffer?"} />
                 </Form.Label>
@@ -772,9 +736,10 @@ const ParentFunction = (e) => {
                   onChange={setTarOutcome}
                   labelledBy="Select"
                 />
-              </Row>
-              <Row>
-                <Form.Label className='mb-2'>
+                  
+            </Col>
+            <Col>
+              <Form.Label className='mb-2'>
 
                   {violenceInflicted}&thinsp;
                   <FontAwesomeIcon icon="fa-solid fa-circle-info" title={"What kind of violence did the lynch mob use?"} />
@@ -790,9 +755,9 @@ const ParentFunction = (e) => {
                   onChange={setPeViolence}
                   labelledBy="Select"
                 />
-              </Row>
-              <Row>
-                <Form.Label className='mb-2'>
+            </Col>
+            <Col>
+              <Form.Label className='mb-2'>
                   {numberPerpetrators}&thinsp;
                   <FontAwesomeIcon icon="fa-solid fa-circle-info" title={"How large was the lynch mob?"} />
                 </Form.Label>
@@ -808,82 +773,22 @@ const ParentFunction = (e) => {
                   labelledBy="Select"
 
                 />
-              </Row>
-              <Row>
-              <Col md={12}>
-                <br/>
-                <Form.Check 
+            </Col>
+          </Row>
+          <Row>
+            <DateSlider style={{fontSize:"10px"}} className="date" setSDate={setSDate} setEDate={setEDate} dateTitle={timeWindow} startDateText={startDateText} endDateText={endDateText}/>
+          </Row>
+          <Row>
+            <Form.Check 
                       type='checkbox'
                       label={`Show events`}
                       id={`events`}
                       checked={Show}
                       onChange={() => setShow(!Show)}
-                />
-                </Col>
-              </Row>
-              {/* </Col>
-            <Col md={2}>
-              
-            </Col>
-            <Col md={2}>
-             
-            </Col>
-            <Col md={2}>
-              
-            </Col> */}
-
-              {/* <Col md={2}>
-              <Form.Label className='mb-2'>Country</Form.Label>
-              <MultiSelect className='multi-select'
-                options={dictionary.filter((item) =>
-                  item.variable == 'country'
-                ).map((element) => {
-                  return { 'label': element.name, 'value': element.name }
-
-                })}
-                value={countries}
-                onChange={setCountries}
-                labelledBy="Select"
               />
-            </Col> */}
-
-              <Row>
-                <Col md={2}>
-                  <br/>
-                  <DownloadComponent filteredData={eventData} />
-                </Col>
-                {/*             <Col md={3}>
-                            <Button onClick={reset_map}>Reset map</Button>
-                          </Col> */}
-                {/* </Row> */}
-                {/* </Container>
-
-                    </div>
-                    <div>
-                      <Container fluid>
-                        <Row> */}
-                {/*   <Col>
-                <MapContainer
-                    bounds={outerBounds}
-                    whenCreated={setMap}
-                    center={center}
-                    zoom={zoomLevel}
-                    scrollWheelZoom={false}
-                    style={{ width: '100%', height: '560px'}}
-
-                  >
-                <TileLayer {...tileLayer} />
-                <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag}/>
-                    </MapContainer>
-
-                  </Col> */}
-              </Row> {/*end of download bttn row */}
-              <Row> {/* text with number of events */}
-              <EventsText country={countryKey} num_events={numEvents}/>
-              </Row>
-            </Col> {/*end of dropdowns column */}
-            <Col md={5}> {/* start map column*/}
-              <MapContainer
+          </Row>
+          <Row>
+          <MapContainer
                 className='regionMap'
                 id="regionMap"
                 bounds={outerBounds}
@@ -957,6 +862,131 @@ const ParentFunction = (e) => {
                 <ResetMarker className='reset' setfile={setfile}></ResetMarker>
               </MapContainer>
 
+
+          </Row>
+          <Row>
+
+          </Row>
+          </Col>
+          <Col>
+          <Row>
+            <Col>
+            </Col>
+            <Col>
+            </Col>
+
+          </Row>
+          <Row>
+
+            
+          </Row>
+          <Row>
+
+          </Row>
+          <Row>
+
+          </Row>
+          </Col>
+          <Col md={11}></Col>
+          <Col md={1}>
+            
+          </Col>
+        </Container>
+        <Container fluid>
+          <Row className='date'>
+            <Col md={1}></Col>
+            <Col md={6}>
+                         </Col>
+            <Col md={5}></Col>
+          </Row>
+          <Row> {/* second row after date (main row that includes dropdowns&download column, map column and country dropdown&charts ) */}
+
+            <Col md={2}> {/*column with dropdowns and download bttn*/}
+              <Row>
+               
+
+              </Row>
+              <Row>
+                
+              </Row>
+              <Row>
+                
+              </Row>
+              <Row>
+                
+              </Row>
+              <Row>
+                
+              </Row>
+              <Row>
+              <Col md={12}>
+                <br/>
+                
+                </Col>
+              </Row>
+              {/* </Col>
+            <Col md={2}>
+              
+            </Col>
+            <Col md={2}>
+             
+            </Col>
+            <Col md={2}>
+              
+            </Col> */}
+
+              {/* <Col md={2}>
+              <Form.Label className='mb-2'>Country</Form.Label>
+              <MultiSelect className='multi-select'
+                options={dictionary.filter((item) =>
+                  item.variable == 'country'
+                ).map((element) => {
+                  return { 'label': element.name, 'value': element.name }
+
+                })}
+                value={countries}
+                onChange={setCountries}
+                labelledBy="Select"
+              />
+            </Col> */}
+
+              <Row>
+                <Col md={2}>
+                  <br/>
+                  <DownloadComponent filteredData={eventData} />
+                </Col>
+                {/*             <Col md={3}>
+                            <Button onClick={reset_map}>Reset map</Button>
+                          </Col> */}
+                {/* </Row> */}
+                {/* </Container>
+
+                    </div>
+                    <div>
+                      <Container fluid>
+                        <Row> */}
+                {/*   <Col>
+                <MapContainer
+                    bounds={outerBounds}
+                    whenCreated={setMap}
+                    center={center}
+                    zoom={zoomLevel}
+                    scrollWheelZoom={false}
+                    style={{ width: '100%', height: '560px'}}
+
+                  >
+                <TileLayer {...tileLayer} />
+                <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag}/>
+                    </MapContainer>
+
+                  </Col> */}
+              </Row> {/*end of download bttn row */}
+              <Row> {/* text with number of events */}
+              <EventsText country={countryKey} num_events={numEvents}/>
+              </Row>
+            </Col> {/*end of dropdowns column */}
+            <Col md={5}> {/* start map column*/}
+              
             </Col> {/*end of map column */}
             <Col md={5}> {/*start country dropdown&charts column */}
               <Row> {/*start country dropdown row*/}
