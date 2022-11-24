@@ -54,6 +54,7 @@ import geojson_ocean from './data/ne_110m_ocean.geojson.json';
 import EventsText from './components/EventsText';
 import JoyRide, { STATUS } from 'react-joyride';
 import DownloadCodebook from './components/CodebokkPopUp';
+import {steps_joyride} from './util/steps';
 
 Chart.register(...registerables);
 delete L.Icon.Default.prototype._getIconUrl;
@@ -157,6 +158,7 @@ function App() {
   const [countryText, setCountryText] = useState("Country");
   const [chartText, setChartText] = useState("Annual events per million inhabitants");
   const [scrollDown, setScrollDown] = useState("Scroll down to dashboard");
+  const [startTour, setStartTour] = useState("Sart Tour");
   /***************************************** END Translated variables ******************************************************/
   const [language, setLanguage] = useState("English");
   const [occs, setOccs] = useState(null);
@@ -171,55 +173,7 @@ function App() {
     return groups;
   });
 
-  const steps_joyride = [
-    {title: "Welcome to the LYLA Dashboard",
-    content: "This web application enables researchers and journalists to analyze lynching events in Latin America.", 
-    target: ".intro", 
-    placement:"center",
-    floaterProps: {
-      hideArrow: true
-    },
-    disableBeacon: true,
-    styles: {
-      options: {
-        width: 200,
-      }
-
-    }},
-
-    {title: "Hello map", 
-    content: "this is the interactive map", 
-    target: ".regionMap", 
-    placement:"right",
-    isFixed: true,
-    styles: {
-      options: {
-        zIndex: 1000,
-        width: 200,
-        height: 100
-        
-      }
-
-    }},
-    {title: "Reset button ", 
-    content: "you can click here to reset the map to display the entire latin america", 
-    target: ".reset", 
-    
-    floaterProps: {
-      hideArrow: true
-    },
-    styles: {
-      options: {
-        zIndex: 1000,
-        width: 200,
-        height: 100,
-        overlayColor: 'rgba(79, 26, 0, 0.4)',
-        
-      }
-
-    }},
-    ];
-
+  
   
   const handleJoyrideCallback = (data) => {
     const { status, type } = data;
@@ -231,43 +185,6 @@ function App() {
   };
 
   
-  const steps = [
-    {
-      title: "Welcome to the LYLA Dashboard",
-      element: ".intro",
-      intro: "This web application enables researchers and journalists to analyze lynching events in Latin America."
-    },
-    {
-      title: "Choose a time window",
-      element: ".intro",
-      intro: "With this slidebar you can filter the dates of the events. Slide the left button to update the start date and the right button for the end date."
-    },
-    {
-      title: "Filter By variables",
-      element: ".intro",
-      intro: "You can filter the displayed events by selecting different values for each of the filters shown below. Click on the info buttons next to the variable names for a description of each variable. These filters update the map and charts shown below on the right side. All possible values for all variables are selected as default."
-    },
-    {
-      title: "Interactive map",
-      element: ".regionMap",
-      intro: "The initial map shown below displays 11 events for which a link to the source article is provided. Countries are colored based on the number of lynching events per million inhabitants. You can click on a country to see all lynching events "
-    },
-    {
-      title: "Reported lynching events over time",
-      element: ".intro",
-      intro: "on the right hand side of the page you can find a line chart. This line chart displays as default the total number of lynching events in Latin America for each year on the range given in the date slidebar. You can add more line charts by selecting countries either by clicking on the map ot by using the dropdown button right on top of the line chart. "
-    },
-    {
-      title: "Reported lynching events per variable",
-      element: ".intro",
-      intro: "Below the line chart you can find a bar chart containg the number of events for a given variable. The default displays the total number of lynching events in Latin America for a varying number of perpetrators per event, each category corresponding to a bar."
-    }
-  ];
-
-  const onExit = () => {
-    setStepsEnabled(false);
-  };
-
   const onClickLanguage = () => {
     if (language == "Español") {
       setLanguage("English");
@@ -283,6 +200,7 @@ function App() {
       setCountryText("Country");
       setChartText("Annual events per million inhabitants");
       setScrollDown("Scroll down to dashboard");
+      setStartTour("Start Tour");
 
     }
     else {
@@ -299,6 +217,7 @@ function App() {
       setCountryText("País");
       setChartText("Eventos anuales por millón de habitantes");
       setScrollDown("Ir a dashboard");
+      setStartTour("Ver Tour");
 
 
     };
@@ -750,36 +669,60 @@ const ParentFunction = (e) => {
 
 
       <div className='intro' style={{ marginTop: "10pt" }}>
-        <h2 style={{marginLeft: "10pt",marginTop:"0pt"}}>Lynching in Latin America</h2>
+        <h2 style={{marginLeft: "10pt",marginTop:"40pt"}}>Lynching in Latin America</h2>
         <p style={{ fontSize: "15pt", marginLeft: "10pt", marginRight: "60pt", marginTop: "10pt" }}>The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.</p>
-        
+        <Row>
+              <Col>
+                <Button className="language" style={{
+                    position: "absolute",
+                    top: "10px",
+                    left: "16px",
+                    width: '60pt'
+                  }} onClick={onClickLanguage}>{language}</Button>
+              </Col>
+              <Col>
+                <Button className="tour" style={{
+                  position: "absolute",
+                  top: "10px",
+                  left: "100px",
+                  width: '90pt'}} onClick={() => setRunTour(true)}>{startTour}</Button>
+              </Col>
+              
+            </Row>
     
         <Container>
+          <Col> //first of 2 cols, for map 
+          <Row>// first row containing filters
+
+          </Row>
+          <Row>// 2nd row containing date slider
+
+          </Row>
+          <Row>//third row containing map
+
+          </Row>
+          <Row>//fourth row containing database and codebook buttons
+
+          </Row>
+          </Col>
+          <Col>//second colum, contains charts
+          <Row>//country filter tab
+
+          </Row>
+          <Row>
+            
+          </Row>
+          </Col>
           <Col md={11}></Col>
           <Col md={1}>
-            <Row>
-              {/*<CodeBookModal/>*/}
-              <Button style={{
-                position: "absolute",
-                top: "10px",
-                right: "16px",
-                width: '60pt'
-              }} onClick={onClickLanguage}>{language}</Button>
-            </Row>
-            <Row>
-              <Button style={{
-                position: "absolute",
-                top: "60px",
-                right: "16px",
-                width: '60pt'}} onClick={() => setRunTour(true)}>Start tour</Button>
-            </Row>
+            
           </Col>
         </Container>
         <Container fluid>
           <Row className='date'>
             <Col md={1}></Col>
             <Col md={6}>
-              <DateSlider className="date" setSDate={setSDate} setEDate={setEDate} />
+              <DateSlider style={{fontSize:"10px"}} className="date" setSDate={setSDate} setEDate={setEDate} dateTitle={timeWindow} startDateText={startDateText} endDateText={endDateText}/>
             </Col>
             <Col md={5}></Col>
           </Row>
