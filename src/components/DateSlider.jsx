@@ -14,7 +14,7 @@ const Handle = Slider.Handle;
 
 const wrapperStyle = { width: 400, margin: 50 };
 
-function DateSlider({setSDate, setEDate}){
+function DateSlider({setSDate, setEDate, dateTitle, startDateText, endDateText}){
 
     const [startDate, setstartDate] = useState("01/01/2010");
     const [startDateLabel, setstartDateLabel] = useState("01/01/2010");
@@ -90,12 +90,12 @@ function DateSlider({setSDate, setEDate}){
       <div>
         <Container fluid={true}>
           <Row >
-            <Col className = "text-center" style={{ fontSize: '20px', fontWeight: 'bold'}}>Choose time window</Col>
+            <Col className = "text-center" style={{ fontSize: '20px', fontWeight: 'bold'}}>{dateTitle}</Col>
           </Row>
           <Row>
             <Col xs={1} sm={3} md={2}>
               <span style = {{fontWeight:'bold'}}>
-                Start date: {startDateLabel}
+                {startDateText}: {startDateLabel}
               </span>
             </Col>
             <Col>
@@ -112,7 +112,7 @@ function DateSlider({setSDate, setEDate}){
             </Col>
             <Col xs={3} sm={3} md={3}>
               <span style = {{fontWeight:'bold'}}>
-                End date: {endDateLabel}
+                {endDateText}: {endDateLabel}
               </span>
             </Col>
           </Row>
