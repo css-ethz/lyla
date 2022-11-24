@@ -659,7 +659,7 @@ const ParentFunction = (e) => {
               <p style={{fontSize: "15pt", marginRight: "60pt", marginTop: "10pt" }}>The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.</p>
           
             </Row>
-            <Row style={{ marginLeft: "-120pt"}}>
+            <Row>
             <Row> {/* text with number of events */}
               <EventsText country={countryKey} num_events={numEvents}/>
               </Row>
