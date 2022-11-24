@@ -1,17 +1,15 @@
 {
   "files": {
-    "main.css": "/lyla/static/css/main.04b2ab5d.css",
-    "main.js": "/lyla/static/js/main.2ef4b184.js",
+    "main.css": "/lyla/static/css/main.49f7bbf1.css",
+    "main.js": "/lyla/static/js/main.6ffdb4dc.js",
     "static/js/787.a0fff93e.chunk.js": "/lyla/static/js/787.a0fff93e.chunk.js",
-    "static/media/bogota.jpg": "/lyla/static/media/bogota.4d2b71a580ce43c6ac6f.jpg",
-    "static/media/circle.svg": "/lyla/static/media/circle.2e25d47d98be4dd4dd4edeb5e0d8d95c.svg",
     "index.html": "/lyla/index.html",
-    "main.04b2ab5d.css.map": "/lyla/static/css/main.04b2ab5d.css.map",
-    "main.2ef4b184.js.map": "/lyla/static/js/main.2ef4b184.js.map",
+    "main.49f7bbf1.css.map": "/lyla/static/css/main.49f7bbf1.css.map",
+    "main.6ffdb4dc.js.map": "/lyla/static/js/main.6ffdb4dc.js.map",
     "787.a0fff93e.chunk.js.map": "/lyla/static/js/787.a0fff93e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.04b2ab5d.css",
-    "static/js/main.2ef4b184.js"
+    "static/css/main.49f7bbf1.css",
+    "static/js/main.6ffdb4dc.js"
   ]
 }
