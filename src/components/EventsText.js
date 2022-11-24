@@ -1,6 +1,3 @@
-import { useState, useEffect } from "react";
-
-
 const EventsText = ({ country, num_events }) => { 
     return (
         <div>
