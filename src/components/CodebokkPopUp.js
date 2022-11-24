@@ -1,6 +1,10 @@
 import React from "react";
 import Popup from "reactjs-popup";
 import 'reactjs-popup/dist/index.css';
+import { useEffect, useState , useMemo, useRef} from 'react';
+import { CSVLink } from 'react-csv';
+import { Button } from 'react-bootstrap'
+import styled from "styled-components";
 
 // const contentStyle = {
 //     maxWidth: "600px",
@@ -34,7 +38,8 @@ import 'reactjs-popup/dist/index.css';
 //   export default CodeBookModal;
 
 
-export default () => (
+const CodebookPopup = () => {
+  return (
   <Popup trigger={<button className="buttoncb"> Open Codebook</button>}  modal>
     <h3 className="codebook-header">Codebook for Reported Lynching in Latin America (LYLA)</h3>
     <p><b>Creators:</b> Enzo Nussio, Govinda Clayton</p>
@@ -75,4 +80,36 @@ export default () => (
 
 
   </Popup>
-);
+  );
+  };
+
+
+const DownloadCodebook = () => {
+   const Button = styled.button`
+    background-color: gray;
+    color: white;
+    font-size: 16px;
+    padding: 10px 55px;
+    border-radius: 50px;
+    margin: 10px 0px;
+    cursor: pointer;
+    :hover {
+      background-color: #707B7C
+    };
+  `;  
+   
+  
+    return (
+      <div>
+        <Button>
+        <a style={{color: "inherit",
+                  textDecoration: 'none'}}
+           href="codebook.pdf" download="Codebook_LYLA" target="_blank">codebook</a>
+        </Button>
+
+      </div>
+    )
+  };
+
+
+export default DownloadCodebook;

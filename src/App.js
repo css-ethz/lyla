@@ -53,6 +53,7 @@ import Ocean from './components/Ocean';
 import geojson_ocean from './data/ne_110m_ocean.geojson.json';
 import EventsText from './components/EventsText';
 import JoyRide, { STATUS } from 'react-joyride';
+import DownloadCodebook from './components/CodebokkPopUp';
 
 Chart.register(...registerables);
 delete L.Icon.Default.prototype._getIconUrl;
