@@ -90,10 +90,9 @@ function DateSlider({setSDate, setEDate}){
       <div>
         <Container fluid={true}>
           <Row >
-            <Col className = "text-center" style={{ fontWeight: 'bold',
-          marginBottom: '30px' }}>Choose time window</Col>
+            <Col className = "text-center" style={{ fontSize: '20px', fontWeight: 'bold'}}>Choose time window</Col>
           </Row>
-          <Row style={{marginBottom: '50px'}}>
+          <Row>
             <Col xs={1} sm={3} md={2}>
               <span style = {{fontWeight:'bold'}}>
                 Start date: {startDateLabel}
@@ -108,7 +107,6 @@ function DateSlider({setSDate, setEDate}){
                       max = {maxRange} 
                       value = {currentValue}
                       tipFormatter = {tipFormatter}
-                      // tipProps = {this.formatTooltip}
                       onChange = {onDateChange} />
               </div>
             </Col>

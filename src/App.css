@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Neucha&family=Oswald:wght@700&display=swap');
-@import 'intro.js/introjs.css';
 
 html,
 body {
@@ -31,7 +30,6 @@ h1 {
 }
 
 h2 {
-  position: relative;
   font-size: clamp(1rem, -0.875rem + 8.333vw, 2.5rem);
   line-height: 100%;
   padding: 0 30px 0 0;
@@ -457,11 +455,9 @@ main {
 
 .num-events-title {
   font-size: 40px;
-  margin-left: 50px;
 }
 .num-events-text {
   font-size: 20px;
-  margin-left: 60px;
 }
 
 .leafletRandomMarker {
