@@ -607,8 +607,8 @@ const ParentFunction = (e) => {
             </Row>
 
             <Row>
-              <h2 style={{marginTop:"15pt"}}>Lynching in Latin America</h2>
-              <p style={{fontSize: "15pt", marginRight: "60pt", marginTop: "10pt" }}>The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.</p>
+              <h2 style={{left:"16px", marginTop:"15pt"}}>Lynching in Latin America</h2>
+              <p style={{left:"16px",fontSize: "15pt", marginTop: "30pt" }}>The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.</p>
           
             </Row>
             <Row>

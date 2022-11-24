@@ -104,7 +104,7 @@ const DownloadCodebook = () => {
         <Button>
         <a style={{color: "inherit",
                   textDecoration: 'none'}}
-           href="./data/codebook.pdf" download target="_blank">codebook</a>
+           href="codebook.pdf" download="Codebook_LYLA" target="_blank">codebook</a>
         </Button>
 
       </div>
