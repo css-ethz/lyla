@@ -5,13 +5,7 @@ html,
 body {
   height: 100%;
   width: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x:auto;
   background-color: #1D212D;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: top right 0px;
 
   
 }
@@ -27,7 +21,7 @@ body {
 } */
 
 h1 {
-  font-size:90pt;
+  font-size:20pt;
   color: #fff;
   position: absolute;
   top: 20%;
@@ -476,3 +470,7 @@ main {
 .leaflet-control { z-index: 0 !important}
 .leaflet-pane { z-index: 0 !important}
 .leaflet-top, .leaflet-bottom {z-index: 0 !important}
+
+.text-center{
+  font-size: 20pt;
+}

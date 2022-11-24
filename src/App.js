@@ -173,7 +173,7 @@ function App() {
   const steps_joyride = [
     {title: "Welcome to the LYLA Dashboard",
     content: "This web application enables researchers and journalists to analyze lynching events in Latin America.", 
-    target: ".intro-title", 
+    target: ".intro", 
     placement:"center",
     floaterProps: {
       hideArrow: true
@@ -729,7 +729,7 @@ const ParentFunction = (e) => {
         styles={{  buttonClose: {
           display: 'none'
         }}}>Test</JoyRide>
-      <div className="intro-title">
+      {/* <div className="intro-title">
         <p style={{ marginLeft: "60pt",marginTop: "0pt"}}>Lynching in<br />
           Latin America <br />
           (LYLA)</p>
@@ -737,7 +737,7 @@ const ParentFunction = (e) => {
         <ExpandMoreIcon style={{ marginLeft: "500pt", marginBottom: "-500pt" }}></ExpandMoreIcon>
         <p style={{ fontSize: '2vh', marginLeft: "460pt", marginTop: "200pt" }}>{scrollDown}</p>
 
-      </div>
+      </div> */}
 
       {/* <div>
           <IconButton size="large" color="inherit" onClick={() => setStepsEnabled(true)}>
@@ -748,24 +748,30 @@ const ParentFunction = (e) => {
 
 
 
-
-
-
-
-      <div style={{ marginTop: "50pt" }}>
-        <h2>Lynching in Latin America</h2>
-        <p style={{ fontSize: "3vh", marginLeft: "60pt", marginRight: "60pt", marginTop: "50pt" }}>The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.</p>
-        <Button onClick={() => setRunTour(true)}>Start tour</Button>
-
+      <div className='intro' style={{ marginTop: "10pt" }}>
+        <h2 style={{marginLeft: "10pt",marginTop:"0pt"}}>Lynching in Latin America</h2>
+        <p style={{ fontSize: "15pt", marginLeft: "10pt", marginRight: "60pt", marginTop: "10pt" }}>The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.</p>
+        
+    
         <Container>
           <Col md={11}></Col>
           <Col md={1}>
-            {/*<CodeBookModal/>*/}
-            <Button style={{
-              position: "absolute",
-              top: "8px",
-              right: "16px"
-            }} onClick={onClickLanguage}>{language}</Button>
+            <Row>
+              {/*<CodeBookModal/>*/}
+              <Button style={{
+                position: "absolute",
+                top: "10px",
+                right: "16px",
+                width: '60pt'
+              }} onClick={onClickLanguage}>{language}</Button>
+            </Row>
+            <Row>
+              <Button style={{
+                position: "absolute",
+                top: "60px",
+                right: "16px",
+                width: '60pt'}} onClick={() => setRunTour(true)}>Start tour</Button>
+            </Row>
           </Col>
         </Container>
         <Container fluid>
