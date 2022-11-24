@@ -45,14 +45,14 @@ import myIcon from "./circle.svg";
 import bogota from "./bogota.jpg";
 import { batch, ScrollContainer, ScrollPage, StickyIn, Fade, FadeIn, Animator, Sticky, MoveOut, MoveIn } from 'react-scroll-motion';
 //import { Steps } from 'intro.js-react';
-import 'intro.js/introjs.css';
+//import 'intro.js/introjs.css';
 import IconButton from '@mui/material/IconButton';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Ocean from './components/Ocean';
 import geojson_ocean from './data/ne_110m_ocean.geojson.json';
 import EventsText from './components/EventsText';
-import JoyRide from 'react-joyride';
+import JoyRide, { STATUS } from 'react-joyride';
 
 Chart.register(...registerables);
 delete L.Icon.Default.prototype._getIconUrl;
@@ -161,6 +161,7 @@ function App() {
   const [occs, setOccs] = useState(null);
   const [numEvents, setNumEvents] = useState(2818);
   const [countryKey, setcountrykey] = useState('Latin America');
+  const [runTour, setRunTour] = useState(false);
   const [heat, setheat] = useState(() => {
     var groups = filteredData_agg.reduce(function (r, row) {
       r[row.name_0] = ++r[row.name_0] || 1;
@@ -173,7 +174,11 @@ function App() {
     {title: "Welcome to the LYLA Dashboard",
     content: "This web application enables researchers and journalists to analyze lynching events in Latin America.", 
     target: ".intro-title", 
-    position:"top",
+    placement:"center",
+    floaterProps: {
+      hideArrow: true
+    },
+    disableBeacon: true,
     styles: {
       options: {
         width: 200,
@@ -184,18 +189,47 @@ function App() {
     {title: "Hello map", 
     content: "this is the interactive map", 
     target: ".regionMap", 
-    position:"left"},
+    placement:"right",
+    isFixed: true,
+    styles: {
+      options: {
+        zIndex: 1000,
+        width: 200,
+        height: 100
+        
+      }
+
+    }},
     {title: "Reset button ", 
     content: "you can click here to reset the map to display the entire latin america", 
     target: ".reset", 
-    position:"bottom",
+    
+    floaterProps: {
+      hideArrow: true
+    },
     styles: {
       options: {
+        zIndex: 1000,
         width: 200,
+        height: 100,
+        overlayColor: 'rgba(79, 26, 0, 0.4)',
+        
       }
 
     }},
     ];
+
+  
+  const handleJoyrideCallback = (data) => {
+    const { status, type } = data;
+    const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED];
+
+    if (finishedStatuses.includes(status)) {
+      setRunTour(false);
+    }
+  };
+
+  
   const steps = [
     {
       title: "Welcome to the LYLA Dashboard",
@@ -682,13 +716,19 @@ const ParentFunction = (e) => {
 
       /> */}
       <JoyRide 
-        continuous
+        callback={handleJoyrideCallback}
+        continuous={true}
+        disableOverlay={false}
+        disableScrolling={false}
         hideCloseButton
         scrollToFirstStep
         showProgress
         showSkipButton
+        run={runTour}
         steps={steps_joyride}
-        styles={{ options:{zIndex: 1000}}}/>
+        styles={{  buttonClose: {
+          display: 'none'
+        }}}>Test</JoyRide>
       <div className="intro-title">
         <p style={{ marginLeft: "60pt",marginTop: "0pt"}}>Lynching in<br />
           Latin America <br />
@@ -714,6 +754,8 @@ const ParentFunction = (e) => {
 
       <div style={{ marginTop: "50pt" }}>
         <h2>Lynching in Latin America</h2>
+        <p style={{ fontSize: "3vh", marginLeft: "60pt", marginRight: "60pt", marginTop: "50pt" }}>The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.</p>
+        <Button onClick={() => setRunTour(true)}>Start tour</Button>
 
         <Container>
           <Col md={11}></Col>
@@ -900,7 +942,7 @@ const ParentFunction = (e) => {
                 center={center}
                 zoom={4}
                 scrollWheelZoom={false}
-                style={{ width: '100%', height: '760px' }}
+                style={{ width: '100%', height: '760px' , zIndex: '1'}}
               >
                 <TileLayer {...{
                   attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
