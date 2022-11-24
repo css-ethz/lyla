@@ -597,7 +597,7 @@ const ParentFunction = (e) => {
                   }} onClick={onClickLanguage}>{language}</Button>
               </Col>
               <Col>
-                <Button classname="tour" style={{
+                <Button className="tour" style={{
                   position: "absolute",
                   top: "10px",
                   left: "100px",
