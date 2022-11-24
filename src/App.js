@@ -29,7 +29,7 @@ import colorLib from '@kurkle/color';
 import { MultiSelect } from "react-multi-select-component";
 import '@changey/react-leaflet-markercluster/dist/styles.min.css';
 import { Chart, registerables } from 'chart.js';
-import CodeBookModal from './components/CodebokkPopUp';
+import DownloadCodebook from './components/CodebokkPopUp';
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import fontawesome from '@fortawesome/fontawesome'
@@ -40,6 +40,7 @@ import Ocean from './components/Ocean';
 import geojson_ocean from './data/ne_110m_ocean.geojson.json';
 import EventsText from './components/EventsText';
 import JoyRide, { STATUS } from 'react-joyride';
+import {steps_joyride} from './util/steps';
 
 Chart.register(...registerables);
 delete L.Icon.Default.prototype._getIconUrl;
@@ -156,55 +157,6 @@ function App() {
     }, {});
     return groups;
   });
-
-  const steps_joyride = [
-    {title: "Welcome to the LYLA Dashboard",
-    content: "This web application enables researchers and journalists to analyze lynching events in Latin America.", 
-    target: ".intro", 
-    placement:"center",
-    floaterProps: {
-      hideArrow: true
-    },
-    disableBeacon: true,
-    styles: {
-      options: {
-        width: 200,
-      }
-
-    }},
-
-    {title: "Hello map", 
-    content: "this is the interactive map", 
-    target: ".regionMap", 
-    placement:"right",
-    isFixed: true,
-    styles: {
-      options: {
-        zIndex: 1000,
-        width: 200,
-        height: 100
-        
-      }
-
-    }},
-    {title: "Reset button ", 
-    content: "you can click here to reset the map to display the entire latin america", 
-    target: ".reset", 
-    
-    floaterProps: {
-      hideArrow: true
-    },
-    styles: {
-      options: {
-        zIndex: 1000,
-        width: 200,
-        height: 100,
-        overlayColor: 'rgba(79, 26, 0, 0.4)',
-        
-      }
-
-    }},
-    ];
 
   
   const handleJoyrideCallback = (data) => {
@@ -637,7 +589,7 @@ const ParentFunction = (e) => {
           <div className='intro'  style={{ marginTop: "10pt" }}>
             <Row>
               <Col>
-                <Button style={{
+                <Button className="language" style={{
                     position: "absolute",
                     top: "10px",
                     left: "16px",
@@ -645,7 +597,7 @@ const ParentFunction = (e) => {
                   }} onClick={onClickLanguage}>{language}</Button>
               </Col>
               <Col>
-                <Button style={{
+                <Button classname="tour" style={{
                   position: "absolute",
                   top: "10px",
                   left: "100px",
@@ -661,12 +613,12 @@ const ParentFunction = (e) => {
             </Row>
             <Row>
             <Row> {/* text with number of events */}
-              <EventsText country={countryKey} num_events={numEvents}/>
+              <EventsText className="txt-events" country={countryKey} num_events={numEvents}/>
               </Row>
                           
               <Row> {/*start country dropdown row*/}
                 <Col md={4}>
-                  <Form.Label className='mb-2'>{countryText}</Form.Label>
+                  <Form.Label className='mb-2 countrytext'>{countryText}</Form.Label>
                   <MultiSelect className='multi-select'
                     options={dictionary.filter((item) =>
                       item.variable == 'country'
@@ -682,6 +634,7 @@ const ParentFunction = (e) => {
                 <Col md={4}>
                   <br />
                   <Form.Check
+                    className='num-events'
                     type='checkbox'
                     label={`# Events`}
                     id={`population`}
@@ -691,12 +644,13 @@ const ParentFunction = (e) => {
                 </Col>
               </Row> {/*end country dropdown row */}
               <Row>{/*start charts row */}
-                 <Line data={lineData}
+                 <Line clasName="linechart" data={lineData}
                   // options= {/{scales: {x: {type: 'time'}}} }
                   options={options}/>
               </Row> 
               <Row>
                 <Form.Select
+                    className="barvariables"
                     value={var_chart}
                     onChange={event => setvar_chart(event.target.value)}>
                     <option value="pe_approxnumber">{numberPerpetrators}</option>
@@ -706,7 +660,7 @@ const ParentFunction = (e) => {
                 </Form.Select>
               </Row>
               <Row>
-              <Bar options={optionsBar} data={barData} />
+              <Bar className="barchart" options={optionsBar} data={barData} />
               </Row>
                
              {/*end charts row */}
@@ -714,7 +668,11 @@ const ParentFunction = (e) => {
              <Row>
                 <Col md={2}>
                   <br/>
-                  <DownloadComponent filteredData={eventData} />
+                  <DownloadComponent className="download" filteredData={eventData} />
+                </Col>
+                <Col md={2}>
+                  <br/>
+                  <DownloadCodebook className="codebook" style={{position:"absolute", left:"-300px"}}/>
                 </Col>
              
                 
@@ -742,7 +700,7 @@ const ParentFunction = (e) => {
               <Row>
                 <Col md={3}>
                   <Row>
-                    <Form.Label className='mb-2'>
+                    <Form.Label className='mb-2 filters'>
                       {allegedWrongdoing}&thinsp;
                       <FontAwesomeIcon icon="fa-solid fa-circle-info" title={" What was the lynched person accused of?"} />
                     </Form.Label>
@@ -846,6 +804,7 @@ const ParentFunction = (e) => {
             
             <Col>
               <Form.Check 
+                    className='show-events'
                     type='checkbox'
                     label={`Show events`}
                     id={`events`}
