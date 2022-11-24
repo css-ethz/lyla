@@ -144,6 +144,10 @@ function App() {
   const [countryText, setCountryText] = useState("Country");
   const [chartText, setChartText] = useState("Annual events per million inhabitants");
   const [scrollDown, setScrollDown] = useState("Scroll down to dashboard");
+  const [title, setTitle] = useState("Lynching in Latin America");
+  const [textTitle, setTextTitle] = useState("The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.");
+  const [showEvents, setShowEvents] = useState("Show Events");
+  const [startTour, setStartTour] = useState("Start tour");
   /***************************************** END Translated variables ******************************************************/
   const [language, setLanguage] = useState("English");
   const [occs, setOccs] = useState(null);
@@ -184,7 +188,13 @@ function App() {
       setCountryText("Country");
       setChartText("Annual events per million inhabitants");
       setScrollDown("Scroll down to dashboard");
-
+      setTitle("Lynching in Latin America");
+      setTextTitle("The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.");
+      setStartDateText("Start Date");
+      setEndDateText("End Date");
+      setTimeWindow("Choose time window");
+      setShowEvents("Show Events");
+      setStartTour("Start tour");
     }
     else {
       setLanguage("Español");
@@ -200,7 +210,13 @@ function App() {
       setCountryText("País");
       setChartText("Eventos anuales por millón de habitantes");
       setScrollDown("Ir a dashboard");
-
+      setTitle("Linchamientos en Latinoamérica");
+      setTextTitle("LYLA (por sus siglas en inglés) es la primera base de datos sobre casos de linchamiento a nivel transnacional. Estos datos recopilan 2,818 casos reportados de linchamientos en 18 países latinoamericanos, del año 2010 al 2019.");
+      setStartDateText("Fecha de incio");
+      setEndDateText("Fecha final");
+      setTimeWindow("Escoja ventana de tiempo");
+      setShowEvents("Mostrar Eventos");
+      setStartTour("Ver tour");
 
     };
     console.log(language);
@@ -601,14 +617,14 @@ const ParentFunction = (e) => {
                   position: "absolute",
                   top: "10px",
                   left: "100px",
-                  width: '90pt'}} onClick={() => setRunTour(true)}>Start tour</Button>
+                  width: '90pt'}} onClick={() => setRunTour(true)}>{startTour}</Button>
               </Col>
               
             </Row>
 
             <Row>
-              <h2 style={{left:"16px", marginTop:"15pt"}}>Lynching in Latin America</h2>
-              <p style={{left:"16px",fontSize: "15pt", marginTop: "30pt" }}>The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.</p>
+              <h2 style={{left:"16px", marginTop:"15pt"}}>{title}</h2>
+              <p style={{left:"16px",fontSize: "15pt", marginTop: "30pt" }}>{textTitle}</p>
           
             </Row>
             <Row>
@@ -780,7 +796,7 @@ const ParentFunction = (e) => {
                 
                 </Col>
                 <Col>
-                  <DateSlider className="date" style={{position:"absolute", top:'200px', right:"200px"}} setSDate={setSDate} setEDate={setEDate} />
+                  <DateSlider className="date" style={{position:"absolute", top:'200px', right:"200px"}} setSDate={setSDate} setEDate={setEDate} dateTitle={timeWindow} startDateText={startDateText} endDateText={endDateText}/>
             
                 </Col>
 
@@ -806,7 +822,7 @@ const ParentFunction = (e) => {
               <Form.Check 
                     className='show-events'
                     type='checkbox'
-                    label={`Show events`}
+                    label={showEvents}
                     id={`events`}
                     checked={Show}
                     onChange={() => setShow(!Show)}
