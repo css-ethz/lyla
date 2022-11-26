@@ -1,0 +1,88 @@
+{
+    "lineplot":{
+        "per_million":{
+            "en":"Annual events per million inhabitants",
+            "es":"Eventos anuales por millon de habitantes"
+        },
+        "events":{
+            "en":"Annual reported events",
+            "es":"Eventos reportados por año"
+        }
+
+    },
+    "barplot":{
+        "per_million":{
+            "en":"Total events per million inhabitants",
+            "es":"Eventos totales por millon de habitantes"
+        },
+        "events":{
+            "en":"Total events",
+            "es":"Eventos totales"
+        }
+
+    },
+    "violenceInflicted":{
+        "en":"Worst violence inflicted",
+        "es":"Peor violencia infligida"
+    },
+    "allegedWrongdoing":{
+        "en":"Alleged Wrongdoing",
+        "es":"Supuesta irregularidad"
+    },
+    "numberPerpetrators":{
+        "en":"Number of perpetrators",
+        "es":"Número de perpetradores"
+    },
+    "worstOutcome":{
+        "en":"Worst Outcome",
+        "es":"Peor resultado"
+    },
+    "filterBy":{
+        "en":"Filter By",
+        "es":"Filtrar por"
+    },
+    "timeWindow":{
+        "en":"Choose time window",
+        "es":"Escoja ventana de tiempo"
+    },
+    "startDateText":{
+        "en":"Start Date",
+        "es":"Fecha de inicio"
+    },
+    "endDateText":{
+        "en":"End Date",
+        "es":"Fecha final"
+    },
+    "downloadText":{
+        "en":"Download data",
+        "es":"Descargar datos"
+    },
+    "countryText":{
+        "en":"Country",
+        "es":"País"
+    },
+    "chartText":{
+        "en":"Annual events per million inhabitants",
+        "es":"Eventos anuales por millón de habitantes"
+    },
+    "scrollDown":{
+        "en":"Scroll down to dashboard",
+        "es":"Ir a dashboard"
+    },
+    "startTour":{
+        "en":"Start Tour",
+        "es":"Ver Tour"
+    },
+    "showEvents":{
+        "en":"Show events",
+        "es":"Mostrar eventos"        
+    },
+    "numEvents":{
+        "en":"# Events",
+        "es":"# Eventos"            
+    },
+    "eventsMillion":{
+        "en":"Events per million",
+        "es":"Eventos por millón"            
+    }
+}

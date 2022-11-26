@@ -2,7 +2,7 @@ import { useEffect, useState , useMemo, useRef} from 'react';
 import { CSVLink } from 'react-csv';
 import { Button } from 'react-bootstrap'
 import styled from "styled-components";
-const DownloadComponent = ({filteredData}) => {
+const DownloadComponent = ({filteredData,text}) => {
     const [transactionData, setTransactionData] = useState([])
     const csvLink = useRef() // setup the ref that we'll use for the hidden CsvLink click once we've updated the data
     const Button = styled.button`
@@ -32,7 +32,7 @@ const DownloadComponent = ({filteredData}) => {
   
     return (
       <div>
-        <Button onClick={getTransactionData}>Download .csv</Button>
+        <Button onClick={getTransactionData}>{text}</Button>
         <CSVLink
            data={transactionData}
            enclosingCharacter={`"`}

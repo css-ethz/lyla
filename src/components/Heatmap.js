@@ -6,6 +6,7 @@ import {
     useMap, Circle
 } from 'react-leaflet';
 import { useMapEvents } from "react-leaflet";
+import content from '../data/content.json';
 import L from 'leaflet';
 // const outerBounds_reset = [
 //     [-30.505, -100.09],
@@ -17,7 +18,7 @@ import L from 'leaflet';
     [-1.505, -35.59],
   ]
 
-const Heatmap = ({ geojson_data, heat, setfile, key_id, file, parentFunc, num_events}) => {
+const Heatmap = ({ geojson_data, heat, setfile, key_id, file, parentFunc, num_events,lan}) => {
     //const geoJson: RefObject<Leaflet.GeoJSON> = useRef(null);
     const geoJsonRef = useRef(null);
     const map = useMap();
@@ -67,12 +68,12 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id, file, parentFunc, num_ev
             );
           }
     
-          div.innerHTML ="Events per million </br>" +labels.join("<br>");
+          div.innerHTML =content['eventsMillion'][lan]+"</br>" +labels.join("<br>");
           return div;
         };
         map.removeControl(legend);
         legend.addTo(map);
-      }, []);
+      }, [lan]);
     const highlightFeature = (e => {
         var layer = e.target;
         if (mapEvents.getZoom() < 10) {

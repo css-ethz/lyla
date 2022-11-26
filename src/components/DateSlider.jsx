@@ -100,6 +100,7 @@ function DateSlider({setSDate, setEDate, dateTitle, startDateText, endDateText})
               </span>
             </Col>
             <Col>
+            <br/>
               <div className="text-center">
                 <Slider 
                     range

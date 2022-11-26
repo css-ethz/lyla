@@ -50,7 +50,10 @@ import IconButton from '@mui/material/IconButton';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Ocean from './components/Ocean';
+import OtherCountries from './components/OtherCountries';
 import geojson_ocean from './data/ne_110m_ocean.geojson.json';
+import geojson_others from './data/admin0_exclude.geojson.json';
+import content from './data/content.json';
 import EventsText from './components/EventsText';
 import JoyRide, { STATUS } from 'react-joyride';
 import DownloadCodebook from './components/CodebokkPopUp';
@@ -75,54 +78,6 @@ const outerBounds = [
 const colors = ["fe4848", "fe6c58", "fe9068", "feb478", "fed686"];
 const labels = ["2-12.5", "12.6-16.8", "16.9-20.9", "21-25.9", "26-plus"];
 
-const options = {
-  plugins: {
-    title: {
-      display: true,
-      text: 'Annual events per million inhabitants',
-    },
-  },
-  scales: {
-    yAxes:
-    {
-      gridLines: {
-        display: "false"
-      }
-    },
-    xAxes: [
-      {
-        gridLines: {
-          display: "false"
-        }
-      }
-    ]
-  }
-};
-const optionsBar = {
-  plugins: {
-    title: {
-      display: true,
-      text: 'Total events per million inhabitants',
-    },
-  },
-  scales: {
-    yAxes:
-    {
-      gridLines: {
-        display: "false"
-      }
-    },
-    xAxes: [
-      {
-        gridLines: {
-          display: "false"
-        }
-      }
-    ]
-  }
-};
-
-
 
 
 function App() {
@@ -140,27 +95,14 @@ function App() {
   const [file, setfile] = useState('Latin America');
   const [level, setlevel] = useState(0);
   const [Check, setCheck] = useState(false);
-  const [Show, setShow] = useState(true);
+  const [Show, setShow] = useState(false);
   const [fileflag, setfileflag] = useState('Latin America');
   const [var_chart, setvar_chart] = useState('pe_approxnumber');
   const [isActive, setIsActive] = useState(true);
   const [stepsEnabled, setStepsEnabled] = useState(true);
   /***************************************** START Translated variables ****************************************************/
-  const [violenceInflicted, setViolenceInflicted] = useState("Worst violence inflicted");
-  const [numberPerpetrators, setNumberPerpetrators] = useState("Number of perpetrators");
-  const [allegedWrongdoing, setAllegedWrongdoing] = useState("Alleged Wrongdoing");
-  const [worstOutcome, setWorstOutcome] = useState("Worst Outcome");
-  const [filterBy, setFilterBy] = useState("Filter By");
-  const [timeWindow, setTimeWindow] = useState("Choose time window");
-  const [startDateText, setStartDateText] = useState("Start Date");
-  const [endDateText, setEndDateText] = useState("End Date");
-  const [downloadText, setDownloadText] = useState("Download .csv");
-  const [countryText, setCountryText] = useState("Country");
-  const [chartText, setChartText] = useState("Annual events per million inhabitants");
-  const [scrollDown, setScrollDown] = useState("Scroll down to dashboard");
-  const [startTour, setStartTour] = useState("Sart Tour");
-  /***************************************** END Translated variables ******************************************************/
-  const [language, setLanguage] = useState("English");
+  const [language, setLanguage] = useState("Español");
+  const [lan, setLan] = useState("en");
   const [occs, setOccs] = useState(null);
   const [numEvents, setNumEvents] = useState(2818);
   const [countryKey, setcountrykey] = useState('Latin America');
@@ -172,7 +114,52 @@ function App() {
     }, {});
     return groups;
   });
-
+  const options = {
+    plugins: {
+      title: {
+        display: true,
+        text: content['lineplot'][Check ? 'per_million':"events"][lan],
+      },
+    },
+    scales: {
+      yAxes:
+      {
+        gridLines: {
+          display: "false"
+        }
+      },
+      xAxes: [
+        {
+          gridLines: {
+            display: "false"
+          }
+        }
+      ]
+    }
+  };
+  const optionsBar = {
+    plugins: {
+      title: {
+        display: true,
+        text: content['barplot'][Check ? 'per_million':"events"][lan],
+      },
+    },
+    scales: {
+      yAxes:
+      {
+        gridLines: {
+          display: "false"
+        }
+      },
+      xAxes: [
+        {
+          gridLines: {
+            display: "false"
+          }
+        }
+      ]
+    }
+  };
   
   
   const handleJoyrideCallback = (data) => {
@@ -188,41 +175,13 @@ function App() {
   const onClickLanguage = () => {
     if (language == "Español") {
       setLanguage("English");
-      setViolenceInflicted("Worst violence inflicted");
-      setNumberPerpetrators("Number of perpetrators");
-      setAllegedWrongdoing("Alleged Wrongdoing");
-      setWorstOutcome("Worst Outcome");
-      setFilterBy("Filter By");
-      setTimeWindow("Choose time window");
-      setStartDateText("Start Date");
-      setEndDateText("End Date");
-      setDownloadText("Download .csv");
-      setCountryText("Country");
-      setChartText("Annual events per million inhabitants");
-      setScrollDown("Scroll down to dashboard");
-      setStartTour("Start Tour");
+      setLan("es");
 
     }
     else {
       setLanguage("Español");
-      setViolenceInflicted("Peor violencia infligida");
-      setNumberPerpetrators("Número de perpetradores");
-      setAllegedWrongdoing("Supuesta irregularidad");
-      setWorstOutcome("Peor resultado");
-      setFilterBy("Filtrar por");
-      setTimeWindow("Escoja ventana de tiempo");
-      setStartDateText("Fecha de inicio");
-      setEndDateText("Fecha final");
-      setDownloadText("Descargar .csv");
-      setCountryText("País");
-      setChartText("Eventos anuales por millón de habitantes");
-      setScrollDown("Ir a dashboard");
-      setStartTour("Ver Tour");
-
-
+      setLan("en");
     };
-    console.log(language);
-    console.log(violenceInflicted);
 
   };
 
@@ -346,6 +305,18 @@ const ParentFunction = (e) => {
 
   }, [countryKey]);
 
+
+  useEffect(() => {
+    if(fileflag=='Latin America'){
+      setShow(false);
+    }else{
+      setShow(true);
+    }
+
+  }, [fileflag]);
+
+
+  
   useEffect(() => {
     console.log("number of events is",numEvents[countryKey]);
 
@@ -685,24 +656,27 @@ const ParentFunction = (e) => {
                   position: "absolute",
                   top: "10px",
                   left: "100px",
-                  width: '90pt'}} onClick={() => setRunTour(true)}>{startTour}</Button>
+                  width: '90pt'}} onClick={() => setRunTour(true)}>{content['startTour'][lan]}</Button>
               </Col>
               
             </Row>
     
-        <Container style={{marginLeft: "10pt"}}>
-          <Col md={9}>
+            <div style={{marginLeft: "15pt",marginRight:"15pt"}}>
           <Row>
+            <Col md={7}>
+            <Row>
+            <Col md={4}>
             <Form.Label style={{ fontWeight: 'bold' }}>
-                  {filterBy}
+                  {content['filterBy'][lan]}
 
             </Form.Label>
-
-          </Row>
-          <Row>
-            <Col>
-            <Form.Label className='mb-2'>
-                  {allegedWrongdoing}&thinsp;
+            </Col>
+            </Row>
+            <Row>
+            <Col md={3}>
+              <br/>
+            <Form.Label className='mb-3'>
+                  {content['allegedWrongdoing'][lan]}&thinsp;
                   <FontAwesomeIcon icon="fa-solid fa-circle-info" title={" What was the lynched person accused of?"} />
                 </Form.Label>
 
@@ -720,9 +694,11 @@ const ParentFunction = (e) => {
 
                 />
             </Col>
-            <Col>
-              <Form.Label className='mb-2'>
-                  {worstOutcome}&thinsp;
+
+            <Col md={3}>
+              <br/>
+              <Form.Label className='mb-3' >
+                  {content['worstOutcome'][lan]}&thinsp;
                   <FontAwesomeIcon icon="fa-solid fa-circle-info" title={"What physical consequences did the lynched person suffer?"} />
                 </Form.Label>
                 <MultiSelect className='multi-select'
@@ -738,10 +714,10 @@ const ParentFunction = (e) => {
                 />
                   
             </Col>
-            <Col>
-              <Form.Label className='mb-2'>
+            <Col md={3}>
+              <Form.Label className='mb-3'>
 
-                  {violenceInflicted}&thinsp;
+                  {content['violenceInflicted'][lan]}&thinsp;
                   <FontAwesomeIcon icon="fa-solid fa-circle-info" title={"What kind of violence did the lynch mob use?"} />
                 </Form.Label>
                 <MultiSelect className='multi-select'
@@ -756,9 +732,9 @@ const ParentFunction = (e) => {
                   labelledBy="Select"
                 />
             </Col>
-            <Col>
-              <Form.Label className='mb-2'>
-                  {numberPerpetrators}&thinsp;
+            <Col md={3}>
+              <Form.Label className='mb-3'>
+                  {content['numberPerpetrators'][lan]}&thinsp;
                   <FontAwesomeIcon icon="fa-solid fa-circle-info" title={"How large was the lynch mob?"} />
                 </Form.Label>
                 <MultiSelect className='multi-select'
@@ -774,21 +750,28 @@ const ParentFunction = (e) => {
 
                 />
             </Col>
+            </Row>
+            </Col>
+            <Col md={5}>
+            <DateSlider style={{fontSize:"10px"}} className="date" setSDate={setSDate} setEDate={setEDate} dateTitle={content['timeWindow'][lan]} startDateText={content['startDateText'][lan]} endDateText={content['endDateText'][lan]}/>
+            </Col>
           </Row>
           <Row>
-            <DateSlider style={{fontSize:"10px"}} className="date" setSDate={setSDate} setEDate={setEDate} dateTitle={timeWindow} startDateText={startDateText} endDateText={endDateText}/>
-          </Row>
-          <Row>
+          <Col md={7}>
+            <Row>
+            <Col md={3}>
             <Form.Check 
                       type='checkbox'
-                      label={`Show events`}
+                      label={content['showEvents'][lan]}
                       id={`events`}
                       checked={Show}
                       onChange={() => setShow(!Show)}
               />
-          </Row>
-          <Row>
-          <MapContainer
+            </Col>
+            </Row>
+            <Row>
+            <Col md={12}>
+            <MapContainer
                 className='regionMap'
                 id="regionMap"
                 bounds={outerBounds}
@@ -805,14 +788,14 @@ const ParentFunction = (e) => {
                 }
                 } />
 
-                {fileflag != 'Latin America' && Show && filteredData.map(evt => (
+                {Show && filteredData.map(evt => (
                   <CircleMarker
                     center={[evt.geometry.coordinates[0], evt.geometry.coordinates[1]]}
                     radius={evt.press_article == 'true' ? 7 : 2}
                     pane={"markerPane"}
                     fillOpacity={1}
                     color={evt.press_article == 'true' ? '#EA4335' : '#464342'}
-                    fillColor={evt.press_article  ? 'white' : '#464342'}
+                    fillColor={evt.press_article  ? '#464342' : '#464342'}
                     strokeOpacity={0.5}
                     eventHandlers={{
                       mouseover: (event) => {
@@ -827,7 +810,7 @@ const ParentFunction = (e) => {
                       {/* {evt.header} <br /> */}
                       <table className="table-popup">
                         <tr>
-                          <td> {allegedWrongdoing}:</td>
+                          <td> {content['allegedWrongdoing'][lan]}:</td>
                           <td></td>
                           <td> &thinsp;{dictionary.filter((item) =>
                             item.variable == 'tar_wrongdoing' & item.value == evt.tar_wrongdoing).map((element) => {
@@ -835,7 +818,7 @@ const ParentFunction = (e) => {
                             })} </td>
                         </tr>
                         <tr>
-                          <td> {violenceInflicted}:</td>
+                          <td> {content['violenceInflicted'][lan]}:</td>
                           <td></td>
                           <td> &thinsp;{dictionary.filter((item) =>
                             item.variable == 'pe_violence' & item.value == evt.pe_violence).map((element) => {
@@ -843,7 +826,7 @@ const ParentFunction = (e) => {
                             })}</td>
                         </tr>
                         <tr>
-                          <td> {worstOutcome}:</td>
+                          <td> {content['worstOutcome'][lan]}:</td>
                           <td></td>
                           <td> &thinsp;{dictionary.filter((item) =>
                             item.variable == 'tar_outcome' & item.value == evt.tar_outcome).map((element) => {
@@ -857,141 +840,23 @@ const ParentFunction = (e) => {
                   </CircleMarker>
                 ))}
 
-                <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} file={file} parentFunc={ParentFunction} num_events={numEvents}/>
+                <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} file={file} parentFunc={ParentFunction} num_events={numEvents} lan={lan}/>
                 <Ocean geojson_data={geojson_ocean} key_id='key_geojson'/>
+                <OtherCountries geojson_data={geojson_others} key_id='key_geojson'/>
+                
                 <ResetMarker className='reset' setfile={setfile}></ResetMarker>
               </MapContainer>
-
-
-          </Row>
-          <Row>
-
-          </Row>
+            </Col>
+            </Row>
           </Col>
-          <Col>
-          <Row>
-            <Col>
-            </Col>
-            <Col>
-            </Col>
+          <Col md={5}>
+            <Row>
 
-          </Row>
-          <Row>
-
+            </Row>
             
-          </Row>
           <Row>
-
-          </Row>
-          <Row>
-
-          </Row>
-          </Col>
-          <Col md={11}></Col>
-          <Col md={1}>
-            
-          </Col>
-        </Container>
-        <Container fluid>
-          <Row className='date'>
-            <Col md={1}></Col>
-            <Col md={6}>
-                         </Col>
-            <Col md={5}></Col>
-          </Row>
-          <Row> {/* second row after date (main row that includes dropdowns&download column, map column and country dropdown&charts ) */}
-
-            <Col md={2}> {/*column with dropdowns and download bttn*/}
-              <Row>
-               
-
-              </Row>
-              <Row>
-                
-              </Row>
-              <Row>
-                
-              </Row>
-              <Row>
-                
-              </Row>
-              <Row>
-                
-              </Row>
-              <Row>
-              <Col md={12}>
-                <br/>
-                
-                </Col>
-              </Row>
-              {/* </Col>
-            <Col md={2}>
-              
-            </Col>
-            <Col md={2}>
-             
-            </Col>
-            <Col md={2}>
-              
-            </Col> */}
-
-              {/* <Col md={2}>
-              <Form.Label className='mb-2'>Country</Form.Label>
-              <MultiSelect className='multi-select'
-                options={dictionary.filter((item) =>
-                  item.variable == 'country'
-                ).map((element) => {
-                  return { 'label': element.name, 'value': element.name }
-
-                })}
-                value={countries}
-                onChange={setCountries}
-                labelledBy="Select"
-              />
-            </Col> */}
-
-              <Row>
-                <Col md={2}>
-                  <br/>
-                  <DownloadComponent filteredData={eventData} />
-                </Col>
-                {/*             <Col md={3}>
-                            <Button onClick={reset_map}>Reset map</Button>
-                          </Col> */}
-                {/* </Row> */}
-                {/* </Container>
-
-                    </div>
-                    <div>
-                      <Container fluid>
-                        <Row> */}
-                {/*   <Col>
-                <MapContainer
-                    bounds={outerBounds}
-                    whenCreated={setMap}
-                    center={center}
-                    zoom={zoomLevel}
-                    scrollWheelZoom={false}
-                    style={{ width: '100%', height: '560px'}}
-
-                  >
-                <TileLayer {...tileLayer} />
-                <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag}/>
-                    </MapContainer>
-
-                  </Col> */}
-              </Row> {/*end of download bttn row */}
-              <Row> {/* text with number of events */}
-              <EventsText country={countryKey} num_events={numEvents}/>
-              </Row>
-            </Col> {/*end of dropdowns column */}
-            <Col md={5}> {/* start map column*/}
-              
-            </Col> {/*end of map column */}
-            <Col md={5}> {/*start country dropdown&charts column */}
-              <Row> {/*start country dropdown row*/}
-                <Col md={8}>
-                  <Form.Label className='mb-2'>{countryText}</Form.Label>
+          <Col md={9}>
+                    <Form.Label className='mb-2'>{content['countryText'][lan]}</Form.Label>
                   <MultiSelect className='multi-select'
                     options={dictionary.filter((item) =>
                       item.variable == 'country'
@@ -1003,47 +868,54 @@ const ParentFunction = (e) => {
                     onChange={setCountries}
                     labelledBy="Select"
                   />
-                </Col>
-                <Col md={4}>
-                  <br />
-                  <Form.Check
+                  </Col>
+            <Col md={3}>
+              <br/>
+            <Form.Check
                     type='checkbox'
-                    label={`# Events`}
+                    label={content['numEvents'][lan]}
                     id={`population`}
                     checked={Check}
                     onChange={() => setCheck(!Check)}
                   />
-                </Col>
-              </Row> {/*end country dropdown row */}
-              <Row>{/*start charts row */}
-                <Col md={12}>
-                  <Line data={lineData}
+            </Col>
+
+                    </Row>
+                    <Row>
+                    <Line data={lineData}
                     // options= {/{scales: {x: {type: 'time'}}} }
                     options={options}
                   />
-                </Col>
-                <Col md={6}>
-                  <Form.Select
+
+            </Row>
+            <Row>
+            <Col md={9}>
+            <Form.Select
                     value={var_chart}
                     onChange={event => setvar_chart(event.target.value)}>
-                    <option value="pe_approxnumber">{numberPerpetrators}</option>
-                    <option value="tar_wrongdoing">{allegedWrongdoing}</option>
-                    <option value="tar_outcome">{worstOutcome}</option>
-                    <option value="pe_violence">{violenceInflicted}</option>
+                    <option value="pe_approxnumber">{content['numberPerpetrators'][lan]}</option>
+                    <option value="tar_wrongdoing">{content['allegedWrongdoing'][lan]}</option>
+                    <option value="tar_outcome">{content['worstOutcome'][lan]}</option>
+                    <option value="pe_violence">{content['violenceInflicted'][lan]}</option>
                   </Form.Select>
-
-                </Col>
-                <Col md={12}>
+                  </Col>
+            </Row>
+            <Row>
+            <Col md={12}>
                   <Bar options={optionsBar} data={barData} />
                 </Col>
-              </Row> {/*end charts row */}
-
-            </Col> {/*end country dropdowns&charts col */}
-
+            </Row>
+          </Col>
           </Row>
-
-
-        </Container>
+          <Row>
+          <Col md={4}>
+          <DownloadComponent filteredData={eventData} text={content['downloadText'][lan]}/>
+          </Col>
+          <Col md={4}>
+          <EventsText country={countryKey} num_events={numEvents}/>
+          </Col>
+          </Row>
+          </div>
       </div>
       <p className='final-text'>
         You can find more information and supporting material <a href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html" target="_blank">here</a>.</p>
