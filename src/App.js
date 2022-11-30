@@ -662,6 +662,7 @@ const ParentFunction = (e) => {
             </Row>
     
             <div style={{marginLeft: "15pt",marginRight:"15pt"}}>
+          
           <Row>
             <Col md={7}>
             <Row>
@@ -677,7 +678,7 @@ const ParentFunction = (e) => {
               <br/>
             <Form.Label className='mb-3'>
                   {content['allegedWrongdoing'][lan]}&thinsp;
-                  <FontAwesomeIcon icon="fa-solid fa-circle-info" title={" What was the lynched person accused of?"} />
+                  <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['allegedWrongdoingInfo'][lan]} />
                 </Form.Label>
 
                 <MultiSelect className='multi-select'
@@ -699,9 +700,9 @@ const ParentFunction = (e) => {
               <br/>
               <Form.Label className='mb-3' >
                   {content['worstOutcome'][lan]}&thinsp;
-                  <FontAwesomeIcon icon="fa-solid fa-circle-info" title={"What physical consequences did the lynched person suffer?"} />
+                  <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['worstOutcomeInfo'][lan]} />
                 </Form.Label>
-                <MultiSelect className='multi-select'
+                <MultiSelect   className='multi-select'
                   options={dictionary.filter((item) =>
                     item.variable == 'tar_outcome'
                   ).map((element) => {
@@ -718,7 +719,7 @@ const ParentFunction = (e) => {
               <Form.Label className='mb-3'>
 
                   {content['violenceInflicted'][lan]}&thinsp;
-                  <FontAwesomeIcon icon="fa-solid fa-circle-info" title={"What kind of violence did the lynch mob use?"} />
+                  <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['violenceInflictedInfo'][lan]} />
                 </Form.Label>
                 <MultiSelect className='multi-select'
                   options={dictionary.filter((item) =>
@@ -735,7 +736,7 @@ const ParentFunction = (e) => {
             <Col md={3}>
               <Form.Label className='mb-3'>
                   {content['numberPerpetrators'][lan]}&thinsp;
-                  <FontAwesomeIcon icon="fa-solid fa-circle-info" title={"How large was the lynch mob?"} />
+                  <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['numberPerpetratorsInfo'][lan]} />
                 </Form.Label>
                 <MultiSelect className='multi-select'
                   options={dictionary.filter((item) =>
@@ -780,7 +781,7 @@ const ParentFunction = (e) => {
                 center={center}
                 zoom={4}
                 scrollWheelZoom={false}
-                style={{ width: '100%', height: '760px' , zIndex: '1'}}
+                style={{ width: '100%', height: '760px' }}
               >
                 <TileLayer {...{
                   attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',

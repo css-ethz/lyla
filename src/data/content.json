@@ -37,6 +37,22 @@
         "en":"Worst Outcome",
         "es":"Peor resultado"
     },
+    "violenceInflictedInfo":{
+        "en":"What kind of violence did the lynch mob use?",
+        "es":"Peor violencia infligida"
+    },
+    "allegedWrongdoingInfo":{
+        "en":"What was the lynched person accused of?",
+        "es":"¿De qué fue acusada la persona linchada?"
+    },
+    "numberPerpetratorsInfo":{
+        "en":"How large was the lynch mob?",
+        "es":"Número de perpetradores"
+    },
+    "worstOutcomeInfo":{
+        "en":"What physical consequences did the lynched person suffer?",
+        "es":"¿Cuál fue el daño físico a la persona linchada?"
+    },
     "filterBy":{
         "en":"Filter By",
         "es":"Filtrar por"
