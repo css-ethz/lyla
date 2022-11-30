@@ -118,7 +118,7 @@ function App() {
     plugins: {
       title: {
         display: true,
-        text: content['lineplot'][Check ? 'per_million':"events"][lan],
+        text: content['lineplot'][Check ? "events":'per_million'][lan],
       },
     },
     scales: {
@@ -141,7 +141,7 @@ function App() {
     plugins: {
       title: {
         display: true,
-        text: content['barplot'][Check ? 'per_million':"events"][lan],
+        text: content['barplot'][Check ? "events":'per_million'][lan],
       },
     },
     scales: {
@@ -675,8 +675,7 @@ const ParentFunction = (e) => {
             </Row>
             <Row>
             <Col md={3}>
-              <br/>
-            <Form.Label className='mb-3'>
+            <Form.Label className='mb-3 line-break'>
                   {content['allegedWrongdoing'][lan]}&thinsp;
                   <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['allegedWrongdoingInfo'][lan]} />
                 </Form.Label>
@@ -698,7 +697,7 @@ const ParentFunction = (e) => {
 
             <Col md={3}>
               <br/>
-              <Form.Label className='mb-3' >
+              <Form.Label className='mb-3 line-break' >
                   {content['worstOutcome'][lan]}&thinsp;
                   <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['worstOutcomeInfo'][lan]} />
                 </Form.Label>
@@ -716,7 +715,7 @@ const ParentFunction = (e) => {
                   
             </Col>
             <Col md={3}>
-              <Form.Label className='mb-3'>
+              <Form.Label className='mb-3 line-break'>
 
                   {content['violenceInflicted'][lan]}&thinsp;
                   <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['violenceInflictedInfo'][lan]} />
@@ -734,7 +733,7 @@ const ParentFunction = (e) => {
                 />
             </Col>
             <Col md={3}>
-              <Form.Label className='mb-3'>
+              <Form.Label className='mb-3 line-break'>
                   {content['numberPerpetrators'][lan]}&thinsp;
                   <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['numberPerpetratorsInfo'][lan]} />
                 </Form.Label>

@@ -23,11 +23,11 @@
     },
     "violenceInflicted":{
         "en":"Worst violence inflicted",
-        "es":"Peor violencia infligida"
+        "es":"Peor violencia \n infligida"
     },
     "allegedWrongdoing":{
-        "en":"Alleged Wrongdoing",
-        "es":"Supuesta irregularidad"
+        "en":["Alleged \n Wrongdoing"],
+        "es":"Supuesta \n irregularidad"
     },
     "numberPerpetrators":{
         "en":"Number of perpetrators",

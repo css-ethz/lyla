@@ -241,6 +241,10 @@ main {
   background-color: #fff;
 }
 
+.line-break {
+  white-space: pre-line;
+}
+
 .container {
   overflow: visible;
   width: 100%;
