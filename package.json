@@ -13,6 +13,7 @@
     "@kurkle/color": "^0.2.1",
     "@mui/icons-material": "^5.10.14",
     "@mui/material": "^5.10.14",
+    "@mui/x-date-pickers": "^5.0.9",
     "@progress/kendo-theme-default": "^5.8.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

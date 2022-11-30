@@ -6,6 +6,12 @@ import 'rc-slider/assets/index.css';
 import 'rc-tooltip/assets/bootstrap.css';
 import Tooltip from 'rc-tooltip';
 import { Container, Row, Col } from 'reactstrap';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import TextField from '@mui/material/TextField';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { blue, yellow, red } from '@mui/material/colors';
 
 var moment = require('moment')
 
@@ -18,15 +24,38 @@ function DateSlider({setSDate, setEDate, dateTitle, startDateText, endDateText})
 
     const [startDate, setstartDate] = useState("01/01/2010");
     const [startDateLabel, setstartDateLabel] = useState("01/01/2010");
-    const [endDate, setendDate] = useState("31/12/2019");
-    const [endDateLabel, setendDateLabel] = useState("31/12/2019");
+    const [endDate, setendDate] = useState("01/01/2020");
+    const [endDateLabel, setendDateLabel] = useState("01/01/2020");
     const [currentValue, setcurrentValue] = useState([]);
     const [minRange, setminRange] = useState(0);
     const [maxRange, setmaxRange] = useState(100);
-
+    const theme = createTheme({
+      palette: {
+        primary: blue,
+        secondary: yellow
+      }
+    });
     const onDateChange = ([newStartDate, newEndDate])=>{
         setcurrentValue([newStartDate, newEndDate]);
         updateDates();
+      }
+    const updateCurrent = ()=>{
+        let startDate_moment = moment(startDate, "DD/MM/YYYY")
+        let endDate_moment = moment(endDate, "DD/MM/YYYY")
+        let new_min = startDateLabel.diff(startDate_moment, 'days');
+        let new_max = endDate_moment.diff(endDateLabel, 'days');
+        setcurrentValue([new_min, maxRange-new_max]);
+      }
+    const updateFromPicker = (newValue,isStart)=>{
+      if (isStart){
+        setstartDateLabel(newValue);
+        setSDate(newValue.format('DD/MM/YYYY'));
+      }else{
+        setendDateLabel(newValue);
+        setEDate(newValue.format('DD/MM/YYYY'));
+      }
+
+      updateCurrent();
       }
 
     const updateDates = ()=>{
@@ -35,10 +64,10 @@ function DateSlider({setSDate, setEDate, dateTitle, startDateText, endDateText})
         let [min, max] = currentValue
         let start = moment(startDate,  "DD/MM/YYYY").add(min, 'd')
         let end = moment(endDate, "DD/MM/YYYY").subtract(maxRange - max , 'd')
-        setstartDateLabel(formatDate(start));
-        setSDate(startDateLabel);
-        setendDateLabel(formatDate(end));
-        setEDate(endDateLabel);
+        setstartDateLabel(start);
+        setSDate(formatDate(start));
+        setendDateLabel(end);
+        setEDate(formatDate(end));
     }
     const formatDate=(date)=>{
         let day, month, year = 0;
@@ -66,7 +95,6 @@ function DateSlider({setSDate, setEDate, dateTitle, startDateText, endDateText})
 
     useEffect(() => {
     let ignore = false;
-    
     if (!ignore)  {
         let range = calculateDateRange(startDate, endDate);
         setmaxRange(Math.abs(range));
@@ -83,23 +111,39 @@ function DateSlider({setSDate, setEDate, dateTitle, startDateText, endDateText})
     return endDate.diff(startDate, 'days')
     
   }
-  
+  const color = "white";
   
 
     return(
       <div>
         <Container fluid={true}>
           <Row >
-            <Col className = "text-center" style={{ fontWeight: 'bold',
+            <Col className = "text-center" style={{ fontWeight: 'bold',fontSize:'20px',
           marginBottom: '30px' }}>{dateTitle}</Col>
           </Row>
           <Row style={{marginBottom: '50px'}}>
-            <Col xs={1} sm={3} md={2}>
-              <span style = {{fontWeight:'bold'}}>
+            <Col xs={3} sm={5} md={4}>
+              {/* <span style = {{}}>
                 {startDateText}: {startDateLabel}
-              </span>
+              </span> */}
+              <LocalizationProvider dateAdapter={AdapterMoment}>
+              <DatePicker 
+                  label={startDateText}
+                  value={startDateLabel}
+                  minDate="01-01-2010"
+                  maxDate="01-01-2020"
+                  inputFormat='DD/MM/yyyy'
+                  onChange={(newValue) => {
+                    updateFromPicker(newValue,1);
+                  }}
+                  renderInput={(params) => 
+                  <TextField {...params} sx={{ svg: { color },
+                  input: { color },
+                  label: { color }}} />}
+                />
+              </LocalizationProvider>
             </Col>
-            <Col>
+            <Col xs={3} sm={5} md={4}>
             <br/>
               <div className="text-center">
                 <Slider 
@@ -113,10 +157,23 @@ function DateSlider({setSDate, setEDate, dateTitle, startDateText, endDateText})
                       onChange = {onDateChange} />
               </div>
             </Col>
-            <Col xs={3} sm={3} md={3}>
-              <span style = {{fontWeight:'bold'}}>
-                {endDateText}: {endDateLabel}
-              </span>
+            <Col xs={3} sm={5} md={4}>
+            <LocalizationProvider dateAdapter={AdapterMoment}>
+              <DatePicker
+                  inputFormat='DD/MM/YYYY'
+                  label={endDateText}
+                  value={endDateLabel}
+                  minDate="01-01-2010"
+                  maxDate="01-01-2020"
+                  onChange={(newValue) => {
+                    updateFromPicker(newValue,0);
+                  }}
+                  renderInput={(params) => <TextField {...params} sx={{ svg: { color },
+                  input: { color },
+                  label: { color }}} />}
+                />
+
+              </LocalizationProvider>
             </Col>
           </Row>
         </Container>
