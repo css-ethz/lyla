@@ -639,14 +639,14 @@ const ParentFunction = (e) => {
 
 
       <div className='cover'>
-        <h1 style={{ fontSize: "30pt", marginLeft: "10pt", marginRight: "60pt", marginTop: "10pt" }}>Lynching in Latin America</h1>
+        <h1 style={{ fontSize: "50pt", marginLeft: "-120pt", marginRight: "60pt", marginTop: "-50pt" }}>{content['title'][lan]}</h1>
         
-        <p style={{ fontSize: "15pt", marginLeft: "10pt", marginRight: "60pt", marginTop: "30pt" }}>
-          The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.
+        <p style={{ fontSize: "15pt", marginLeft: "100pt", marginRight: "60pt", marginTop: "150pt" }}>
+          {content['text'][lan]}
         </p>
        
-        <DownloadComponent filteredData={eventData} text={content['downloadText'][lan]}/>
-        <DownloadCodebook />
+        <DownloadComponent style={{marginLeft: "10pt", marginBottom:"60pt"}} filteredData={eventData} text={content['downloadText'][lan]}/>
+        <DownloadCodebook style={{marginLeft: "10pt", marginTop:"100pt"}} />
 
       </div>
       <div className='intro' style={{ marginTop: "10pt" }}>
@@ -656,7 +656,7 @@ const ParentFunction = (e) => {
                 <Button className="language" style={{
                     position: "absolute",
                     top: "10px",
-                    left: "16px",
+                    right: "16px",
                     width: '60pt'
                   }} onClick={onClickLanguage}>{language}</Button>
               </Col>
@@ -664,7 +664,7 @@ const ParentFunction = (e) => {
                 <Button className="tour" style={{
                   position: "absolute",
                   top: "10px",
-                  left: "100px",
+                  right: "100px",
                   width: '90pt'}} onClick={() => setRunTour(true)}>{content['startTour'][lan]}</Button>
               </Col>
               

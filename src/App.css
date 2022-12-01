@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Neucha&family=Oswald:wght@700&display=swap');
 @import 'intro.js/introjs.css';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&family=Oswald:wght@700&display=swap');
+
 /* 
 html,
 body {
@@ -26,7 +28,7 @@ h1 {
   position: absolute;
   top: 20%;
   left:20%;
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 
 }
 
@@ -479,9 +481,8 @@ main {
 }
 
 .cover {
-  background-image: url('./mexicocity.jpg');
+  background-image: url('./mexico-city-cover.jpg');
   width: 100%;
   height: 100vh;
-  background-position: center;
   overflow: auto;
 }

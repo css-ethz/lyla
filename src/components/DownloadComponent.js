@@ -11,7 +11,6 @@ const DownloadComponent = ({filteredData,text}) => {
     font-size: 16px;
     padding: 10px 55px;
     border-radius: 50px;
-    margin: 10px 0px;
     cursor: pointer;
     :hover {
       background-color: #707B7C
