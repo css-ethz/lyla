@@ -7,6 +7,7 @@ import { Button } from 'react-bootstrap'
 import { faBook } from '@fortawesome/free-solid-svg-icons'
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import pdf from '../Codebook_LYLA.pdf';
 
 // const contentStyle = {
 //     maxWidth: "600px",
@@ -107,7 +108,7 @@ const DownloadCodebook = () => {
         <FontAwesomeIcon icon={faBook}/>
         <a style={{color: "inherit",
                   textDecoration: 'none'}}
-           href="codebook.pdf" download="Codebook_LYLA" target="_blank"> Codebook</a>
+           href={pdf} download="Codebook_LYLA" target="_blank"> Codebook</a>
         </Button>
 
       </div>
