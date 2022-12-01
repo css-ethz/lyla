@@ -100,5 +100,13 @@
     "eventsMillion":{
         "en":"Events per million",
         "es":"Eventos por millón"            
+    },
+    "title":{
+        "en": "Lynching in latin America (LYLA)",
+        "es": "Linchamientos en América Latina (LYLA)"
+    },
+    "text":{
+        "en":"The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 lynching events reported by media sources across 18 Latin American countries from 2010 to 2019. The LYLA dataset was created by Enzo Nussio, Govinda Clayton, and a team of collaborators at the Center for Security Studies, ETH Zurich. It was funded by the Swiss National Science Foundation. You can find more information and supporting material here.",
+        "es": "La base de datos de Linchamiento en América Latina (LYLA por su acrónimo en inglés) presenta, por primera vez, datos sobre eventos de linchamiento en toda América Latina. La base de datos LYLA contiene evidencia de 2818 eventos de linchamiento reportados en medios en 18 países latinoamericanos cubriendo el periodo de 2010 a 2019. La base de datos fue creada por Enzo Nussio, Govinda Clayton y un equipo de colaboradores en el Center for Security Studies, ETH Zurich. Recibió financiación del Fondo Nacional Suizo para la Investigación Científica. Aquí puede encontrar más información."
     }
 }

@@ -106,7 +106,7 @@ function App() {
   const [occs, setOccs] = useState(null);
   const [numEvents, setNumEvents] = useState(2818);
   const [countryKey, setcountrykey] = useState('Latin America');
-  const [runTour, setRunTour] = useState(true);
+  const [runTour, setRunTour] = useState(false);
   const [heat, setheat] = useState(() => {
     var groups = filteredData_agg.reduce(function (r, row) {
       r[row.name_0] = ++r[row.name_0] || 1;
@@ -638,11 +638,20 @@ const ParentFunction = (e) => {
         </div>  */}
 
 
+      <div className='cover'>
+        <h1 style={{ fontSize: "30pt", marginLeft: "10pt", marginRight: "60pt", marginTop: "10pt" }}>Lynching in Latin America</h1>
+        
+        <p style={{ fontSize: "15pt", marginLeft: "10pt", marginRight: "60pt", marginTop: "30pt" }}>
+          The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.
+        </p>
+       
+        <DownloadComponent filteredData={eventData} text={content['downloadText'][lan]}/>
+        <DownloadCodebook />
 
+      </div>
       <div className='intro' style={{ marginTop: "10pt" }}>
         <h2 style={{marginLeft: "10pt",marginTop:"40pt"}}>Lynching in Latin America</h2>
-        <p style={{ fontSize: "15pt", marginLeft: "10pt", marginRight: "60pt", marginTop: "10pt" }}>The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.</p>
-        <Row>
+         <Row>
               <Col>
                 <Button className="language" style={{
                     position: "absolute",
@@ -909,7 +918,7 @@ const ParentFunction = (e) => {
           </Row>
           <Row>
           <Col md={4}>
-          <DownloadComponent filteredData={eventData} text={content['downloadText'][lan]}/>
+          {/* <DownloadComponent filteredData={eventData} text={content['downloadText'][lan]}/> */}
           </Col>
           <Col md={4}>
           <EventsText country={countryKey} num_events={numEvents}/>
