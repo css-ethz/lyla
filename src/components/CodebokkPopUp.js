@@ -4,7 +4,9 @@ import 'reactjs-popup/dist/index.css';
 import { useEffect, useState , useMemo, useRef} from 'react';
 import { CSVLink } from 'react-csv';
 import { Button } from 'react-bootstrap'
+import { faBook } from '@fortawesome/free-solid-svg-icons'
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // const contentStyle = {
 //     maxWidth: "600px",
@@ -85,26 +87,27 @@ const CodebookPopup = () => {
 
 
 const DownloadCodebook = () => {
-   const Button = styled.button`
-    background-color: gray;
-    color: white;
-    font-size: 16px;
-    padding: 10px 55px;
-    border-radius: 50px;
-    margin: 10px 0px;
-    cursor: pointer;
-    :hover {
-      background-color: #707B7C
-    };
-  `;  
+  //  const Button = styled.button`
+  //   background-color: gray;
+  //   color: white;
+  //   font-size: 16px;
+  //   padding: 10px 55px;
+  //   border-radius: 50px;
+  //   margin: 10px 0px;
+  //   cursor: pointer;
+  //   :hover {
+  //     background-color: #707B7C
+  //   };
+  // `;  
    
   
     return (
       <div>
         <Button>
+        <FontAwesomeIcon icon={faBook}/>
         <a style={{color: "inherit",
                   textDecoration: 'none'}}
-           href="codebook.pdf" download="Codebook_LYLA" target="_blank">codebook</a>
+           href="codebook.pdf" download="Codebook_LYLA" target="_blank"> Codebook</a>
         </Button>
 
       </div>

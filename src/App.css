@@ -486,3 +486,9 @@ main {
   height: 100vh;
   overflow: auto;
 }
+
+
+.btn-primary-outline {
+  background-color: transparent;
+  border-color: #ccc;
+}

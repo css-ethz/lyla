@@ -69,9 +69,9 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
 require('leaflet/dist/leaflet.css');
-const center = [-10.4358446, -76.527726];
+const center = [-100.4358446, 0.527726];
 const outerBounds = [
-  [2.505, -100.09],
+  [2.505, -200.09],
   [-20.505, 100.09],
 ]
 //-179.99990,-60.34703,-23.24401,30.98005
@@ -639,7 +639,7 @@ const ParentFunction = (e) => {
 
 
       <div className='cover'>
-        <img src="css-logo.jpg" style={{position:"absolute", top:"10px"}}/>
+        <img src="css-logo.png" style={{position:"absolute", top:"10px"}}/>
         
         <h1 style={{ fontSize: "50pt", marginLeft: "-120pt", marginRight: "60pt", marginTop: "-50pt" }}>{content['title'][lan]}</h1>
         
@@ -792,7 +792,7 @@ const ParentFunction = (e) => {
                 center={center}
                 zoom={4}
                 scrollWheelZoom={false}
-                style={{ width: '100%', height: '760px' }}
+                style={{ width: '100%', height: '900px' }}
               >
                 <TileLayer {...{
                   attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
@@ -929,6 +929,7 @@ const ParentFunction = (e) => {
           </Row>
           </div>
       </div>
+      <p style={{fontSize:"10pt"}}>Website created by <a style={{color: "inherit"}} href="https://cristyguzman.github.io/" target="_blank"> Cristina Guzman</a> and <a style={{color: "inherit"}} href="https://feradauto.github.io/" target="_blank">Fernando Gonzalez</a>.</p>
     
 
     </div>
