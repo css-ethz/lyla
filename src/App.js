@@ -636,18 +636,37 @@ const ParentFunction = (e) => {
           </IconButton>
 
         </div>  */}
-
+     
 
       <div className='cover'>
-        <img src="css-logo.png" style={{position:"absolute", top:"10px"}}/>
+      <img src="eth-logo.png"/>
+     
+      
+      
+       
+        
         
         <h1 style={{ fontSize: "50pt", marginLeft: "-120pt", marginRight: "60pt", marginTop: "-50pt" }}>{content['title'][lan]}</h1>
         
-        <p style={{ fontSize: "15pt", marginLeft: "100pt", marginRight: "60pt", marginTop: "200pt" }}>
+        <p style={{ fontSize: "15pt", marginLeft: "100pt", marginRight: "280pt", marginTop: "200pt" }}>
           {content['text'][lan]}<a style={{color: "inherit"}} href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html" target="_blank">{content['info-ref'][lan]}</a>.
         </p>
-        <DownloadComponent style={{left: "10px", top:"100px", position:"absolute"}} filteredData={eventData} text={content['downloadText'][lan]}/>
-        <DownloadCodebook style={{left: "10px", top:"100px", position:"absolute"}} />
+        <Row style={{positions:"absolute", marginLeft:"8%", marginTop:"5%"}}>
+              <Col>
+              <DownloadComponent filteredData={eventData} text={content['downloadText'][lan]}/>
+                
+              </Col>
+        </Row>
+        <Row  style={{positions:"absolute", marginLeft:"8%", marginTop:"10px"}}>
+        <Col>
+              <DownloadCodebook style={{width:"60px"}}/>
+              </Col>
+        </Row>
+             
+              
+          
+        
+      
        
         
 
@@ -796,7 +815,7 @@ const ParentFunction = (e) => {
                 center={center}
                 zoom={4}
                 scrollWheelZoom={false}
-                style={{ width: '100%', height: '900px' }}
+                style={{ width: '100%', height: '1000px' }}
               >
                 <TileLayer {...{
                   attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',

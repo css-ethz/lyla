@@ -414,8 +414,8 @@ main {
 }
 
 .popup .leaflet-popup-content-wrapper {
-  border-radius: 150px;
-  width: 320px;
+  border-radius: 20px;
+  width: 220px;
   outline: 0.2rem solid;
   outline-color: white;
   font-size:80%;
