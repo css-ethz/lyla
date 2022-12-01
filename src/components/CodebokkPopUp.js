@@ -103,7 +103,7 @@ const DownloadCodebook = () => {
   
     return (
       <div>
-        <Button>
+        <Button style={{backgroundColor:"transparent", border: "2px solid white"}}>
         <FontAwesomeIcon icon={faBook}/>
         <a style={{color: "inherit",
                   textDecoration: 'none'}}

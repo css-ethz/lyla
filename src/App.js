@@ -660,7 +660,9 @@ const ParentFunction = (e) => {
                     position: "absolute",
                     top: "10px",
                     right: "16px",
-                    width: '60pt'
+                    width: '60pt',
+                    backgroundColor:"transparent",
+                    border: "2px solid white"
                   }} onClick={onClickLanguage}>{language}</Button>
               </Col>
               <Col>
@@ -668,7 +670,9 @@ const ParentFunction = (e) => {
                   position: "absolute",
                   top: "10px",
                   right: "100px",
-                  width: '90pt'}} onClick={() => setRunTour(true)}>{content['startTour'][lan]}</Button>
+                  width: '90pt',
+                  backgroundColor:"transparent",
+                  border: "2px solid white"}} onClick={() => setRunTour(true)}>{content['startTour'][lan]}</Button>
               </Col>
               
             </Row>

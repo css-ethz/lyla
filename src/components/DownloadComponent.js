@@ -34,7 +34,7 @@ const DownloadComponent = ({filteredData,text}) => {
   
     return (
       <div>
-        <Button style={{fillOpacity:"1"}} onClick={getTransactionData}><FontAwesomeIcon icon={faArrowAltCircleDown} />{text}</Button>
+        <Button style={{backgroundColor:"transparent", border: "2px solid white"}}  onClick={getTransactionData}><FontAwesomeIcon icon={faArrowAltCircleDown} />{text}</Button>
         
         <CSVLink
            data={transactionData}
