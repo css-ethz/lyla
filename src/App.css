@@ -37,14 +37,14 @@ h2 {
   font-size: clamp(1rem, -0.875rem + 8.333vw, 2.5rem);
   line-height: 100%;
   padding: 0 30px 0 0;
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .intro-title {
   height: 100vh;
   width: 100%;
   margin:0 auto;
-  background-color: #1D212D;
+  background-color: #161719;
   background-size: cover;
   position:relative;
   font-size: 8vh;
@@ -65,7 +65,7 @@ h2 {
 
 .dark {
   color: #ffffff;
-  background-color: #1D212D;
+  background-color: #161719;
 }
 
 

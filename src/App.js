@@ -641,8 +641,8 @@ const ParentFunction = (e) => {
       <div className='cover'>
         <h1 style={{ fontSize: "50pt", marginLeft: "-120pt", marginRight: "60pt", marginTop: "-50pt" }}>{content['title'][lan]}</h1>
         
-        <p style={{ fontSize: "15pt", marginLeft: "100pt", marginRight: "60pt", marginTop: "150pt" }}>
-          {content['text'][lan]}
+        <p style={{ fontSize: "15pt", marginLeft: "100pt", marginRight: "60pt", marginTop: "200pt" }}>
+          {content['text'][lan]}<a style={{color: "inherit"}} href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html" target="_blank">{content['info-ref'][lan]}</a>.
         </p>
        
         <DownloadComponent style={{marginLeft: "10pt", marginBottom:"60pt"}} filteredData={eventData} text={content['downloadText'][lan]}/>
@@ -650,7 +650,7 @@ const ParentFunction = (e) => {
 
       </div>
       <div className='intro' style={{ marginTop: "10pt" }}>
-        <h2 style={{marginLeft: "10pt",marginTop:"40pt"}}>Lynching in Latin America</h2>
+        <h2 style={{marginLeft: "10pt",marginTop:"40pt"}}>{content['title'][lan]}</h2>
          <Row>
               <Col>
                 <Button className="language" style={{
@@ -926,8 +926,7 @@ const ParentFunction = (e) => {
           </Row>
           </div>
       </div>
-      <p className='final-text'>
-        You can find more information and supporting material <a href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html" target="_blank">here</a>.</p>
+    
 
     </div>
 

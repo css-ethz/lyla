@@ -4,7 +4,7 @@ import { GeoJSON } from 'react-leaflet';
 const Ocean = ({ geojson_data, key_id }) => {
 const geoJsonRef = useRef(null);
 const style = {
-            fillColor: "#1D212D",
+            fillColor: "#161719",
             weight: 1,
             opacity: 1,
             color: 'white',
