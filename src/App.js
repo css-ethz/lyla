@@ -69,9 +69,9 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
 require('leaflet/dist/leaflet.css');
-const center = [-100.4358446, 0.527726];
+const center = [-20.4358446, 100.527726];
 const outerBounds = [
-  [2.505, -200.09],
+  [2.505, -100.09],
   [-20.505, 100.09],
 ]
 //-179.99990,-60.34703,-23.24401,30.98005
@@ -673,64 +673,64 @@ const ParentFunction = (e) => {
       </div>
       <div className='intro' style={{ marginTop: "10pt" }}>
         <h2 style={{marginLeft: "10pt",marginTop:"40pt"}}>{content['title'][lan]}</h2>
-         <Row>
-              <Col>
-                <Button className="language" style={{
-                    position: "absolute",
-                    top: "10px",
-                    right: "16px",
-                    width: '60pt',
-                    backgroundColor:"transparent",
-                    border: "2px solid white"
-                  }} onClick={onClickLanguage}>{language}</Button>
-              </Col>
-              <Col>
-                <Button className="tour" style={{
+        <Row>
+            <Col>
+              <Button className="language" style={{
                   position: "absolute",
                   top: "10px",
-                  right: "100px",
-                  width: '90pt',
+                  right: "16px",
+                  width: '60pt',
                   backgroundColor:"transparent",
-                  border: "2px solid white"}} onClick={() => setRunTour(true)}>{content['startTour'][lan]}</Button>
-              </Col>
-              
-            </Row>
+                  border: "2px solid white"
+                }} onClick={onClickLanguage}>{language}</Button>
+            </Col>
+            <Col>
+              <Button className="tour" style={{
+                position: "absolute",
+                top: "10px",
+                right: "100px",
+                width: '90pt',
+                backgroundColor:"transparent",
+                border: "2px solid white"}} onClick={() => setRunTour(true)}>{content['startTour'][lan]}</Button>
+            </Col>
+            
+        </Row>
     
-            <div style={{marginLeft: "15pt",marginRight:"15pt"}}>
+        <div style={{marginLeft: "15pt",marginRight:"15pt"}}>
           
           <Row>
             <Col md={7}>
-            <Row>
-            <Col md={4}>
-            <Form.Label style={{ fontWeight: 'bold' }}>
-                  {content['filterBy'][lan]}
+              <Row>
+                <Col md={4}>
+                  <Form.Label style={{ fontWeight: 'bold' }}>
+                        {content['filterBy'][lan]}
 
-            </Form.Label>
-            </Col>
-            </Row>
-            <Row>
-            <Col md={3}>
-            <Form.Label className='mb-3 line-break'>
-                  {content['allegedWrongdoing'][lan]}&thinsp;
-                  <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['allegedWrongdoingInfo'][lan]} />
-                </Form.Label>
+                  </Form.Label>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={3}>
+                  <Form.Label className='mb-3 line-break'>
+                        {content['allegedWrongdoing'][lan]}&thinsp;
+                        <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['allegedWrongdoingInfo'][lan]} />
+                  </Form.Label>
 
-                <MultiSelect className='multi-select'
+                  <MultiSelect className='multi-select'
 
-                  options={dictionary.filter((item) =>
-                    item.variable == 'tar_wrongdoing'
-                  ).map((element) => {
-                    return { 'label': element.name, 'value': element.value }
+                    options={dictionary.filter((item) =>
+                      item.variable == 'tar_wrongdoing'
+                    ).map((element) => {
+                      return { 'label': element.name, 'value': element.value }
 
-                  })}
-                  value={wrongdoing}
-                  onChange={setWrongdoing}
-                  labelledBy="Select"
+                    })}
+                    value={wrongdoing}
+                    onChange={setWrongdoing}
+                    labelledBy="Select"
 
-                />
-            </Col>
+                  />
+                </Col>
 
-            <Col md={3}>
+                <Col md={3}>
               <br/>
               <Form.Label className='mb-3 line-break' >
                   {content['worstOutcome'][lan]}&thinsp;
@@ -750,6 +750,7 @@ const ParentFunction = (e) => {
                   
             </Col>
             <Col md={3}>
+            <br/>
               <Form.Label className='mb-3 line-break'>
 
                   {content['violenceInflicted'][lan]}&thinsp;
@@ -768,6 +769,7 @@ const ParentFunction = (e) => {
                 />
             </Col>
             <Col md={3}>
+            <br/>
               <Form.Label className='mb-3 line-break'>
                   {content['numberPerpetrators'][lan]}&thinsp;
                   <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['numberPerpetratorsInfo'][lan]} />
@@ -788,11 +790,12 @@ const ParentFunction = (e) => {
             </Row>
             </Col>
             <Col md={5}>
+            <br/>
             <DateSlider style={{fontSize:"10px"}} className="date" setSDate={setSDate} setEDate={setEDate} dateTitle={content['timeWindow'][lan]} startDateText={content['startDateText'][lan]} endDateText={content['endDateText'][lan]}/>
             </Col>
           </Row>
           <Row>
-          <Col md={7}>
+          <Col md={8}>
             <Row>
             <Col md={3}>
             <Form.Check 
@@ -805,7 +808,7 @@ const ParentFunction = (e) => {
             </Col>
             </Row>
             <Row>
-            <Col md={12}>
+            <Col md={14}>
             <MapContainer
                 className='regionMap'
                 id="regionMap"
@@ -880,17 +883,19 @@ const ParentFunction = (e) => {
                 <OtherCountries geojson_data={geojson_others} key_id='key_geojson'/>
                 
                 <ResetMarker className='reset' setfile={setfile}></ResetMarker>
-              </MapContainer>
+            </MapContainer>
             </Col>
             </Row>
           </Col>
-          <Col md={5}>
+          <Col md={4}>
             <Row>
 
             </Row>
             
           <Row>
           <Col md={9}>
+          <br/>
+          <br/>
                     <Form.Label className='mb-2'>{content['countryText'][lan]}</Form.Label>
                   <MultiSelect className='multi-select'
                     options={dictionary.filter((item) =>
@@ -905,6 +910,9 @@ const ParentFunction = (e) => {
                   />
                   </Col>
             <Col md={3}>
+              <br/>
+              <br/>
+              <br/>
               <br/>
             <Form.Check
                     type='checkbox'
@@ -925,6 +933,8 @@ const ParentFunction = (e) => {
             </Row>
             <Row>
             <Col md={9}>
+            <br/>
+            <br/>
             <Form.Select
                     value={var_chart}
                     onChange={event => setvar_chart(event.target.value)}>
