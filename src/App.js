@@ -535,7 +535,7 @@ const ParentFunction = (e) => {
       tickColor: 'white',
       backgroundColor: transparentize(Colorscale['Latin America'], 0.5),
       pointRadius: 5,
-      tension: 0.3,
+      tension: 0.0,
     }];
     current_countries.push(...countries.map(function (e) {
       var occurences = filteredData_agg.filter((item) => (item.name_0 == e.value)).reduce(function (r, row) {
@@ -556,7 +556,7 @@ const ParentFunction = (e) => {
         tickColor: 'white',
         backgroundColor: transparentize(Colorscale[e.value], 0.5),
         pointRadius: 5,
-        tension: 0.3,
+        tension: 0.0,
       }
     }));
     setLineData({
@@ -808,7 +808,7 @@ const ParentFunction = (e) => {
             </Col>
             </Row>
             <Row>
-            <Col md={14}>
+            <Col md={12}>
             <MapContainer
                 className='regionMap'
                 id="regionMap"
@@ -832,8 +832,8 @@ const ParentFunction = (e) => {
                     radius={evt.press_article == 'true' ? 7 : 2}
                     pane={"markerPane"}
                     fillOpacity={1}
-                    color={evt.press_article == 'true' ? '#EA4335' : '#464342'}
-                    fillColor={evt.press_article  ? '#464342' : '#464342'}
+                    color={evt.press_article == 'true' ? '#EA4335' : '#CEAA07'}
+                    fillColor={evt.press_article  ? '#464342' : '#CEAA07'}
                     strokeOpacity={0.5}
                     eventHandlers={{
                       mouseover: (event) => {
@@ -887,7 +887,7 @@ const ParentFunction = (e) => {
             </Col>
             </Row>
           </Col>
-          <Col md={4}>
+          <Col md={3}>
             <Row>
 
             </Row>
