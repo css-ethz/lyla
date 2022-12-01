@@ -639,14 +639,17 @@ const ParentFunction = (e) => {
 
 
       <div className='cover'>
+        <img src="css-logo.jpg" style={{position:"absolute", top:"10px"}}/>
+        
         <h1 style={{ fontSize: "50pt", marginLeft: "-120pt", marginRight: "60pt", marginTop: "-50pt" }}>{content['title'][lan]}</h1>
         
         <p style={{ fontSize: "15pt", marginLeft: "100pt", marginRight: "60pt", marginTop: "200pt" }}>
           {content['text'][lan]}<a style={{color: "inherit"}} href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html" target="_blank">{content['info-ref'][lan]}</a>.
         </p>
+        <DownloadComponent style={{left: "10px", top:"100px", position:"absolute"}} filteredData={eventData} text={content['downloadText'][lan]}/>
+        <DownloadCodebook style={{left: "10px", top:"100px", position:"absolute"}} />
        
-        <DownloadComponent style={{marginLeft: "10pt", marginBottom:"60pt"}} filteredData={eventData} text={content['downloadText'][lan]}/>
-        <DownloadCodebook style={{marginLeft: "10pt", marginTop:"100pt"}} />
+        
 
       </div>
       <div className='intro' style={{ marginTop: "10pt" }}>
