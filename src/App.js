@@ -830,7 +830,7 @@ const ParentFunction = (e) => {
                   <CircleMarker
                     center={[evt.geometry.coordinates[0], evt.geometry.coordinates[1]]}
                     radius={evt.press_article == 'true' ? 7 : 2}
-                    pane={"markerPane"}
+                    pane={evt.press_article == 'true' ? "locationMarker":"markerPane"}
                     fillOpacity={1}
                     color={evt.press_article == 'true' ? '#EA4335' : '#CEAA07'}
                     fillColor={evt.press_article  ? '#464342' : '#CEAA07'}
