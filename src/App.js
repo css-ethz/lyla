@@ -845,12 +845,12 @@ const ParentFunction = (e) => {
                   <CircleMarker
                     center={[evt.geometry.coordinates[0], evt.geometry.coordinates[1]]}
                     radius={evt.press_article == 'true' ? 7 : 2}
-                    
+                    pane={evt.press_article == 'true' ? "locationMarker":"markerPane"}
                     fillOpacity={1} 
                     pathOptions={{
                       color: evt.press_article == 'true'  ? getColor(1):getColor(0),
                       fillColor:evt.press_article == 'true'  ? '#464342' : 'white',
-                      pane:evt.press_article == 'true' ? "locationMarker":"markerPane"
+                      
                     }}
                     /* {evt.press_article == 'true' ? '#EA4335' : '#464342'} */
                     
@@ -861,7 +861,7 @@ const ParentFunction = (e) => {
                         setMouseHover(true)
                       }
                     }}>
-                    <Popup className='popup'>
+                    <Popup className='popup' pane="popupPane">
                       {/* <img className="popup-img" src={bogota} alt="bogota" /><br/> */}
                       {evt.name_1}, {evt.name_0} <br />
                       {evt.date} <br />

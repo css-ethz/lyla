@@ -74,7 +74,9 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id, file, parentFunc, num_ev
         map.removeControl(legend);
         legend.addTo(map);
         map.createPane("locationMarker");
-        map.getPane("locationMarker").style.zIndex = 999;
+        map.getPane("locationMarker").style.zIndex = 0;
+        map.createPane("popupPane");
+        map.getPane("popupPane").style.zIndex = 1;
       }, [lan]);
     const highlightFeature = (e => {
         var layer = e.target;
