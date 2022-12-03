@@ -661,11 +661,11 @@ const ParentFunction = (e) => {
       
       
        
+        {/* Use sizes relative to screen size */}
         
+        <h1 style={{ fontSize: "8vmin", marginLeft: "-11vw", marginRight: "1vw", marginTop: "-50pt" }}>{content['title'][lan]}</h1>
         
-        <h1 style={{ fontSize: "50pt", marginLeft: "-120pt", marginRight: "60pt", marginTop: "-50pt" }}>{content['title'][lan]}</h1>
-        
-        <p style={{ fontSize: "15pt", marginLeft: "100pt", marginRight: "280pt", marginTop: "200pt" }}>
+        <p style={{ fontSize: "15pt", marginLeft: "10vw", marginRight: "20vw", marginTop: "30vh" }}>
           {content['text'][lan]}<a style={{color: "inherit"}} href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html" target="_blank">{content['info-ref'][lan]}</a>.
         </p>
         <Row style={{positions:"absolute", marginLeft:"8%", marginTop:"5%"}}>
@@ -695,8 +695,9 @@ const ParentFunction = (e) => {
               <Button className="language" style={{
                   position: "absolute",
                   top: "10px",
-                  right: "16px",
-                  width: '60pt',
+                  right: "2vw",
+                  width: '9vmax',
+                  padding: '1vmin 0.5vmin 1vmin 0.5vmin',
                   backgroundColor:"transparent",
                   border: "2px solid white"
                 }} onClick={onClickLanguage}>{language}</Button>
@@ -705,7 +706,7 @@ const ParentFunction = (e) => {
               <Button className="tour" style={{
                 position: "absolute",
                 top: "10px",
-                right: "100px",
+                right: "21vmin",
                 width: '90pt',
                 backgroundColor:"transparent",
                 border: "2px solid white"}} onClick={() => setRunTour(true)}>{content['startTour'][lan]}</Button>
