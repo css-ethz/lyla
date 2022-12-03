@@ -105,6 +105,7 @@ function App() {
   const [lan, setLan] = useState("en");
   const [occs, setOccs] = useState(null);
   const [numEvents, setNumEvents] = useState(2818);
+  const [zoom,setZoom]=useState(0)
   const [countryKey, setcountrykey] = useState('Latin America');
   const [runTour, setRunTour] = useState(false);
   const [heat, setheat] = useState(() => {
@@ -592,6 +593,22 @@ const ParentFunction = (e) => {
   const [mouseHover, setMouseHover] = useState(false);
 
 
+  const getColor=(flag)=>{
+    if (flag==1){
+      if (zoom==1){
+        return '#EA4335'
+      }else{
+        return '#EA4335'
+      }
+    }else{
+      if (zoom==1){
+        return '#464342'
+      }else{
+        return '#EA4335'
+      }
+    }
+  }
+
   return (
 
     <div className="dark">
@@ -811,7 +828,7 @@ const ParentFunction = (e) => {
             <Col md={12}>
             <MapContainer
                 className='regionMap'
-                id="regionMap"
+                id={"regionMap"}
                 bounds={outerBounds}
                 whenCreated={setMap}
                 fullscreenControl={true}
@@ -830,10 +847,15 @@ const ParentFunction = (e) => {
                   <CircleMarker
                     center={[evt.geometry.coordinates[0], evt.geometry.coordinates[1]]}
                     radius={evt.press_article == 'true' ? 7 : 2}
-                    pane={evt.press_article == 'true' ? "locationMarker":"markerPane"}
-                    fillOpacity={1}
-                    color={evt.press_article == 'true' ? '#EA4335' : '#CEAA07'}
-                    fillColor={evt.press_article  ? '#464342' : '#CEAA07'}
+                    
+                    fillOpacity={1} 
+                    pathOptions={{
+                      color: evt.press_article == 'true'  ? getColor(1):getColor(0),
+                      fillColor:evt.press_article == 'true'  ? '#464342' : 'white',
+                      pane:evt.press_article == 'true' ? "locationMarker":"markerPane"
+                    }}
+                    /* {evt.press_article == 'true' ? '#EA4335' : '#464342'} */
+                    
                     strokeOpacity={0.5}
                     eventHandlers={{
                       mouseover: (event) => {
@@ -878,7 +900,7 @@ const ParentFunction = (e) => {
                   </CircleMarker>
                 ))}
 
-                <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} file={file} parentFunc={ParentFunction} num_events={numEvents} lan={lan}/>
+                <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} file={file} parentFunc={ParentFunction} num_events={numEvents} lan={lan} setZoom={setZoom}/>
                 <Ocean geojson_data={geojson_ocean} key_id='key_geojson'/>
                 <OtherCountries geojson_data={geojson_others} key_id='key_geojson'/>
                 

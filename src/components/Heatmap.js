@@ -18,7 +18,7 @@ import L from 'leaflet';
     [-1.505, -35.59],
   ]
 
-const Heatmap = ({ geojson_data, heat, setfile, key_id, file, parentFunc, num_events,lan}) => {
+const Heatmap = ({ geojson_data, heat, setfile, key_id, file, parentFunc, num_events,lan,setZoom}) => {
     //const geoJson: RefObject<Leaflet.GeoJSON> = useRef(null);
     const geoJsonRef = useRef(null);
     const map = useMap();
@@ -144,6 +144,7 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id, file, parentFunc, num_ev
     })
     const style = (feature => {
         if (mapEvents.getZoom() < 10) {
+            setZoom(1);
             return ({
                 fillColor: mapPolygonColorToDensity(colors[feature.properties.ADMIN]),
                 weight: 1,
@@ -152,7 +153,9 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id, file, parentFunc, num_ev
                 dashArray: '1',
                 fillOpacity: 1
             });
+            
         } else {
+            setZoom(0);
             return ({
                 fillColor: mapPolygonColorToDensity(colors[feature.properties.ADMIN]),
                 weight: 1,
@@ -161,6 +164,7 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id, file, parentFunc, num_ev
                 dashArray: '1',
                 fillOpacity: 0
             });
+            
         }
 
 
