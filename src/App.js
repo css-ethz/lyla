@@ -706,7 +706,7 @@ const ParentFunction = (e) => {
               <Button className="tour" style={{
                 position: "absolute",
                 top: "10px",
-                right: "21vmin",
+                right: "22vmin",
                 width: '90pt',
                 backgroundColor:"transparent",
                 border: "2px solid white"}} onClick={() => setRunTour(true)}>{content['startTour'][lan]}</Button>
