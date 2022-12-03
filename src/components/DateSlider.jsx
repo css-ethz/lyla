@@ -102,7 +102,10 @@ function DateSlider({setSDate, setEDate, dateTitle, startDateText, endDateText})
     
   }
   const color = "white";
-  
+  const onKeyDown = (e) => {
+    e.preventDefault();
+ };
+
 
     return(
       <div>
@@ -127,7 +130,7 @@ function DateSlider({setSDate, setEDate, dateTitle, startDateText, endDateText})
                     updateFromPicker(newValue,1);
                   }}
                   renderInput={(params) => 
-                  <TextField {...params} sx={{ svg: { color },
+                  <TextField onKeyDown={onKeyDown} {...params} sx={{ svg: { color },
                   input: { color },
                   label: { color }}} />}
                 />
@@ -158,7 +161,7 @@ function DateSlider({setSDate, setEDate, dateTitle, startDateText, endDateText})
                   onChange={(newValue) => {
                     updateFromPicker(newValue,0);
                   }}
-                  renderInput={(params) => <TextField {...params} sx={{ svg: { color },
+                  renderInput={(params) => <TextField onKeyDown={onKeyDown} {...params} sx={{ svg: { color },
                   input: { color },
                   label: { color }}} />}
                 />
