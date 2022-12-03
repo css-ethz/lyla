@@ -767,7 +767,6 @@ const ParentFunction = (e) => {
                   
             </Col>
             <Col md={3}>
-            <br/>
               <Form.Label className='mb-3 line-break'>
 
                   {content['violenceInflicted'][lan]}&thinsp;
@@ -786,7 +785,6 @@ const ParentFunction = (e) => {
                 />
             </Col>
             <Col md={3}>
-            <br/>
               <Form.Label className='mb-3 line-break'>
                   {content['numberPerpetrators'][lan]}&thinsp;
                   <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['numberPerpetratorsInfo'][lan]} />
@@ -909,7 +907,7 @@ const ParentFunction = (e) => {
             </Col>
             </Row>
           </Col>
-          <Col md={3}>
+          <Col md={4}>
             <Row>
 
             </Row>
