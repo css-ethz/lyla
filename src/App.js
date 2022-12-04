@@ -26,8 +26,7 @@ import DateSlider from './components/DateSlider';
 import DownloadComponent from './components/DownloadComponent';
 import Heatmap from './components/Heatmap';
 import ResetMarker from './components/ResetMarker';
-import { Button } from 'react-bootstrap'
-import MarkerClusterGroup from '@changey/react-leaflet-markercluster';
+import { Button } from 'react-bootstrap';
 import 'leaflet/dist/leaflet.css';
 import colorLib from '@kurkle/color';
 import { MultiSelect } from "react-multi-select-component";
