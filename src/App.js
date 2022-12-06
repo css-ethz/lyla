@@ -449,7 +449,10 @@ const ParentFunction = (e) => {
   useEffect(() => {
     var occurences = filteredData_agg.reduce(function (r, row) {
       var val_name = dictionary.filter((item) => item.variable == var_chart & item.value == row[var_chart]).map((element) => element.name)[0];
-      r[val_name] = ++r[val_name] || 1;
+      if (typeof val_name === 'undefined'){
+        val_name='Not reported'
+      }
+      r[val_name] = r[val_name]+row.id || row.id;
       return r;
     }, {});
     if (!Check) {
@@ -471,7 +474,10 @@ const ParentFunction = (e) => {
     current_countries.push(...countries.map(function (e) {
       var occurences = filteredData_agg.filter((item) => (item.name_0 == e.value)).reduce(function (r, row) {
         var val_name = dictionary.filter((item) => item.variable == var_chart & item.value == row[var_chart]).map((element) => element.name)[0];
-        r[val_name] = ++r[val_name] || 1;
+        if (typeof val_name === 'undefined'){
+          val_name='Not reported'
+        }
+        r[val_name] = r[val_name]+row.id || row.id;
         return r;
       }, {})
       if (!Check) {
@@ -543,7 +549,6 @@ const ParentFunction = (e) => {
         r[year] = r[year] + row.id || row.id;
         return r;
       }, {});
-      console.log("occurences are2", occurences);
       if (!Check) {
         Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
       }
