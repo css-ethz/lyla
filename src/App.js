@@ -518,7 +518,7 @@ const ParentFunction = (e) => {
 
     var occurences = filteredData_agg.reduce(function (r, row) {
       var year = row['month_year'].slice(0, 4);
-      r[year] = ++r[year] || 1;
+      r[year] = r[year] + row.id|| row.id;
       return r; //returns array with keys being the years and values the number of events 
     }, {});
     setOccs(occurences);
@@ -540,13 +540,13 @@ const ParentFunction = (e) => {
     current_countries.push(...countries.map(function (e) {
       var occurences = filteredData_agg.filter((item) => (item.name_0 == e.value)).reduce(function (r, row) {
         var year = row['month_year'].slice(0, 4);
-        r[year] = ++r[year] || 1;
+        r[year] = r[year] + row.id || row.id;
         return r;
       }, {});
+      console.log("occurences are2", occurences);
       if (!Check) {
         Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
       }
-
       return {
         label: e.value,
         data: occurences,
