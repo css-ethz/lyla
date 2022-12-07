@@ -660,7 +660,7 @@ const ParentFunction = (e) => {
      
 
       <div className='cover'>
-      <img src="eth-logo.png"/>
+      <img src="eth_logo_kurz_neg.png"/>
      
       
       
