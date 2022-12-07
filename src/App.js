@@ -660,7 +660,7 @@ const ParentFunction = (e) => {
      
 
       <div className='cover'>
-      <img src="eth_logo_kurz_neg.png"/>
+      
      
       
       
@@ -826,6 +826,9 @@ const ParentFunction = (e) => {
                       onChange={() => setShow(!Show)}
               />
             </Col>
+            <Col md={4}>
+          <EventsText country={countryKey} num_events={numEvents}/>
+          </Col>
             </Row>
             <Row>
             <Col md={12}>
@@ -981,13 +984,12 @@ const ParentFunction = (e) => {
           <Col md={4}>
           {/* <DownloadComponent filteredData={eventData} text={content['downloadText'][lan]}/> */}
           </Col>
-          <Col md={4}>
-          <EventsText country={countryKey} num_events={numEvents}/>
-          </Col>
+         
           </Row>
           </div>
       </div>
       <p style={{fontSize:"10pt"}}>Website created by <a style={{color: "inherit"}} href="https://cristyguzman.github.io/" target="_blank"> Cristina Guzman</a> and <a style={{color: "inherit"}} href="https://feradauto.github.io/" target="_blank">Fernando Gonzalez</a>.</p>
+      <img src="eth_logo_kurz_neg.png"/>
     
 
     </div>
