@@ -669,7 +669,7 @@ const ParentFunction = (e) => {
         
         <h1 style={{ fontSize: "8vmin", marginLeft: "-11vw", marginRight: "1vw", marginTop: "-50pt" }}>{content['title'][lan]}</h1>
         
-        <p style={{ fontSize: "15pt", marginLeft: "10vw", marginRight: "20vw", marginTop: "30vh" }}>
+        <p style={{ fontSize: "15pt", marginLeft: "9vw", marginRight: "20vw", marginTop: "30vh" }}>
           {content['text'][lan]}<a style={{color: "inherit"}} href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html" target="_blank">{content['info-ref'][lan]}</a>.
         </p>
         <Row style={{positions:"absolute", marginLeft:"8%", marginTop:"5%"}}>
@@ -826,7 +826,7 @@ const ParentFunction = (e) => {
                       onChange={() => setShow(!Show)}
               />
             </Col>
-            <Col md={4}>
+            <Col md={5}>
           <EventsText country={countryKey} num_events={numEvents}/>
           </Col>
             </Row>
@@ -988,9 +988,10 @@ const ParentFunction = (e) => {
           </Row>
           </div>
       </div>
-      <p style={{fontSize:"10pt"}}>Website created by <a style={{color: "inherit"}} href="https://cristyguzman.github.io/" target="_blank"> Cristina Guzman</a> and <a style={{color: "inherit"}} href="https://feradauto.github.io/" target="_blank">Fernando Gonzalez</a>.</p>
-      <img src="eth_logo_kurz_neg.png"/>
-    
+      
+      <p style={{fontSize:"10pt", marginLeft:'15px'}}>Website created by <a style={{color: "inherit"}} href="https://cristyguzman.github.io/" target="_blank"> Cristina Guzman</a> and <a style={{color: "inherit"}} href="https://feradauto.github.io/" target="_blank">Fernando Gonzalez</a>.</p>
+      <img src={require("./eth_logo_kurz_neg.png")} style={{height:'50px', marginBottom: '10px', marginTop:'-15px'}}/>
+      
 
     </div>
 
