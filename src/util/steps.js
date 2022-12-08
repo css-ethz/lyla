@@ -42,13 +42,10 @@ export const steps_joyride = [
     placement:""}, //bar chart
    
     
-    {title:"You can download the entire database of events and additional variables and the codebook with the description of each of the variables in the dataset.", 
-    content:"",
+    {title:"Downloads", 
+    content:"Finally, you can download the entire database of events and additional variables and the codebook with the description of each of the variables in the dataset.",
     target: ".download",
     placement:""}, // download csv
-    {title:"Thank you", 
-    content:"write something",
-    target: ".intro",
-    placement:"center"}, //goodbye
+   
     ];
 
