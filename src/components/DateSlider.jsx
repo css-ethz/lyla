@@ -24,7 +24,7 @@ function DateSlider({setSDate, setEDate, dateTitle, startDateText, endDateText})
     const [startDate, setstartDate] = useState("01/01/2010");
     const [startDateLabel, setstartDateLabel] = useState("01/01/2010");
     const [endDate, setendDate] = useState("01/01/2020");
-    const [endDateLabel, setendDateLabel] = useState("01/01/2020");
+    const [endDateLabel, setendDateLabel] = useState("31/12/2019");
     const [currentValue, setcurrentValue] = useState([]);
     const [minRange, setminRange] = useState(0);
     const [maxRange, setmaxRange] = useState(100);
