@@ -753,178 +753,174 @@ const ParentFunction = (e) => {
                 </Col>
 
                 <Col md={3}>
-              <br/>
-              <Form.Label className='mb-3 line-break' >
-                  {content['worstOutcome'][lan]}&thinsp;
-                  <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['worstOutcomeInfo'][lan]} />
-                </Form.Label>
-                <MultiSelect   className='multi-select'
-                  options={dictionary.filter((item) =>
-                    item.variable == 'tar_outcome'
-                  ).map((element) => {
-                    return { 'label': element.name, 'value': element.value }
+                  <Form.Label className='mb-3 line-break' >
+                    {content['worstOutcome'][lan]}&thinsp;
+                    <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['worstOutcomeInfo'][lan]} />
+                  </Form.Label>
+                  <MultiSelect   className='multi-select'
+                    options={dictionary.filter((item) =>
+                      item.variable == 'tar_outcome'
+                    ).map((element) => {
+                      return { 'label': element.name, 'value': element.value }
 
-                  })}
-                  value={tarOutcome}
-                  onChange={setTarOutcome}
-                  labelledBy="Select"
-                />
+                    })}
+                    value={tarOutcome}
+                    onChange={setTarOutcome}
+                    labelledBy="Select"
+                  />
                   
-            </Col>
-            <Col md={3}>
-              <Form.Label className='mb-3 line-break'>
+                </Col>
+                <Col md={3}>
+                  <Form.Label className='mb-3 line-break'>
 
-                  {content['violenceInflicted'][lan]}&thinsp;
-                  <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['violenceInflictedInfo'][lan]} />
-                </Form.Label>
-                <MultiSelect className='multi-select'
-                  options={dictionary.filter((item) =>
-                    item.variable == 'pe_violence'
-                  ).map((element) => {
-                    return { 'label': element.name, 'value': element.value }
+                    {content['violenceInflicted'][lan]}&thinsp;
+                    <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['violenceInflictedInfo'][lan]} />
+                  </Form.Label>
+                  <MultiSelect className='multi-select'
+                    options={dictionary.filter((item) =>
+                      item.variable == 'pe_violence'
+                    ).map((element) => {
+                      return { 'label': element.name, 'value': element.value }
 
-                  })}
-                  value={peViolence}
-                  onChange={setPeViolence}
-                  labelledBy="Select"
-                />
-            </Col>
-            <Col md={3}>
-              <Form.Label className='mb-3 line-break'>
-                  {content['numberPerpetrators'][lan]}&thinsp;
-                  <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['numberPerpetratorsInfo'][lan]} />
-                </Form.Label>
-                <MultiSelect className='multi-select'
-                  options={dictionary.filter((item) =>
-                    item.variable == 'pe_approxnumber'
-                  ).map((element) => {
-                    return { 'label': element.name, 'value': element.value }
+                    })}
+                    value={peViolence}
+                    onChange={setPeViolence}
+                    labelledBy="Select"
+                  />
+                </Col>
+                <Col md={3}>
+                  <Form.Label className='mb-3 line-break'>
+                    {content['numberPerpetrators'][lan]}&thinsp;
+                    <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['numberPerpetratorsInfo'][lan]} />
+                  </Form.Label>
+                  <MultiSelect className='multi-select'
+                    options={dictionary.filter((item) =>
+                      item.variable == 'pe_approxnumber'
+                    ).map((element) => {
+                      return { 'label': element.name, 'value': element.value }
 
-                  })}
-                  value={peNum}
-                  onChange={setPeNum}
-                  labelledBy="Select"
+                    })}
+                    value={peNum}
+                    onChange={setPeNum}
+                    labelledBy="Select"
 
-                />
-            </Col>
-            </Row>
+                  />
+                </Col>
+              </Row>
             </Col>
             <Col md={5}>
-            <br/>
-            <DateSlider style={{fontSize:"10px"}} className="date" setSDate={setSDate} setEDate={setEDate} dateTitle={content['timeWindow'][lan]} startDateText={content['startDateText'][lan]} endDateText={content['endDateText'][lan]}/>
+              <br/>
+              <DateSlider style={{fontSize:"10px"}} className="date" setSDate={setSDate} setEDate={setEDate} dateTitle={content['timeWindow'][lan]} startDateText={content['startDateText'][lan]} endDateText={content['endDateText'][lan]}/>
             </Col>
           </Row>
           <Row>
-          <Col md={8}>
-            <Row>
-            <Col md={3}>
-            <Form.Check 
-                      type='checkbox'
-                      label={content['showEvents'][lan]}
-                      id={`events`}
-                      checked={Show}
-                      onChange={() => setShow(!Show)}
-              />
-            </Col>
-            <Col md={5}>
-          <EventsText country={countryKey} num_events={numEvents}/>
-          </Col>
-            </Row>
-            <Row>
-            <Col md={12}>
-            <MapContainer
-                className='regionMap'
-                id={"regionMap"}
-                bounds={outerBounds}
-                whenCreated={setMap}
-                fullscreenControl={true}
-                center={center}
-                zoom={4}
-                scrollWheelZoom={false}
-                style={{ width: '100%', height: '1000px' }}
-              >
-                <TileLayer {...{
-                  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
-                  url: 'https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png'
-                }
-                } />
+            <Col md={8}>
+              <Row>
+                <Col md={4}>
+                  <Form.Check 
+                            type='checkbox'
+                            label={content['showEvents'][lan]}
+                            id={`events`}
+                            checked={Show}
+                            onChange={() => setShow(!Show)}
+                    />
+                </Col>
+                <Col md={8}>
+                  <EventsText country={countryKey} num_events={numEvents}/>
+                </Col>
+              </Row>
 
-                {Show && filteredData.map(evt => (
-                  <CircleMarker
-                    center={[evt.geometry.coordinates[0], evt.geometry.coordinates[1]]}
-                    radius={evt.press_article == 'true' ? 7 : 2}
-                    pane={evt.press_article == 'true' ? "locationMarker":"markerPane"}
-                    fillOpacity={1} 
-                    pathOptions={{
-                      color: evt.press_article == 'true'  ? getColor(1):getColor(0),
-                      fillColor:evt.press_article == 'true'  ? '#464342' : 'white',
-                      
-                    }}
-                    /* {evt.press_article == 'true' ? '#EA4335' : '#464342'} */
-                    
-                    strokeOpacity={0.5}
-                    eventHandlers={{
-                      mouseover: (event) => {
-                        event.target.openPopup()
-                        setMouseHover(true)
-                      }
-                    }}>
-                    <Popup className='popup' pane="popupPane">
-                      {/* <img className="popup-img" src={bogota} alt="bogota" /><br/> */}
-                      {evt.name_1}, {evt.name_0} <br />
-                      {evt.date} <br />
-                      {/* {evt.header} <br /> */}
-                      <table className="table-popup">
-                        <tr>
-                          <td> {content['allegedWrongdoing'][lan]}:</td>
-                          <td></td>
-                          <td> &thinsp;{dictionary.filter((item) =>
-                            item.variable == 'tar_wrongdoing' & item.value == evt.tar_wrongdoing).map((element) => {
-                              return element.name
-                            })} </td>
-                        </tr>
-                        <tr>
-                          <td> {content['violenceInflicted'][lan]}:</td>
-                          <td></td>
-                          <td> &thinsp;{dictionary.filter((item) =>
-                            item.variable == 'pe_violence' & item.value == evt.pe_violence).map((element) => {
-                              return element.name
-                            })}</td>
-                        </tr>
-                        <tr>
-                          <td> {content['worstOutcome'][lan]}:</td>
-                          <td></td>
-                          <td> &thinsp;{dictionary.filter((item) =>
-                            item.variable == 'tar_outcome' & item.value == evt.tar_outcome).map((element) => {
-                              return element.name
-                            })}</td>
-                        </tr>
-                      </table>
-                      {evt.press_article == 'true' &&
-                        <a href={evt.link} target="_blank">Link to article</a>}
-                    </Popup>
-                  </CircleMarker>
-                ))}
-
-                <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} file={file} parentFunc={ParentFunction} num_events={numEvents} lan={lan} setZoom={setZoom}/>
-                <Ocean geojson_data={geojson_ocean} key_id='key_geojson'/>
-                <OtherCountries geojson_data={geojson_others} key_id='key_geojson'/>
-                
-                <ResetMarker className='reset' setfile={setfile}></ResetMarker>
-            </MapContainer>
-            </Col>
-            </Row>
-          </Col>
-          <Col md={4}>
-            <Row>
-
-            </Row>
             
-          <Row>
-          <Col md={9}>
-          <br/>
-          <br/>
-                    <Form.Label className='mb-2'>{content['countryText'][lan]}</Form.Label>
+              <Row>
+                <Col md={12}>
+                  <MapContainer
+                      className='regionMap'
+                      id={"regionMap"}
+                      bounds={outerBounds}
+                      whenCreated={setMap}
+                      fullscreenControl={true}
+                      center={center}
+                      zoom={4}
+                      scrollWheelZoom={false}
+                      style={{ width: '100%', height: '1000px' }}>
+                      <TileLayer {...{
+                        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
+                        url: 'https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png'
+                      }
+                      } />
+
+                      {Show && filteredData.map(evt => (
+                        <CircleMarker
+                          center={[evt.geometry.coordinates[0], evt.geometry.coordinates[1]]}
+                          radius={evt.press_article == 'true' ? 7 : 2}
+                          pane={evt.press_article == 'true' ? "locationMarker":"markerPane"}
+                          fillOpacity={1} 
+                          pathOptions={{
+                            color: evt.press_article == 'true'  ? getColor(1):getColor(0),
+                            fillColor:evt.press_article == 'true'  ? '#464342' : 'white',
+                            
+                          }}
+                          /* {evt.press_article == 'true' ? '#EA4335' : '#464342'} */
+                          
+                          strokeOpacity={0.5}
+                          eventHandlers={{
+                            mouseover: (event) => {
+                              event.target.openPopup()
+                              setMouseHover(true)
+                            }
+                          }}>
+                          <Popup className='popup' pane="popupPane">
+                            {/* <img className="popup-img" src={bogota} alt="bogota" /><br/> */}
+                            {evt.name_1}, {evt.name_0} <br />
+                            {evt.date} <br />
+                            {/* {evt.header} <br /> */}
+                            <table className="table-popup">
+                              <tr>
+                                <td> {content['allegedWrongdoing'][lan]}:</td>
+                                <td></td>
+                                <td> &thinsp;{dictionary.filter((item) =>
+                                  item.variable == 'tar_wrongdoing' & item.value == evt.tar_wrongdoing).map((element) => {
+                                    return element.name
+                                  })} </td>
+                              </tr>
+                              <tr>
+                                <td> {content['violenceInflicted'][lan]}:</td>
+                                <td></td>
+                                <td> &thinsp;{dictionary.filter((item) =>
+                                  item.variable == 'pe_violence' & item.value == evt.pe_violence).map((element) => {
+                                    return element.name
+                                  })}</td>
+                              </tr>
+                              <tr>
+                                <td> {content['worstOutcome'][lan]}:</td>
+                                <td></td>
+                                <td> &thinsp;{dictionary.filter((item) =>
+                                  item.variable == 'tar_outcome' & item.value == evt.tar_outcome).map((element) => {
+                                    return element.name
+                                  })}</td>
+                              </tr>
+                            </table>
+                            {evt.press_article == 'true' &&
+                              <a href={evt.link} target="_blank">Link to article</a>}
+                          </Popup>
+                        </CircleMarker>
+                      ))}
+
+                      <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} file={file} parentFunc={ParentFunction} num_events={numEvents} lan={lan} setZoom={setZoom}/>
+                      <Ocean geojson_data={geojson_ocean} key_id='key_geojson'/>
+                      <OtherCountries geojson_data={geojson_others} key_id='key_geojson'/>
+                      
+                      <ResetMarker className='reset' setfile={setfile}></ResetMarker>
+                  </MapContainer>
+                </Col>
+              </Row>
+            </Col>
+            <Col md={4}>
+              <Row>
+                <Col md={9}>
+                  <br/>
+                  <br/>
+                  <Form.Label className='mb-2'>{content['countryText'][lan]}</Form.Label>
                   <MultiSelect className='multi-select'
                     options={dictionary.filter((item) =>
                       item.variable == 'country'
@@ -936,57 +932,50 @@ const ParentFunction = (e) => {
                     onChange={setCountries}
                     labelledBy="Select"
                   />
+                </Col>
+                <Col md={3}>
+                  <br/>
+                  <br/>
+                  <br/>
+                  <br/>
+                  <Form.Check
+                          type='checkbox'
+                          label={content['numEvents'][lan]}
+                          id={`population`}
+                          checked={Check}
+                          onChange={() => setCheck(!Check)}
+                        />
                   </Col>
-            <Col md={3}>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-            <Form.Check
-                    type='checkbox'
-                    label={content['numEvents'][lan]}
-                    id={`population`}
-                    checked={Check}
-                    onChange={() => setCheck(!Check)}
-                  />
-            </Col>
+                </Row>
+                <Row>
+                  <Line data={lineData}
+                        // options= {/{scales: {x: {type: 'time'}}} }
+                        options={options}/>
 
-                    </Row>
-                    <Row>
-                    <Line data={lineData}
-                    // options= {/{scales: {x: {type: 'time'}}} }
-                    options={options}
-                  />
-
-            </Row>
-            <Row>
-            <Col md={9}>
-            <br/>
-            <br/>
-            <Form.Select
-                    value={var_chart}
-                    onChange={event => setvar_chart(event.target.value)}>
-                    <option value="pe_approxnumber">{content['numberPerpetrators'][lan]}</option>
-                    <option value="tar_wrongdoing">{content['allegedWrongdoing'][lan]}</option>
-                    <option value="tar_outcome">{content['worstOutcome'][lan]}</option>
-                    <option value="pe_violence">{content['violenceInflicted'][lan]}</option>
+                </Row>
+              <Row>
+                <Col md={9}>
+                  <br/>
+                  <br/>
+                  <Form.Select
+                          value={var_chart}
+                          onChange={event => setvar_chart(event.target.value)}>
+                          <option value="pe_approxnumber">{content['numberPerpetrators'][lan]}</option>
+                          <option value="tar_wrongdoing">{content['allegedWrongdoing'][lan]}</option>
+                          <option value="tar_outcome">{content['worstOutcome'][lan]}</option>
+                          <option value="pe_violence">{content['violenceInflicted'][lan]}</option>
                   </Form.Select>
-                  </Col>
-            </Row>
-            <Row>
-            <Col md={12}>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={12}>
                   <Bar options={optionsBar} data={barData} />
                 </Col>
-            </Row>
-          </Col>
+              </Row>
+            </Col>
           </Row>
-          <Row>
-          <Col md={4}>
-          {/* <DownloadComponent filteredData={eventData} text={content['downloadText'][lan]}/> */}
-          </Col>
          
-          </Row>
-          </div>
+        </div>
       </div>
       
       <p style={{fontSize:"10pt", marginLeft:'15px'}}>Website created by <a style={{color: "inherit"}} href="https://cristyguzman.github.io/" target="_blank"> Cristina Guzman</a> and <a style={{color: "inherit"}} href="https://feradauto.github.io/" target="_blank">Fernando Gonzalez</a>.</p>
