@@ -112,5 +112,9 @@
     "info-ref":{
         "en": "here",
         "es": "aquí"
+    },
+    "link_article":{
+        "en": "Link to article",
+        "es": "Ir a artículo"
     }
 }

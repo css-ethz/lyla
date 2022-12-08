@@ -852,12 +852,13 @@ const ParentFunction = (e) => {
                       {Show && filteredData.map(evt => (
                         <CircleMarker
                           center={[evt.geometry.coordinates[0], evt.geometry.coordinates[1]]}
-                          radius={evt.press_article == 'true' ? 7 : 2}
+                          radius={evt.press_article == 'true' ? 12 : 4}
                           pane={evt.press_article == 'true' ? "locationMarker":"markerPane"}
-                          fillOpacity={1} 
+                          fillOpacity={evt.press_article == 'true' ? 0.8 : 0.4} 
                           pathOptions={{
+                            weight:0,
                             color: evt.press_article == 'true'  ? getColor(1):getColor(0),
-                            fillColor:evt.press_article == 'true'  ? '#464342' : 'white',
+                            fillColor:evt.press_article == 'true'  ? '#EEE394' : '#464342',
                             
                           }}
                           /* {evt.press_article == 'true' ? '#EA4335' : '#464342'} */
@@ -871,9 +872,17 @@ const ParentFunction = (e) => {
                           }}>
                           <Popup className='popup' pane="popupPane">
                             {/* <img className="popup-img" src={bogota} alt="bogota" /><br/> */}
-                            {evt.name_1}, {evt.name_0} <br />
-                            {evt.date} <br />
+                            
                             {/* {evt.header} <br /> */}
+                            {evt.press_article == 'true' && 
+                              lan == 'es' ? <h5>{evt.header_es}</h5> : <h5>{evt.header_en}</h5>}
+
+                            {evt.press_article == 'true' && <br/>}
+                            {evt.press_article == 'true' &&
+
+                              <a href={evt.link} target="_blank">{content['link_article'][lan]}</a>}
+                            <br/>{evt.name_1}, {evt.name_0} <br />
+                            {evt.date} <br />
                             <table className="table-popup">
                               <tr>
                                 <td> {content['allegedWrongdoing'][lan]}:</td>
@@ -900,8 +909,7 @@ const ParentFunction = (e) => {
                                   })}</td>
                               </tr>
                             </table>
-                            {evt.press_article == 'true' &&
-                              <a href={evt.link} target="_blank">Link to article</a>}
+                            
                           </Popup>
                         </CircleMarker>
                       ))}
