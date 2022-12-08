@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/lyla/static/css/main.5c890bd2.css",
-    "main.js": "/lyla/static/js/main.09f07fe1.js",
+    "main.css": "/lyla/static/css/main.7a6a9146.css",
+    "main.js": "/lyla/static/js/main.b6a8859e.js",
     "static/js/787.a0fff93e.chunk.js": "/lyla/static/js/787.a0fff93e.chunk.js",
     "static/media/mexico-city-cover.jpg": "/lyla/static/media/mexico-city-cover.f34d01b944caa52100a5.jpg",
-    "static/media/Codebook_LYLA.pdf": "/lyla/static/media/Codebook_LYLA.3be68a86b1ee697ecaf5.pdf",
+    "static/media/Codebook_LYLA.pdf": "/lyla/static/media/Codebook_LYLA.7d685bf17d4ae212e974.pdf",
     "static/media/bogota.jpg": "/lyla/static/media/bogota.4d2b71a580ce43c6ac6f.jpg",
     "static/media/circle.svg": "/lyla/static/media/circle.2e25d47d98be4dd4dd4edeb5e0d8d95c.svg",
     "index.html": "/lyla/index.html",
-    "main.5c890bd2.css.map": "/lyla/static/css/main.5c890bd2.css.map",
-    "main.09f07fe1.js.map": "/lyla/static/js/main.09f07fe1.js.map",
+    "main.7a6a9146.css.map": "/lyla/static/css/main.7a6a9146.css.map",
+    "main.b6a8859e.js.map": "/lyla/static/js/main.b6a8859e.js.map",
     "787.a0fff93e.chunk.js.map": "/lyla/static/js/787.a0fff93e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5c890bd2.css",
-    "static/js/main.09f07fe1.js"
+    "static/css/main.7a6a9146.css",
+    "static/js/main.b6a8859e.js"
   ]
 }
