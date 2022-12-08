@@ -14,8 +14,8 @@ export const steps_joyride = [
 
     }},
 
-    {title: "Hello map", 
-    content: "this is the interactive map", 
+    {title: "Interactive map", 
+    content: "In this map you can observe the amount of lynching events per country. You can click on any country in order to display the distribution of lynchings within the chosen country. By clicking on the Show events button, exact coordinates of each of the events are shown", 
     target: ".regionMap", 
     placement:"right",
     isFixed: true,
@@ -29,58 +29,24 @@ export const steps_joyride = [
 
     }},
     {title:"Filtering the events", 
-    content:"",
+    content:"You can filter the information to be displayed on both the map and the charts on the right hand side by using the filter buttons and/or the date slider.",
     target: ".filters",
     placement:""}, //filters
-    {title:"Choose a time window", 
-    content:"You can also filter by choosing a time window",
-    target: ".date",
-    placement:""}, //choose time window
-    {title:"Show event points", 
-    content:"",
-    target: ".show-events",
-    placement:""}, //show events
-    {title:"Number of cases for clicked country or region", 
-    content:"Default Latin America",
-    target: ".txt-events",
-    placement:""}, //event text
     {title:"Linechart of number of events per year", 
-    content:"",
+    content:"You can compare the number of events over time for any chosen country and any given time window. The default displayed line corresponds to the number of events from the years 2010 to 2019 in Latin America.",
     target: ".linechart",
     placement:""}, //line chart
     {title:"Total number of events given variable", 
-    content:"",
+    content:"You can also compare the total number of events for a specific variable and its corresponding categories.",
     target: ".barchart",
     placement:""}, //bar chart
-    {title:"Display charts based on absolute number of events", 
-    content:"",
-    target: ".num-events",
-    placement:""}, //number of events
-    {title:"Select countries to display in charts", 
-    content:"",
-    target: ".countrytext",
-    placement:""}, //countries
-    {title:"Select variable for displaying bar chart", 
-    content:"",
-    target: ".barvariables",
-    placement:""}, //variables for barchart
-    {title:"Download  the entire database of events and additional variables", 
+   
+    
+    {title:"You can download the entire database of events and additional variables and the codebook with the description of each of the variables in the dataset.", 
     content:"",
     target: ".download",
     placement:""}, // download csv
-    {title:"Download codebook", 
-    content:"",
-    target: ".codebook",
-    placement:""}, //codebook
-    {title:"You can change language by clicking on this button", 
-    content:"",
-    target: ".language",
-    placement:""}, //languages
-    {title:"You can retart this tour whenever you click on this button", 
-    content:"",
-    target: ".tour",
-    placement:""}, //restart tour
-    {title:"Bye!", 
+    {title:"Thank you", 
     content:"write something",
     target: ".intro",
     placement:"center"}, //goodbye

@@ -675,7 +675,7 @@ const ParentFunction = (e) => {
         <p style={{ fontSize: "15pt", marginLeft: "9vw", marginRight: "20vw", marginTop: "30vh" }}>
           {content['text'][lan]}<a style={{color: "inherit"}} href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html" target="_blank">{content['info-ref'][lan]}</a>.
         </p>
-        <Row style={{positions:"absolute", marginLeft:"8%", marginTop:"5%"}}>
+        <Row className="download" style={{positions:"absolute", marginLeft:"8%", marginTop:"5%"}}>
               <Col>
               <ExportExcel excelData={eventData_orig} fileName={'LYLA_2022-9-21'} text={content['downloadText'][lan]}/>
                 
@@ -723,7 +723,7 @@ const ParentFunction = (e) => {
     
         <div style={{marginLeft: "15pt",marginRight:"15pt"}}>
           
-          <Row>
+          <Row className="filters">
             <Col md={7}>
               <Row>
                 <Col md={4}>
@@ -959,7 +959,7 @@ const ParentFunction = (e) => {
                   </Col>
                 </Row>
                 <Row>
-                  <Line data={lineData}
+                  <Line className="linechart" data={lineData}
                         // options= {/{scales: {x: {type: 'time'}}} }
                         options={options}/>
 
@@ -980,7 +980,7 @@ const ParentFunction = (e) => {
               </Row>
               <Row>
                 <Col md={12}>
-                  <Bar options={optionsBar} data={barData} />
+                  <Bar className="barchart" options={optionsBar} data={barData} />
                 </Col>
               </Row>
             </Col>
