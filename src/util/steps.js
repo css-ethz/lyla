@@ -32,7 +32,7 @@ export const steps_joyride = [
     content:"You can filter the information to be displayed on both the map and the charts on the right hand side by using the filter buttons and/or the date slider.",
     target: ".filters",
     placement:""}, //filters
-    {title:"Linechart of number of events per year", 
+    {title:"Line chart of number of events per year", 
     content:"You can compare the number of events over time for any chosen country and any given time window. The default displayed line corresponds to the number of events from the years 2010 to 2019 in Latin America.",
     target: ".linechart",
     placement:""}, //line chart
