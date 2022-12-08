@@ -13,6 +13,7 @@ import { Icon } from 'leaflet';
 import geojson from './data/admin0.geojson.json'
 import geojson1_admin1 from './data/admin1.geojson.json'
 import eventData from './data/json_data_complete_latin3.json'
+import eventData_orig from './data/LYLA_2022-9-21_latest.json'
 import aggData from './data/data_agg.json'
 import population_admin0 from './data/population_admin0.json'
 import dictionary from './data/dictionary.json'
@@ -57,6 +58,7 @@ import EventsText from './components/EventsText';
 import JoyRide, { STATUS } from 'react-joyride';
 import DownloadCodebook from './components/CodebokkPopUp';
 import {steps_joyride} from './util/steps';
+import ExportExcel from './components/ExcelExport';
 
 Chart.register(...registerables);
 delete L.Icon.Default.prototype._getIconUrl;
@@ -674,7 +676,7 @@ const ParentFunction = (e) => {
         </p>
         <Row style={{positions:"absolute", marginLeft:"8%", marginTop:"5%"}}>
               <Col>
-              <DownloadComponent filteredData={eventData} text={content['downloadText'][lan]}/>
+              <ExportExcel excelData={eventData_orig} fileName={'LYLA_2022-9-21'} text={content['downloadText'][lan]}/>
                 
               </Col>
         </Row>
