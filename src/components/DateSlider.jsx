@@ -124,7 +124,7 @@ function DateSlider({setSDate, setEDate, dateTitle, startDateText, endDateText})
                   label={startDateText}
                   value={startDateLabel}
                   minDate="01-01-2010"
-                  maxDate="01-01-2020"
+                  maxDate="31-12-2019"
                   inputFormat='DD/MM/yyyy'
                   onChange={(newValue) => {
                     updateFromPicker(newValue,1);
