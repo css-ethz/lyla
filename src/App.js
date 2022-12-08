@@ -693,7 +693,7 @@ const ParentFunction = (e) => {
       
        
         
-        <p style={{opacity:"0.3",position:"absolute", bottom:"20pt", right: "22vmin"}}>Image by <a style={{color: "inherit"}} href="https://unsplash.com/@iequezada"> Isaac Quezada</a></p>
+        <p style={{opacity:"0.3",position:"absolute", bottom:"20pt", right: "22vmin"}}>Image by <a style={{color: "inherit"}} target="_blank" href="https://unsplash.com/@iequezada"> Isaac Quezada</a></p>
       </div>
       <div className='intro' style={{ marginTop: "10pt" }}>
         <h2 style={{marginLeft: "10pt",marginTop:"40pt"}}>{content['title'][lan]}</h2>
