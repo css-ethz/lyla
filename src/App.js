@@ -457,6 +457,7 @@ const ParentFunction = (e) => {
       r[val_name] = r[val_name]+row.id || row.id;
       return r;
     }, {});
+    delete occurences["Not reported"];
     if (!Check) {
       Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
     }
@@ -482,6 +483,7 @@ const ParentFunction = (e) => {
         r[val_name] = r[val_name]+row.id || row.id;
         return r;
       }, {})
+      delete occurences["Not reported"];
       if (!Check) {
         Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
       }
