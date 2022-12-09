@@ -310,7 +310,7 @@ const ParentFunction = (e) => {
 
   useEffect(() => {
     if(fileflag=='Latin America'){
-      setShow(false);
+      setShow(true);
     }else{
       setShow(true);
     }
