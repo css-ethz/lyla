@@ -603,7 +603,7 @@ const ParentFunction = (e) => {
   const getColor=(flag)=>{
     if (flag==1){
       if (zoom==1){
-        return '#EA4335'
+        return '#EEE394'
       }else{
         return '#EA4335'
       }
@@ -861,8 +861,9 @@ const ParentFunction = (e) => {
                           fillOpacity={evt.press_article == 'true' ? 0.8 : 0.4} 
                           pathOptions={{
                             weight:0,
-                            color: evt.press_article == 'true'  ? getColor(1):getColor(0),
-                            fillColor:evt.press_article == 'true'  ? '#EEE394' : '#464342',
+                            //color: evt.press_article == 'true'  ? getColor(1):getColor(0),
+                            fillColor:evt.press_article == 'true'  ? getColor(1):getColor(0),
+
                             
                           }}
                           /* {evt.press_article == 'true' ? '#EA4335' : '#464342'} */
