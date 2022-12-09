@@ -442,7 +442,6 @@ const ParentFunction = (e) => {
     setFilteredData(filtered_data);
     setFilteredData_agg(filtered_data_agg);
     console.log("level here is", level);
-    
     //console.log("number of events is", num_events);
 
   }, [peNum, tarOutcome, wrongdoing, peViolence, StartDate, EndDate, fileflag, countries]);
