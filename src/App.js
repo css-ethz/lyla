@@ -670,10 +670,34 @@ const ParentFunction = (e) => {
        
         {/* Use sizes relative to screen size */}
         <img src={require("./eth_logo_kurz_neg.png")} style={{height:'50px'}}/>
-      
-        <h1 style={{ fontSize: "8vmin", marginLeft: "-11vw", marginRight: "1vw", marginTop: "-50pt" }}>{content['title'][lan]}</h1>
+        <div className='flex-container'>
+          <Button className="language" style={{
+                  right: "2vw",
+                  maxWidth: '9vmax',
+                  maxHeight: '60pt',
+                  textAlign: 'center',
+                  backgroundColor:"transparent",
+                  border: "2px solid white",
+                  display:"flex",
+                  justifyContent:"space-between"
+                }} onClick={onClickLanguage}>{language}</Button>
+          <Button className="tour" style={{
+                right: "22vmin",
+                display:"flex",
+                maxWidth: '90pt',
+                maxHeight: '60pt',
+                marginLeft: '10pt',
+                backgroundColor:"transparent",
+                border: "2px solid white"}} onClick={() => setRunTour(true)}>{content['startTour'][lan]}</Button>
+           
+          
+
+        </div>
         
-        <p style={{ fontSize: "15pt", marginLeft: "9vw", marginRight: "20vw", marginTop: "30vh" }}>
+      
+        <h1 style={{ fontSize: "8vmin", marginLeft: "9vw", marginRight: "1vw", marginTop: "20vh" }}>{content['title'][lan]}</h1>
+        
+        <p style={{ fontSize: "15pt", marginLeft: "9vw", marginRight: "20vw", marginTop: "10vh" }}>
           {content['text'][lan]}<a style={{color: "inherit"}} href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html" target="_blank">{content['info-ref'][lan]}</a>.
         </p>
         <Row className="download" style={{positions:"absolute", marginLeft:"8%", marginTop:"5%"}}>
@@ -700,24 +724,10 @@ const ParentFunction = (e) => {
         <h2 style={{marginLeft: "10pt",marginTop:"40pt"}}>{content['title'][lan]}</h2>
         <Row>
             <Col>
-              <Button className="language" style={{
-                  position: "absolute",
-                  top: "10px",
-                  right: "2vw",
-                  width: '9vmax',
-                  padding: '1vmin 0.5vmin 1vmin 0.5vmin',
-                  backgroundColor:"transparent",
-                  border: "2px solid white"
-                }} onClick={onClickLanguage}>{language}</Button>
+              
             </Col>
             <Col>
-              <Button className="tour" style={{
-                position: "absolute",
-                top: "10px",
-                right: "22vmin",
-                width: '90pt',
-                backgroundColor:"transparent",
-                border: "2px solid white"}} onClick={() => setRunTour(true)}>{content['startTour'][lan]}</Button>
+              
             </Col>
             
         </Row>

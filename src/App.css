@@ -25,7 +25,7 @@ body {
 h1 {
   font-size:20pt;
   color: #fff;
-  position: absolute;
+  
   top: 20%;
   left:20%;
   font-family: 'Montserrat', sans-serif;
@@ -478,6 +478,15 @@ main {
   background-image: url('./mexico-city-cover.jpg');
   width: 100%;
   height: 100vh;
-  overflow: hidden;
+  overflow: auto;
+  overflow-x: hidden;
 }
 
+.flex-container{
+  display:flex;
+  margin-top: -25pt;
+  min-height: 30pt;
+  max-height: 50pt;
+  margin-left: 80%;
+  text-align: center;
+}
