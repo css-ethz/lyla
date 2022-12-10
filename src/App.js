@@ -142,6 +142,8 @@ function App() {
     }
   };
   const optionsBar = {
+    responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       title: {
         display: true,
@@ -149,6 +151,12 @@ function App() {
       },
     },
     scales: {
+      //x: {
+       // ticks: {
+       //   display: false
+       // }
+
+      //},
       yAxes:
       {
         gridLines: {
@@ -157,6 +165,9 @@ function App() {
       },
       xAxes: [
         {
+          ticks: {
+            display: false
+          },
           gridLines: {
             display: "false"
           }
@@ -767,15 +778,7 @@ const ParentFunction = (e) => {
       </div>
       <div className='intro' style={{ marginTop: "10pt" }}>
         <h2 style={{marginLeft: "10pt",marginTop:"40pt"}}>{content['title'][lan]}</h2>
-        <Row>
-            <Col>
-              
-            </Col>
-            <Col>
-              
-            </Col>
-            
-        </Row>
+        
     
         <div style={{marginLeft: "15pt",marginRight:"15pt"}}>
           
@@ -1034,14 +1037,14 @@ const ParentFunction = (e) => {
                           checked={Check}
                           onChange={() => setCheck(!Check)}
                         />
-                  </Col>
-                </Row>
-                <Row>
-                  <Line className="linechart" data={lineData}
+                </Col>
+              </Row>
+              <Row>
+                <Line className="linechart" data={lineData}
                         // options= {/{scales: {x: {type: 'time'}}} }
                         options={options}/>
 
-                </Row>
+              </Row>
               <Row>
                 <Col md={9}>
                   <br/>
@@ -1058,7 +1061,7 @@ const ParentFunction = (e) => {
               </Row>
               <Row>
                 <Col md={12}>
-                  <Bar className="barchart" options={optionsBar} data={barData} />
+                  <Bar className="barchart" style={{height: '70vh'}} options={optionsBar} data={barData} />
                 </Col>
               </Row>
             </Col>
