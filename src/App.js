@@ -780,7 +780,7 @@ const ParentFunction = (e) => {
         <div style={{marginLeft: "15pt",marginRight:"15pt"}}>
           
           <Row className="filters" style={{display:'flex', justifyContent:'center'}}>
-            <Col md={7}>
+            <Col md={8}>
               <Row>
                 <Col md={4}>
                   <Form.Label style={{ fontWeight: 'bold' }}>
@@ -791,7 +791,7 @@ const ParentFunction = (e) => {
               </Row>
               <Row>
                 <Col md={3}>
-                  <Form.Label className='mb-3 line-break' style={{fontSize:'70%'}}>
+                  <Form.Label className='mb-3 line-break'>
                         {content['allegedWrongdoing'][lan]}&thinsp;
                         <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['allegedWrongdoingInfo'][lan]} />
                   </Form.Label>
@@ -812,7 +812,7 @@ const ParentFunction = (e) => {
                 </Col>
 
                 <Col md={3}>
-                  <Form.Label className='mb-3 line-break' style={{fontSize:'70%'}}>
+                  <Form.Label className='mb-3 line-break'>
                     {content['worstOutcome'][lan]}&thinsp;
                     <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['worstOutcomeInfo'][lan]} />
                   </Form.Label>
@@ -830,7 +830,7 @@ const ParentFunction = (e) => {
                   
                 </Col>
                 <Col md={3}>
-                  <Form.Label className='mb-3 line-break' style={{fontSize:'70%'}}>
+                  <Form.Label className='mb-3 line-break'>
 
                     {content['violenceInflicted'][lan]}&thinsp;
                     <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['violenceInflictedInfo'][lan]} />
@@ -848,7 +848,7 @@ const ParentFunction = (e) => {
                   />
                 </Col>
                 <Col md={3}>
-                  <Form.Label className='mb-3 line-break' style={{fontSize:'70%'}}>
+                  <Form.Label className='mb-3 line-break' style={{marginBottom:'40vh'}}>
                     {content['numberPerpetrators'][lan]}&thinsp;
                     <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['numberPerpetratorsInfo'][lan]} />
                   </Form.Label>
@@ -867,7 +867,7 @@ const ParentFunction = (e) => {
                 </Col>
               </Row>
             </Col>
-            <Col md={5}>
+            <Col md={4}>
               <br/>
               <DateSlider style={{fontSize:"10px"}} className="date" setSDate={setSDate} setEDate={setEDate} dateTitle={content['timeWindow'][lan]} startDateText={content['startDateText'][lan]} endDateText={content['endDateText'][lan]}/>
             </Col>
@@ -931,7 +931,12 @@ const ParentFunction = (e) => {
                             mouseover: (event) => {
                               event.target.openPopup()
                               setMouseHover(true)
-                            }
+                            },
+                            mouseout: (e) => {
+                              setTimeout(() => {
+                                e.target.closePopup();
+                              }, 1000);
+                            },
                           }}>
                           <Popup className='popup' pane="popupPane">
                             {/* <img className="popup-img" src={bogota} alt="bogota" /><br/> */}
