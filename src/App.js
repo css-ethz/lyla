@@ -795,6 +795,30 @@ const ParentFunction = (e) => {
                         {content['allegedWrongdoing'][lan]}&thinsp;
                         <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['allegedWrongdoingInfo'][lan]} />
                   </Form.Label>
+                </Col>
+                <Col md={3}>
+                  <Form.Label className='mb-3 line-break'>
+                    {content['worstOutcome'][lan]}&thinsp;
+                    <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['worstOutcomeInfo'][lan]} />
+                  </Form.Label>
+                </Col>
+                <Col md={3}>
+                  <Form.Label className='mb-3 line-break'>
+
+                    {content['violenceInflicted'][lan]}&thinsp;
+                    <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['violenceInflictedInfo'][lan]} />
+                  </Form.Label>
+                </Col>
+                <Col md={3}>
+                  <Form.Label className='mb-3 line-break' style={{marginBottom:'40vh'}}>
+                    {content['numberPerpetrators'][lan]}&thinsp;
+                    <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['numberPerpetratorsInfo'][lan]} />
+                  </Form.Label>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={3}>
+                 
 
                   <MultiSelect className='multi-select'
 
@@ -812,10 +836,7 @@ const ParentFunction = (e) => {
                 </Col>
 
                 <Col md={3}>
-                  <Form.Label className='mb-3 line-break'>
-                    {content['worstOutcome'][lan]}&thinsp;
-                    <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['worstOutcomeInfo'][lan]} />
-                  </Form.Label>
+                 
                   <MultiSelect   className='multi-select'
                     options={dictionary.filter((item) =>
                       item.variable == 'tar_outcome'
@@ -830,11 +851,7 @@ const ParentFunction = (e) => {
                   
                 </Col>
                 <Col md={3}>
-                  <Form.Label className='mb-3 line-break'>
-
-                    {content['violenceInflicted'][lan]}&thinsp;
-                    <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['violenceInflictedInfo'][lan]} />
-                  </Form.Label>
+                  
                   <MultiSelect className='multi-select'
                     options={dictionary.filter((item) =>
                       item.variable == 'pe_violence'
@@ -848,10 +865,7 @@ const ParentFunction = (e) => {
                   />
                 </Col>
                 <Col md={3}>
-                  <Form.Label className='mb-3 line-break' style={{marginBottom:'40vh'}}>
-                    {content['numberPerpetrators'][lan]}&thinsp;
-                    <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['numberPerpetratorsInfo'][lan]} />
-                  </Form.Label>
+                  
                   <MultiSelect className='multi-select'
                     options={dictionary.filter((item) =>
                       item.variable == 'pe_approxnumber'
