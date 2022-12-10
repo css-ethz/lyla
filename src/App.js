@@ -59,6 +59,8 @@ import JoyRide, { STATUS } from 'react-joyride';
 import DownloadCodebook from './components/CodebokkPopUp';
 import {steps_joyride} from './util/steps';
 import ExportExcel from './components/ExcelExport';
+import { getClockPickerUtilityClass } from '@mui/x-date-pickers';
+import { getScopedCssBaselineUtilityClass } from '@mui/material';
 
 Chart.register(...registerables);
 delete L.Icon.Default.prototype._getIconUrl;
@@ -247,8 +249,18 @@ const ParentFunction = (e) => {
     /************************************************ end  ***********************************/
 
   useEffect(() => {
-
-    setlevel(1);
+    if (Show){
+      console.log("show is:", Show)
+      setShow(!Show);
+      setShow(!Show);
+      if (level==2){
+        setShow(true);
+      }
+    }
+    if (level>2){
+      setlevel(1);
+    }
+    
     var countries = ["Argentina", "Bolivia", "Brazil", "Chile", "Colombia",
       "Costa Rica", "Dominican Republic", "Ecuador", "Guatemala", "Honduras",
       "Mexico", "Nicaragua", "Panama", "Paraguay", "Peru", "Uruguay", "Venezuela"]
@@ -269,7 +281,6 @@ const ParentFunction = (e) => {
       const anchor = document.querySelector('#regionMap')
       anchor.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
-
     
 
   }, [file])
@@ -616,6 +627,40 @@ const ParentFunction = (e) => {
     }
   }
 
+  const getOpacity = (flag) =>{
+    if (flag==1){
+      if (zoom==1){
+        return 0.8
+      }else{
+        return 1
+      }
+    }else{
+      if (zoom==1){
+        return 0.4
+      }else{
+        return 1
+      }
+    }
+
+  }
+
+  const getRadius = (flag) =>{
+    if (flag==1){
+      if (zoom==1){
+        return 12
+      }else{
+        return 20
+      }
+    }else{
+      if (zoom==1){
+        return 4
+      }else{
+        return 8
+      }
+    }
+
+  }
+
   return (
 
     <div className="dark">
@@ -734,7 +779,7 @@ const ParentFunction = (e) => {
     
         <div style={{marginLeft: "15pt",marginRight:"15pt"}}>
           
-          <Row className="filters">
+          <Row className="filters" style={{display:'flex', justifyContent:'center'}}>
             <Col md={7}>
               <Row>
                 <Col md={4}>
@@ -746,7 +791,7 @@ const ParentFunction = (e) => {
               </Row>
               <Row>
                 <Col md={3}>
-                  <Form.Label className='mb-3 line-break'>
+                  <Form.Label className='mb-3 line-break' style={{fontSize:'70%'}}>
                         {content['allegedWrongdoing'][lan]}&thinsp;
                         <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['allegedWrongdoingInfo'][lan]} />
                   </Form.Label>
@@ -767,7 +812,7 @@ const ParentFunction = (e) => {
                 </Col>
 
                 <Col md={3}>
-                  <Form.Label className='mb-3 line-break' >
+                  <Form.Label className='mb-3 line-break' style={{fontSize:'70%'}}>
                     {content['worstOutcome'][lan]}&thinsp;
                     <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['worstOutcomeInfo'][lan]} />
                   </Form.Label>
@@ -785,7 +830,7 @@ const ParentFunction = (e) => {
                   
                 </Col>
                 <Col md={3}>
-                  <Form.Label className='mb-3 line-break'>
+                  <Form.Label className='mb-3 line-break' style={{fontSize:'70%'}}>
 
                     {content['violenceInflicted'][lan]}&thinsp;
                     <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['violenceInflictedInfo'][lan]} />
@@ -803,7 +848,7 @@ const ParentFunction = (e) => {
                   />
                 </Col>
                 <Col md={3}>
-                  <Form.Label className='mb-3 line-break'>
+                  <Form.Label className='mb-3 line-break' style={{fontSize:'70%'}}>
                     {content['numberPerpetrators'][lan]}&thinsp;
                     <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['numberPerpetratorsInfo'][lan]} />
                   </Form.Label>
@@ -862,13 +907,16 @@ const ParentFunction = (e) => {
                         url: 'https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png'
                       }
                       } />
+                      <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} file={file} parentFunc={ParentFunction} num_events={numEvents} lan={lan} setZoom={setZoom}/>
+                     
 
                       {Show && filteredData.map(evt => (
                         <CircleMarker
                           center={[evt.geometry.coordinates[0], evt.geometry.coordinates[1]]}
-                          radius={evt.press_article == 'true' ? 12 : 4}
+                          radius={evt.press_article == 'true' ? getRadius(1):getRadius(0)}
                           pane={evt.press_article == 'true' ? "locationMarker":"markerPane"}
-                          fillOpacity={evt.press_article == 'true' ? 0.8 : 0.4} 
+                          fillOpacity={evt.press_article == 'true' ? getOpacity(1):getOpacity(0)} 
+                          style={{zIndex: evt.press_article == 'true' ? 999:0}}
                           pathOptions={{
                             weight:0,
                             //color: evt.press_article == 'true'  ? getColor(1):getColor(0),
@@ -929,8 +977,7 @@ const ParentFunction = (e) => {
                         </CircleMarker>
                       ))}
 
-                      <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} file={file} parentFunc={ParentFunction} num_events={numEvents} lan={lan} setZoom={setZoom}/>
-                      <Ocean geojson_data={geojson_ocean} key_id='key_geojson'/>
+                       <Ocean geojson_data={geojson_ocean} key_id='key_geojson'/>
                       <OtherCountries geojson_data={geojson_others} key_id='key_geojson'/>
                       
                       <ResetMarker className='reset' setfile={setfile}></ResetMarker>
