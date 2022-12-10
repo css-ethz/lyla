@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/lyla/static/css/main.71e2508f.css",
-    "main.js": "/lyla/static/js/main.5a00d941.js",
+    "main.js": "/lyla/static/js/main.da3e6a07.js",
     "static/js/787.a0fff93e.chunk.js": "/lyla/static/js/787.a0fff93e.chunk.js",
     "static/media/mexico-city-cover.jpg": "/lyla/static/media/mexico-city-cover.f34d01b944caa52100a5.jpg",
     "static/media/Codebook_LYLA.pdf": "/lyla/static/media/Codebook_LYLA.7d685bf17d4ae212e974.pdf",
@@ -9,11 +9,11 @@
     "static/media/circle.svg": "/lyla/static/media/circle.2e25d47d98be4dd4dd4edeb5e0d8d95c.svg",
     "index.html": "/lyla/index.html",
     "main.71e2508f.css.map": "/lyla/static/css/main.71e2508f.css.map",
-    "main.5a00d941.js.map": "/lyla/static/js/main.5a00d941.js.map",
+    "main.da3e6a07.js.map": "/lyla/static/js/main.da3e6a07.js.map",
     "787.a0fff93e.chunk.js.map": "/lyla/static/js/787.a0fff93e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.71e2508f.css",
-    "static/js/main.5a00d941.js"
+    "static/js/main.da3e6a07.js"
   ]
 }
