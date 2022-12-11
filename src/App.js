@@ -278,6 +278,7 @@ const ParentFunction = (e) => {
     if (file == 'Latin America') {
       setshapes(geojson);
       setlevel(0);
+      setcountrykey('Latin America');
 
       //map2.fitBounds({outerBounds});
     }
@@ -464,6 +465,10 @@ const ParentFunction = (e) => {
     setFilteredData(filtered_data);
     setFilteredData_agg(filtered_data_agg);
     console.log("level here is", level);
+    setShow(!Show);
+    if (!Show){
+      setShow(true);
+    }
     //console.log("number of events is", num_events);
 
   }, [peNum, tarOutcome, wrongdoing, peViolence, StartDate, EndDate, fileflag, countries]);
@@ -902,7 +907,8 @@ const ParentFunction = (e) => {
                     />
                 </Col>
                 <Col md={8}>
-                  <EventsText country={countryKey} num_events={numEvents}/>
+                  <EventsText country={countryKey} num_events={numEvents} content={content} lan={lan}/>
+                  <p style={{fontSize:"70%",marginTop: "-3%", marginBottom:"-1%"}}>{content['events-text-sub'][lan]}</p>
                 </Col>
               </Row>
 
