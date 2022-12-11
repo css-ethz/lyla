@@ -116,5 +116,13 @@
     "link_article":{
         "en": "Link to article",
         "es": "Ir a artículo"
+    },
+    "events-text":{
+        "en": "reported cases",
+        "es": "casos reportados"
+    },
+    "events-text-sub":{
+        "en": "Total number of cases available from 2010-2019.",
+        "es": "Número de casos total correspondientes al periodo 2010-2019"
     }
 }
