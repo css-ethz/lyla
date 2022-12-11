@@ -57,7 +57,7 @@ import content from './data/content.json';
 import EventsText from './components/EventsText';
 import JoyRide, { STATUS } from 'react-joyride';
 import DownloadCodebook from './components/CodebokkPopUp';
-import {steps_joyride} from './util/steps';
+import {steps_joyride, steps_joyride_es} from './util/steps';
 import ExportExcel from './components/ExcelExport';
 import { getClockPickerUtilityClass } from '@mui/x-date-pickers';
 import { getScopedCssBaselineUtilityClass } from '@mui/material';
@@ -111,6 +111,7 @@ function App() {
   const [zoom,setZoom]=useState(0)
   const [countryKey, setcountrykey] = useState('Latin America');
   const [runTour, setRunTour] = useState(false);
+  const [steps, setSteps] = useState(steps_joyride);
   const [heat, setheat] = useState(() => {
     var groups = filteredData_agg.reduce(function (r, row) {
       r[row.name_0] = ++r[row.name_0] || 1;
@@ -563,6 +564,8 @@ const ParentFunction = (e) => {
       Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
     }
 
+    
+
     var current_countries = [{
       label: 'Latin America', data: occurences,
       fill: false, // use "True" to draw area-plot 
@@ -599,6 +602,15 @@ const ParentFunction = (e) => {
       datasets: current_countries,
     });
   }, [countries, filteredData_agg, Check]);
+
+  useEffect(() => {
+    if (lan=='en'){
+      setSteps(steps_joyride);
+    }else{
+      setSteps(steps_joyride_es);
+    }
+  
+  }, [lan]);
 
   async function fetchData(file) {
     // const response = await fetch("./example.json");
@@ -701,7 +713,7 @@ const ParentFunction = (e) => {
         showProgress
         showSkipButton
         run={runTour}
-        steps={steps_joyride}
+        steps={steps}
         styles={{  buttonClose: {
           display: 'none'
         }}}></JoyRide>
