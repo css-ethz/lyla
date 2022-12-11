@@ -1005,7 +1005,7 @@ const ParentFunction = (e) => {
                         </CircleMarker>
                       ))}
 
-                      {/* <Ocean geojson_data={geojson_ocean} key_id='key_geojson'/> */}
+                      <Ocean geojson_data={geojson_ocean} key_id='key_geojson'/>
                       <OtherCountries geojson_data={geojson_others} key_id='key_geojson'/>
                       
                       <ResetMarker className='reset' setfile={setfile}></ResetMarker>

@@ -7,7 +7,7 @@ const style = {
             fillColor: "#161719",
             weight: 1,
             opacity: 1,
-            color: 'white',
+            color: '#161719',
             dashArray: '1',
             fillOpacity: 1
         };
