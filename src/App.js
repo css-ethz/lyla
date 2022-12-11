@@ -212,7 +212,7 @@ function App() {
     "Nicaragua": "#ECBAC5", "Panama": "#899199", "Paraguay": "#5ADCD4", "Uruguay": "#E79456", "Venezuela": "#C4AC9A"
   };
   const [barData, setBarData] = useState({
-    labels: dictionary.filter((item) => item.variable == var_chart).map((element) => element.name),
+    labels: dictionary.filter((item) => (item.variable == var_chart) && (item.name != "Not reported")).map((element) => element.name),
     datasets: [],
   });
   const sumValues = obj => Object.values(obj).reduce((a, b) => a + b, 0);
@@ -523,7 +523,7 @@ const ParentFunction = (e) => {
     }));
 
     setBarData({
-      labels: dictionary.filter((item) => item.variable == var_chart).map((element) => element.name),
+      labels: dictionary.filter((item) => (item.variable == var_chart)&&(item.name != "Not reported")).map((element) => element.name),
       datasets: current_countries,
     });
   }, [var_chart, countries, filteredData_agg, Check]);
@@ -999,7 +999,7 @@ const ParentFunction = (e) => {
                         </CircleMarker>
                       ))}
 
-                       <Ocean geojson_data={geojson_ocean} key_id='key_geojson'/>
+                      {/* <Ocean geojson_data={geojson_ocean} key_id='key_geojson'/> */}
                       <OtherCountries geojson_data={geojson_others} key_id='key_geojson'/>
                       
                       <ResetMarker className='reset' setfile={setfile}></ResetMarker>
