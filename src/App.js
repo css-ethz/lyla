@@ -584,8 +584,23 @@ const ParentFunction = (e) => {
         r[year] = r[year] + row.id || row.id;
         return r;
       }, {});
-      var years=['2010','2011','2012','2013','2014','2015','2016','2017','2018','2019']
-      years.forEach(key => occurences[key] = occurences[key] || 0 );
+      if (StartDate != '01.01.2010'){
+        console.log("start date is:", StartDate);
+        //const sdate_copy = Object.create(StartDate);
+        const index_s = StartDate.lastIndexOf('/');
+        const index_e = EndDate.lastIndexOf('/');
+        const yr_s = StartDate.slice(index_s + 1);
+        const yr_e = EndDate.slice(index_e + 1);
+        console.log("YEAR IS:", yr_s, yr_e,parseInt(yr_e)-parseInt(yr_s));
+        const num_years =  parseInt(yr_e)-parseInt(yr_s) + 1;
+        const years = [...Array(num_years).keys()].map(i => (i + parseInt(yr_s)).toString());
+        console.log("ARRAY OF YEARS IS:", years);
+        //var years=['2010','2011','2012','2013','2014','2015','2016','2017','2018','2019'];
+        //var years = yrs.filter(year => parseInt(year) >= parseInt(yr));
+        years.forEach(key => occurences[key] = occurences[key] || 0 );
+
+      }
+     
       if (!Check) {
         Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
       }
