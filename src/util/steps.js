@@ -62,7 +62,7 @@ export const steps_joyride = [
   
       }},
   
-      {title: "Mapa interactivoInteractive map", 
+      {title: "Mapa interactivo", 
       content: "En este mapa puedes observar la distribución de linchamientos a nivel América Latina. Puedes hacer clic en cualquier país para observar la distribución a nivel país. Puedes dar clic en Mostrar eventos para ver las coordenadas exactas de cada uno de los eventos.", 
       target: ".regionMap", 
       placement:"right",
@@ -77,11 +77,11 @@ export const steps_joyride = [
   
       }},
       {title:"Filtros", 
-      content:"Puedes filtrar la información a desplegar en el mapa y gráficas por medio de los filtros y/o seleccionaodr de fechas.",
+      content:"Puedes filtrar la información a desplegar en el mapa y gráficas por medio de los filtros y/o seleccionador de fechas.",
       target: ".filters",
       placement:""}, //filters
       {title:"Gráfica de número de eventos por año", 
-      content:"Puedes comparar el número de eventos en distintos países a treavés del tiempo seleccionado con el seleccionador de ventana de tiempo. La gráfica mostrada por default corresponde al número de casos anuales a nivel América Latina en los año 201-2019.",
+      content:"Puedes comparar el número de eventos en distintos países a través del tiempo seleccionado con el seleccionador de ventana de tiempo. La gráfica mostrada por default corresponde al número de casos anuales a nivel América Latina en los años 2010-2019.",
       target: ".linechart",
       placement:""}, //line chart
       {title:"Gráfica de barras de casos totales", 
