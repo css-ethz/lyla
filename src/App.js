@@ -309,12 +309,12 @@ const ParentFunction = (e) => {
   useEffect(() => {
     console.log("level here here is", level);
     if (level==0){
-      var num_events = filteredData.reduce(function (r, row) {
+      var num_events = eventData.reduce(function (r, row) {
         r[row.name_0] = ++r[row.name_0] || 1;
         return r;
     },{})}
     else {
-      var num_events = filteredData.filter((item) => item.name_0 == fileflag).reduce(function (r, row) {
+      var num_events = eventData.filter((item) => item.name_0 == fileflag).reduce(function (r, row) {
         r[row.name_1] = ++r[row.name_1] || 1;
         return r;
       }, {});
