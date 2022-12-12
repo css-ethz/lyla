@@ -118,8 +118,8 @@
         "es": "Ir a artículo"
     },
     "events-text":{
-        "en": "reported cases from 2010 to 2019",
-        "es": "casos reportados del 2010 al 2019"
+        "en": "total reported cases from 2010 to 2019",
+        "es": "casos reportados totales del 2010 al 2019"
     },
     "events-text-sub":{
         "en": "Total number of cases available from 2010-2019.",
