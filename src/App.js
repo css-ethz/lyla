@@ -913,7 +913,7 @@ const ParentFunction = (e) => {
           <Row>
             <Col md={8}>
               <Row>
-                <Col md={4}>
+                <Col md={2}>
                   <Form.Check 
                             type='checkbox'
                             label={content['showEvents'][lan]}
@@ -922,9 +922,9 @@ const ParentFunction = (e) => {
                             onChange={() => setShow(!Show)}
                     />
                 </Col>
-                <Col md={8}>
+                <Col md={10}>
                   <EventsText country={countryKey} num_events={numEvents} content={content} lan={lan}/>
-                  <p style={{fontSize:"70%",marginTop: "-3%", marginBottom:"-1%"}}>{content['events-text-sub'][lan]}</p>
+              
                 </Col>
               </Row>
 
