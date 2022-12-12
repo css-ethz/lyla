@@ -13,6 +13,7 @@ import { Icon } from 'leaflet';
 import geojson from './data/admin0.geojson.json'
 import geojson1_admin1 from './data/admin1.geojson.json'
 import eventData from './data/events_data.json'
+//import eventData from './data/json_data_complete_latin3.json'
 import eventData_orig from './data/LYLA_2022-9-21_latest.json'
 import aggData from './data/data_agg.json'
 import population_admin0 from './data/population_admin0.json'
@@ -588,6 +589,7 @@ const ParentFunction = (e) => {
       if (!Check) {
         Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
       }
+      console.log("occurences here are:", occurences)
       return {
         label: e.value,
         data: occurences,
