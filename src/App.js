@@ -72,10 +72,11 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
 require('leaflet/dist/leaflet.css');
-const center = [-20.4358446, 100.527726];
+const center = [-75.4358446, -5.527726];
 const outerBounds = [
-  [2.505, -100.09],
-  [-20.505, 100.09],
+  [-118.759383, 33.141569],
+  [-25.975381,-52.155581]
+  ,
 ]
 //-179.99990,-60.34703,-23.24401,30.98005
 const colors = ["fe4848", "fe6c58", "fe9068", "feb478", "fed686"];
@@ -715,8 +716,11 @@ const ParentFunction = (e) => {
         run={runTour}
         steps={steps}
         styles={{  buttonClose: {
-          display: 'none'
-        }}}></JoyRide>
+          display: 'none'},
+          options:{
+            width: 500
+
+          }}}></JoyRide>
       {/* <div className="intro-title">
         <p style={{ marginLeft: "60pt",marginTop: "0pt"}}>Lynching in<br />
           Latin America <br />
@@ -936,7 +940,7 @@ const ParentFunction = (e) => {
                       center={center}
                       zoom={4}
                       scrollWheelZoom={false}
-                      style={{ width: '100%', height: '1000px' }}>
+                      style={{ width: '100%', height: '1100px' }}>
                       <TileLayer {...{
                         attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
                         url: 'https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png'

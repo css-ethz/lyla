@@ -9,7 +9,7 @@ export const steps_joyride = [
     disableBeacon: true,
     styles: {
       options: {
-        width: 200,
+        width: 500,
       }
 
     }},
@@ -18,12 +18,9 @@ export const steps_joyride = [
     content: "In this map you can observe the amount of lynching events per country. You can click on any country in order to display the distribution of lynchings within the chosen country. By clicking on the Show events button, exact coordinates of each of the events are shown", 
     target: ".regionMap", 
     placement:"right",
-    isFixed: true,
     styles: {
       options: {
-        zIndex: 1000,
-        width: 200,
-        height: 100
+        width: 400
         
       }
 
@@ -60,7 +57,7 @@ export const steps_joyride = [
       disableBeacon: true,
       styles: {
         options: {
-          width: 200,
+          width: 500,
         }
   
       }},
@@ -73,7 +70,7 @@ export const steps_joyride = [
       styles: {
         options: {
           zIndex: 1000,
-          width: 200,
+          width: 500,
           height: 100
           
         }
