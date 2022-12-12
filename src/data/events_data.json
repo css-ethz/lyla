@@ -13565,7 +13565,8 @@
         "date": "2018-10-26",
         "press_article": "true",
         "link": "https://www.eltiempo.com/justicia/investigacion/la-historia-detras-del-hombre-que-fue-linchado-en-bogota-por-una-falsa-noticia-289508",
-        "header": "La verdadera historia del hombre linchado por falsa noticia en redes",
+        "header_es": "La verdadera historia del hombre linchado por falsa noticia en redes",
+        "header_en": "The true story of the man lynched due to false news on social media",
         "geometry": {
             "type": "Point",
             "coordinates": [
@@ -14873,6 +14874,32 @@
                 -74.111427
             ]
         }
+    },
+    {
+    "id": 715,
+    "name_0": "Mexico",
+    "name_1": "Distrito Federal",
+    "tar1_age": 2.0,
+    "tar1_sex": 1.0,
+    "pe_violence": 2.0,
+    "st_outcome": 0.0,
+    "tar_outcome": 1.0,
+    "evidence1_text": "Vecinos del poblado de San Juan Ixtayopan, en la delegación Tláhuac,\nincineraron vivos a dos agentes de la Policía Federal Preventiva (PFP), a los cuales confundieron como presuntos delincuentes, y fue rescatado un tercer oficial.[…] Los pobladores, iracundos, no sólo golpearon a los tres supuestos delincuentes, sino que les prendieron fuego a dos de ellos, y sus cuerpos se encuentran tirados porque aún no ha podido ingresar a esa zona acordonada ningún servicio de emergencia.",
+    "evidence1_source": "NOTIMEX",
+    "tar_wrongdoing": 9.0,
+    "pe_approxnumber": 3.0,
+    "date": "2004-11-23",
+    "press_article": "true",
+    "link": "https://www.jornada.com.mx/2004/11/24/042n3cap.php",
+    "header_es": "Turba quema vivos a dos agentes de la PFP; otro en estado grave",
+    "header_en": "Mob burns two police agents alive, another in serious condition",
+    "geometry": {
+        "type": "Point",
+        "coordinates": [
+            19.23324313947352,
+            -99.0019767164666
+        ]
+    }
     },
     {
         "id": 988,
@@ -24065,7 +24092,8 @@
         "date": "2015-10-18",
         "press_article": "true",
         "link": "https://cnnespanol.cnn.com/2015/10/21/pobladores-linchan-a-encuestadores-tras-confundirlos-con-secuestradores/",
-        "header": "Pobladores linchan a encuestadores tras confundirlos con secuestradores",
+        "header_es": "Pobladores linchan a encuestadores tras confundirlos con secuestradores",
+        "header_en": "Residents lynch pollsters after mistaking them for kidnappers",
         "geometry": {
             "type": "Point",
             "coordinates": [
@@ -39740,6 +39768,8 @@
         "date": "2015-10-10",
         "press_article": "true",
         "link": "https://www.lainformacion.com/mundo/linchan-a-un-alcalde-en-guatemala-acusado-de-atacar-a-su-rival-politico_PBooZmlricaLMs8Wr1LeH/",
+        "header_es": "Linchan a un alcalde en Guatemala, acusado de atacar a su rival político",
+        "header_en": "A mayor is lynched in Guatemala, accused of attacking his political rival",
         "header": "\"Linchan a un alcalde en Guatemala, acusado de atacar a su rival político\"",
         "geometry": {
             "type": "Point",
@@ -42415,7 +42445,8 @@
         "date": "2014-03-22",
         "press_article": "true",
         "link": "https://www.clarin.com/policiales/linchamiento-rosario-imputados-declaro-culpable-ira-preso_0_JZXHTCR.html",
-        "header": "Linchamiento en Rosario: uno de los tres imputados se declaró culpable y no irá preso",
+        "header_es": "Linchamiento en Rosario: uno de los tres imputados se declaró culpable y no irá preso",
+        "header_en": "Lynching in Rosario: one of the three defendants pleaded guilty and will not go to jail",
         "geometry": {
             "type": "Point",
             "coordinates": [
@@ -45865,7 +45896,8 @@
         "date": "2019-04-19",
         "press_article": "true",
         "link": "https://www.cronica.com.ar/policiales/Presunto-ladron-habria-sido-linchado-por-fieles-que-recordaban-Semana-Santa-20190420-0020.html",
-        "header": "Presunto ladrón habría sido linchado por fieles que recordaban Semana Santa",
+        "header_es": "Presunto ladrón habría sido linchado por fieles que recordaban Semana Santa",
+        "header_en": "Alleged thief lynched by faithful who celebrated Easter",
         "geometry": {
             "type": "Point",
             "coordinates": [
@@ -47163,9 +47195,10 @@
         "tar_wrongdoing": 10.0,
         "pe_approxnumber": 2.0,
         "date": "2013-03-30",
-        "press_article": "false",
+        "press_article": "true",
         "link": "null",
-        "header": "null",
+        "header_es": "Tribus de la Inquisición",
+        "header_en": "Inquisition Tribes",
         "geometry": {
             "type": "Point",
             "coordinates": [
@@ -47640,7 +47673,8 @@
         "date": "2013-11-04",
         "press_article": "true",
         "link": "https://www.abc.es/internacional/20131109/abci-linchamientos-convierten-bolivia-pais-201311081733.html",
-        "header": "Los linchamientos convierten a Bolivia en un país con pena de muerte de facto",
+        "header_es": "Los linchamientos convierten a Bolivia en un país con pena de muerte de facto",
+        "header_en": "Lynching make Bolivia a country with de facto death penalty",
         "geometry": {
             "type": "Point",
             "coordinates": [
@@ -49490,7 +49524,8 @@
         "date": "2018-11-20",
         "press_article": "true",
         "link": "https://www.opinion.com.bo/articulo/policial/matan-pedradas-j-oacute-venes-acusados-cometer-robo/20181121112600633260.html",
-        "header": "Matan a pedradas a dos jóvenes acusados de cometer robo",
+        "header_es": "Matan a pedradas a dos jóvenes acusados de cometer robo",
+        "header_en": "Two young men accused of committing robbery are stoned to death",
         "geometry": {
             "type": "Point",
             "coordinates": [
@@ -51615,7 +51650,8 @@
         "date": "2012-05-27",
         "press_article": "true",
         "link": "https://www.elcaribe.com.do/sin-categoria/linchamientos-comienzan-ser-comunes-barriadas/",
-        "header": "Linchamientos comienzan a ser comunes en barriadas",
+        "header_es": "Linchamientos comienzan a ser comunes en barriadas",
+        "header_en": "Lynchings begin to be common in neighborhoods",
         "geometry": {
             "type": "Point",
             "coordinates": [
@@ -54890,7 +54926,8 @@
         "date": "2015-01-13",
         "press_article": "true",
         "link": "https://elcomercio.pe/peru/puno/juliaca-establecido-castigo-popular-324709-noticia/",
-        "header": "En Juliaca se ha establecido el castigo popular",
+        "header_es": "En Juliaca se ha establecido el castigo popular",
+        "header_en": "In Juliaca popular punishment has been established",
         "geometry": {
             "type": "Point",
             "coordinates": [
