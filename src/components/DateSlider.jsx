@@ -126,11 +126,12 @@ function DateSlider({setSDate, setEDate, dateTitle, startDateText, endDateText})
                   minDate="01-01-2010"
                   maxDate="31-12-2019"
                   inputFormat='DD/MM/yyyy'
+                  style={{padding:"10%"}}
                   onChange={(newValue) => {
                     updateFromPicker(newValue,1);
                   }}
                   renderInput={(params) => 
-                  <TextField onKeyDown={onKeyDown} {...params} sx={{ svg: { color },
+                  <TextField size="small" onKeyDown={onKeyDown} {...params} sx={{ svg: { color },
                   input: { color },
                   label: { color }}} />}
                 />
@@ -161,9 +162,10 @@ function DateSlider({setSDate, setEDate, dateTitle, startDateText, endDateText})
                   onChange={(newValue) => {
                     updateFromPicker(newValue,0);
                   }}
-                  renderInput={(params) => <TextField onKeyDown={onKeyDown} {...params} sx={{ svg: { color },
+                  renderInput={(params) => <TextField size="small" onKeyDown={onKeyDown} {...params} sx={{ svg: { color },
                   input: { color },
-                  label: { color }}} />}
+                  label: { color }}}
+                   />}
                 />
 
               </LocalizationProvider>

@@ -70,7 +70,7 @@ export const steps_joyride = [
       styles: {
         options: {
           zIndex: 1000,
-          width: 500,
+          width: 400,
           height: 100
           
         }
