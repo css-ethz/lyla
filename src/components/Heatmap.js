@@ -47,6 +47,7 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id, file, parentFunc, num_ev
         };
     
         const legend = L.control({ position: "topright" });
+        
     
         legend.onAdd = () => {
           const div = L.DomUtil.create("div", "info legend");
@@ -67,17 +68,23 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id, file, parentFunc, num_ev
                 (to ? "&ndash;" + to : "+")
             );
           }
+          
     
-          div.innerHTML =content['eventsMillion'][lan]+"</br>" +labels.join("<br>");
+          div.innerHTML =content['eventsMillion']['en']+"</br>" +labels.join("<br>");
           return div;
         };
-        map.removeControl(legend);
+
+        if (legend instanceof L.Control) { 
+            console.log("legend should be deleted");
+            map.removeControl(legend); 
+        };
+        //map.removeControl(legend);
         legend.addTo(map);
         map.createPane("locationMarker");
         map.getPane("locationMarker").style.zIndex = 0;
         map.createPane("popupPane");
         map.getPane("popupPane").style.zIndex = 1;
-      }, [lan]);
+      }, []);
     const highlightFeature = (e => {
         var layer = e.target;
         if (mapEvents.getZoom() < 10) {
