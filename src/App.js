@@ -62,7 +62,6 @@ import {steps_joyride, steps_joyride_es} from './util/steps';
 import ExportExcel from './components/ExcelExport';
 import { getClockPickerUtilityClass } from '@mui/x-date-pickers';
 import { getScopedCssBaselineUtilityClass } from '@mui/material';
-
 Chart.register(...registerables);
 delete L.Icon.Default.prototype._getIconUrl;
 fontawesome.library.add(faCircleInfo);
@@ -560,6 +559,22 @@ const ParentFunction = (e) => {
       r[year] = r[year] + row.id|| row.id;
       return r; //returns array with keys being the years and values the number of events 
     }, {});
+    if (StartDate != '01.01.2010'){
+      console.log("start date is:", StartDate);
+      //const sdate_copy = Object.create(StartDate);
+      const index_s = StartDate.lastIndexOf('/');
+      const index_e = EndDate.lastIndexOf('/');
+      const yr_s = StartDate.slice(index_s + 1);
+      const yr_e = EndDate.slice(index_e + 1);
+      console.log("YEAR IS:", yr_s, yr_e,parseInt(yr_e)-parseInt(yr_s));
+      const num_years =  parseInt(yr_e)-parseInt(yr_s) + 1;
+      const years = [...Array(num_years).keys()].map(i => (i + parseInt(yr_s)).toString());
+      console.log("ARRAY OF YEARS IS:", years);
+      //var years=['2010','2011','2012','2013','2014','2015','2016','2017','2018','2019'];
+      //var years = yrs.filter(year => parseInt(year) >= parseInt(yr));
+      years.forEach(key => occurences[key] = occurences[key] || 0 );
+
+    }
     setOccs(occurences);
     console.log("occurences are", occs);
     if (!Check) {
@@ -711,9 +726,7 @@ const ParentFunction = (e) => {
     }
 
   }
-
   return (
-
     <div className="dark">
       {/* <Steps
         enabled={stepsEnabled}
@@ -726,6 +739,7 @@ const ParentFunction = (e) => {
         }}
 
       /> */}
+      
       <JoyRide 
         callback={handleJoyrideCallback}
         continuous={true}
@@ -826,46 +840,20 @@ const ParentFunction = (e) => {
         <div style={{marginLeft: "15pt",marginRight:"15pt"}}>
           
           <Row className="filters" style={{display:'flex', justifyContent:'center'}}>
-            <Col md={8}>
+            <Col xs={12} sm={12} lg={8}  >
               <Row>
-                <Col md={4}>
+                <Col xs={12} sm={12} lg={4}>
                   <Form.Label style={{ fontWeight: 'bold' }}>
                         {content['filterBy'][lan]}
-
                   </Form.Label>
                 </Col>
               </Row>
               <Row>
-                <Col md={3}>
-                  <Form.Label className='mb-3 line-break'>
+                <Col lg={3}>
+                  <Form.Label className='mb-3 line-break' style={{ fontSize: '0.8rem' }}>
                         {content['allegedWrongdoing'][lan]}&thinsp;
                         <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['allegedWrongdoingInfo'][lan]} />
                   </Form.Label>
-                </Col>
-                <Col md={3}>
-                  <Form.Label className='mb-3 line-break'>
-                    {content['worstOutcome'][lan]}&thinsp;
-                    <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['worstOutcomeInfo'][lan]} />
-                  </Form.Label>
-                </Col>
-                <Col md={3}>
-                  <Form.Label className='mb-3 line-break'>
-
-                    {content['violenceInflicted'][lan]}&thinsp;
-                    <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['violenceInflictedInfo'][lan]} />
-                  </Form.Label>
-                </Col>
-                <Col md={3}>
-                  <Form.Label className='mb-3 line-break' style={{marginBottom:'40vh'}}>
-                    {content['numberPerpetrators'][lan]}&thinsp;
-                    <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['numberPerpetratorsInfo'][lan]} />
-                  </Form.Label>
-                </Col>
-              </Row>
-              <Row>
-                <Col md={3}>
-                 
-
                   <MultiSelect className='multi-select'
 
                     options={dictionary.filter((item) =>
@@ -878,11 +866,13 @@ const ParentFunction = (e) => {
                     onChange={setWrongdoing}
                     labelledBy="Select"
 
-                  />
+                    />
                 </Col>
-
-                <Col md={3}>
-                 
+                <Col xs={12} sm={12} lg={3}>
+                  <Form.Label className='mb-3 line-break' style={{ fontSize: '0.8rem' }}>
+                    {content['worstOutcome'][lan]}&thinsp;
+                    <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['worstOutcomeInfo'][lan]} />
+                  </Form.Label>
                   <MultiSelect   className='multi-select'
                     options={dictionary.filter((item) =>
                       item.variable == 'tar_outcome'
@@ -894,10 +884,13 @@ const ParentFunction = (e) => {
                     onChange={setTarOutcome}
                     labelledBy="Select"
                   />
-                  
                 </Col>
-                <Col md={3}>
-                  
+                <Col xs={12} sm={12} lg={3}>
+                  <Form.Label className='mb-3 line-break' style={{ fontSize: '0.8rem' }}>
+
+                    {content['violenceInflicted'][lan]}&thinsp;
+                    <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['violenceInflictedInfo'][lan]} />
+                  </Form.Label>
                   <MultiSelect className='multi-select'
                     options={dictionary.filter((item) =>
                       item.variable == 'pe_violence'
@@ -910,8 +903,11 @@ const ParentFunction = (e) => {
                     labelledBy="Select"
                   />
                 </Col>
-                <Col md={3}>
-                  
+                <Col xs={12} sm={12} lg={3}>
+                  <Form.Label className='mb-3 line-break' style={{marginBottom:'40vh', fontSize: '0.8rem' }}>
+                    {content['numberPerpetrators'][lan]}&thinsp;
+                    <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['numberPerpetratorsInfo'][lan]} />
+                  </Form.Label>
                   <MultiSelect className='multi-select'
                     options={dictionary.filter((item) =>
                       item.variable == 'pe_approxnumber'
@@ -927,15 +923,15 @@ const ParentFunction = (e) => {
                 </Col>
               </Row>
             </Col>
-            <Col md={4}>
+            <Col xs={12} sm={12} lg={4}>
               <br/>
               <DateSlider style={{fontSize:"10px"}} className="date" setSDate={setSDate} setEDate={setEDate} dateTitle={content['timeWindow'][lan]} startDateText={content['startDateText'][lan]} endDateText={content['endDateText'][lan]}/>
             </Col>
           </Row>
           <Row>
-            <Col md={8}>
+            <Col lg={8} sm={12} xs={12}>
               <Row>
-                <Col md={2}>
+                <Col lg={2} sm={12} xs={12}>
                   <Form.Check 
                             type='checkbox'
                             label={content['showEvents'][lan]}
@@ -944,7 +940,7 @@ const ParentFunction = (e) => {
                             onChange={() => setShow(!Show)}
                     />
                 </Col>
-                <Col md={10}>
+                <Col lg={10}>
                   <EventsText country={countryKey} num_events={numEvents} content={content} lan={lan}/>
               
                 </Col>
@@ -952,7 +948,7 @@ const ParentFunction = (e) => {
 
             
               <Row>
-                <Col md={12}>
+                <Col lg={12}>
                   <MapContainer
                       className='regionMap'
                       id={"regionMap"}
@@ -1051,9 +1047,9 @@ const ParentFunction = (e) => {
                 </Col>
               </Row>
             </Col>
-            <Col md={4}>
+            <Col lg={4} sm={12} xs={12}>
               <Row>
-                <Col md={9}>
+                <Col lg={9} sm={12} xs={12}>
                   <br/>
                   <br/>
                   <Form.Label className='mb-2'>{content['countryText'][lan]}</Form.Label>
@@ -1069,7 +1065,7 @@ const ParentFunction = (e) => {
                     labelledBy="Select"
                   />
                 </Col>
-                <Col md={3}>
+                <Col lg={3} sm={12} xs={12}>
                   <br/>
                   <br/>
                   <br/>
@@ -1090,7 +1086,7 @@ const ParentFunction = (e) => {
 
               </Row>
               <Row>
-                <Col md={9}>
+                <Col lg={9} sm={12} xs={12}>
                   <br/>
                   <br/>
                   <Form.Select
@@ -1104,7 +1100,7 @@ const ParentFunction = (e) => {
                 </Col>
               </Row>
               <Row>
-                <Col md={12}>
+                <Col lg={12} sm={12} xs={12}>
                   <Bar className="barchart" style={{height: '70vh'}} options={optionsBar} data={barData} />
                 </Col>
               </Row>
@@ -1119,8 +1115,6 @@ const ParentFunction = (e) => {
       
 
     </div>
-
-
 
   );
 
