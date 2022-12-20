@@ -471,7 +471,6 @@ const ParentFunction = (e) => {
     if (!Show){
       setShow(true);
     }
-    //console.log("number of events is", num_events);
 
   }, [peNum, tarOutcome, wrongdoing, peViolence, StartDate, EndDate, fileflag, countries]);
 
