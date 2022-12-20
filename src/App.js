@@ -471,7 +471,6 @@ const ParentFunction = (e) => {
     if (!Show){
       setShow(true);
     }
-
   }, [peNum, tarOutcome, wrongdoing, peViolence, StartDate, EndDate, fileflag, countries]);
 
 
