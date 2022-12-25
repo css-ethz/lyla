@@ -1,31 +1,25 @@
-import { useEffect, useState, useMemo, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import "@progress/kendo-theme-default/dist/all.css";
-import { Container, Row, Col, Form } from 'react-bootstrap';
+import { Row, Col, Form } from 'react-bootstrap';
 import {
   MapContainer,
   TileLayer,
-  GeoJSON, Marker, Popup,
-  useMap, CircleMarker
+  Popup,
+  CircleMarker
 } from 'react-leaflet'
 import { Bar, Line } from "react-chartjs-2";
 import L from 'leaflet';
-import { Icon } from 'leaflet';
 import geojson from './data/admin0.geojson.json'
 import geojson1_admin1 from './data/admin1.geojson.json'
 import eventData from './data/events_data.json'
-//import eventData from './data/json_data_complete_latin3.json'
 import eventData_orig from './data/LYLA_2022-9-21_latest.json'
 import aggData from './data/data_agg.json'
 import population_admin0 from './data/population_admin0.json'
 import dictionary from './data/dictionary.json'
-import tileLayer from './util/tileLayer';
 import './App.css'
 import 'leaflet/dist/leaflet.css';
-//import { EventDropDownList } from './components/DropDownList';
-import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DateSlider from './components/DateSlider';
-import DownloadComponent from './components/DownloadComponent';
 import Heatmap from './components/Heatmap';
 import ResetMarker from './components/ResetMarker';
 import { Button } from 'react-bootstrap';
@@ -34,22 +28,9 @@ import colorLib from '@kurkle/color';
 import { MultiSelect } from "react-multi-select-component";
 import '@changey/react-leaflet-markercluster/dist/styles.min.css';
 import { Chart, registerables } from 'chart.js';
-import CodeBookModal from './components/CodebokkPopUp';
-import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import fontawesome from '@fortawesome/fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-import { renderToStaticMarkup } from "react-dom/server";
-import ReactDOMServer from 'react-dom/server';
-import { divIcon } from "leaflet";
-import myIcon from "./circle.svg";
-import bogota from "./bogota.jpg";
-import { batch, ScrollContainer, ScrollPage, StickyIn, Fade, FadeIn, Animator, Sticky, MoveOut, MoveIn } from 'react-scroll-motion';
-//import { Steps } from 'intro.js-react';
-//import 'intro.js/introjs.css';
-import IconButton from '@mui/material/IconButton';
-import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Ocean from './components/Ocean';
 import OtherCountries from './components/OtherCountries';
 import geojson_ocean from './data/ne_110m_ocean.geojson.json';
@@ -58,10 +39,8 @@ import content from './data/content.json';
 import EventsText from './components/EventsText';
 import JoyRide, { STATUS } from 'react-joyride';
 import DownloadCodebook from './components/CodebokkPopUp';
-import {steps_joyride, steps_joyride_es} from './util/steps';
+import { steps_joyride, steps_joyride_es } from './util/steps';
 import ExportExcel from './components/ExcelExport';
-import { getClockPickerUtilityClass } from '@mui/x-date-pickers';
-import { getScopedCssBaselineUtilityClass } from '@mui/material';
 Chart.register(...registerables);
 delete L.Icon.Default.prototype._getIconUrl;
 fontawesome.library.add(faCircleInfo);
@@ -75,7 +54,7 @@ require('leaflet/dist/leaflet.css');
 const center = [-75.4358446, -5.527726];
 const outerBounds = [
   [-118.759383, 33.141569],
-  [-25.975381,-52.155581]
+  [-25.975381, -52.155581]
   ,
 ]
 //-179.99990,-60.34703,-23.24401,30.98005
@@ -102,14 +81,12 @@ function App() {
   const [Show, setShow] = useState(false);
   const [fileflag, setfileflag] = useState('Latin America');
   const [var_chart, setvar_chart] = useState('pe_approxnumber');
-  const [isActive, setIsActive] = useState(true);
-  const [stepsEnabled, setStepsEnabled] = useState(true);
   /***************************************** START Translated variables ****************************************************/
   const [language, setLanguage] = useState("Español");
   const [lan, setLan] = useState("en");
   const [occs, setOccs] = useState(null);
   const [numEvents, setNumEvents] = useState(2818);
-  const [zoom,setZoom]=useState(0)
+  const [zoom, setZoom] = useState(0)
   const [countryKey, setcountrykey] = useState('Latin America');
   const [runTour, setRunTour] = useState(false);
   const [steps, setSteps] = useState(steps_joyride);
@@ -124,7 +101,7 @@ function App() {
     plugins: {
       title: {
         display: true,
-        text: content['lineplot'][Check ? "events":'per_million'][lan],
+        text: content['lineplot'][Check ? "events" : 'per_million'][lan],
       },
     },
     scales: {
@@ -149,16 +126,11 @@ function App() {
     plugins: {
       title: {
         display: true,
-        text: content['barplot'][Check ? "events":'per_million'][lan],
+        text: content['barplot'][Check ? "events" : 'per_million'][lan],
       },
     },
     scales: {
-      //x: {
-       // ticks: {
-       //   display: false
-       // }
 
-      //},
       yAxes:
       {
         gridLines: {
@@ -177,8 +149,8 @@ function App() {
       ]
     }
   };
-  
-  
+
+
   const handleJoyrideCallback = (data) => {
     const { status, type } = data;
     const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED];
@@ -188,7 +160,7 @@ function App() {
     }
   };
 
-  
+
   const onClickLanguage = () => {
     if (language == "Español") {
       setLanguage("English");
@@ -224,9 +196,9 @@ function App() {
   });
 
 
-  
 
-  
+
+
 
   function parseDate(input) {
     var parts = input.match(/(\d+)/g);
@@ -237,43 +209,40 @@ function App() {
     var alpha = opacity === undefined ? 0.5 : 1 - opacity;
     return colorLib(value).alpha(alpha).rgbString();
   }
-  
 
- /************************************************ function passed to heatmpa child component *********************************/
 
-const ParentFunction = (e) => {
-  console.log("tarfet admin value is:", e.target.feature.properties.ADMIN);
-  console.log("heat of", e.target.feature.properties.ADMIN,"is",heat[e.target.feature.properties.ADMIN]);
-  // if (fileflag == 'Latin America') {
-  //     console.log("check if value coincides with zoomed out country:",e.target.feature.properties.ADMIN); //check if value coincides with zoomed out country
-  //     setfile(e.target.feature.properties.ADMIN);
-  //     setcountrykey(e.target.feature.properties.ADMIN);
-  //     //setEventsArrayKey(e.target.feature.properties.ADMIN);
-  //     console.log("function triggered when clicking in heatmap, number of events here is:", numEvents);
-      
-        
-  //   }
-  setfile(e.target.feature.properties.ADMIN);
-  //setEventsArrayKey(e.target.feature.properties.ADMIN);
-  console.log("function triggered when clicking in heatmap, number of events here is:", numEvents);
-  setcountrykey(e.target.feature.properties.ADMIN);
-  console.log("countrykey", countryKey);
-};
-    /************************************************ end  ***********************************/
+  /************************************************ function passed to heatmpa child component *********************************/
+
+  const ParentFunction = (e) => {
+    console.log("tarfet admin value is:", e.target.feature.properties.ADMIN);
+    console.log("heat of", e.target.feature.properties.ADMIN, "is", heat[e.target.feature.properties.ADMIN]);
+    // if (fileflag == 'Latin America') {
+    //     console.log("check if value coincides with zoomed out country:",e.target.feature.properties.ADMIN); //check if value coincides with zoomed out country
+    //     setfile(e.target.feature.properties.ADMIN);
+    //     setcountrykey(e.target.feature.properties.ADMIN);
+    //     //setEventsArrayKey(e.target.feature.properties.ADMIN);
+    //     console.log("function triggered when clicking in heatmap, number of events here is:", numEvents);
+
+
+    //   }
+    setfile(e.target.feature.properties.ADMIN);
+    //setEventsArrayKey(e.target.feature.properties.ADMIN);
+    setcountrykey(e.target.feature.properties.ADMIN);
+  };
+  /************************************************ end  ***********************************/
 
   useEffect(() => {
-    if (Show){
-      console.log("show is:", Show)
+    if (Show) {
       setShow(!Show);
       setShow(!Show);
-      if (level==2){
+      if (level == 2) {
         setShow(true);
       }
     }
-    if (level>2){
+    if (level > 2) {
       setlevel(1);
     }
-    
+
     var countries = ["Argentina", "Bolivia", "Brazil", "Chile", "Colombia",
       "Costa Rica", "Dominican Republic", "Ecuador", "Guatemala", "Honduras",
       "Mexico", "Nicaragua", "Panama", "Paraguay", "Peru", "Uruguay", "Venezuela"]
@@ -295,59 +264,43 @@ const ParentFunction = (e) => {
       const anchor = document.querySelector('#regionMap')
       anchor.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
-    
+
 
   }, [file])
 
 
-
-  // function fittingBounds() {
-  //   const map = useMap()
-  //   console.log('map center:', map.getCenter())
-  //   return null
-  // }
   useEffect(() => {
-    console.log("level here here is", level);
-    if (level==0){
+    if (level == 0) {
       var num_events = eventData.reduce(function (r, row) {
         r[row.name_0] = ++r[row.name_0] || 1;
         return r;
-    },{})}
+      }, {})
+    }
     else {
       var num_events = eventData.filter((item) => item.name_0 == fileflag).reduce(function (r, row) {
         r[row.name_1] = ++r[row.name_1] || 1;
         return r;
       }, {});
-      console.log("num events level 1", num_events);
 
     }
     setNumEvents(num_events);
-    if (numEvents !== null){
-    console.log("hello");
-    console.log(countryKey);
-    //console.log("number of events is",numEvents[countryKey]);
-    }
-    
+
 
 
   }, [countryKey]);
 
 
   useEffect(() => {
-    if(fileflag=='Latin America'){
+    if (fileflag == 'Latin America') {
       setShow(true);
-    }else{
+    } else {
       setShow(true);
     }
 
   }, [fileflag]);
 
 
-  
-  useEffect(() => {
-    console.log("number of events is",numEvents[countryKey]);
 
-  }, [numEvents]);
 
   useEffect(() => {
     if (level == 0) {
@@ -355,15 +308,15 @@ const ParentFunction = (e) => {
         r[row.name_0] = r[row.name_0] + row.events_pop || row.events_pop;
         return r;
       }, {});
-     
+
     } else {
       var groups = filteredData_agg.filter((item) => item.name_0 == fileflag).reduce(function (r, row) {
         r[row.name_1] = r[row.name_1] + row.events_pop || row.events_pop;
         return r;
       }, {});
-      
+
     }
-    
+
     setheat(groups);
     setfileflag(file);
     if (file != 'Latin America') {
@@ -466,9 +419,8 @@ const ParentFunction = (e) => {
     });
     setFilteredData(filtered_data);
     setFilteredData_agg(filtered_data_agg);
-    console.log("level here is", level);
     setShow(!Show);
-    if (!Show){
+    if (!Show) {
       setShow(true);
     }
   }, [peNum, tarOutcome, wrongdoing, peViolence, StartDate, EndDate, fileflag, countries]);
@@ -477,10 +429,10 @@ const ParentFunction = (e) => {
   useEffect(() => {
     var occurences = filteredData_agg.reduce(function (r, row) {
       var val_name = dictionary.filter((item) => item.variable == var_chart & item.value == row[var_chart]).map((element) => element.name)[0];
-      if (typeof val_name === 'undefined'){
-        val_name='Not reported'
+      if (typeof val_name === 'undefined') {
+        val_name = 'Not reported'
       }
-      r[val_name] = r[val_name]+row.id || row.id;
+      r[val_name] = r[val_name] + row.id || row.id;
       return r;
     }, {});
     delete occurences["Not reported"];
@@ -503,10 +455,10 @@ const ParentFunction = (e) => {
     current_countries.push(...countries.map(function (e) {
       var occurences = filteredData_agg.filter((item) => (item.name_0 == e.value)).reduce(function (r, row) {
         var val_name = dictionary.filter((item) => item.variable == var_chart & item.value == row[var_chart]).map((element) => element.name)[0];
-        if (typeof val_name === 'undefined'){
-          val_name='Not reported'
+        if (typeof val_name === 'undefined') {
+          val_name = 'Not reported'
         }
-        r[val_name] = r[val_name]+row.id || row.id;
+        r[val_name] = r[val_name] + row.id || row.id;
         return r;
       }, {})
       delete occurences["Not reported"];
@@ -528,7 +480,7 @@ const ParentFunction = (e) => {
     }));
 
     setBarData({
-      labels: dictionary.filter((item) => (item.variable == var_chart)&&(item.name != "Not reported")).map((element) => element.name),
+      labels: dictionary.filter((item) => (item.variable == var_chart) && (item.name != "Not reported")).map((element) => element.name),
       datasets: current_countries,
     });
   }, [var_chart, countries, filteredData_agg, Check]);
@@ -542,7 +494,7 @@ const ParentFunction = (e) => {
       var groups = {};
 
       Object.keys(gg).forEach(key => groups[key] = 1000000 * gg[key] / population_admin0[0][key]);
-      
+
     } else {
       var groups = filteredData_agg.filter((item) => item.name_0 == fileflag).reduce(function (r, row) {
         r[row.name_1] = r[row.name_1] + row.events_pop || row.events_pop;
@@ -550,36 +502,29 @@ const ParentFunction = (e) => {
       }, {});
     }
     setheat(groups);
-    console.log("groups are:", heat);
 
     var occurences = filteredData_agg.reduce(function (r, row) {
       var year = row['month_year'].slice(0, 4);
-      r[year] = r[year] + row.id|| row.id;
+      r[year] = r[year] + row.id || row.id;
       return r; //returns array with keys being the years and values the number of events 
     }, {});
-    if (StartDate != '01.01.2010'){
-      console.log("start date is:", StartDate);
-      //const sdate_copy = Object.create(StartDate);
+    if (StartDate != '01.01.2010') {
       const index_s = StartDate.lastIndexOf('/');
       const index_e = EndDate.lastIndexOf('/');
       const yr_s = StartDate.slice(index_s + 1);
       const yr_e = EndDate.slice(index_e + 1);
-      console.log("YEAR IS:", yr_s, yr_e,parseInt(yr_e)-parseInt(yr_s));
-      const num_years =  parseInt(yr_e)-parseInt(yr_s) + 1;
+      const num_years = parseInt(yr_e) - parseInt(yr_s) + 1;
       const years = [...Array(num_years).keys()].map(i => (i + parseInt(yr_s)).toString());
-      console.log("ARRAY OF YEARS IS:", years);
-      //var years=['2010','2011','2012','2013','2014','2015','2016','2017','2018','2019'];
-      //var years = yrs.filter(year => parseInt(year) >= parseInt(yr));
-      years.forEach(key => occurences[key] = occurences[key] || 0 );
+
+      years.forEach(key => occurences[key] = occurences[key] || 0);
 
     }
     setOccs(occurences);
-    console.log("occurences are", occs);
     if (!Check) {
       Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
     }
 
-    
+
 
     var current_countries = [{
       label: 'Latin America', data: occurences,
@@ -597,27 +542,21 @@ const ParentFunction = (e) => {
         r[year] = r[year] + row.id || row.id;
         return r;
       }, {});
-      if (StartDate != '01.01.2010'){
-        console.log("start date is:", StartDate);
+      if (StartDate != '01.01.2010') {
         //const sdate_copy = Object.create(StartDate);
         const index_s = StartDate.lastIndexOf('/');
         const index_e = EndDate.lastIndexOf('/');
         const yr_s = StartDate.slice(index_s + 1);
         const yr_e = EndDate.slice(index_e + 1);
-        console.log("YEAR IS:", yr_s, yr_e,parseInt(yr_e)-parseInt(yr_s));
-        const num_years =  parseInt(yr_e)-parseInt(yr_s) + 1;
+        const num_years = parseInt(yr_e) - parseInt(yr_s) + 1;
         const years = [...Array(num_years).keys()].map(i => (i + parseInt(yr_s)).toString());
-        console.log("ARRAY OF YEARS IS:", years);
-        //var years=['2010','2011','2012','2013','2014','2015','2016','2017','2018','2019'];
-        //var years = yrs.filter(year => parseInt(year) >= parseInt(yr));
-        years.forEach(key => occurences[key] = occurences[key] || 0 );
+        years.forEach(key => occurences[key] = occurences[key] || 0);
 
       }
-     
+
       if (!Check) {
         Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
       }
-      console.log("occurences here are:", occurences)
       return {
         label: e.value,
         data: occurences,
@@ -630,7 +569,7 @@ const ParentFunction = (e) => {
         tension: 0.0,
         options: {
           spanGaps: true // this is the property I found
-       }
+        }
       }
     }));
     setLineData({
@@ -640,12 +579,12 @@ const ParentFunction = (e) => {
   }, [countries, filteredData_agg, Check]);
 
   useEffect(() => {
-    if (lan=='en'){
+    if (lan == 'en') {
       setSteps(steps_joyride);
-    }else{
+    } else {
       setSteps(steps_joyride_es);
     }
-  
+
   }, [lan]);
 
   async function fetchData(file) {
@@ -675,50 +614,50 @@ const ParentFunction = (e) => {
   const [mouseHover, setMouseHover] = useState(false);
 
 
-  const getColor=(flag)=>{
-    if (flag==1){
-      if (zoom==1){
+  const getColor = (flag) => {
+    if (flag == 1) {
+      if (zoom == 1) {
         return '#EEE394'
-      }else{
+      } else {
         return '#EA4335'
       }
-    }else{
-      if (zoom==1){
+    } else {
+      if (zoom == 1) {
         return '#464342'
-      }else{
+      } else {
         return '#EA4335'
       }
     }
   }
 
-  const getOpacity = (flag) =>{
-    if (flag==1){
-      if (zoom==1){
+  const getOpacity = (flag) => {
+    if (flag == 1) {
+      if (zoom == 1) {
         return 0.8
-      }else{
+      } else {
         return 1
       }
-    }else{
-      if (zoom==1){
+    } else {
+      if (zoom == 1) {
         return 0.4
-      }else{
+      } else {
         return 1
       }
     }
 
   }
 
-  const getRadius = (flag) =>{
-    if (flag==1){
-      if (zoom==1){
+  const getRadius = (flag) => {
+    if (flag == 1) {
+      if (zoom == 1) {
         return 12
-      }else{
+      } else {
         return 20
       }
-    }else{
-      if (zoom==1){
+    } else {
+      if (zoom == 1) {
         return 4
-      }else{
+      } else {
         return 8
       }
     }
@@ -737,8 +676,8 @@ const ParentFunction = (e) => {
         }}
 
       /> */}
-      
-      <JoyRide 
+
+      <JoyRide
         callback={handleJoyrideCallback}
         continuous={true}
         disableOverlay={false}
@@ -749,12 +688,15 @@ const ParentFunction = (e) => {
         showSkipButton
         run={runTour}
         steps={steps}
-        styles={{  buttonClose: {
-          display: 'none'},
-          options:{
+        styles={{
+          buttonClose: {
+            display: 'none'
+          },
+          options: {
             width: 500
 
-          }}}></JoyRide>
+          }
+        }}></JoyRide>
       {/* <div className="intro-title">
         <p style={{ marginLeft: "60pt",marginTop: "0pt"}}>Lynching in<br />
           Latin America <br />
@@ -771,86 +713,87 @@ const ParentFunction = (e) => {
           </IconButton>
 
         </div>  */}
-     
+
 
       <div className='cover'>
-      
-     
-      
-      
-       
+
+
+
+
+
         {/* Use sizes relative to screen size */}
-        <img src={require("./eth_logo_kurz_neg.png")} style={{height:'50px'}}/>
+        <img src={require("./eth_logo_kurz_neg.png")} style={{ height: '50px' }} />
         <div className='flex-container'>
           <Button className="language" style={{
-                  right: "2vw",
-                  maxWidth: '9vmax',
-                  maxHeight: '60pt',
-                  textAlign: 'center',
-                  backgroundColor:"transparent",
-                  border: "2px solid white",
-                  display:"flex",
-                  justifyContent:"space-between"
-                }} onClick={onClickLanguage}>{language}</Button>
+            right: "2vw",
+            maxWidth: '9vmax',
+            maxHeight: '60pt',
+            textAlign: 'center',
+            backgroundColor: "transparent",
+            border: "2px solid white",
+            display: "flex",
+            justifyContent: "space-between"
+          }} onClick={onClickLanguage}>{language}</Button>
           <Button className="tour" style={{
-                right: "22vmin",
-                display:"flex",
-                maxWidth: '90pt',
-                maxHeight: '60pt',
-                marginLeft: '10pt',
-                backgroundColor:"transparent",
-                border: "2px solid white"}} onClick={() => setRunTour(true)}>{content['startTour'][lan]}</Button>
-           
-          
+            right: "22vmin",
+            display: "flex",
+            maxWidth: '90pt',
+            maxHeight: '60pt',
+            marginLeft: '10pt',
+            backgroundColor: "transparent",
+            border: "2px solid white"
+          }} onClick={() => setRunTour(true)}>{content['startTour'][lan]}</Button>
+
+
 
         </div>
-        
-      
+
+
         <h1 style={{ fontSize: "8vmin", marginLeft: "9vw", marginRight: "1vw", marginTop: "20vh" }}>{content['title'][lan]}</h1>
-        
+
         <p style={{ fontSize: "15pt", marginLeft: "9vw", marginRight: "20vw", marginTop: "10vh" }}>
-          {content['text'][lan]}<a style={{color: "inherit"}} href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html" target="_blank">{content['info-ref'][lan]}</a>.
+          {content['text'][lan]}<a style={{ color: "inherit" }} href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html" target="_blank">{content['info-ref'][lan]}</a>.
         </p>
-        <Row className="download" style={{positions:"absolute", marginLeft:"8%", marginTop:"5%"}}>
-              <Col>
-              <ExportExcel excelData={eventData_orig} fileName={'LYLA_2022-9-21'} text={content['downloadText'][lan]}/>
-                
-              </Col>
+        <Row className="download" style={{ positions: "absolute", marginLeft: "8%", marginTop: "5%" }}>
+          <Col>
+            <ExportExcel excelData={eventData_orig} fileName={'LYLA_2022-9-21'} text={content['downloadText'][lan]} />
+
+          </Col>
         </Row>
-        <Row  style={{positions:"absolute", marginLeft:"8%", marginTop:"10px"}}>
-        <Col>
-              <DownloadCodebook style={{width:"60px"}}/>
-              </Col>
+        <Row style={{ positions: "absolute", marginLeft: "8%", marginTop: "10px" }}>
+          <Col>
+            <DownloadCodebook style={{ width: "60px" }} />
+          </Col>
         </Row>
-             
-              
-          
-        
-      
-       
-        
-        <p style={{opacity:"0.3",position:"absolute", bottom:"20pt", right: "22vmin"}}>Image by <a style={{color: "inherit"}} target="_blank" href="https://unsplash.com/@iequezada"> Isaac Quezada</a></p>
+
+
+
+
+
+
+
+        <p style={{ opacity: "0.3", position: "absolute", bottom: "20pt", right: "22vmin" }}>Image by <a style={{ color: "inherit" }} target="_blank" href="https://unsplash.com/@iequezada"> Isaac Quezada</a></p>
       </div>
       <div className='intro' style={{ marginTop: "10pt" }}>
-        <h2 style={{marginLeft: "10pt",marginTop:"40pt"}}>{content['title'][lan]}</h2>
-        
-    
-        <div style={{marginLeft: "15pt",marginRight:"15pt"}}>
-          
-          <Row className="filters" style={{display:'flex', justifyContent:'center'}}>
+        <h2 style={{ marginLeft: "10pt", marginTop: "40pt" }}>{content['title'][lan]}</h2>
+
+
+        <div style={{ marginLeft: "15pt", marginRight: "15pt" }}>
+
+          <Row className="filters" style={{ display: 'flex', justifyContent: 'center' }}>
             <Col xs={12} sm={12} lg={8}  >
               <Row>
                 <Col xs={12} sm={12} lg={4}>
                   <Form.Label style={{ fontWeight: 'bold' }}>
-                        {content['filterBy'][lan]}
+                    {content['filterBy'][lan]}
                   </Form.Label>
                 </Col>
               </Row>
               <Row>
                 <Col lg={3}>
                   <Form.Label className='mb-3 line-break' style={{ fontSize: '0.8rem' }}>
-                        {content['allegedWrongdoing'][lan]}&thinsp;
-                        <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['allegedWrongdoingInfo'][lan]} />
+                    {content['allegedWrongdoing'][lan]}&thinsp;
+                    <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['allegedWrongdoingInfo'][lan]} />
                   </Form.Label>
                   <MultiSelect className='multi-select'
 
@@ -864,14 +807,14 @@ const ParentFunction = (e) => {
                     onChange={setWrongdoing}
                     labelledBy="Select"
 
-                    />
+                  />
                 </Col>
                 <Col xs={12} sm={12} lg={3}>
                   <Form.Label className='mb-3 line-break' style={{ fontSize: '0.8rem' }}>
                     {content['worstOutcome'][lan]}&thinsp;
                     <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['worstOutcomeInfo'][lan]} />
                   </Form.Label>
-                  <MultiSelect   className='multi-select'
+                  <MultiSelect className='multi-select'
                     options={dictionary.filter((item) =>
                       item.variable == 'tar_outcome'
                     ).map((element) => {
@@ -902,7 +845,7 @@ const ParentFunction = (e) => {
                   />
                 </Col>
                 <Col xs={12} sm={12} lg={3}>
-                  <Form.Label className='mb-3 line-break' style={{marginBottom:'40vh', fontSize: '0.8rem' }}>
+                  <Form.Label className='mb-3 line-break' style={{ marginBottom: '40vh', fontSize: '0.8rem' }}>
                     {content['numberPerpetrators'][lan]}&thinsp;
                     <FontAwesomeIcon icon="fa-solid fa-circle-info" title={content['numberPerpetratorsInfo'][lan]} />
                   </Form.Label>
@@ -922,125 +865,125 @@ const ParentFunction = (e) => {
               </Row>
             </Col>
             <Col xs={12} sm={12} lg={4}>
-              <br/>
-              <DateSlider style={{fontSize:"10px"}} className="date" setSDate={setSDate} setEDate={setEDate} dateTitle={content['timeWindow'][lan]} startDateText={content['startDateText'][lan]} endDateText={content['endDateText'][lan]}/>
+              <br />
+              <DateSlider style={{ fontSize: "10px" }} className="date" setSDate={setSDate} setEDate={setEDate} dateTitle={content['timeWindow'][lan]} startDateText={content['startDateText'][lan]} endDateText={content['endDateText'][lan]} />
             </Col>
           </Row>
           <Row>
             <Col lg={8} sm={12} xs={12}>
               <Row>
                 <Col lg={2} sm={12} xs={12}>
-                  <Form.Check 
-                            type='checkbox'
-                            label={content['showEvents'][lan]}
-                            id={`events`}
-                            checked={Show}
-                            onChange={() => setShow(!Show)}
-                    />
+                  <Form.Check
+                    type='checkbox'
+                    label={content['showEvents'][lan]}
+                    id={`events`}
+                    checked={Show}
+                    onChange={() => setShow(!Show)}
+                  />
                 </Col>
                 <Col lg={10}>
-                  <EventsText country={countryKey} num_events={numEvents} content={content} lan={lan}/>
-              
+                  <EventsText country={countryKey} num_events={numEvents} content={content} lan={lan} />
+
                 </Col>
               </Row>
 
-            
+
               <Row>
                 <Col lg={12}>
                   <MapContainer
-                      className='regionMap'
-                      id={"regionMap"}
-                      bounds={outerBounds}
-                      whenCreated={setMap}
-                      fullscreenControl={true}
-                      center={center}
-                      zoom={4}
-                      scrollWheelZoom={false}
-                      style={{ width: '100%', height: '1100px' }}>
-                      <TileLayer {...{
-                        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
-                        url: 'https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png'
-                      }
-                      } />
-                      <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} file={file} parentFunc={ParentFunction} num_events={numEvents} lan={lan} setZoom={setZoom}/>
-                     
+                    className='regionMap'
+                    id={"regionMap"}
+                    bounds={outerBounds}
+                    whenCreated={setMap}
+                    fullscreenControl={true}
+                    center={center}
+                    zoom={4}
+                    scrollWheelZoom={false}
+                    style={{ width: '100%', height: '1100px' }}>
+                    <TileLayer {...{
+                      attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
+                      url: 'https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png'
+                    }
+                    } />
+                    <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} file={file} parentFunc={ParentFunction} num_events={numEvents} lan={lan} setZoom={setZoom} />
 
-                      {Show && filteredData.map(evt => (
-                        <CircleMarker
-                          center={[evt.geometry.coordinates[0], evt.geometry.coordinates[1]]}
-                          radius={evt.press_article == 'true' ? getRadius(1):getRadius(0)}
-                          pane={evt.press_article == 'true' ? "locationMarker":"markerPane"}
-                          fillOpacity={evt.press_article == 'true' ? getOpacity(1):getOpacity(0)} 
-                          style={{zIndex: evt.press_article == 'true' ? 999:0}}
-                          pathOptions={{
-                            weight:0,
-                            //color: evt.press_article == 'true'  ? getColor(1):getColor(0),
-                            fillColor:evt.press_article == 'true'  ? getColor(1):getColor(0),
 
-                            
-                          }}
-                          /* {evt.press_article == 'true' ? '#EA4335' : '#464342'} */
-                          
-                          strokeOpacity={0.5}
-                          eventHandlers={{
-                            mouseover: (event) => {
-                              event.target.openPopup()
-                              setMouseHover(true)
-                            },
-                            mouseout: (e) => {
-                              setTimeout(() => {
-                                e.target.closePopup();
-                              }, 1000);
-                            },
-                          }}>
-                          <Popup className='popup' pane="popupPane">
-                            {/* <img className="popup-img" src={bogota} alt="bogota" /><br/> */}
-                            
-                            {/* {evt.header} <br /> */}
-                            {evt.press_article == 'true' && 
-                              lan == 'es' ? <h5>{evt.header_es}</h5> : <h5>{evt.header_en}</h5>}
+                    {Show && filteredData.map(evt => (
+                      <CircleMarker
+                        center={[evt.geometry.coordinates[0], evt.geometry.coordinates[1]]}
+                        radius={evt.press_article == 'true' ? getRadius(1) : getRadius(0)}
+                        pane={evt.press_article == 'true' ? "locationMarker" : "markerPane"}
+                        fillOpacity={evt.press_article == 'true' ? getOpacity(1) : getOpacity(0)}
+                        style={{ zIndex: evt.press_article == 'true' ? 999 : 0 }}
+                        pathOptions={{
+                          weight: 0,
+                          //color: evt.press_article == 'true'  ? getColor(1):getColor(0),
+                          fillColor: evt.press_article == 'true' ? getColor(1) : getColor(0),
 
-                            {evt.press_article == 'true' && <br/>}
-                            {evt.press_article == 'true' &&
 
-                              <a href={evt.link} target="_blank">{content['link_article'][lan]}</a>}
-                            <br/>{evt.name_1}, {evt.name_0} <br />
-                            {evt.date} <br />
-                            <table className="table-popup">
-                              <tr>
-                                <td> {content['allegedWrongdoing'][lan]}:</td>
-                                <td></td>
-                                <td> &thinsp;{dictionary.filter((item) =>
-                                  item.variable == 'tar_wrongdoing' & item.value == evt.tar_wrongdoing).map((element) => {
-                                    return element.name
-                                  })} </td>
-                              </tr>
-                              <tr>
-                                <td> {content['violenceInflicted'][lan]}:</td>
-                                <td></td>
-                                <td> &thinsp;{dictionary.filter((item) =>
-                                  item.variable == 'pe_violence' & item.value == evt.pe_violence).map((element) => {
-                                    return element.name
-                                  })}</td>
-                              </tr>
-                              <tr>
-                                <td> {content['worstOutcome'][lan]}:</td>
-                                <td></td>
-                                <td> &thinsp;{dictionary.filter((item) =>
-                                  item.variable == 'tar_outcome' & item.value == evt.tar_outcome).map((element) => {
-                                    return element.name
-                                  })}</td>
-                              </tr>
-                            </table>
-                            
-                          </Popup>
-                        </CircleMarker>
-                      ))}
+                        }}
+                        /* {evt.press_article == 'true' ? '#EA4335' : '#464342'} */
 
-                      <Ocean geojson_data={geojson_ocean} key_id='key_geojson'/>
-                      <OtherCountries geojson_data={geojson_others} key_id='key_geojson'/>
-                      
-                      <ResetMarker className='reset' setfile={setfile}></ResetMarker>
+                        strokeOpacity={0.5}
+                        eventHandlers={{
+                          mouseover: (event) => {
+                            event.target.openPopup()
+                            setMouseHover(true)
+                          },
+                          mouseout: (e) => {
+                            setTimeout(() => {
+                              e.target.closePopup();
+                            }, 1000);
+                          },
+                        }}>
+                        <Popup className='popup' pane="popupPane">
+                          {/* <img className="popup-img" src={bogota} alt="bogota" /><br/> */}
+
+                          {/* {evt.header} <br /> */}
+                          {evt.press_article == 'true' &&
+                            lan == 'es' ? <h5>{evt.header_es}</h5> : <h5>{evt.header_en}</h5>}
+
+                          {evt.press_article == 'true' && <br />}
+                          {evt.press_article == 'true' &&
+
+                            <a href={evt.link} target="_blank">{content['link_article'][lan]}</a>}
+                          <br />{evt.name_1}, {evt.name_0} <br />
+                          {evt.date} <br />
+                          <table className="table-popup">
+                            <tr>
+                              <td> {content['allegedWrongdoing'][lan]}:</td>
+                              <td></td>
+                              <td> &thinsp;{dictionary.filter((item) =>
+                                item.variable == 'tar_wrongdoing' & item.value == evt.tar_wrongdoing).map((element) => {
+                                  return element.name
+                                })} </td>
+                            </tr>
+                            <tr>
+                              <td> {content['violenceInflicted'][lan]}:</td>
+                              <td></td>
+                              <td> &thinsp;{dictionary.filter((item) =>
+                                item.variable == 'pe_violence' & item.value == evt.pe_violence).map((element) => {
+                                  return element.name
+                                })}</td>
+                            </tr>
+                            <tr>
+                              <td> {content['worstOutcome'][lan]}:</td>
+                              <td></td>
+                              <td> &thinsp;{dictionary.filter((item) =>
+                                item.variable == 'tar_outcome' & item.value == evt.tar_outcome).map((element) => {
+                                  return element.name
+                                })}</td>
+                            </tr>
+                          </table>
+
+                        </Popup>
+                      </CircleMarker>
+                    ))}
+
+                    <Ocean geojson_data={geojson_ocean} key_id='key_geojson' />
+                    <OtherCountries geojson_data={geojson_others} key_id='key_geojson' />
+
+                    <ResetMarker className='reset' setfile={setfile}></ResetMarker>
                   </MapContainer>
                 </Col>
               </Row>
@@ -1048,8 +991,8 @@ const ParentFunction = (e) => {
             <Col lg={4} sm={12} xs={12}>
               <Row>
                 <Col lg={9} sm={12} xs={12}>
-                  <br/>
-                  <br/>
+                  <br />
+                  <br />
                   <Form.Label className='mb-2'>{content['countryText'][lan]}</Form.Label>
                   <MultiSelect className='multi-select'
                     options={dictionary.filter((item) =>
@@ -1064,53 +1007,53 @@ const ParentFunction = (e) => {
                   />
                 </Col>
                 <Col lg={3} sm={12} xs={12}>
-                  <br/>
-                  <br/>
-                  <br/>
-                  <br/>
+                  <br />
+                  <br />
+                  <br />
+                  <br />
                   <Form.Check
-                          type='checkbox'
-                          label={content['numEvents'][lan]}
-                          id={`population`}
-                          checked={Check}
-                          onChange={() => setCheck(!Check)}
-                        />
+                    type='checkbox'
+                    label={content['numEvents'][lan]}
+                    id={`population`}
+                    checked={Check}
+                    onChange={() => setCheck(!Check)}
+                  />
                 </Col>
               </Row>
               <Row>
                 <Line className="linechart" data={lineData}
-                        // options= {/{scales: {x: {type: 'time'}}} }
-                        options={options}/>
+                  // options= {/{scales: {x: {type: 'time'}}} }
+                  options={options} />
 
               </Row>
               <Row>
                 <Col lg={9} sm={12} xs={12}>
-                  <br/>
-                  <br/>
+                  <br />
+                  <br />
                   <Form.Select
-                          value={var_chart}
-                          onChange={event => setvar_chart(event.target.value)}>
-                          <option value="pe_approxnumber">{content['numberPerpetrators'][lan]}</option>
-                          <option value="tar_wrongdoing">{content['allegedWrongdoing'][lan]}</option>
-                          <option value="tar_outcome">{content['worstOutcome'][lan]}</option>
-                          <option value="pe_violence">{content['violenceInflicted'][lan]}</option>
+                    value={var_chart}
+                    onChange={event => setvar_chart(event.target.value)}>
+                    <option value="pe_approxnumber">{content['numberPerpetrators'][lan]}</option>
+                    <option value="tar_wrongdoing">{content['allegedWrongdoing'][lan]}</option>
+                    <option value="tar_outcome">{content['worstOutcome'][lan]}</option>
+                    <option value="pe_violence">{content['violenceInflicted'][lan]}</option>
                   </Form.Select>
                 </Col>
               </Row>
               <Row>
                 <Col lg={12} sm={12} xs={12}>
-                  <Bar className="barchart" style={{height: '70vh'}} options={optionsBar} data={barData} />
+                  <Bar className="barchart" style={{ height: '70vh' }} options={optionsBar} data={barData} />
                 </Col>
               </Row>
             </Col>
           </Row>
-         
+
         </div>
       </div>
-      
-      <p style={{fontSize:"10pt", marginLeft:'15px'}}>Website created by <a style={{color: "inherit"}} href="https://cristyguzman.github.io/" target="_blank"> Cristina Guzman</a> and <a style={{color: "inherit"}} href="https://feradauto.github.io/" target="_blank">Fernando Gonzalez</a>.</p>
-      <img src={require("./eth_logo_kurz_neg.png")} style={{height:'50px', marginBottom: '10px', marginTop:'-15px'}}/>
-      
+
+      <p style={{ fontSize: "10pt", marginLeft: '15px' }}>Website created by <a style={{ color: "inherit" }} href="https://cristyguzman.github.io/" target="_blank"> Cristina Guzman</a> and <a style={{ color: "inherit" }} href="https://feradauto.github.io/" target="_blank">Fernando Gonzalez</a>.</p>
+      <img src={require("./eth_logo_kurz_neg.png")} style={{ height: '50px', marginBottom: '10px', marginTop: '-15px' }} />
+
 
     </div>
 
