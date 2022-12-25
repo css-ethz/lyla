@@ -97,6 +97,7 @@ function App() {
     }, {});
     return groups;
   });
+  
   const options = {
     plugins: {
       title: {
@@ -232,13 +233,7 @@ function App() {
   /************************************************ end  ***********************************/
 
   useEffect(() => {
-    if (Show) {
-      setShow(!Show);
-      setShow(!Show);
-      if (level == 2) {
-        setShow(true);
-      }
-    }
+
     if (level > 2) {
       setlevel(1);
     }
@@ -251,7 +246,6 @@ function App() {
       setlevel(0);
       setcountrykey('Latin America');
 
-      //map2.fitBounds({outerBounds});
     }
     else if (countries.includes(file)) {
       //fetchData(file);
@@ -419,10 +413,6 @@ function App() {
     });
     setFilteredData(filtered_data);
     setFilteredData_agg(filtered_data_agg);
-    setShow(!Show);
-    if (!Show) {
-      setShow(true);
-    }
   }, [peNum, tarOutcome, wrongdoing, peViolence, StartDate, EndDate, fileflag, countries]);
 
 
@@ -912,18 +902,15 @@ function App() {
                       <CircleMarker
                         center={[evt.geometry.coordinates[0], evt.geometry.coordinates[1]]}
                         radius={evt.press_article == 'true' ? getRadius(1) : getRadius(0)}
-                        pane={evt.press_article == 'true' ? "locationMarker" : "markerPane"}
+                        key={evt.id}
                         fillOpacity={evt.press_article == 'true' ? getOpacity(1) : getOpacity(0)}
                         style={{ zIndex: evt.press_article == 'true' ? 999 : 0 }}
                         pathOptions={{
                           weight: 0,
-                          //color: evt.press_article == 'true'  ? getColor(1):getColor(0),
                           fillColor: evt.press_article == 'true' ? getColor(1) : getColor(0),
-
+                          pane:evt.press_article == 'true' ? "locationMarker" : "markerPane",
 
                         }}
-                        /* {evt.press_article == 'true' ? '#EA4335' : '#464342'} */
-
                         strokeOpacity={0.5}
                         eventHandlers={{
                           mouseover: (event) => {

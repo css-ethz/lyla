@@ -75,7 +75,6 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id, file, parentFunc, num_ev
         };
 
         if (legend instanceof L.Control) { 
-            console.log("legend should be deleted");
             map.removeControl(legend); 
         };
         //map.removeControl(legend);
@@ -106,11 +105,8 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id, file, parentFunc, num_ev
         e.target.setStyle(style(e.target.feature));
     })
     const zoomToFeature = (e) => {
-        console.log("target admin value (in zoomfeature function) is:",e.target.feature.properties.ADMIN);
-        //console.log("number of events  of", e.target.feature.properties.ADMIN,"is",num_events[e.target.feature.properties.ADMIN]);
         map.fitBounds(e.target.getBounds()); //print bounds
         
-        console.log(e.target.getBounds());
     };
 
     const onEachFeature = (feature, layer) => {
