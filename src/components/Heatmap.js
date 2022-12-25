@@ -179,8 +179,6 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id, file, parentFunc, num_ev
 
     });
     useEffect(() => {
-        console.log("FILE");
-        console.log(file);
         if (file === "Latin America"){
         
         if (geoJsonRef.current.getBounds().isValid()) {

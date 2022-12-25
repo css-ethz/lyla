@@ -72,8 +72,8 @@ function App() {
   const [countries, setCountries] = useState([]);
   const [tarOutcome, setTarOutcome] = useState([]);
   const [peViolence, setPeViolence] = useState([]);
-  const [StartDate, setSDate] = useState("01.01.2010");
-  const [EndDate, setEDate] = useState("31.12.2019");
+  const [StartDate, setSDate] = useState("01/01/2010");
+  const [EndDate, setEDate] = useState("31/12/2019");
   const [shapes, setshapes] = useState(geojson);
   const [file, setfile] = useState('Latin America');
   const [level, setlevel] = useState(0);
