@@ -1,12 +1,7 @@
 import { useEffect, useState } from 'react';
 import "@progress/kendo-theme-default/dist/all.css";
 import { Row, Col, Form } from 'react-bootstrap';
-import {
-  MapContainer,
-  TileLayer,
-  Popup,
-  CircleMarker
-} from 'react-leaflet'
+import {MapContainer,TileLayer,Popup,CircleMarker} from 'react-leaflet'
 import { Bar, Line } from "react-chartjs-2";
 import L from 'leaflet';
 import geojson from './data/admin0.geojson.json'
@@ -61,8 +56,6 @@ const outerBounds = [
 const colors = ["fe4848", "fe6c58", "fe9068", "feb478", "fed686"];
 const labels = ["2-12.5", "12.6-16.8", "16.9-20.9", "21-25.9", "26-plus"];
 
-
-
 function App() {
   const [map, setMap] = useState();
   const [filteredData, setFilteredData] = useState(eventData);
@@ -78,47 +71,30 @@ function App() {
   const [file, setfile] = useState('Latin America');
   const [level, setlevel] = useState(0);
   const [Check, setCheck] = useState(false);
-  const [Show, setShow] = useState(false);
+  const [Show, setShow] = useState(true);
   const [fileflag, setfileflag] = useState('Latin America');
   const [var_chart, setvar_chart] = useState('pe_approxnumber');
-  /***************************************** START Translated variables ****************************************************/
   const [language, setLanguage] = useState("Español");
   const [lan, setLan] = useState("en");
   const [occs, setOccs] = useState(null);
   const [numEvents, setNumEvents] = useState(2818);
-  const [zoom, setZoom] = useState(0)
+  const [zoom, setZoom] = useState(1)
   const [countryKey, setcountrykey] = useState('Latin America');
   const [runTour, setRunTour] = useState(false);
   const [steps, setSteps] = useState(steps_joyride);
-  const [heat, setheat] = useState(() => {
-    var groups = filteredData_agg.reduce(function (r, row) {
-      r[row.name_0] = ++r[row.name_0] || 1;
-      return r;
-    }, {});
-    return groups;
-  });
-  
+  const Colorscale = {
+    'Latin America': '#fafa6e', 'Argentina': '#00968e', 'Brazil': '#4abd8c', 'Chile': '#106e7c',
+    'Mexico': '#9cdf7c', 'Peru': '#2a4858', "Bolivia": "#B1C6ED", "Colombia": "#B7E6DD",
+    "Costa Rica": "#DFD3EA", "Dominican Republic": "#E3533F", "Ecuador": "#C5F08E", "Guatemala": "#E4A78E", "Honduras": "#A08EE4",
+    "Nicaragua": "#ECBAC5", "Panama": "#899199", "Paraguay": "#5ADCD4", "Uruguay": "#E79456", "Venezuela": "#C4AC9A"
+  };
+  // Options for Line and Bar charts
   const options = {
     plugins: {
       title: {
         display: true,
         text: content['lineplot'][Check ? "events" : 'per_million'][lan],
       },
-    },
-    scales: {
-      yAxes:
-      {
-        gridLines: {
-          display: "false"
-        }
-      },
-      xAxes: [
-        {
-          gridLines: {
-            display: "false"
-          }
-        }
-      ]
     }
   };
   const optionsBar = {
@@ -129,39 +105,9 @@ function App() {
         display: true,
         text: content['barplot'][Check ? "events" : 'per_million'][lan],
       },
-    },
-    scales: {
-
-      yAxes:
-      {
-        gridLines: {
-          display: "false"
-        }
-      },
-      xAxes: [
-        {
-          ticks: {
-            display: false
-          },
-          gridLines: {
-            display: "false"
-          }
-        }
-      ]
     }
   };
-
-
-  const handleJoyrideCallback = (data) => {
-    const { status, type } = data;
-    const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED];
-
-    if (finishedStatuses.includes(status)) {
-      setRunTour(false);
-    }
-  };
-
-
+  // language
   const onClickLanguage = () => {
     if (language == "Español") {
       setLanguage("English");
@@ -172,35 +118,18 @@ function App() {
       setLanguage("Español");
       setLan("en");
     };
-
   };
+  // tutorial
+  const handleJoyrideCallback = (data) => {
+    const { status, type } = data;
+    const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED];
 
-
-  var special_events = Object.create(eventData);
-  special_events = special_events.filter((item) => {
-    return (item.press_article == 'true');
-  });
-  const Colorscale = {
-    'Latin America': '#fafa6e', 'Argentina': '#00968e', 'Brazil': '#4abd8c', 'Chile': '#106e7c',
-    'Mexico': '#9cdf7c', 'Peru': '#2a4858', "Bolivia": "#B1C6ED", "Colombia": "#B7E6DD",
-    "Costa Rica": "#DFD3EA", "Dominican Republic": "#E3533F", "Ecuador": "#C5F08E", "Guatemala": "#E4A78E", "Honduras": "#A08EE4",
-    "Nicaragua": "#ECBAC5", "Panama": "#899199", "Paraguay": "#5ADCD4", "Uruguay": "#E79456", "Venezuela": "#C4AC9A"
+    if (finishedStatuses.includes(status)) {
+      setRunTour(false);
+    }
   };
-  const [barData, setBarData] = useState({
-    labels: dictionary.filter((item) => (item.variable == var_chart) && (item.name != "Not reported")).map((element) => element.name),
-    datasets: [],
-  });
+  // functions
   const sumValues = obj => Object.values(obj).reduce((a, b) => a + b, 0);
-  const [lineData, setLineData] = useState({
-    labels: dictionary.filter((item) => item.variable == var_chart).map((element) => element.name),
-    datasets: [],
-  });
-
-
-
-
-
-
   function parseDate(input) {
     var parts = input.match(/(\d+)/g);
     // note parts[1]-1
@@ -210,34 +139,88 @@ function App() {
     var alpha = opacity === undefined ? 0.5 : 1 - opacity;
     return colorLib(value).alpha(alpha).rgbString();
   }
-
-
-  /************************************************ function passed to heatmpa child component *********************************/
-
   const ParentFunction = (e) => {
-    console.log("tarfet admin value is:", e.target.feature.properties.ADMIN);
-    console.log("heat of", e.target.feature.properties.ADMIN, "is", heat[e.target.feature.properties.ADMIN]);
-    // if (fileflag == 'Latin America') {
-    //     console.log("check if value coincides with zoomed out country:",e.target.feature.properties.ADMIN); //check if value coincides with zoomed out country
-    //     setfile(e.target.feature.properties.ADMIN);
-    //     setcountrykey(e.target.feature.properties.ADMIN);
-    //     //setEventsArrayKey(e.target.feature.properties.ADMIN);
-    //     console.log("function triggered when clicking in heatmap, number of events here is:", numEvents);
-
-
-    //   }
     setfile(e.target.feature.properties.ADMIN);
-    //setEventsArrayKey(e.target.feature.properties.ADMIN);
-    setcountrykey(e.target.feature.properties.ADMIN);
   };
-  /************************************************ end  ***********************************/
+  const getColor = (flag) => {
+    if (flag == 1) {
+      if (zoom == 1) {
+        return '#EEE394'
+      } else {
+        return '#EA4335'
+      }
+    } else {
+      if (zoom == 1) {
+        return '#464342'
+      } else {
+        return '#EA4335'
+      }
+    }
+  }
+
+  const getOpacity = (flag) => {
+    if (flag == 1) {
+      if (zoom == 1) {
+        return 0.8
+      } else {
+        return 1
+      }
+    } else {
+      if (zoom == 1) {
+        return 0.4
+      } else {
+        return 1
+      }
+    }
+
+  }
+  const getRadius = (flag) => {
+    if (flag == 1) {
+      if (zoom == 1) {
+        return 12
+      } else {
+        return 20
+      }
+    } else {
+      if (zoom == 1) {
+        return 4
+      } else {
+        return 8
+      }
+    }
+
+  }
+  // State initializations
+  const [barData, setBarData] = useState({
+    labels: dictionary.filter((item) => (item.variable == var_chart) && (item.name != "Not reported")).map((element) => element.name),
+    datasets: [],
+  });
+  const [lineData, setLineData] = useState({
+    labels: dictionary.filter((item) => item.variable == var_chart).map((element) => element.name),
+    datasets: [],
+  });
+  const [heat, setheat] = useState(() => {
+    var groups = filteredData_agg.reduce(function (r, row) {
+      r[row.name_0] = r[row.name_0] + row.events_pop || row.events_pop;
+      return r;
+    }, {});
+    return groups;
+  });
 
   useEffect(() => {
+    if (lan == 'en') {
+      setSteps(steps_joyride);
+    } else {
+      setSteps(steps_joyride_es);
+    }
 
+  }, [lan]);
+
+  // Set geojson country or Latin America
+  useEffect(() => {
     if (level > 2) {
       setlevel(1);
     }
-
     var countries = ["Argentina", "Bolivia", "Brazil", "Chile", "Colombia",
       "Costa Rica", "Dominican Republic", "Ecuador", "Guatemala", "Honduras",
       "Mexico", "Nicaragua", "Panama", "Paraguay", "Peru", "Uruguay", "Venezuela"]
@@ -248,23 +231,22 @@ function App() {
 
     }
     else if (countries.includes(file)) {
-      //fetchData(file);
       var geo1 = Object.create(geojson1_admin1);
       geo1.features = geo1.features.filter((item) => item.properties.NAME_0 == file);
       setshapes(geo1);
+      setlevel(1);
+      setcountrykey(file);
+
+    }else{
       setlevel(2);
-
-    } else {
-      const anchor = document.querySelector('#regionMap')
-      anchor.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      setcountrykey(file);
+      
     }
-
-
   }, [file])
 
-
+// Count total events per region
   useEffect(() => {
-    if (level == 0) {
+    if (level <2) {
       var num_events = eventData.reduce(function (r, row) {
         r[row.name_0] = ++r[row.name_0] || 1;
         return r;
@@ -279,23 +261,9 @@ function App() {
     }
     setNumEvents(num_events);
 
-
-
   }, [countryKey]);
 
-
-  useEffect(() => {
-    if (fileflag == 'Latin America') {
-      setShow(true);
-    } else {
-      setShow(true);
-    }
-
-  }, [fileflag]);
-
-
-
-
+// compute values for heatmap and add country to list
   useEffect(() => {
     if (level == 0) {
       var groups = filteredData_agg.reduce(function (r, row) {
@@ -310,7 +278,6 @@ function App() {
       }, {});
 
     }
-
     setheat(groups);
     setfileflag(file);
     if (file != 'Latin America') {
@@ -324,7 +291,7 @@ function App() {
       setCountries(countries_tmp);
     }
   }, [shapes])
-
+// Apply filters
   useEffect(() => {
     var filtered_data = Object.create(eventData);
     var filtered_data_agg = Object.create(aggData);
@@ -415,7 +382,7 @@ function App() {
     setFilteredData_agg(filtered_data_agg);
   }, [peNum, tarOutcome, wrongdoing, peViolence, StartDate, EndDate, fileflag, countries]);
 
-
+// Compute data Barchart
   useEffect(() => {
     var occurences = filteredData_agg.reduce(function (r, row) {
       var val_name = dictionary.filter((item) => item.variable == var_chart & item.value == row[var_chart]).map((element) => element.name)[0];
@@ -475,7 +442,9 @@ function App() {
     });
   }, [var_chart, countries, filteredData_agg, Check]);
 
+  // Compute data linechart
   useEffect(() => {
+    // Aggregate all LatinAmerica or by country
     if (level == 0) {
       var gg = filteredData_agg.reduce(function (r, row) {
         r[row.name_0] = r[row.name_0] + row.id || row.id;
@@ -498,23 +467,20 @@ function App() {
       r[year] = r[year] + row.id || row.id;
       return r; //returns array with keys being the years and values the number of events 
     }, {});
-    if (StartDate != '01.01.2010') {
-      const index_s = StartDate.lastIndexOf('/');
-      const index_e = EndDate.lastIndexOf('/');
-      const yr_s = StartDate.slice(index_s + 1);
-      const yr_e = EndDate.slice(index_e + 1);
-      const num_years = parseInt(yr_e) - parseInt(yr_s) + 1;
-      const years = [...Array(num_years).keys()].map(i => (i + parseInt(yr_s)).toString());
 
-      years.forEach(key => occurences[key] = occurences[key] || 0);
+    const index_s = StartDate.lastIndexOf('/');
+    const index_e = EndDate.lastIndexOf('/');
+    const yr_s = StartDate.slice(index_s + 1);
+    const yr_e = EndDate.slice(index_e + 1);
+    const num_years = parseInt(yr_e) - parseInt(yr_s) + 1;
+    const years = [...Array(num_years).keys()].map(i => (i + parseInt(yr_s)).toString());
 
-    }
+    years.forEach(key => occurences[key] = occurences[key] || 0);
+
     setOccs(occurences);
     if (!Check) {
       Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (sumValues(population_admin0[0]) / 1000000));
     }
-
-
 
     var current_countries = [{
       label: 'Latin America', data: occurences,
@@ -532,17 +498,15 @@ function App() {
         r[year] = r[year] + row.id || row.id;
         return r;
       }, {});
-      if (StartDate != '01.01.2010') {
-        //const sdate_copy = Object.create(StartDate);
-        const index_s = StartDate.lastIndexOf('/');
-        const index_e = EndDate.lastIndexOf('/');
-        const yr_s = StartDate.slice(index_s + 1);
-        const yr_e = EndDate.slice(index_e + 1);
-        const num_years = parseInt(yr_e) - parseInt(yr_s) + 1;
-        const years = [...Array(num_years).keys()].map(i => (i + parseInt(yr_s)).toString());
-        years.forEach(key => occurences[key] = occurences[key] || 0);
+      
+      const index_s = StartDate.lastIndexOf('/');
+      const index_e = EndDate.lastIndexOf('/');
+      const yr_s = StartDate.slice(index_s + 1);
+      const yr_e = EndDate.slice(index_e + 1);
+      const num_years = parseInt(yr_e) - parseInt(yr_s) + 1;
+      const years = [...Array(num_years).keys()].map(i => (i + parseInt(yr_s)).toString());
+      years.forEach(key => occurences[key] = occurences[key] || 0);
 
-      }
 
       if (!Check) {
         Object.keys(occurences).forEach(key => occurences[key] = occurences[key] / (population_admin0[0][e.value] / 1000000));
@@ -568,91 +532,6 @@ function App() {
     });
   }, [countries, filteredData_agg, Check]);
 
-  useEffect(() => {
-    if (lan == 'en') {
-      setSteps(steps_joyride);
-    } else {
-      setSteps(steps_joyride_es);
-    }
-
-  }, [lan]);
-
-  async function fetchData(file) {
-    // const response = await fetch("./example.json");
-    const response = await fetch('/lyla/countries/' + file + '.json', {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    })
-    setshapes(await response.json());
-  }
-
-
-  const reset_map = () => {
-    setfile("Latin America");
-  }
-  // const iconMarkup = renderToStaticMarkup(
-  //   <i class="fa fa-camera-retro"></i>
-  // );
-  // //const iconHTML = ReactDOMServer.renderToString(<FontAwesomeIcon icon="fa fa-circle" />)
-  // const customMarkerIcon = divIcon({
-  //   html: iconMarkup,
-  //   className: 'dummy'
-  // });
-  //onst circleIcon = <FontAwesomeIcon icon="fas fa-circle" />;
-  const [mouseHover, setMouseHover] = useState(false);
-
-
-  const getColor = (flag) => {
-    if (flag == 1) {
-      if (zoom == 1) {
-        return '#EEE394'
-      } else {
-        return '#EA4335'
-      }
-    } else {
-      if (zoom == 1) {
-        return '#464342'
-      } else {
-        return '#EA4335'
-      }
-    }
-  }
-
-  const getOpacity = (flag) => {
-    if (flag == 1) {
-      if (zoom == 1) {
-        return 0.8
-      } else {
-        return 1
-      }
-    } else {
-      if (zoom == 1) {
-        return 0.4
-      } else {
-        return 1
-      }
-    }
-
-  }
-
-  const getRadius = (flag) => {
-    if (flag == 1) {
-      if (zoom == 1) {
-        return 12
-      } else {
-        return 20
-      }
-    } else {
-      if (zoom == 1) {
-        return 4
-      } else {
-        return 8
-      }
-    }
-
-  }
   return (
     <div className="dark">
       {/* <Steps
@@ -706,11 +585,6 @@ function App() {
 
 
       <div className='cover'>
-
-
-
-
-
         {/* Use sizes relative to screen size */}
         <img src={require("./eth_logo_kurz_neg.png")} style={{ height: '50px' }} />
         <div className='flex-container'>
@@ -733,12 +607,7 @@ function App() {
             backgroundColor: "transparent",
             border: "2px solid white"
           }} onClick={() => setRunTour(true)}>{content['startTour'][lan]}</Button>
-
-
-
         </div>
-
-
         <h1 style={{ fontSize: "8vmin", marginLeft: "9vw", marginRight: "1vw", marginTop: "20vh" }}>{content['title'][lan]}</h1>
 
         <p style={{ fontSize: "15pt", marginLeft: "9vw", marginRight: "20vw", marginTop: "10vh" }}>
@@ -755,12 +624,6 @@ function App() {
             <DownloadCodebook style={{ width: "60px" }} />
           </Col>
         </Row>
-
-
-
-
-
-
 
         <p style={{ opacity: "0.3", position: "absolute", bottom: "20pt", right: "22vmin" }}>Image by <a style={{ color: "inherit" }} target="_blank" href="https://unsplash.com/@iequezada"> Isaac Quezada</a></p>
       </div>
@@ -895,7 +758,7 @@ function App() {
                       url: 'https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png'
                     }
                     } />
-                    <Heatmap geojson_data={shapes} heat={heat} setfile={setfile} key_id={fileflag} file={file} parentFunc={ParentFunction} num_events={numEvents} lan={lan} setZoom={setZoom} />
+                    <Heatmap geojson_data={shapes} heat={heat} key_id={fileflag} file={file} parentFunc={ParentFunction} lan={lan} setZoom={setZoom} />
 
 
                     {Show && filteredData.map(evt => (
@@ -909,14 +772,11 @@ function App() {
                         pathOptions={{
                           weight: 0,
                           fillColor: evt.press_article == 'true' ? getColor(1) : getColor(0),
-                          
-
                         }}
                         strokeOpacity={0.5}
                         eventHandlers={{
                           mouseover: (event) => {
-                            event.target.openPopup()
-                            setMouseHover(true)
+                            event.target.openPopup();
                           },
                           mouseout: (e) => {
                             setTimeout(() => {
@@ -1039,16 +899,13 @@ function App() {
         </div>
       </div>
 
-      <p style={{ fontSize: "10pt", marginLeft: '15px' }}>Website created by <a style={{ color: "inherit" }} href="https://cristyguzman.github.io/" target="_blank"> Cristina Guzman</a> and <a style={{ color: "inherit" }} href="https://feradauto.github.io/" target="_blank">Fernando Gonzalez</a>.</p>
+      <p style={{ fontSize: "12pt", marginLeft: '15px' }}>Website created by <a style={{ color: "inherit" }} href="https://cristyguzman.github.io/" target="_blank"> Cristina Guzman</a> and <a style={{ color: "inherit" }} href="https://feradauto.github.io/" target="_blank">Fernando Gonzalez</a>.</p>
       <img src={require("./eth_logo_kurz_neg.png")} style={{ height: '50px', marginBottom: '10px', marginTop: '-15px' }} />
 
 
     </div>
 
   );
-
-
 };
-
 
 export default App;

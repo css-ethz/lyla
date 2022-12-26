@@ -18,7 +18,7 @@ import L from 'leaflet';
     [-1.505, -35.59],
   ]
 
-const Heatmap = ({ geojson_data, heat, setfile, key_id, file, parentFunc, num_events,lan,setZoom}) => {
+const Heatmap = ({ geojson_data, heat, key_id, file, parentFunc,lan,setZoom}) => {
     //const geoJson: RefObject<Leaflet.GeoJSON> = useRef(null);
     const geoJsonRef = useRef(null);
     const map = useMap();
@@ -86,26 +86,8 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id, file, parentFunc, num_ev
         map.createPane("popupPane");
         map.getPane("popupPane").style.zIndex = 2;
       }, []);
-    const highlightFeature = (e => {
-        var layer = e.target;
-        if (mapEvents.getZoom() < 10) {
-            layer.setStyle({
-                weight: 1,
-                color: "white",
-                fillOpacity: 1
-            });
-        } else {
-            layer.setStyle({
-                weight: 1,
-                color: "white",
-                fillOpacity: 0
-            });
-        }
-    });
-    const resetHighlight = (e => {
-        setOnselect({});
-        e.target.setStyle(style(e.target.feature));
-    })
+
+
     const zoomToFeature = (e) => {
         map.fitBounds(e.target.getBounds()); //print bounds
         
@@ -122,20 +104,6 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id, file, parentFunc, num_ev
 
     };
 
-    // const onEachFeature = (feature, layer) => {
-    //     layer.on({
-    //         //mouseover: highlightFeature,
-    //         //mouseout: resetHighlight,
-    //         click: (e) => {
-    //             zoomToFeature(e);
-    //             if (key_id == 'Latin America') {
-    //                 console.log(e.target.feature.properties.ADMIN); //check if value coincides with zoomed out country
-    //                 setfile(e.target.feature.properties.ADMIN);
-                    
-    //             }
-    //         },
-    //     });
-    // }
     const mapPolygonColorToDensity = (density => {
         return density > 8
             ? '#BB545A'
