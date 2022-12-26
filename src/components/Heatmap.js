@@ -79,10 +79,12 @@ const Heatmap = ({ geojson_data, heat, setfile, key_id, file, parentFunc, num_ev
         };
         //map.removeControl(legend);
         legend.addTo(map);
+        map.createPane("normalPane");
+        map.getPane("normalPane").style.zIndex = 0;
         map.createPane("locationMarker");
-        map.getPane("locationMarker").style.zIndex = 0;
+        map.getPane("locationMarker").style.zIndex = 1;
         map.createPane("popupPane");
-        map.getPane("popupPane").style.zIndex = 1;
+        map.getPane("popupPane").style.zIndex = 2;
       }, []);
     const highlightFeature = (e => {
         var layer = e.target;

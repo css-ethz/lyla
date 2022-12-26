@@ -904,11 +904,12 @@ function App() {
                         radius={evt.press_article == 'true' ? getRadius(1) : getRadius(0)}
                         key={evt.id}
                         fillOpacity={evt.press_article == 'true' ? getOpacity(1) : getOpacity(0)}
+                        pane={evt.press_article == 'true' ? "locationMarker" : "normalPane"}
                         style={{ zIndex: evt.press_article == 'true' ? 999 : 0 }}
                         pathOptions={{
                           weight: 0,
                           fillColor: evt.press_article == 'true' ? getColor(1) : getColor(0),
-                          pane:evt.press_article == 'true' ? "locationMarker" : "markerPane",
+                          
 
                         }}
                         strokeOpacity={0.5}
