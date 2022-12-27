@@ -36,10 +36,18 @@ import JoyRide, { STATUS } from 'react-joyride';
 import DownloadCodebook from './components/CodebokkPopUp';
 import { steps_joyride, steps_joyride_es } from './util/steps';
 import ExportExcel from './components/ExcelExport';
+import ReactGA from "react-ga4";
 Chart.register(...registerables);
 delete L.Icon.Default.prototype._getIconUrl;
 fontawesome.library.add(faCircleInfo);
+ReactGA.initialize([
+  {
+    trackingId: "G-VK2EWMHCWG",
+  }
+]);
 
+// Send pageview with a custom path
+ReactGA.send({ hitType: "pageview" });
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
   iconUrl: require('leaflet/dist/images/marker-icon.png'),
