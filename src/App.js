@@ -360,20 +360,7 @@ function App() {
         item.name_0 == fileflag
       );
     }
-    /*     if (countries.length > 0) {
-    
-          filtered_data = filtered_data.filter((item) =>
-          current_countries.includes(item.name_0)
-          );
-           filtered_data_agg = filtered_data_agg.filter((item) =>
-          current_countries.includes(item.name_0)
-          ); 
-        } */
-
-    /*     if (fileflag != 'Latin America') {
-          filtered_data = filtered_data.filter((item) => item.name_0 == fileflag);
-          filtered_data_agg = filtered_data_agg.filter((item) => item.name_0 == fileflag);
-        } */
+  
 
     var start_parsed = parseDate(StartDate)
     var end_parsed = parseDate(EndDate)
@@ -542,17 +529,7 @@ function App() {
 
   return (
     <div className="dark">
-      {/* <Steps
-        enabled={stepsEnabled}
-        steps={steps}
-        initialStep={0}
-        onExit={onExit}
-        options={{
-          tooltipClass: "customTooltip",
-          scrollToElement: true,
-        }}
-
-      /> */}
+     
 
       <JoyRide
         callback={handleJoyrideCallback}
@@ -574,26 +551,10 @@ function App() {
 
           }
         }}></JoyRide>
-      {/* <div className="intro-title">
-        <p style={{ marginLeft: "60pt",marginTop: "0pt"}}>Lynching in<br />
-          Latin America <br />
-          (LYLA)</p>
-        <p style={{ fontSize: "3vh", marginLeft: "60pt", marginRight: "60pt", marginTop: "50pt" }}>The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 reported lynching events across 18 Latin American countries from 2010 to 2019.</p>
-        <ExpandMoreIcon style={{ marginLeft: "500pt", marginBottom: "-500pt" }}></ExpandMoreIcon>
-        <p style={{ fontSize: '2vh', marginLeft: "460pt", marginTop: "200pt" }}>{scrollDown}</p>
-
-      </div> */}
-
-      {/* <div>
-          <IconButton size="large" color="inherit" onClick={() => setStepsEnabled(true)}>
-                  <QuestionMarkIcon />
-          </IconButton>
-
-        </div>  */}
+     
 
 
       <div className='cover'>
-        {/* Use sizes relative to screen size */}
         <img src={require("./eth_logo_kurz_neg.png")} style={{ height: '50px' }} />
         <div className='flex-container'>
           <Button className="language" style={{
@@ -793,9 +754,7 @@ function App() {
                           },
                         }}>
                         <Popup className='popup' pane="popupPane">
-                          {/* <img className="popup-img" src={bogota} alt="bogota" /><br/> */}
-
-                          {/* {evt.header} <br /> */}
+                        
                           {evt.press_article == 'true' &&
                             lan == 'es' ? <h5>{evt.header_es}</h5> : <h5>{evt.header_en}</h5>}
 
@@ -878,7 +837,6 @@ function App() {
               </Row>
               <Row>
                 <Line className="linechart" data={lineData}
-                  // options= {/{scales: {x: {type: 'time'}}} }
                   options={options} />
 
               </Row>
