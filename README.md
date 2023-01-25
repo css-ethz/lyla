@@ -34,7 +34,7 @@ npm run deploy
 ### Important data files
 
 - [/public/countries](https://github.com/css-ethz/lyla/tree/master/public/countries) Geojson with simplified shapefiles for provinces
-- [/src/data/json_data_complete_latin3.json](https://github.com/css-ethz/lyla/blob/master/src/data/json_data_complete_latin3.json) Reported cases
+- [/src/data/events_data.json](https://github.com/css-ethz/lyla/blob/master/src/data/events_data.json) Reported cases
 - [/src/data/LatinAmerica_geo_variables_provinces.csv](https://github.com/css-ethz/lyla/blob/master/src/data/LatinAmerica_geo_variables_provinces.csv) Raw file with population data
 - [/src/data/population_admin0.json](https://github.com/css-ethz/lyla/blob/master/src/data/population_admin0.json) Population country level, output of the script [01_data_per_million](https://github.com/css-ethz/lyla/blob/master/01_data_per_million.py)
 - [/src/data/data_agg.json](https://github.com/css-ethz/lyla/blob/master/src/data/data_agg.json) Cases per million inhabitants, output of the script [01_data_per_million](https://github.com/css-ethz/lyla/blob/master/01_data_per_million.py)
