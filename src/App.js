@@ -564,7 +564,10 @@ function App() {
             textAlign: 'center',
             backgroundColor: "transparent",
             border: "2px solid white",
+            paddingLeft:"12px",
+            paddingRight:"12px",
             display: "flex",
+            fontSize: "1.1vmax",
             justifyContent: "space-between"
           }} onClick={onClickLanguage}>{language}</Button>
           <Button className="tour" style={{
@@ -573,11 +576,14 @@ function App() {
             maxWidth: '90pt',
             maxHeight: '60pt',
             marginLeft: '10pt',
+            paddingLeft:"12px",
+            paddingRight:"12px",
+            fontSize: "1.1vmax",
             backgroundColor: "transparent",
             border: "2px solid white"
           }} onClick={() => setRunTour(true)}>{content['startTour'][lan]}</Button>
         </div>
-        <h1 style={{ fontSize: "8vmin", marginLeft: "9vw", marginRight: "1vw", marginTop: "20vh" }}>{content['title'][lan]}</h1>
+        <h1 style={{ fontSize: "8vmin", marginLeft: "9vw", marginRight: "1vw", marginTop: "17vh" }}>{content['title'][lan]}</h1>
 
         <p style={{ fontSize: "15pt", marginLeft: "9vw", marginRight: "20vw", marginTop: "10vh" }}>
           {content['text'][lan]}<a style={{ color: "inherit" }} href="https://css.ethz.ch/en/research/datasets/lynching-in-latin-america.html" target="_blank">{content['info-ref'][lan]}</a>.
@@ -594,7 +600,7 @@ function App() {
           </Col>
         </Row>
 
-        <p style={{ opacity: "0.3", position: "absolute", bottom: "20pt", right: "22vmin" }}>Image by <a style={{ color: "inherit" }} target="_blank" href="https://unsplash.com/@iequezada"> Isaac Quezada</a></p>
+        <p style={{ opacity: "0.3", fontSize: "2vmin", position: "absolute", bottom: "20pt", right: "11vmin" }}>Image by <a style={{ color: "inherit" }} target="_blank" href="https://unsplash.com/@iequezada"> Isaac Quezada</a></p>
       </div>
       <div className='intro' style={{ marginTop: "10pt" }}>
         <h2 style={{ marginLeft: "10pt", marginTop: "40pt" }}>{content['title'][lan]}</h2>
