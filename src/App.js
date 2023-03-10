@@ -872,8 +872,8 @@ function App() {
       </div>
 
       <p style={{ fontSize: "12pt", marginLeft: '15px' }}>{content['references']['website'][lan]} <a style={{ color: "inherit" }} href="https://cristyguzman.github.io/" target="_blank"> Cristina Guzman</a> {content['references']['and'][lan]} <a style={{ color: "inherit" }} href="https://feradauto.github.io/" target="_blank">Fernando Gonzalez</a>.</p>
-      <p style={{ fontSize: "10pt", marginLeft: '15px' }}>{content['references']['bib'][lan]} </p>
-      <p style={{ fontSize: "10pt", marginLeft: '15px' }}>Nussio, Enzo, and Govinda Clayton. 2022. “Introducing the Lynching in Latin America (LYLA) Dataset.” Working Paper, ETH Zurich. </p>
+      <p style={{ fontSize: "12pt", marginLeft: '15px' }}>{content['references']['bib'][lan]} </p>
+      <p style={{ fontSize: "12pt", marginLeft: '15px' }}>Nussio, Enzo, and Govinda Clayton. 2022. “Introducing the Lynching in Latin America (LYLA) Dataset.” <em>Working Paper,</em> ETH Zurich. </p>
       <img src={require("./eth_logo_kurz_neg.png")} style={{ height: '50px', marginBottom: '10px', marginTop: '-15px' }} />
 
 
