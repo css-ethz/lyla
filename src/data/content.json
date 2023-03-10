@@ -1,128 +1,142 @@
 {
-    "lineplot":{
-        "per_million":{
-            "en":"Annual events per million inhabitants",
-            "es":"Eventos anuales por millon de habitantes"
+    "lineplot": {
+        "per_million": {
+            "en": "Annual events per million inhabitants",
+            "es": "Eventos anuales por millon de habitantes"
         },
-        "events":{
-            "en":"Annual reported events",
-            "es":"Eventos reportados por año"
+        "events": {
+            "en": "Annual reported events",
+            "es": "Eventos reportados por año"
         }
-
     },
-    "barplot":{
-        "per_million":{
-            "en":"Total events per million inhabitants",
-            "es":"Eventos totales por millon de habitantes"
+    "barplot": {
+        "per_million": {
+            "en": "Total events per million inhabitants",
+            "es": "Eventos totales por millon de habitantes"
         },
-        "events":{
-            "en":"Total events",
-            "es":"Eventos totales"
+        "events": {
+            "en": "Total events",
+            "es": "Eventos totales"
         }
-
     },
-    "violenceInflicted":{
-        "en":"Worst violence inflicted",
-        "es":"Peor violencia \n infligida"
+    "violenceInflicted": {
+        "en": "Worst violence inflicted",
+        "es": "Peor violencia \n infligida"
     },
-    "allegedWrongdoing":{
-        "en":["Alleged \n Wrongdoing"],
-        "es":"Supuesta \n irregularidad"
+    "allegedWrongdoing": {
+        "en": [
+            "Alleged \n Wrongdoing"
+        ],
+        "es": "Supuesta \n irregularidad"
     },
-    "numberPerpetrators":{
-        "en":"Number of perpetrators",
-        "es":"Número de perpetradores"
+    "numberPerpetrators": {
+        "en": "Number of perpetrators",
+        "es": "Número de perpetradores"
     },
-    "worstOutcome":{
-        "en":"Worst Outcome",
-        "es":"Peor resultado"
+    "worstOutcome": {
+        "en": "Worst Outcome",
+        "es": "Peor resultado"
     },
-    "violenceInflictedInfo":{
-        "en":"What kind of violence did the lynch mob use?",
-        "es":"Peor violencia infligida"
+    "violenceInflictedInfo": {
+        "en": "What kind of violence did the lynch mob use?",
+        "es": "Peor violencia infligida"
     },
-    "allegedWrongdoingInfo":{
-        "en":"What was the lynched person accused of?",
-        "es":"¿De qué fue acusada la persona linchada?"
+    "allegedWrongdoingInfo": {
+        "en": "What was the lynched person accused of?",
+        "es": "¿De qué fue acusada la persona linchada?"
     },
-    "numberPerpetratorsInfo":{
-        "en":"How large was the lynch mob?",
-        "es":"Número de perpetradores"
+    "numberPerpetratorsInfo": {
+        "en": "How large was the lynch mob?",
+        "es": "Número de perpetradores"
     },
-    "worstOutcomeInfo":{
-        "en":"What physical consequences did the lynched person suffer?",
-        "es":"¿Cuál fue el daño físico a la persona linchada?"
+    "worstOutcomeInfo": {
+        "en": "What physical consequences did the lynched person suffer?",
+        "es": "¿Cuál fue el daño físico a la persona linchada?"
     },
-    "filterBy":{
-        "en":"Filter By",
-        "es":"Filtrar por"
+    "filterBy": {
+        "en": "Filter By",
+        "es": "Filtrar por"
     },
-    "timeWindow":{
-        "en":"Choose time window",
-        "es":"Escoja ventana de tiempo"
+    "timeWindow": {
+        "en": "Choose time window",
+        "es": "Escoja ventana de tiempo"
     },
-    "startDateText":{
-        "en":"Start Date",
-        "es":"Fecha de inicio"
+    "startDateText": {
+        "en": "Start Date",
+        "es": "Fecha de inicio"
     },
-    "endDateText":{
-        "en":"End Date",
-        "es":"Fecha final"
+    "endDateText": {
+        "en": "End Date",
+        "es": "Fecha final"
     },
-    "downloadText":{
-        "en":"  Download data",
-        "es":"  Descargar datos"
+    "downloadText": {
+        "en": "  Download data",
+        "es": "  Descargar datos"
     },
-    "countryText":{
-        "en":"Country",
-        "es":"País"
+    "countryText": {
+        "en": "Country",
+        "es": "País"
     },
-    "chartText":{
-        "en":"Annual events per million inhabitants",
-        "es":"Eventos anuales por millón de habitantes"
+    "chartText": {
+        "en": "Annual events per million inhabitants",
+        "es": "Eventos anuales por millón de habitantes"
     },
-    "scrollDown":{
-        "en":"Scroll down to dashboard",
-        "es":"Ir a dashboard"
+    "scrollDown": {
+        "en": "Scroll down to dashboard",
+        "es": "Ir a dashboard"
     },
-    "startTour":{
-        "en":"Start Tour",
-        "es":"Ver Tour"
+    "startTour": {
+        "en": "Start Tour",
+        "es": "Ver Tour"
     },
-    "showEvents":{
-        "en":"Show events",
-        "es":"Mostrar eventos"        
+    "showEvents": {
+        "en": "Show events",
+        "es": "Mostrar eventos"
     },
-    "numEvents":{
-        "en":"# Events",
-        "es":"# Eventos"            
+    "numEvents": {
+        "en": "# Events",
+        "es": "# Eventos"
     },
-    "eventsMillion":{
-        "en":"Events per million",
-        "es":"Eventos por millón"            
+    "eventsMillion": {
+        "en": "Events per million",
+        "es": "Eventos por millón"
     },
-    "title":{
+    "title": {
         "en": "Lynching in Latin America (LYLA)",
         "es": "Linchamientos en América Latina (LYLA)"
     },
-    "text":{
-        "en":"The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 lynching events reported by media sources across 18 Latin American countries from 2010 to 2019. The LYLA dataset was created by Enzo Nussio, Govinda Clayton, and a team of collaborators at the Center for Security Studies, ETH Zurich. It was funded by the Swiss National Science Foundation. You can find more information and supporting material ",
+    "text": {
+        "en": "The Lynching in Latin America (LYLA) dataset is the first cross-national lynching event dataset. The LYLA data captures 2818 lynching events reported by media sources across 18 Latin American countries from 2010 to 2019. The LYLA dataset was created by Enzo Nussio, Govinda Clayton, and a team of collaborators at the Center for Security Studies, ETH Zurich. It was funded by the Swiss National Science Foundation. You can find more information and supporting material ",
         "es": "La base de datos de Linchamiento en América Latina (LYLA por su acrónimo en inglés) presenta, por primera vez, datos sobre eventos de linchamiento en toda América Latina. Contiene evidencia de 2818 eventos de linchamiento reportados en medios en 18 países latinoamericanos cubriendo el periodo de 2010 a 2019. La base de datos fue creada por Enzo Nussio, Govinda Clayton y un equipo de colaboradores en el Center for Security Studies, ETH Zurich. Recibió financiación del Fondo Nacional Suizo para la Investigación Científica. Puede encontrar más información "
     },
-    "info-ref":{
+    "info-ref": {
         "en": "here",
         "es": "aquí"
     },
-    "link_article":{
+    "link_article": {
         "en": "Link to article",
         "es": "Ir a artículo"
     },
-    "events-text":{
+    "events-text": {
         "en": "total reported cases from 2010 to 2019",
         "es": "casos reportados totales del 2010 al 2019"
     },
-    "events-text-sub":{
+    "events-text-sub": {
         "en": "Total number of cases available from 2010-2019.",
         "es": "Número de casos total correspondientes al periodo 2010-2019"
+    },
+    "references": {
+        "website": {
+            "en": "Website created by",
+            "es": "Página web creada por"
+        },
+        "and": {
+            "en": "and",
+            "es": "y"
+        },
+        "bib": {
+            "en": "If you want to use the LYLA data for your own research, please refer to the following citation:",
+            "es": "Si usted quiere usar los datos para su investigación, por favor incluya la siguiente citación:"
+        }
     }
 }
